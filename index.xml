@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Academic</title>
+    <link>/</link>
+      <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <description>Academic</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 01 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
+      <title>Academic</title>
+      <link>/</link>
+    </image>
+    
+    <item>
+      <title>Landing Page</title>
+      <link>/tag/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
+      <guid>/tag/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>My first blog post</title>
+      <link>/post/test/</link>
+      <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
+      <guid>/post/test/</guid>
+      <description>
+
+&lt;h2 id=&#34;hello-world&#34;&gt;hello world&lt;/h2&gt;
+
+&lt;p&gt;why so gone&lt;/p&gt;
+
+&lt;p&gt;why so gone&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>My first blog post</title>
+      <link>/post/test2/</link>
+      <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
+      <guid>/post/test2/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

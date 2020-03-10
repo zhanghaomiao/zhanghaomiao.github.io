@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>learning | Academic</title>
+    <link>/categories/learning/</link>
+      <atom:link href="/categories/learning/index.xml" rel="self" type="application/rss+xml" />
+    <description>learning</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 01 Dec 2017 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
+      <title>learning</title>
+      <link>/categories/learning/</link>
+    </image>
+    
+    <item>
+      <title>My first blog post</title>
+      <link>/post/test2/</link>
+      <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
+      <guid>/post/test2/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
