@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Haomiao Zhang">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Concept  Program: passive entity: binary stored in disk Process: active entity: a program in execution in memory A process includes:  Code segment Data section &ndash;global variables Stack &ndash; temporary local variables and functions Heap &ndash; dynamic allocated variables or classes Current activity (program counter, register contents) 用来管理 process A set of associated resources (e.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/courses/operating_system/process/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/courses/operating_system/process/">
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Haomiao">
+  <meta property="og:url" content="/courses/operating_system/process/">
+  <meta property="og:title" content="Process | Haomiao">
+  <meta property="og:description" content="Concept  Program: passive entity: binary stored in disk Process: active entity: a program in execution in memory A process includes:  Code segment Data section &ndash;global variables Stack &ndash; temporary local variables and functions Heap &ndash; dynamic allocated variables or classes Current activity (program counter, register contents) 用来管理 process A set of associated resources (e."><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-05-05T00:00:00&#43;01:00">
+    
+    <meta property="article:modified_time" content="2019-05-05T00:00:00&#43;01:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Process | Haomiao</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
+            
+              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
+            
+              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <span><i class="fas fa-bars"></i></span>
+  </button>
+
+  
+  <input name="q" type="search" class="form-control" placeholder="Search..." autocomplete="off">
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+
+  
+  
+  
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/operating_system/">Overview</a>
+
+  </div>
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/operating_system/os_structures/">Concepts</a>
+    <ul class="nav docs-sidenav">
+      
+      <li >
+        <a href="/courses/operating_system/os_structures/">OS structures</a>
+      </li>
+      
+      <li class="active">
+        <a href="/courses/operating_system/process/">Process</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/memory_manage/">Memory Management</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/virtual_memory/">Virtual Memory</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/multithread_programming/">Multithread Programming</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/process_schedule/">Process Scheduling</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/process_synchronization/">Process Synchronization</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/deadlocks/">DeadLocks</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/file_system_interface/">File System Interface</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/file_system_implementatin/">File System Implementation</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/mass_storage_system/">Mass Storage System</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/io_system/">I/O system</a>
+      </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  
+</nav>
+
+    </div>
+
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#concept">Concept</a></li>
+<li><a href="#process-switch">Process switch</a></li>
+<li><a href="#process-scheduling">Process Scheduling</a></li>
+<li><a href="#operations-on-processes">Operations on Processes</a>
+<ul>
+<li><a href="#tree-of-process">Tree of process</a></li>
+<li><a href="#process-creation">Process Creation</a></li>
+<li><a href="#unix-linux-process-creation">UNIX/LINUX Process Creation</a></li>
+<li><a href="#process-termination">Process Termination</a></li>
+</ul></li>
+<li><a href="#interprocess-communication-ipc">Interprocess Communication (IPC)</a>
+<ul>
+<li><a href="#communication-methods">Communication Methods</a></li>
+<li><a href="#shared-memory">Shared Memory</a></li>
+<li><a href="#message-passing-system">Message-Passing System</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          <h1>Process</h1>
+
+          <div class="article-style">
+            
+
+<h2 id="concept">Concept</h2>
+
+<ul>
+<li>Program: passive entity: binary stored in disk</li>
+<li>Process: active entity: a program in execution in memory</li>
+<li>A process includes:
+
+<ul>
+<li>Code segment</li>
+<li>Data section &ndash;global variables</li>
+<li>Stack &ndash; temporary local variables and functions</li>
+<li>Heap &ndash; dynamic allocated variables or classes</li>
+<li>Current activity (program counter, register contents) 用来管理 process</li>
+<li>A set of associated resources (e.g. open file handlers)</li>
+</ul></li>
+<li>Process in memory
+<img src="https://i.loli.net/2019/03/15/5c8b3959e8cd0.png" width="40%"/></li>
+<li>Threads
+
+<ul>
+<li>lightweight process</li>
+<li>All threads belonging to the same processes share <strong>code section, data section and OS resources (e.g. open files and signals)</strong></li>
+<li>Each thread has it own <strong>thread ID, program counter, register set and stack</strong></li>
+</ul></li>
+<li>Process States
+
+<ul>
+<li>New: process is being created</li>
+<li>Ready: process is in the memory waiting to be assigned to a processor, 放到 waiting <strong>queue</strong> 中</li>
+<li>Running: instructions are being executed by CPU</li>
+<li>Waiting: the process is waiting for events to occur (e.g. IO)</li>
+<li>Terminated: the process has finished execution
+<img src="https://i.loli.net/2019/03/15/5c8b3b57c8609.png" width="40%"/></li>
+</ul></li>
+</ul>
+
+<h2 id="process-switch">Process switch</h2>
+
+<ul>
+<li>Process control Block
+<img src="https://i.loli.net/2019/03/15/5c8b3e1bb0ea9.png" width="20%"/></li>
+<li>context switch
+Context-switch time is purely overhead
+<img src="https://i.loli.net/2019/03/15/5c8b3f9767fd1.png" width="50%"/>
+<div class="note warning"><p>Switch time depends on memory speed, number of registers, existence of special instructions (a single instruction to save/load all registers), hardware support (multiple sets of registers) </p></div></li>
+</ul>
+
+<h2 id="process-scheduling">Process Scheduling</h2>
+
+<ul>
+<li>Concept
+
+<ul>
+<li>Multiprogramming: CPU runs process at all times to maximize CPU utilization</li>
+<li>Time sharing: switch CPU frequently such that users can interact with each program while it is running</li>
+<li>Processes will have to wait until the CPU is free and  can be re-scheduled</li>
+</ul></li>
+<li>Scheduling Queues
+
+<ul>
+<li>Job queue (New State) &ndash; set of all processes in the system</li>
+<li>ready queue (Ready state) &ndash; set of all processes residing in main memory, ready and waiting to execute</li>
+<li>device queue (Wait state) &ndash; set of processes waiting for an I/O device</li>
+</ul></li>
+<li>Diagram
+<img src="https://i.loli.net/2019/03/15/5c8b452e66392.png" width="40%"/></li>
+<li>Schedulers
+
+<ul>
+<li>Short- term scheduler (CPU scheduler) &ndash; selects which process should be executed and allocated CPU (Ready state $\longrightarrow$ Run state) 很频繁</li>
+<li>Long-term scheduler (job scheduler) &ndash; selects which processes should be loaded into memory and brought into ready queue (New state $\longrightarrow$ Ready state)</li>
+<li>Middle-term scheduler &ndash; selects which processes should be swapped in/out memory (Ready state $\longrightarrow$ Wait state) 与 virtual memory 相结合
+<img src="https://i.loli.net/2019/03/15/5c8b46dfcfc3b.png" width="50%"/></li>
+</ul></li>
+<li>Long-Term Scheduler (现在memory 很大， 现在变为 middle-term scheduler)
+
+<ul>
+<li>control degree of multiprogramming (Degree 很少时，cpu 会 idle， Degree 很多时， 会竞争CPU 资源)</li>
+<li>Execute less frequently (e.g. invoked only when a process leaves the system or once several minutes)</li>
+<li>Select a <strong>good mix of CPU-bound &amp; I/O- bound</strong> processes to increase system overall performance</li>
+</ul></li>
+<li>Short-Term Scheduler
+
+<ul>
+<li>Execute quite frequently (e.g. once per 100ms)</li>
+<li>Must be efficient (averaging wait time)
+<img src="https://i.loli.net/2019/03/15/5c8b49ed102a6.png" width="50%"/></li>
+</ul></li>
+<li>Medium-Term Scheduler
+
+<ul>
+<li>Swap out: removing processes from memory to reduce the degree of multiprogramming</li>
+<li>Swap in: reintroducing swap-out processes into memory</li>
+<li>Purpose: improve process mix, free up memory</li>
+<li>Most modern OS doesn&rsquo;t have medium-term scheduler because having sufficient physical memory or using virtual memory</li>
+</ul></li>
+</ul>
+
+<h2 id="operations-on-processes">Operations on Processes</h2>
+
+<h3 id="tree-of-process">Tree of process</h3>
+
+<p>Each process is identified by a <strong>unique</strong> processor identifier (<strong>pid</strong>)
+<div class="note info"><p> <code>ps-ael</code> will list complete info of all active processes  in unix </p></div></p>
+
+<h3 id="process-creation">Process Creation</h3>
+
+<ul>
+<li>Resource sharing
+
+<ul>
+<li>Parent and child processes share <strong>all</strong> resources</li>
+<li>Child process shares <strong>subset</strong> of parent&rsquo;s resources</li>
+<li>parent and child share <strong>no</strong> resources</li>
+</ul></li>
+<li>Two possibilities of execution
+
+<ul>
+<li>Parent and children <strong>execute concurrently</strong></li>
+<li>parent <strong>waits until children terminate</strong></li>
+</ul></li>
+<li>Two possibilities of address space
+
+<ul>
+<li>Child duplicate of parent (sharing variables)</li>
+<li>Child has a program loaded into it (message passing)</li>
+</ul></li>
+</ul>
+
+<h3 id="unix-linux-process-creation">UNIX/LINUX Process Creation</h3>
+
+<ul>
+<li><code>fork</code> system call
+
+<ul>
+<li>Create a new child process</li>
+<li>The new process duplicates the address space of its parent</li>
+<li>Child &amp; parent execute <strong>concurrently</strong> after fork</li>
+<li>Child: return value of fork is 0</li>
+<li>Parent: return value of fork is PID of the child process</li>
+</ul></li>
+<li><code>execlp</code> system call
+<strong>Load a new binary file</strong> into memory, <strong>destroying the old code</strong> (memory content reset)</li>
+<li><code>wait</code> system call
+The parent waits for one of its child processes to complete</li>
+<li>Memory space of <code>fork()</code>,  A 调用 <code>fork()</code> 时
+
+<ul>
+<li>old implementation: A&rsquo;s child is an extra copy of parent</li>
+<li>current implementation: use copy-on-write technique to store differences in A&rsquo;s child address space
+<img src="https://i.loli.net/2019/03/15/5c8b4f7e2ea39.png" width="40%"/></li>
+</ul></li>
+</ul>
+
+<h3 id="process-termination">Process Termination</h3>
+
+<ul>
+<li>Terminate when the last statement is executed or <code>exit()</code> is called</li>
+<li>Parent may terminate execution of children processes by specifying its PID (abort)</li>
+<li>Cascading termination
+killing (exiting) parent $\longrightarrow​$ killing all its children</li>
+</ul>
+
+<div class="note info" <p> Control-C , OS在启动时，会产生 console process, 在执行程序时，是 console 再去产生其他程序，按 Control-C 时是用 console 来终止程序</p></div>
+<div class = "note info" <p> kill, 通过 OS 来终止程序, 需要权限</p></div>
+
+<h2 id="interprocess-communication-ipc">Interprocess Communication (IPC)</h2>
+
+<ul>
+<li>IPC: a set of methods for the exchange of data among multiple threads in one or more processes</li>
+<li>Independent process: cannot affect or be affected by other process</li>
+<li>Cooperating process:  otherwise</li>
+<li>Purposes: information sharing, computation speedup, convenience, modularity</li>
+</ul>
+
+<h3 id="communication-methods">Communication Methods</h3>
+
+<ul>
+<li>shared memory:
+
+<ul>
+<li>Require more careful user synchronization</li>
+<li>implemented by memory access: faster speed</li>
+<li>use memory address to access data</li>
+</ul></li>
+<li>Message passing:
+
+<ul>
+<li>No conflict : more efficient</li>
+<li>Use send/recv  message</li>
+<li>Implemented by system call : slower speed</li>
+</ul></li>
+<li>Sockets:
+
+<ul>
+<li>A network connection identified by IP &amp; port (port number is process)</li>
+<li>Exchange unstructured stream of bytes</li>
+</ul></li>
+<li>Remote Procedure Calls:
+
+<ul>
+<li>Cause a procedure to execute in another space</li>
+<li>Parameters and return values are passed by message
+<img src="https://i.loli.net/2019/03/15/5c8b6d362e44b.png" width="40%"/></li>
+</ul></li>
+</ul>
+
+<h3 id="shared-memory">Shared Memory</h3>
+
+<ul>
+<li>Establishing a region of shared memory
+
+<ul>
+<li>Typically, a shared-memory region resides in the address space of the process creating the shared-memory segment</li>
+<li>Participating processes must agree to <strong>remove memory access constraint</strong> from OS</li>
+</ul></li>
+<li>Determining the form of the data and the location</li>
+<li>Ensuring data are not written simultaneously by processes</li>
+
+<li><p>Consumer and Producer problem (系统里面都有很多这样的问题, Compile(Producer), Link(Consumer))</p>
+
+<ul>
+<li><strong>Producer</strong> process produces information that is consumed by a <strong>Consumer</strong> process</li>
+<li>Buffer as a circular array with size B</li>
+<li>next free: in</li>
+<li>first available : out</li>
+<li>empty: in = out</li>
+<li>full (in + 1) % B = out</li>
+
+<li><p>The solution allows at most (B-1) item in the buffer, otherwise, cannot tell the buffer is fall or empty
+<img src="https://i.loli.net/2019/03/15/5c8b71433d5d2.png" width="30%"/></p>
+
+<pre><code class="language-C">while(1){
+while (((in+1) % BUFFER_SIZE) == out); // wait if buffer is full
+buffer[in] = nextProduced;
+in = (in + 1) % BUFFER_SIZE;
+}
+
+while(1){
+while(in == out); // wait if buffre is empty
+nextConsumed = buffer[out];
+out = (out+1) % BUFFER_SIZE
+}
+</code></pre></li>
+</ul></li>
+</ul>
+
+<h3 id="message-passing-system">Message-Passing System</h3>
+
+<ul>
+<li>Mechanism for processes to communicate and synchronize their actions</li>
+<li>IPC facility provides two operations:
+
+<ul>
+<li>Send (Message) &ndash; message size fixed or variable</li>
+<li>Receive(Message)</li>
+</ul></li>
+<li>Message system &ndash; process communicate without resorting to shared variables</li>
+<li>To communicate, processes need to
+
+<ul>
+<li>Establish a communication link</li>
+<li>Physical (HW bus, network)</li>
+<li>Logical (logical properties)  1. Direct or indirect communication 2. Blocking and non-blocking</li>
+<li>Exchange a message via send/receive</li>
+</ul></li>
+<li>Direct Communication
+
+<ul>
+<li>Process must name each other explicitly</li>
+<li>Links are <strong>established automatically</strong></li>
+<li><strong>One-to-One</strong> relationship between links and processes</li>
+<li>The link may be unidirectional, but is usually bi-directional
+<div class="note warning"><p> Limited modularity, if the name of a process is changed, all old names should be found</p></div></li>
+</ul></li>
+<li>Indirect communication (E-mail)
+
+<ul>
+<li>Messages are directed and received from mailboxes</li>
+<li>Each mailbox has a unique ID</li>
+<li>Processes can communicate if the share a mailbox</li>
+<li>Send(A, message) , Receive(A, message), communicate through mailbox A</li>
+<li><strong>Many-to-Many</strong> relationship between links and processes</li>
+<li>Link established only if processes share a common mailbox</li>
+<li>Mailbox can be owned either by OS or processes</li>
+<li>MailBox 怎么解决一对一的问题？
+<img src="https://i.loli.net/2019/03/15/5c8b88e397ddd.png" width="50%"/>
+Solutions:</li>
+<li>Allow a link to be associated with at most two processes</li>
+<li>Allow only one process at a time to execute a receive operation</li>
+<li>Allow the system to select arbitrarily a singe receiver. Sender is notified who the receiver was</li>
+</ul></li>
+<li>Synchronization
+
+<ul>
+<li>Message passing may be either blocking (synchronous) or non-blocking (asynchronous)</li>
+<li><strong>Blocking send:</strong> send is blocked until the message is received by receiver or by the mailbox</li>
+<li><strong>Nonblocking send:</strong> sender sends the message and resumes operation</li>
+<li><strong>Blocking receive:</strong> receiver is blocked until the message is available</li>
+<li><strong>Nonblocking receive:</strong> receiver receives a valid message or a null (存在一个 token, 来判断是否收到信息)</li>
+</ul></li>
+<li>Buffer implementation (中间存在一个 buffer 来进行消息的储存)
+
+<ul>
+<li>Zero capacity: blocking send/receive</li>
+<li>Bounded capacity: if full, sender will be blocked</li>
+<li>Unbounded capacity: sender never blocks</li>
+</ul></li>
+<li>Sockets
+<img src="https://i.loli.net/2019/03/15/5c8b906940d23.png" width="45%"/></li>
+<li>Remote Procedure Calls: RPC
+Stubs, client-side proxy for the actual procedure on the server
+<img src="https://i.loli.net/2019/03/15/5c8b90e017de2.png" width="40%"/></li>
+</ul>
+
+          </div>
+
+          
+
+
+
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/courses/operating_system/os_structures/" rel="next">OS structures</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/courses/operating_system/memory_manage/" rel="prev">Memory Management</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on May 5, 2019</p>
+
+          
+
+
+
+
+
+  
+  
+
+<p class="edit-page">
+  <a href="https://github.com/gcushen/hugo-academic/edit/master/content/courses/operating_system/process.md">
+    <i class="fas fa-pen pr-2"></i>Edit this page
+  </a>
+</p>
+
+
+
+
+          
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js" integrity="sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck=" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

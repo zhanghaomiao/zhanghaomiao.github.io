@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Haomiao Zhang">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Introduction CPU-I/O burst cycle: Process execution consists of a cycle of CPU execution and I/O wait
+ Generally, there is a large number of short CPU bursts, and a small number of long CPU bursts A I/O bound program would typically has many very short CPU bursts A CPU-bound program might have a few long CPU bursts CPU scheduler: Select from ready queue to execute (i.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/courses/operating_system/process_schedule/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/courses/operating_system/process_schedule/">
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Haomiao">
+  <meta property="og:url" content="/courses/operating_system/process_schedule/">
+  <meta property="og:title" content="Process Scheduling | Haomiao">
+  <meta property="og:description" content="Introduction CPU-I/O burst cycle: Process execution consists of a cycle of CPU execution and I/O wait
+ Generally, there is a large number of short CPU bursts, and a small number of long CPU bursts A I/O bound program would typically has many very short CPU bursts A CPU-bound program might have a few long CPU bursts CPU scheduler: Select from ready queue to execute (i."><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-05-05T00:00:00&#43;01:00">
+    
+    <meta property="article:modified_time" content="2019-05-05T00:00:00&#43;01:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Process Scheduling | Haomiao</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
+            
+              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
+            
+              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <span><i class="fas fa-bars"></i></span>
+  </button>
+
+  
+  <input name="q" type="search" class="form-control" placeholder="Search..." autocomplete="off">
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+
+  
+  
+  
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/operating_system/">Overview</a>
+
+  </div>
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/operating_system/os_structures/">Concepts</a>
+    <ul class="nav docs-sidenav">
+      
+      <li >
+        <a href="/courses/operating_system/os_structures/">OS structures</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/process/">Process</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/memory_manage/">Memory Management</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/virtual_memory/">Virtual Memory</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/multithread_programming/">Multithread Programming</a>
+      </li>
+      
+      <li class="active">
+        <a href="/courses/operating_system/process_schedule/">Process Scheduling</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/process_synchronization/">Process Synchronization</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/deadlocks/">DeadLocks</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/file_system_interface/">File System Interface</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/file_system_implementatin/">File System Implementation</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/mass_storage_system/">Mass Storage System</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/io_system/">I/O system</a>
+      </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  
+</nav>
+
+    </div>
+
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#preemptive-vs-non-preemptive">Preemptive vs. Non-preemptive</a></li>
+<li><a href="#dispatcher">Dispatcher</a></li>
+</ul></li>
+<li><a href="#scheduling-algorithms">Scheduling Algorithms</a>
+<ul>
+<li><a href="#scheduling-criteria">Scheduling Criteria</a></li>
+<li><a href="#algorithms">Algorithms</a>
+<ul>
+<li><a href="#first-come-first-served-fcfs-scheduling">First-Come, First-served (FCFS) scheduling</a></li>
+<li><a href="#shortest-job-first-sjf-scheduling">Shortest-Job-First (SJF) scheduling</a></li>
+<li><a href="#priority-scheduling">Priority Scheduling</a></li>
+<li><a href="#round-robin-rr-scheduling">Round-Robin(RR) Scheduling</a></li>
+<li><a href="#multilevel-queue-scheduling">Multilevel Queue Scheduling</a></li>
+<li><a href="#mutillevel-feedback-queue-schedule">Mutillevel Feedback Queue Schedule</a></li>
+<li><a href="#evaluation-methods">Evaluation methods</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#mutli-processor-scheduling-multi-core-processor-scheduling-real-time-scheduling">Mutli-Processor Scheduling &amp; Multi-Core Processor Scheduling &amp; Real-Time Scheduling</a>
+<ul>
+<li><a href="#multi-core-processor-scheduling">Multi-core Processor Scheduling</a></li>
+<li><a href="#real-time-cpu-scheduling">Real-Time CPU Scheduling</a></li>
+<li><a href="#read-time-scheduling-algorithms">Read-Time Scheduling Algorithms</a>
+<ul>
+<li><a href="#rate-monotoinc-rm-algorithm">Rate-Monotoinc (RM) algorithm</a></li>
+<li><a href="#earliest-deadline-first-edf-algorithm">Earliest-Deadline-First(EDF) algorithm</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#operating-system-examples">Operating System Examples</a></li>
+</ul></li>
+</ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          <h1>Process Scheduling</h1>
+
+          <div class="article-style">
+            
+
+<h2 id="introduction">Introduction</h2>
+
+<p><strong>CPU-I/O burst cycle</strong>: Process execution consists of a cycle of CPU execution and I/O wait</p>
+
+<ul>
+<li>Generally, there is a large number of short CPU bursts, and a small number of long CPU bursts</li>
+<li>A I/O bound program would typically has many very short CPU bursts</li>
+<li>A CPU-bound program might have a few long CPU bursts
+<img src="https://i.loli.net/2019/03/17/5c8e3c19c049e.png" width="400px"/>
+CPU scheduler: Select from ready queue to execute (i.e. allocates a CPU for the selected process)</li>
+</ul>
+
+<h3 id="preemptive-vs-non-preemptive">Preemptive vs. Non-preemptive</h3>
+
+<ul>
+<li>CPU scheduling decisions may take palce when a process:
+
+<ol>
+<li>Switches from running to waitting state (IO)</li>
+<li>Switches from running to ready state (Time-sharing)</li>
+<li>Swtiches from waiting to ready state</li>
+<li>Terminates</li>
+</ol></li>
+<li>Non-preemptive scheduling (不会打断)
+
+<ul>
+<li>Scheduling under 1 and 4 (no choice in terms of scheduling)</li>
+<li>The process keeps the CPU until it is terminated or switched to the waitting state</li>
+</ul></li>
+<li>Preemptive scheduling, Scheduling under all cases 使用率很高</li>
+<li>Preemptive Issues
+
+<ul>
+<li>Inconsistent state of shared data, require process synchronization, incurs a cost assocated with access to shared data</li>
+<li>Affect the design of OS kernel
+Unix solution: waiting either for a system call to complete or for an I/O block to take palce before doing a context switchd (disable interrupt)</li>
+</ul></li>
+</ul>
+
+<h3 id="dispatcher">Dispatcher</h3>
+
+<p>Dispatcher module gives control of the CPU to the process selected by scheduler</p>
+
+<ul>
+<li>switching context</li>
+<li>jumping to the proper location in the selected program
+Dispatch latency &ndash; time it takes for the dispatcher to stop one process and start another running</li>
+</ul>
+
+<h2 id="scheduling-algorithms">Scheduling Algorithms</h2>
+
+<h3 id="scheduling-criteria">Scheduling Criteria</h3>
+
+<ul>
+<li>CPU utilization theoretically: $0\% ~ 100\%$, real systems : $40\% ~ 90\%$</li>
+<li>Throughput: number of completed processes per time unit</li>
+<li>Turnaround time (submission ~ completion)</li>
+<li>Waiting time (total waiting time in the ready queue)</li>
+<li>Response time (submission ~ the first response is produced (第一个CPU burst(执行)的时间))</li>
+</ul>
+
+<h3 id="algorithms">Algorithms</h3>
+
+<h4 id="first-come-first-served-fcfs-scheduling">First-Come, First-served (FCFS) scheduling</h4>
+
+<ul>
+<li>Process (Burst Time) in arriving order: P1(24), P2(3), P3(3)</li>
+<li>Gantt chart <img src="https://i.loli.net/2019/03/17/5c8e43e08ae78.png" width="400px"/></li>
+<li>Waiting time P1 = 0, P2 =24, P3 =27</li>
+<li>Average waiting time (AWT) (0+24+27)/3 = 17</li>
+<li>Convoy effect: short process behind a long process</li>
+</ul>
+
+<h4 id="shortest-job-first-sjf-scheduling">Shortest-Job-First (SJF) scheduling</h4>
+
+<ul>
+<li>Associate with each process the length of its next CPU burst</li>
+<li>A process with shortest burst length  gets the CPU first</li>
+<li>SJF provides the minimum average waiting time (optimal)</li>
+<li>Two schemes
+
+<ul>
+<li>Non-preemptive &ndash; once CPU given to a process, it cannot be preempted until its completion</li>
+<li>Preemptive &ndash; if a new process arrives with shorter burst length, preemption happens</li>
+</ul></li>
+<li>Non-preemptive SJF example<br /></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Process</th>
+<th>Arrival Time</th>
+<th>Burst Time</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>P1</td>
+<td>0</td>
+<td>7</td>
+</tr>
+
+<tr>
+<td>P2</td>
+<td>2</td>
+<td>4</td>
+</tr>
+
+<tr>
+<td>P3</td>
+<td>4</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>p4</td>
+<td>5</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+
+<p><img src="https://i.loli.net/2019/03/18/5c8ef25a8626f.png" width="400px"/>
+- AWT = [(7-0-7) + (12 - 2 -3) + (8 -4-1) + (16-5-4)] /4 = 4
+  - Response Time: p1 =0, p2 = 6, p3=3, p4 = 7
+- Preemptive SJF example
+   <img src="https://i.loli.net/2019/03/18/5c8ef3f119e66.png" width="400px"/>
+   - AWT = 3
+   - Response time P1 = 0, P2 = 0, P3 = 0, P4 = 2
+<div class="note warning"><p>SJF difficulty: no way to know length of the next CPU burst</p></div>
+- Approximate SJF: the next burst can be predicted as an exponentail average of the measured length of previous CPU bursts (set $\alpha = <sup>1</sup>&frasl;<sub>2</sub>$)
+  $$\tau_{n+1} = \alpha t_n + (1-\alpha) \tau_n = \frac12 t<em>n + \frac14 t</em>{n<em>1} + \frac18 t</em>{n-2}​$$
+<img src="https://i.loli.net/2019/03/18/5c8ef586096a8.png" width="400px"/></p>
+
+<h4 id="priority-scheduling">Priority Scheduling</h4>
+
+<ul>
+<li>A priority number is associated with each process</li>
+<li>The CPU is allocated to the highest priority process</li>
+<li>SJF is a priority scheduling where priority is the predicted next CPU burst time</li>
+<li>Problem: Starvation (low priority process never execute)</li>
+<li>Solution: <strong>aging</strong>(as time progresses increase the priority of process)</li>
+</ul>
+
+<h4 id="round-robin-rr-scheduling">Round-Robin(RR) Scheduling</h4>
+
+<ul>
+<li>Each process gets a small unit of CPU time(time quantum)</li>
+<li>After TQ elapsed, process is preempted and added to the end of the ready queue</li>
+<li>TQ large $\rightarrow$ FIFO</li>
+<li>TQ small $\rightarrow$ (context switch) overhead increases</li>
+</ul>
+
+<h4 id="multilevel-queue-scheduling">Multilevel Queue Scheduling</h4>
+
+<ul>
+<li>Ready queue is partitioned ino separate queues</li>
+<li>Each queue has its own scheduling algortihm</li>
+<li>Scheduling must be done between queues
+
+<ul>
+<li>Fixed priority scheduling: prossibility of starvation
+<img src="https://i.loli.net/2019/03/18/5c8efd2999070.png" width="400px"/></li>
+</ul></li>
+</ul>
+
+<h4 id="mutillevel-feedback-queue-schedule">Mutillevel Feedback Queue Schedule</h4>
+
+<ul>
+<li>A process can move between the various queues; aging can be implemented</li>
+<li>Idea:  separate processes according to the characteristic of their CPU burst
+
+<ul>
+<li>I/O-bound and interactive processes in higher priority queue $\rightarrow$ short CPU burst</li>
+<li>CPU-bound processes in lower priority queue long CPU burst
+<img src="https://i.loli.net/2019/03/18/5c8efe2739cf9.png" width="350px"/></li>
+</ul></li>
+<li>multilevel feedback queue scheduler is defined by the following parameters:
+
+<ul>
+<li>Number of queues</li>
+<li>Scheduling algorithm for each queue</li>
+<li>Method used to determin when to upgrade/demote a process</li>
+</ul></li>
+</ul>
+
+<h4 id="evaluation-methods">Evaluation methods</h4>
+
+<ul>
+<li>Deterministic Modeling — takes a particular predetermined workload and defines the performance of each algorithm for the workload</li>
+<li>Queueing Model — mathematical analysis</li>
+<li>Simulation — random-number generator or trace tapes for workload generation</li>
+<li>Implementation — the only completely accurate way for algorithm evaluation</li>
+</ul>
+
+<h2 id="mutli-processor-scheduling-multi-core-processor-scheduling-real-time-scheduling">Mutli-Processor Scheduling &amp; Multi-Core Processor Scheduling &amp; Real-Time Scheduling</h2>
+
+<ul>
+<li>Asymmetric multiprocessing
+
+<ul>
+<li>All system activities are handled by a processor (alleviationg the need for data sharing)</li>
+<li>the other only execute user code (allocated by the master)</li>
+<li>far simple than SMP</li>
+</ul></li>
+<li>Symmetric multiprocesiing (SMP):
+
+<ul>
+<li>each processor is self-scheduling</li>
+<li>all processor in common ready queue, or each has its own private queue of ready processes</li>
+<li>need synchronization mechanism</li>
+</ul></li>
+<li>Processor affinity
+A process has an affinity for the processor on which it is currently running
+
+<ul>
+<li>A process populates its recent used data in cache memory of its running processor</li>
+<li>cache invalidation and repopulation has high cost</li>
+<li>Soft affinity: possible to migrate between processors</li>
+<li>hard affinity: not to migrate to other processor</li>
+</ul></li>
+<li>NUMA (non-uniform memory access):
+
+<ul>
+<li>Occurs in systems containing combines CPU and memory boards</li>
+<li>CPU scheduler and memory-replacement works together</li>
+<li>A process (assigned affinity to a CPU) can be allocated memory on the board where that CPU resides
+<img src="https://i.loli.net/2019/03/18/5c8f03b791a45.png" width="400px"/></li>
+</ul></li>
+<li>Load-balancing
+
+<ul>
+<li>Keep the workload evently distributed across all processors, only necessary on systems where each processor has its own private queue of eligible processes to execute</li>
+<li>Push migration : move(push) processes from overloaded to idle or less-busy processor</li>
+<li>Pull migration: idle processors pulls a waiting task from a busy processor</li>
+<li>Often implemented in parallel</li>
+</ul></li>
+</ul>
+
+<h3 id="multi-core-processor-scheduling">Multi-core Processor Scheduling</h3>
+
+<ul>
+<li>Faster and consumer less power</li>
+<li><strong>memory stall</strong>: When access memory, it spends a significant amount of time waiting for the data become available. (e.g. cache miss)</li>
+<li>Multi-threaded multi-core systems
+
+<ul>
+<li>Two (or more) hardware threads are assigned to each core (Intel Hyper-threading)</li>
+<li>Takes advantage of memory stall to make progress on another thread while memory retrieve happens
+<img src="https://i.loli.net/2019/03/18/5c8f051f97e4d.png" width="400px"/></li>
+</ul></li>
+<li>Two ways to multithread a processor:
+
+<ul>
+<li>coarse-grained: switch to another thread when a memory stall occurs. The cost is high as the instruction pipeline must be flushed</li>
+<li>fine-grained(interleaved): switch between threads at the boundary of an instruction cycle. The architecture design includes logic for thread switching &ndash; cost is low</li>
+</ul></li>
+<li>Scheduling for Multi-threaded multi-core systems
+
+<ul>
+<li>1st level: Choose which software thread to run on each hardware thread(logical processor)</li>
+<li>2nd level: How each core decides which hardware thread to run</li>
+</ul></li>
+</ul>
+
+<h3 id="real-time-cpu-scheduling">Real-Time CPU Scheduling</h3>
+
+<p>Real-time does not mean speed, but keeping deadlines</p>
+
+<ul>
+<li>Soft real-time requirements, missing the deadline is unwanted , but is not immediately critical (multimedia streaming)</li>
+<li>Hard real-time requirements, Missing the deadline results in a fundamental failure (nuclear power plant controller)</li>
+</ul>
+
+<h3 id="read-time-scheduling-algorithms">Read-Time Scheduling Algorithms</h3>
+
+<p>Evaluation: Ready, Execution, Deadline</p>
+
+<h4 id="rate-monotoinc-rm-algorithm">Rate-Monotoinc (RM) algorithm</h4>
+
+<ul>
+<li>short period, higher priority (fixed-priority RTS scheduling algorithm)</li>
+<li>Ex: T1 = (4,1) (red), T2 = (5,2) (orange), T3 = (20,5)(green) (Period, Execution)</li>
+<li>priority: T_1 &gt; T_2 &gt; T_3
+<img src="https://i.loli.net/2019/03/18/5c8f086daa22a.png" width="450px"/></li>
+</ul>
+
+<h4 id="earliest-deadline-first-edf-algorithm">Earliest-Deadline-First(EDF) algorithm</h4>
+
+<ul>
+<li>Earlier deadline, higher priority (dynamic priority algorithm)</li>
+<li>Ex: T1 = (2, 0.9), T2 = (5, 2.3)
+<img src="https://i.loli.net/2019/03/18/5c8f09455c102.png" width="400px"/></li>
+</ul>
+
+<h2 id="operating-system-examples">Operating System Examples</h2>
+
+<ul>
+<li>Solaris Scheduler</li>
+<li>Windows XP Scheduler</li>
+<li>Linux Scheduler</li>
+</ul>
+
+          </div>
+
+          
+
+
+
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/courses/operating_system/multithread_programming/" rel="next">Multithread Programming</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/courses/operating_system/process_synchronization/" rel="prev">Process Synchronization</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on May 5, 2019</p>
+
+          
+
+
+
+
+
+  
+  
+
+<p class="edit-page">
+  <a href="https://github.com/gcushen/hugo-academic/edit/master/content/courses/operating_system/process_schedule.md">
+    <i class="fas fa-pen pr-2"></i>Edit this page
+  </a>
+</p>
+
+
+
+
+          
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js" integrity="sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck=" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

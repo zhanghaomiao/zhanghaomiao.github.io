@@ -1,0 +1,3451 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Overview | Haomiao</title>
+    <link>/courses/operating_system/</link>
+      <atom:link href="/courses/operating_system/index.xml" rel="self" type="application/rss+xml" />
+    <description>Overview</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 09 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/courses/operating_system/featured.jpeg</url>
+      <title>Overview</title>
+      <link>/courses/operating_system/</link>
+    </image>
+    
+    <item>
+      <title>OS structures</title>
+      <link>/courses/operating_system/os_structures/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/operating_system/os_structures/</guid>
+      <description>
+
+&lt;h2 id=&#34;os-services&#34;&gt;OS services&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;OS services: Communication,  Error detection,  User Interface,  Resource allocation,  Program Execution&lt;/li&gt;
+&lt;li&gt;User Interface
+
+&lt;ul&gt;
+&lt;li&gt;CLI (Command Line Interface)
+Shell: Command-line interpreter (CSHELL, BASH)&lt;/li&gt;
+&lt;li&gt;GUI (Graphic User Interface)
+Icons,  Mouse&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Communication Models
+
+&lt;ul&gt;
+&lt;li&gt;Message passing
+例如， process A 与 process B 交换信息： 把 processA 的 信息 copy 到 os 的 memory,  再从 os 把 process A 的信息 copy 到 process B。(Protection 机制, 需要使用 system call)， 缺点是较慢&lt;/li&gt;
+&lt;li&gt;Shared memory
+有一块公用的 memory, 两个 process 可以直接使用，需要先通过 system call 分配好。 (Multi-thread programming)， 缺点是有可能有 dead-lock problem&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;system-calls-api&#34;&gt;System Calls &amp;amp; API&lt;/h2&gt;
+
+&lt;p&gt;Request OS services:  Process control, File management, Device management, Information maintenance, Communication&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;System calls (简单， bug-free)
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;OS interface&lt;/strong&gt; to running program&lt;/li&gt;
+&lt;li&gt;An explicit request to the kernel made via a &lt;strong&gt;software interrupt&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Available as &lt;strong&gt;assembly-language&lt;/strong&gt; instructions&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;API: Application Program Interface (方便使用者, simplicity, portability, efficiency)
+
+&lt;ul&gt;
+&lt;li&gt;Users mostly program against API instead of system call&lt;/li&gt;
+&lt;li&gt;Commonly implemented by language libraries, e.g. C library&lt;/li&gt;
+&lt;li&gt;An api call could involve zero or multiple system call&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;malloc()&lt;/code&gt; and &lt;code&gt;free()&lt;/code&gt; use system call &lt;code&gt;brk()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;abs()&lt;/code&gt; don&amp;rsquo;t need to involve system call&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;不会直接产生 Interrupt, 由 system call 产生 interrupt&lt;/li&gt;
+&lt;li&gt;Three most common APIs:
+
+&lt;ul&gt;
+&lt;li&gt;Win32API for windows&lt;/li&gt;
+&lt;li&gt;POSIX API for POSIX-based systems (Portable Operating System Interface for Unix)  所有的 API 都一样， 但是实作(Library)不一样&lt;/li&gt;
+&lt;li&gt;Java API for the java virtual machine&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;System calls: passing parameters
+
+&lt;ul&gt;
+&lt;li&gt;Pass parameters in registers&lt;/li&gt;
+&lt;li&gt;Store the parameters in a table in memory, and the table address is passed as a parameter in a register&lt;/li&gt;
+&lt;li&gt;Push the parameters onto the stack by the program, and pop off the stack by operating system&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;system-structure&#34;&gt;System Structure&lt;/h2&gt;
+
+&lt;p&gt;User goals and system goals is different
+User goals: easy to use and learn, as well as reliable, safe and fast
+System goals: easy to &lt;em&gt;design&lt;/em&gt;, &lt;em&gt;implement&lt;/em&gt; and &lt;em&gt;maintain&lt;/em&gt; as well as reliable, error-free, and efficient&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Simple OS Architecture
+
+&lt;ul&gt;
+&lt;li&gt;unsafe, difficult to enhance
+&lt;img style=&#34;margin: auto;&#34; src=https://i.loli.net/2019/03/15/5c8b08039972e.png width=&#34;40%&#34; /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Layered OS Architecture
+
+&lt;ul&gt;
+&lt;li&gt;lower levels independent of upper levels&lt;/li&gt;
+&lt;li&gt;Easy to debugging and maintenance&lt;/li&gt;
+&lt;li&gt;less efficient, difficult to define layers
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b0e784d3f5.png&#34; width=&#34;40%&#34; /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Microkernel OS (有新的系统朝着这个方向做）
+
+&lt;ul&gt;
+&lt;li&gt;Moves as much from the kernel info &amp;ldquo;user&amp;rdquo; space&lt;/li&gt;
+&lt;li&gt;Communications is provided by message passing, 避免 synchronization&lt;/li&gt;
+&lt;li&gt;Easier for extending and porting
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b0a3e2836d.png&#34; width=&#34;40%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Modular OS Architecture
+
+&lt;ul&gt;
+&lt;li&gt;Modern OS implement kernel modules&lt;/li&gt;
+&lt;li&gt;Object-oriented Approach&lt;/li&gt;
+&lt;li&gt;Each core component is separate&lt;/li&gt;
+&lt;li&gt;Each to talk each other over known interfaces&lt;/li&gt;
+&lt;li&gt;Each is loadable as needed within the kernel
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b0b7fbd37c.png&#34; width=&#34;40%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Virtual Machine
+Hard: Critical Instruction，指的是一些指令在 User space 和 Kernel space 执行的结果不一样， 因此需要知道一些指令是否是 critical instruction.
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b1c7b544c4.png&#34; width=&#34;40%&#34;/&gt;
+
+&lt;ul&gt;
+&lt;li&gt;虚拟化指的是如何加 virtual-machine implementation layer。&lt;/li&gt;
+&lt;li&gt;工作流程: 虚拟机的Kernel 在运行的时候是假设是在 kernel space, 因此才可以执行privileged instruction. 但从架构来说，虚拟机的 kernel 应该是存在于 user space 中。 Privileged instruction 在 虚拟机的 Kernel space 执行时，系统会产生 一个 signal (exception)， interrupt 会回到底层的OS， 因此系统会得知虚拟机想要执行privileged instruction， 底层的OS 会重复执行这个命令。&lt;/li&gt;
+&lt;li&gt;缺点:  虚拟机执行效率比较低。&lt;/li&gt;
+&lt;li&gt;现在很多 CPU 都支持虚拟机， 除了 User mode, kernel mode, 还有 VM mode。&lt;/li&gt;
+&lt;li&gt;Usage: Protection, compatibility problems (系统兼容)， research and development， honeypot (A virtual honeypot is software that emulates a vulnerable system or network to attract intruders and study their behavior), cloud computing (不需要直接用虚拟机提供， container)&lt;/li&gt;
+&lt;li&gt;Full Virtualization (VMware, 需要有 hardware support, 执行效率才会快)&lt;/li&gt;
+&lt;li&gt;Run in user mode as an application on top of OS&lt;/li&gt;
+&lt;li&gt;Virtual machine believe they are running on bare hardware but in fact are running inside a user-level application&lt;/li&gt;
+&lt;li&gt;Para-virtualization: Xen (存在一个 global zone)&lt;/li&gt;
+&lt;li&gt;Presents guest with system similar but not identical to the guest&amp;rsquo;s preferred systems (Guest must be modified)&lt;/li&gt;
+&lt;li&gt;Hardware rather than OS and its devices are virtualized&lt;/li&gt;
+&lt;li&gt;Java Virtual Machine&lt;/li&gt;
+&lt;li&gt;Code translation, compile 执行完成后, 会有自己的 binary code. 再进行一次translation, 在host os执行。&lt;/li&gt;
+&lt;li&gt;Just-In-Time(JIT) compliers, 会记录执行的命令，然后 reuse.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Process</title>
+      <link>/courses/operating_system/process/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/operating_system/process/</guid>
+      <description>
+
+&lt;h2 id=&#34;concept&#34;&gt;Concept&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Program: passive entity: binary stored in disk&lt;/li&gt;
+&lt;li&gt;Process: active entity: a program in execution in memory&lt;/li&gt;
+&lt;li&gt;A process includes:
+
+&lt;ul&gt;
+&lt;li&gt;Code segment&lt;/li&gt;
+&lt;li&gt;Data section &amp;ndash;global variables&lt;/li&gt;
+&lt;li&gt;Stack &amp;ndash; temporary local variables and functions&lt;/li&gt;
+&lt;li&gt;Heap &amp;ndash; dynamic allocated variables or classes&lt;/li&gt;
+&lt;li&gt;Current activity (program counter, register contents) 用来管理 process&lt;/li&gt;
+&lt;li&gt;A set of associated resources (e.g. open file handlers)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Process in memory
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b3959e8cd0.png&#34; width=&#34;40%&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Threads
+
+&lt;ul&gt;
+&lt;li&gt;lightweight process&lt;/li&gt;
+&lt;li&gt;All threads belonging to the same processes share &lt;strong&gt;code section, data section and OS resources (e.g. open files and signals)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Each thread has it own &lt;strong&gt;thread ID, program counter, register set and stack&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Process States
+
+&lt;ul&gt;
+&lt;li&gt;New: process is being created&lt;/li&gt;
+&lt;li&gt;Ready: process is in the memory waiting to be assigned to a processor, 放到 waiting &lt;strong&gt;queue&lt;/strong&gt; 中&lt;/li&gt;
+&lt;li&gt;Running: instructions are being executed by CPU&lt;/li&gt;
+&lt;li&gt;Waiting: the process is waiting for events to occur (e.g. IO)&lt;/li&gt;
+&lt;li&gt;Terminated: the process has finished execution
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b3b57c8609.png&#34; width=&#34;40%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;process-switch&#34;&gt;Process switch&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Process control Block
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b3e1bb0ea9.png&#34; width=&#34;20%&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;context switch
+Context-switch time is purely overhead
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b3f9767fd1.png&#34; width=&#34;50%&#34;/&gt;
+&lt;div class=&#34;note warning&#34;&gt;&lt;p&gt;Switch time depends on memory speed, number of registers, existence of special instructions (a single instruction to save/load all registers), hardware support (multiple sets of registers) &lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;process-scheduling&#34;&gt;Process Scheduling&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Concept
+
+&lt;ul&gt;
+&lt;li&gt;Multiprogramming: CPU runs process at all times to maximize CPU utilization&lt;/li&gt;
+&lt;li&gt;Time sharing: switch CPU frequently such that users can interact with each program while it is running&lt;/li&gt;
+&lt;li&gt;Processes will have to wait until the CPU is free and  can be re-scheduled&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Scheduling Queues
+
+&lt;ul&gt;
+&lt;li&gt;Job queue (New State) &amp;ndash; set of all processes in the system&lt;/li&gt;
+&lt;li&gt;ready queue (Ready state) &amp;ndash; set of all processes residing in main memory, ready and waiting to execute&lt;/li&gt;
+&lt;li&gt;device queue (Wait state) &amp;ndash; set of processes waiting for an I/O device&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Diagram
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b452e66392.png&#34; width=&#34;40%&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Schedulers
+
+&lt;ul&gt;
+&lt;li&gt;Short- term scheduler (CPU scheduler) &amp;ndash; selects which process should be executed and allocated CPU (Ready state $\longrightarrow$ Run state) 很频繁&lt;/li&gt;
+&lt;li&gt;Long-term scheduler (job scheduler) &amp;ndash; selects which processes should be loaded into memory and brought into ready queue (New state $\longrightarrow$ Ready state)&lt;/li&gt;
+&lt;li&gt;Middle-term scheduler &amp;ndash; selects which processes should be swapped in/out memory (Ready state $\longrightarrow$ Wait state) 与 virtual memory 相结合
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b46dfcfc3b.png&#34; width=&#34;50%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Long-Term Scheduler (现在memory 很大， 现在变为 middle-term scheduler)
+
+&lt;ul&gt;
+&lt;li&gt;control degree of multiprogramming (Degree 很少时，cpu 会 idle， Degree 很多时， 会竞争CPU 资源)&lt;/li&gt;
+&lt;li&gt;Execute less frequently (e.g. invoked only when a process leaves the system or once several minutes)&lt;/li&gt;
+&lt;li&gt;Select a &lt;strong&gt;good mix of CPU-bound &amp;amp; I/O- bound&lt;/strong&gt; processes to increase system overall performance&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Short-Term Scheduler
+
+&lt;ul&gt;
+&lt;li&gt;Execute quite frequently (e.g. once per 100ms)&lt;/li&gt;
+&lt;li&gt;Must be efficient (averaging wait time)
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b49ed102a6.png&#34; width=&#34;50%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Medium-Term Scheduler
+
+&lt;ul&gt;
+&lt;li&gt;Swap out: removing processes from memory to reduce the degree of multiprogramming&lt;/li&gt;
+&lt;li&gt;Swap in: reintroducing swap-out processes into memory&lt;/li&gt;
+&lt;li&gt;Purpose: improve process mix, free up memory&lt;/li&gt;
+&lt;li&gt;Most modern OS doesn&amp;rsquo;t have medium-term scheduler because having sufficient physical memory or using virtual memory&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;operations-on-processes&#34;&gt;Operations on Processes&lt;/h2&gt;
+
+&lt;h3 id=&#34;tree-of-process&#34;&gt;Tree of process&lt;/h3&gt;
+
+&lt;p&gt;Each process is identified by a &lt;strong&gt;unique&lt;/strong&gt; processor identifier (&lt;strong&gt;pid&lt;/strong&gt;)
+&lt;div class=&#34;note info&#34;&gt;&lt;p&gt; &lt;code&gt;ps-ael&lt;/code&gt; will list complete info of all active processes  in unix &lt;/p&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;process-creation&#34;&gt;Process Creation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Resource sharing
+
+&lt;ul&gt;
+&lt;li&gt;Parent and child processes share &lt;strong&gt;all&lt;/strong&gt; resources&lt;/li&gt;
+&lt;li&gt;Child process shares &lt;strong&gt;subset&lt;/strong&gt; of parent&amp;rsquo;s resources&lt;/li&gt;
+&lt;li&gt;parent and child share &lt;strong&gt;no&lt;/strong&gt; resources&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Two possibilities of execution
+
+&lt;ul&gt;
+&lt;li&gt;Parent and children &lt;strong&gt;execute concurrently&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;parent &lt;strong&gt;waits until children terminate&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Two possibilities of address space
+
+&lt;ul&gt;
+&lt;li&gt;Child duplicate of parent (sharing variables)&lt;/li&gt;
+&lt;li&gt;Child has a program loaded into it (message passing)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;unix-linux-process-creation&#34;&gt;UNIX/LINUX Process Creation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;fork&lt;/code&gt; system call
+
+&lt;ul&gt;
+&lt;li&gt;Create a new child process&lt;/li&gt;
+&lt;li&gt;The new process duplicates the address space of its parent&lt;/li&gt;
+&lt;li&gt;Child &amp;amp; parent execute &lt;strong&gt;concurrently&lt;/strong&gt; after fork&lt;/li&gt;
+&lt;li&gt;Child: return value of fork is 0&lt;/li&gt;
+&lt;li&gt;Parent: return value of fork is PID of the child process&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;execlp&lt;/code&gt; system call
+&lt;strong&gt;Load a new binary file&lt;/strong&gt; into memory, &lt;strong&gt;destroying the old code&lt;/strong&gt; (memory content reset)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;wait&lt;/code&gt; system call
+The parent waits for one of its child processes to complete&lt;/li&gt;
+&lt;li&gt;Memory space of &lt;code&gt;fork()&lt;/code&gt;,  A 调用 &lt;code&gt;fork()&lt;/code&gt; 时
+
+&lt;ul&gt;
+&lt;li&gt;old implementation: A&amp;rsquo;s child is an extra copy of parent&lt;/li&gt;
+&lt;li&gt;current implementation: use copy-on-write technique to store differences in A&amp;rsquo;s child address space
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b4f7e2ea39.png&#34; width=&#34;40%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;process-termination&#34;&gt;Process Termination&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Terminate when the last statement is executed or &lt;code&gt;exit()&lt;/code&gt; is called&lt;/li&gt;
+&lt;li&gt;Parent may terminate execution of children processes by specifying its PID (abort)&lt;/li&gt;
+&lt;li&gt;Cascading termination
+killing (exiting) parent $\longrightarrow​$ killing all its children&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;note info&#34; &lt;p&gt; Control-C , OS在启动时，会产生 console process, 在执行程序时，是 console 再去产生其他程序，按 Control-C 时是用 console 来终止程序&lt;/p&gt;&lt;/div&gt;
+&lt;div class = &#34;note info&#34; &lt;p&gt; kill, 通过 OS 来终止程序, 需要权限&lt;/p&gt;&lt;/div&gt;
+
+&lt;h2 id=&#34;interprocess-communication-ipc&#34;&gt;Interprocess Communication (IPC)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;IPC: a set of methods for the exchange of data among multiple threads in one or more processes&lt;/li&gt;
+&lt;li&gt;Independent process: cannot affect or be affected by other process&lt;/li&gt;
+&lt;li&gt;Cooperating process:  otherwise&lt;/li&gt;
+&lt;li&gt;Purposes: information sharing, computation speedup, convenience, modularity&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;communication-methods&#34;&gt;Communication Methods&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;shared memory:
+
+&lt;ul&gt;
+&lt;li&gt;Require more careful user synchronization&lt;/li&gt;
+&lt;li&gt;implemented by memory access: faster speed&lt;/li&gt;
+&lt;li&gt;use memory address to access data&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Message passing:
+
+&lt;ul&gt;
+&lt;li&gt;No conflict : more efficient&lt;/li&gt;
+&lt;li&gt;Use send/recv  message&lt;/li&gt;
+&lt;li&gt;Implemented by system call : slower speed&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Sockets:
+
+&lt;ul&gt;
+&lt;li&gt;A network connection identified by IP &amp;amp; port (port number is process)&lt;/li&gt;
+&lt;li&gt;Exchange unstructured stream of bytes&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Remote Procedure Calls:
+
+&lt;ul&gt;
+&lt;li&gt;Cause a procedure to execute in another space&lt;/li&gt;
+&lt;li&gt;Parameters and return values are passed by message
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b6d362e44b.png&#34; width=&#34;40%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;shared-memory&#34;&gt;Shared Memory&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Establishing a region of shared memory
+
+&lt;ul&gt;
+&lt;li&gt;Typically, a shared-memory region resides in the address space of the process creating the shared-memory segment&lt;/li&gt;
+&lt;li&gt;Participating processes must agree to &lt;strong&gt;remove memory access constraint&lt;/strong&gt; from OS&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Determining the form of the data and the location&lt;/li&gt;
+&lt;li&gt;Ensuring data are not written simultaneously by processes&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Consumer and Producer problem (系统里面都有很多这样的问题, Compile(Producer), Link(Consumer))&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Producer&lt;/strong&gt; process produces information that is consumed by a &lt;strong&gt;Consumer&lt;/strong&gt; process&lt;/li&gt;
+&lt;li&gt;Buffer as a circular array with size B&lt;/li&gt;
+&lt;li&gt;next free: in&lt;/li&gt;
+&lt;li&gt;first available : out&lt;/li&gt;
+&lt;li&gt;empty: in = out&lt;/li&gt;
+&lt;li&gt;full (in + 1) % B = out&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The solution allows at most (B-1) item in the buffer, otherwise, cannot tell the buffer is fall or empty
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b71433d5d2.png&#34; width=&#34;30%&#34;/&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;while(1){
+while (((in+1) % BUFFER_SIZE) == out); // wait if buffer is full
+buffer[in] = nextProduced;
+in = (in + 1) % BUFFER_SIZE;
+}
+
+while(1){
+while(in == out); // wait if buffre is empty
+nextConsumed = buffer[out];
+out = (out+1) % BUFFER_SIZE
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;message-passing-system&#34;&gt;Message-Passing System&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Mechanism for processes to communicate and synchronize their actions&lt;/li&gt;
+&lt;li&gt;IPC facility provides two operations:
+
+&lt;ul&gt;
+&lt;li&gt;Send (Message) &amp;ndash; message size fixed or variable&lt;/li&gt;
+&lt;li&gt;Receive(Message)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Message system &amp;ndash; process communicate without resorting to shared variables&lt;/li&gt;
+&lt;li&gt;To communicate, processes need to
+
+&lt;ul&gt;
+&lt;li&gt;Establish a communication link&lt;/li&gt;
+&lt;li&gt;Physical (HW bus, network)&lt;/li&gt;
+&lt;li&gt;Logical (logical properties)  1. Direct or indirect communication 2. Blocking and non-blocking&lt;/li&gt;
+&lt;li&gt;Exchange a message via send/receive&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Direct Communication
+
+&lt;ul&gt;
+&lt;li&gt;Process must name each other explicitly&lt;/li&gt;
+&lt;li&gt;Links are &lt;strong&gt;established automatically&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;One-to-One&lt;/strong&gt; relationship between links and processes&lt;/li&gt;
+&lt;li&gt;The link may be unidirectional, but is usually bi-directional
+&lt;div class=&#34;note warning&#34;&gt;&lt;p&gt; Limited modularity, if the name of a process is changed, all old names should be found&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Indirect communication (E-mail)
+
+&lt;ul&gt;
+&lt;li&gt;Messages are directed and received from mailboxes&lt;/li&gt;
+&lt;li&gt;Each mailbox has a unique ID&lt;/li&gt;
+&lt;li&gt;Processes can communicate if the share a mailbox&lt;/li&gt;
+&lt;li&gt;Send(A, message) , Receive(A, message), communicate through mailbox A&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Many-to-Many&lt;/strong&gt; relationship between links and processes&lt;/li&gt;
+&lt;li&gt;Link established only if processes share a common mailbox&lt;/li&gt;
+&lt;li&gt;Mailbox can be owned either by OS or processes&lt;/li&gt;
+&lt;li&gt;MailBox 怎么解决一对一的问题？
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b88e397ddd.png&#34; width=&#34;50%&#34;/&gt;
+Solutions:&lt;/li&gt;
+&lt;li&gt;Allow a link to be associated with at most two processes&lt;/li&gt;
+&lt;li&gt;Allow only one process at a time to execute a receive operation&lt;/li&gt;
+&lt;li&gt;Allow the system to select arbitrarily a singe receiver. Sender is notified who the receiver was&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Synchronization
+
+&lt;ul&gt;
+&lt;li&gt;Message passing may be either blocking (synchronous) or non-blocking (asynchronous)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Blocking send:&lt;/strong&gt; send is blocked until the message is received by receiver or by the mailbox&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nonblocking send:&lt;/strong&gt; sender sends the message and resumes operation&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Blocking receive:&lt;/strong&gt; receiver is blocked until the message is available&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nonblocking receive:&lt;/strong&gt; receiver receives a valid message or a null (存在一个 token, 来判断是否收到信息)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Buffer implementation (中间存在一个 buffer 来进行消息的储存)
+
+&lt;ul&gt;
+&lt;li&gt;Zero capacity: blocking send/receive&lt;/li&gt;
+&lt;li&gt;Bounded capacity: if full, sender will be blocked&lt;/li&gt;
+&lt;li&gt;Unbounded capacity: sender never blocks&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Sockets
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b906940d23.png&#34; width=&#34;45%&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Remote Procedure Calls: RPC
+Stubs, client-side proxy for the actual procedure on the server
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b90e017de2.png&#34; width=&#34;40%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Memory Management</title>
+      <link>/courses/operating_system/memory_manage/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/operating_system/memory_manage/</guid>
+      <description>
+
+&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Main memory and registers are the &lt;strong&gt;only storage CPU can access directly&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Collection of processes&lt;/strong&gt; are waiting on disk to be brought into memory and be executed&lt;/li&gt;
+&lt;li&gt;Multiple programs are brought into memory to improve resource utilization and response time to users&lt;/li&gt;
+&lt;li&gt;A process may be &lt;strong&gt;moved between disk and memory&lt;/strong&gt; during its execution&lt;/li&gt;
+&lt;li&gt;Multistep processing of a program
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b937772940.png&#34; width=&#34;30%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;address-binding&#34;&gt;Address Binding&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Address Binding - Compile Time
+
+&lt;ul&gt;
+&lt;li&gt;Program is written as symbolic code&lt;/li&gt;
+&lt;li&gt;Compiler translates symbolic code into &lt;strong&gt;absolute code&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;If starting location changes &lt;strong&gt;(recompile&lt;/strong&gt;)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Address Binding - Load Time
+
+&lt;ul&gt;
+&lt;li&gt;Complier translates symbolic code into relocatable code&lt;/li&gt;
+&lt;li&gt;Relocatable code: machine language that can be run from any memory location&lt;/li&gt;
+&lt;li&gt;If starting location changes (reload the code)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Address Binding - Execution Time
+
+&lt;ul&gt;
+&lt;li&gt;Compiler translates symbolic code into logical-address (virtual-address) code&lt;/li&gt;
+&lt;li&gt;Special hardware (MMU memory management unit) is needed for this scheme&lt;/li&gt;
+&lt;li&gt;Most general-purpose OS use this method&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;MMU(Memory-management unit)
+
+&lt;ul&gt;
+&lt;li&gt;Hardware device that &lt;strong&gt;maps virtual to physical address&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;The value in the &lt;strong&gt;relocation register is added to every address&lt;/strong&gt; generated by a user process at the time it is sent to memory
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b998d7bef2.png&#34; width=&#34;40%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Logical VS. Physical Address
+
+&lt;ul&gt;
+&lt;li&gt;Logical Address — generated by CPU (a.k.a virtual address)&lt;/li&gt;
+&lt;li&gt;Physical address — seen by the memory module&lt;/li&gt;
+&lt;li&gt;Compile-time &amp;amp; load time address binding (logical address = physical address)&lt;/li&gt;
+&lt;li&gt;Execution-time address binding (logical address $\neq$ physical address)&lt;/li&gt;
+&lt;li&gt;The user program deals with logical addresses; it never sees the real physical addresses&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;dynamic-loading&#34;&gt;Dynamic loading&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The entire program doesn&amp;rsquo;t need all memory for it to execute, it&amp;rsquo;s a routine is loaded into memory when it is called&lt;/li&gt;
+&lt;li&gt;Better memory-space utilization, unused routine is never loaded, particularly useful when large amounts of code are infrequently used (e.g., error handling code)&lt;/li&gt;
+&lt;li&gt;No special support from OS is required implemented through program (library, API calls)&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Dynamic Loading Example in C&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;dlopen()&lt;/code&gt;: opens a library and prepares it for use&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;desym()&lt;/code&gt;: looks up the value of a symbol in a given opened library&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;dlclose()&lt;/code&gt;: close a DL library&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#include &amp;lt;dlfcn.h&amp;gt;
+int main() {
+double (*cosine)(double);
+void* handle = dlopen(&amp;quot;/lib/libm.so.6&amp;quot;, RTLD_LAZY);
+cosine = dlsym(handle, &amp;quot;cos&amp;quot;);
+printf(&amp;quot;%f\n&amp;quot;, (*cosine)(2.0)); // load into memory
+dlclose(handle);
+} 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8b9e9388d4f.png&#34; width=&#34;30%&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;static-dynamic-linking&#34;&gt;Static/Dynamic Linking&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Static Linking: libraries are combined by the loaded into  the program in-memory image
+
+&lt;ul&gt;
+&lt;li&gt;Waste memory: duplicated code&lt;/li&gt;
+&lt;li&gt;Faster during execution time
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8ba03c16a1b.png&#34; width=&#34;30%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Dynamic Linking: Linking postponed until execution time
+
+&lt;ul&gt;
+&lt;li&gt;Only one code copy in memory and shared by everyone&lt;/li&gt;
+&lt;li&gt;A stub is included in the program in-memory image for each lib reference&lt;/li&gt;
+&lt;li&gt;Stub call $\rightarrow$ check if the referred lib is in memory $\rightarrow$ if not, load the lib $\rightarrow$ execute the lib&lt;/li&gt;
+&lt;li&gt;DLL (Dynamic link library) on Windows
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8ba17ef00e8.png&#34; width=&#34;10%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;swapping&#34;&gt;Swapping&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A process can be swapped out of memory to a &lt;strong&gt;backing store&lt;/strong&gt;, and later brought back into memory for continuous execution, also used by &lt;strong&gt;midterm scheduling&lt;/strong&gt;, different from context switch&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Backing store&lt;/strong&gt;: a chunk of disk, separated from file system, to provide direct access to these memory images&lt;/li&gt;
+&lt;li&gt;Free up memory, roll out, roll in, swap lower-priority process with a higher one&lt;/li&gt;
+&lt;li&gt;Swap back memory location
+
+&lt;ol&gt;
+&lt;li&gt;if binding is done at compile / load time, swap back memory address must be same&lt;/li&gt;
+&lt;li&gt;if binding is done at execution time, swap back memory address can be different&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;A process to be swapped == must be idle (不能做I/O)
+
+&lt;ul&gt;
+&lt;li&gt;Imagine a process that is waiting for I/O is swapped? 1. Never swap a process with pending I/O 2. I/O operations are done through OS buffers (i.e. a memory space not belongs to any user processes)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Major part os swap time is transfer time; total transfer time is directly proportional to the amount of memory swapped&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;memory-allocation&#34;&gt;Memory allocation&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Fixed-partition allocation (规划停车场)
+Each process loads into one partition of fixed-size, degree of multi-programming is bounded by the number of partitions&lt;/li&gt;
+&lt;li&gt;Variable-size partition
+Hole: block of contiguous free memory, holes of various size are scattered in memory&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;multiple-partition-variable-size-method&#34;&gt;Multiple Partition (Variable-size) method&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;First-fit allocate the 1st hole that fits&lt;/li&gt;
+&lt;li&gt;Best-fit allocate the smallest hole that fits (must search through the whole list)&lt;/li&gt;
+&lt;li&gt;Worst-fit allocate the largest hole (must also search through the whole list)&lt;/li&gt;
+&lt;li&gt;First-fit and best-fit better than worst-fit in terms of speed and storage utilization&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;fragmentation-存在零碎的空间&#34;&gt;Fragmentation (存在零碎的空间)&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;external fragmentation
+Total free memory space is big enough to satisfy a request, but is not contiguous, occur in variable-size allocation&lt;/li&gt;
+&lt;li&gt;Internal fragmentation
+
+&lt;ul&gt;
+&lt;li&gt;Memory that is internal to a partition but is not being used, occur in fixed-partition allocation&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Solution: compaction
+
+&lt;ul&gt;
+&lt;li&gt;Shuffle the memory contents to place all free memory together in one large block at execution time&lt;/li&gt;
+&lt;li&gt;Only if binding is done at execution time
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8ba92f9fed7.png&#34; width=&#34;25%&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;non-contiguous-memory-allocation-paging&#34;&gt;Non-contiguous memory Allocation - Paging&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Divide physical memory into fixed-sized blocks called &lt;strong&gt;frames&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Divide logical address space into blocks of the same size called &lt;strong&gt;pages&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;To run a program of n pages, need to find n free frames and load the program&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;keep track of free frames&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Set up a &lt;strong&gt;page table&lt;/strong&gt; to translate logical to physical addresses&lt;/li&gt;
+&lt;li&gt;Benefit
+
+&lt;ul&gt;
+&lt;li&gt;Allow the physical-address space of a process to be noncontiguous&lt;/li&gt;
+&lt;li&gt;Avoid external fragmentation&lt;/li&gt;
+&lt;li&gt;Limited internal fragmentation&lt;/li&gt;
+&lt;li&gt;Provide &lt;strong&gt;shared memory/pages&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;page-table&#34;&gt;Page table&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Each entry maps to the base address of a page in physical memory&lt;/li&gt;
+&lt;li&gt;A structure maintained by OS for each process
+
+&lt;ul&gt;
+&lt;li&gt;page table includes only pages owned by a process&lt;/li&gt;
+&lt;li&gt;A process cannot access memory outside its space
+&lt;img src=&#34;https://i.loli.net/2019/03/15/5c8baa11b9f0c.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;address-translation-scheme&#34;&gt;Address Translation Scheme&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Logical address is divided into two parts
+
+&lt;ul&gt;
+&lt;li&gt;Page number (p)
+Use as an index into a page table which contains base address of each page in physical memory, N bits means a process can allocate at most $2^{N}$ pages&lt;/li&gt;
+&lt;li&gt;Page offset(d)
+Combines with base address to define the physical memory address that is sent to the memory unit, N bits means the page size is $2^{N}$&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Physical address = page base address + page offset&lt;/li&gt;
+&lt;li&gt;example: If page size is 1KB(2^10) and page 2 maps to frame 5. Given 13 bits logical address: (p=2, d=20), what is physical address?
+$$5*(1KB) + 20 = 1,010,000,000,000 + 0,000,010,100 = 1,010,000,010,100$$&lt;/li&gt;
+&lt;li&gt;Figure
+&lt;img src=&#34;https://i.loli.net/2019/03/16/5c8c64134af0b.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;total number of pages dose not need to be the same as the total number of frames&lt;/li&gt;
+&lt;li&gt;Given 32 bits logical address, 36 bits physical address and 4KB page size, what does it mean?
+
+&lt;ul&gt;
+&lt;li&gt;Page table size: $2^{32} / 2^{12} = 2^{20}$ entries&lt;/li&gt;
+&lt;li&gt;Max program memory: $2^{32} = 4GB$&lt;/li&gt;
+&lt;li&gt;Total physical memory size: $2^{36} = 64GB$&lt;/li&gt;
+&lt;li&gt;Number of bits for page number: $2^{20}$ pages $\rightarrow 20$ bits&lt;/li&gt;
+&lt;li&gt;Number of bits for frame number: $2^{24} \text{frames} \rightarrow 2^24$ bits&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;number of bits for page offset: 4KB page size = $2^{12}$ bytes $\rightarrow 12$&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Page / Frame Size
+
+&lt;ul&gt;
+&lt;li&gt;Typically power of 2&lt;/li&gt;
+&lt;li&gt;Ranging from 512 bytes to 16 MB/ page, 4KB/8KB page is commonly used&lt;/li&gt;
+&lt;li&gt;Larger page size $\rightarrow$ More space waste&lt;/li&gt;
+&lt;li&gt;page sizes have grown over time , memory, process, data sets have become larger&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;paging-summary&#34;&gt;Paging Summary&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Paging helps separate user&amp;rsquo;s view of memory and the actual physical memory&lt;/li&gt;
+&lt;li&gt;User view&amp;rsquo;s memory: one single contiguous space&lt;/li&gt;
+&lt;li&gt;OS maintains a copy of the &lt;strong&gt;page table for each process&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;OS maintains a frame table for managing physical memory
+
+&lt;ol&gt;
+&lt;li&gt;One entry for each physical frame&lt;/li&gt;
+&lt;li&gt;Indicate whether a frame is free or allocated&lt;/li&gt;
+&lt;li&gt;If allocated, to which page of which process or processes&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;implementation-of-page-table&#34;&gt;Implementation of Page Table&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Page table is kept in memory&lt;/li&gt;
+&lt;li&gt;Page table base register (PTBR) (需要load到MMU的register)
+
+&lt;ul&gt;
+&lt;li&gt;The physical memory address of the page table&lt;/li&gt;
+&lt;li&gt;The PTBR value is stored in PCB (Process Control Block)&lt;/li&gt;
+&lt;li&gt;Changing the value of PTBR during &lt;strong&gt;Context-switch&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;With PTBR, each memory reference results in 2 memory reads, one for the page table and one for the real address&lt;/li&gt;
+&lt;li&gt;The 2-access problem can be solved by, &lt;strong&gt;Translation Look-aside Buffers&lt;/strong&gt;(TLB) which is implemented by &lt;strong&gt;Associative memory&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Associative Memory
+All memory entries can be accessed &lt;strong&gt;at the same time&lt;/strong&gt;, lookup time is O(1), each entry corresponds to an associative register, the number of entries are limited (64 ~ 1024)
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8da6019d2c1.png&#34; width=&#34;400px&#34;/&gt;
+&lt;div class=&#34;note info&#34;&gt;&lt;p&gt; TLB is a cache for page table shared by all processes &lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;TLB must be flushed after a context switch, otherwise, TLB entry must has a PID field (address-space identifiers (ASIDs)), the flush method is preferred.&lt;/li&gt;
+&lt;li&gt;Effective Memory-Access Time (EMAT)
+
+&lt;ol&gt;
+&lt;li&gt;$20 ns$ for TLB search&lt;/li&gt;
+&lt;li&gt;$100 ns$ for memory access&lt;/li&gt;
+&lt;li&gt;$70%$ TLB hit-ratio
+
+&lt;ul&gt;
+&lt;li&gt;$70$ TLB hit-ratio $\text{EMAT} = 0.7\times (20+100) + (1-0.7) \times (20+100+100) = 150ns$&lt;/li&gt;
+&lt;li&gt;$98%$ TLB hit-ration $\text{EMAT} = 0.98\times 120+0.02 \times 220=122ns$&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;memory-protection&#34;&gt;Memory Protection&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Each page is associated with a set of &lt;strong&gt;protection bit&lt;/strong&gt; in the page table
+&lt;div class=&#34;note info&#34;&gt;&lt;p&gt;(A bit to define read/write/execution permission)&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Common use : valid-invalid bit
+
+&lt;ul&gt;
+&lt;li&gt;Valid: the page/frame is in the process&amp;rsquo; logical address space, and is thus a legal page&lt;/li&gt;
+&lt;li&gt;Invalid: the page/frame is not in the process&amp;rsquo; logical address space&lt;/li&gt;
+&lt;li&gt;potential issues: Un-used page entry cause memory-waste, use page table length register(PTLR)&lt;/li&gt;
+&lt;li&gt;Process memory may NOT be on the boundary of a page, memory limit register is still needed
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8db2c2cdea7.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Shared Pages
+Paging allows processes share common code, which must be reentrant
+
+&lt;ul&gt;
+&lt;li&gt;Reentrant code (pure code): it never change during execution, text editors, compilers, web servers, etc&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Only one copy&lt;/strong&gt; of the shared code needs to be kept in physical memory&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Two (several) virtual addresses&lt;/strong&gt; are mapped to one physical address&lt;/li&gt;
+&lt;li&gt;Process keeps a copy of its own private data and code&lt;/li&gt;
+&lt;li&gt;Shared code must appear in the same location in the logical address space of all processes
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8db414864da.png&#34; width=400px/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;page-table-memory-structure&#34;&gt;Page Table Memory Structure&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Page table could be huge and difficult to be loaded
+
+&lt;ul&gt;
+&lt;li&gt;4GB ($2^{32}$) logical address space with 4KB ($2^{12}$) page, needs 1 million $2^{20}$ page table entry&lt;/li&gt;
+&lt;li&gt;Assume each entry need 4 bytes (32 bits), total size = 4MB (MMU 读的时候是需要连续的4MB memory)&lt;/li&gt;
+&lt;li&gt;Need to break it into several smaller page tables, better within  a single page size (i.e. 4KB)&lt;/li&gt;
+&lt;li&gt;Or reduces the total size of page table&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;hierarchical-paging&#34;&gt;Hierarchical Paging&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Break up the logical address space into multiple page tables
+
+&lt;ul&gt;
+&lt;li&gt;12-bit offset (d) $\rightarrow$ 4KB($2^{12}$) page size&lt;/li&gt;
+&lt;li&gt;10-bit outer page number $\rightarrow$ 1K $2^{10}$ page table entries&lt;/li&gt;
+&lt;li&gt;10-bit inner page number $\rightarrow$ 1K $2^{10}$ page table entries
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8ddfd25900c.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Two-level paging example(32-bit address with 4KB ($2^{12}$) page size)
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8dbf784c160.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;example: &lt;img src=&#34;https://i.loli.net/2019/04/01/5ca17e7a97138.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;64-bit Address?
+
+&lt;ol&gt;
+&lt;li&gt;2 level: 42(p1) + 10 (p2) + 12 (offset), outer table requires $2^{42} \times 4B = 16 {TB}$ contiguous memory&lt;/li&gt;
+&lt;li&gt;6 level: $12(p1) + 10(p2) + 10(p3) + 10(p4) + 10 (p5) + 12 (offset)$, needs 6 memory accesses
+&lt;div class = &#34;note info&#34;&gt;&lt;p&gt;
+SPAPC(32-bit) and linux use 3-level paging, Motorola 68030 (32-bit) use 4-level paging
+&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;hashed-page-table&#34;&gt;Hashed Page Table&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Commonly-used for address &amp;gt; 32 bits&lt;/li&gt;
+&lt;li&gt;Virtual page number is hashed into a hash table&lt;/li&gt;
+&lt;li&gt;The size of the hash table varies, larger hash  table $\rightarrow$  smaller chains in each entry&lt;/li&gt;
+&lt;li&gt;Each entry in the hashed table contains
+
+&lt;ul&gt;
+&lt;li&gt;Virtual Page Number, Frame Number, Next Pointer&lt;/li&gt;
+&lt;li&gt;Pointers waster memory&lt;/li&gt;
+&lt;li&gt;Traverse linked list waste time &amp;amp; cause additional memory references
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8dbdd2409f8.png&#34; width=400px/&gt;
+&lt;div class = &#34;note info&#34;&gt;&lt;p&gt; 将 entries group 到一起， 存入连续的空间，MMU一次性读进去，可以减少 LinkedList traverse 的时间&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;inverted-page-table-很少见&#34;&gt;Inverted Page Table (很少见）&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Maintains NO page table for each process ( 节省 memory 空间）&lt;/li&gt;
+&lt;li&gt;Maintains a &lt;strong&gt;frame table&lt;/strong&gt; for the whole memory, one entry for each real frame of memory&lt;/li&gt;
+&lt;li&gt;Each entry in the frame table has (PID Page number)&lt;/li&gt;
+&lt;li&gt;Eliminate the memory needed for page tables but increase memory access time, each access needs to search the whole frame table (use hashing for the frame table)&lt;/li&gt;
+&lt;li&gt;Hard to support &lt;strong&gt;shared/page memory&lt;/strong&gt;
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8dc1b979f62.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;segmentation&#34;&gt;Segmentation&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Memory-management scheme that supports user view of memory&lt;/li&gt;
+&lt;li&gt;A program is a collection of segments. A segment is a logical unit includes following:
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8dc2e3156bb.png&#34; width=&#34;300px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;segmentation-table&#34;&gt;Segmentation Table&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Logical address: (segmentation #, offset), offset has the same length as physical address&lt;/li&gt;
+&lt;li&gt;Maps two-dimensional physical addresses, each table entry has:
+
+&lt;ul&gt;
+&lt;li&gt;Base (4 bytes): the start physical address&lt;/li&gt;
+&lt;li&gt;Limit (4 bytes): the length of the segment&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Segment-table base register(STBR), the physical address of the segmentation table&lt;/li&gt;
+&lt;li&gt;Segment-table length register (STLR), the number of segments&lt;/li&gt;
+&lt;li&gt;example
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca1834f530a6.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;segmentation-hardware&#34;&gt;Segmentation Hardware&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Limit register is used to check offset length&lt;/li&gt;
+&lt;li&gt;MMU allocate memory by assigning an appropriate base address for each segment (physical address cannot overlap between segments)
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca1840045b4b.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Sharing and Protection
+
+&lt;ul&gt;
+&lt;li&gt;Protection bits associated with segments
+
+&lt;ul&gt;
+&lt;li&gt;Read-only segment (code)&lt;/li&gt;
+&lt;li&gt;Read-write segments (data, heap, stack)&lt;/li&gt;
+&lt;li&gt;Code sharing occurs at segment level (memory communication, shared library)&lt;/li&gt;
+&lt;li&gt;Share segment by having same base in two segment tables&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;segmentation-paging&#34;&gt;Segmentation &amp;amp; paging&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Apply segmentation in logical address space&lt;/li&gt;
+&lt;li&gt;Apply Paging in physical address space
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8dd9bc03335.png&#34; width=&#34;400px&#34;/&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;address-translation&#34;&gt;Address Translation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CPU generates logical address
+
+&lt;ol&gt;
+&lt;li&gt;Given to segmentation unit $\rightarrow$ produces liner address&lt;/li&gt;
+&lt;li&gt;Linear address given to paging unit $\rightarrow$ generates physical address in main memory&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Segmentation and paging units form equivalent of MMU
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8ddd0a0ca4f.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;example&#34;&gt;Example&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Let the physical memory size is 521B, the page size is 32B and the logical address of a program can have 8 segments. Given a 12 bits hexadecimal logical address &amp;ldquo;448&amp;rdquo;, translate the address with below page and segment tables
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8dde36a59f1.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Virtual Memory</title>
+      <link>/courses/operating_system/virtual_memory/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/operating_system/virtual_memory/</guid>
+      <description>
+
+&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We don&amp;rsquo;t want to run a program that is entirely in memory
+
+&lt;ol&gt;
+&lt;li&gt;Many code for handling unusual errors or conditions&lt;/li&gt;
+&lt;li&gt;Certain program routines or features are rarely used&lt;/li&gt;
+&lt;li&gt;The same library code used by many programs&lt;/li&gt;
+&lt;li&gt;Arrays, lists and tables allocated but not used&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Virtual memory — separation of user logical memory from physical memory
+
+&lt;ul&gt;
+&lt;li&gt;To run a extremely &lt;strong&gt;large process&lt;/strong&gt;, logical address space can be much larger than the physical address space&lt;/li&gt;
+&lt;li&gt;To increase &lt;strong&gt;CPU/resources utilization&lt;/strong&gt; (higher degree of multiprogramming degree)&lt;/li&gt;
+&lt;li&gt;To &lt;strong&gt;simplify programming&lt;/strong&gt; tasks (Free programmer from memory limitation)&lt;/li&gt;
+&lt;li&gt;To run programs &lt;strong&gt;faster&lt;/strong&gt; (less I/O would be needed to load or swap)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Virtual memory can be implemented by
+
+&lt;ul&gt;
+&lt;li&gt;Demand paging&lt;/li&gt;
+&lt;li&gt;Demand segmentation: more complicated due to variable size
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8de51380ac7.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;demand-paging&#34;&gt;Demand Paging&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A program rather than the whole process is brought into memory only when it is needed
+
+&lt;ul&gt;
+&lt;li&gt;Less I/O needed $\rightarrow$ Faster response&lt;/li&gt;
+&lt;li&gt;Less memory needed $\rightarrow$ More users&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Page is needed when there is a reference to the page
+
+&lt;ul&gt;
+&lt;li&gt;Invalid reference $\rightarrow$ abort&lt;/li&gt;
+&lt;li&gt;Not-in-memory $\rightarrow$ bring to memory via paging&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Pure demand paging
+
+&lt;ul&gt;
+&lt;li&gt;Start a process with no page&lt;/li&gt;
+&lt;li&gt;Never bring a page into memory until it is required&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;A swapper (midterm scheduler) manipulates the entire process, whereas a pager is concerned with individual page of a process&lt;/li&gt;
+&lt;li&gt;Hardware support
+
+&lt;ul&gt;
+&lt;li&gt;Page table : a valid-invalid bit (1 $\rightarrow$ page in memory, $0 \rightarrow$ page no in the memory)&lt;/li&gt;
+&lt;li&gt;Secondary memory (swap space, backing store), usually, a high-speed disk (swap device) is use
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca1897edd6c1.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;page-fault&#34;&gt;Page Fault&lt;/h3&gt;
+
+&lt;p&gt;First reference to a page will trap to OS (page fault trap)&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;OS looks at the internal table (PCB) to decide
+
+&lt;ul&gt;
+&lt;li&gt;Invalid reference $\rightarrow$ abort&lt;/li&gt;
+&lt;li&gt;Just not in memory $\rightarrow$ continue&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Get an empty frame&lt;/li&gt;
+&lt;li&gt;Swap the page from disk (swap) space into the frame&lt;/li&gt;
+&lt;li&gt;Reset page table, invalid-valid bit = 1&lt;/li&gt;
+&lt;li&gt;Restart instruction
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8dea0ea45c7.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;page-replacement&#34;&gt;Page replacement&lt;/h3&gt;
+
+&lt;p&gt;If there is no free frame when a page fault occurs&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;swap a frame to backing store&lt;/li&gt;
+&lt;li&gt;swap a page from backing store into the frame&lt;/li&gt;
+&lt;li&gt;different page &lt;strong&gt;replacement algorithms&lt;/strong&gt; pick different frames for replacement&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;demand-paging-performance&#34;&gt;Demand Paging Performance&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Effective Access Time (EAT): $(1-p) \times ma + p \times PFT$
+
+&lt;ul&gt;
+&lt;li&gt;P: page fault rate, ma: memory, access time, PFT: page fault time&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Example ma=200ns, PFT=8ms
+
+&lt;ul&gt;
+&lt;li&gt;EAT = 200ns + 7999800 ns $\times$ p&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Access time is proportional to the page fault rate
+
+&lt;ul&gt;
+&lt;li&gt;If one access out of 1000 causes a page fault, then EAT = 8.2 ms $\rightarrow$ slowdown by a factor of 40&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Programs tend to have locality of reference&lt;/li&gt;
+&lt;li&gt;Locality means program often accesses memory addresses that are close together
+
+&lt;ul&gt;
+&lt;li&gt;A single page fault can bring in 4KB memory content&lt;/li&gt;
+&lt;li&gt;Greatly reduce the occurrence of page fault&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Major components of page fault time (about 8ms)
+
+&lt;ol&gt;
+&lt;li&gt;serve the page-fault interrupt&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;read in the page from disk&lt;/strong&gt; (most expensive)&lt;/li&gt;
+&lt;li&gt;Restart the process&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;process-creation-and-virtual-memory&#34;&gt;Process Creation and Virtual memory&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Demand paging: only bring in the page containing the first instruction&lt;/li&gt;
+&lt;li&gt;Copy-on-Write: the parent and the child process share the same frames initially, and frame-copy when a page is written&lt;/li&gt;
+&lt;li&gt;Memory-Mapped File: map a file into the virtual address space to bypass file system calls (e.g. read(), write())&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;copy-on-write&#34;&gt;Copy-on-Write&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;if either process modifies a frame, only then a frame is copied&lt;/li&gt;
+&lt;li&gt;COW allows efficient process creation&lt;/li&gt;
+&lt;li&gt;Free frames are allocated from a pool of zeroed-out frames, the content of a frame is erased to 0&lt;/li&gt;
+&lt;li&gt;Figure: a child process is forked
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8defdbc3767.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;After parent modifies page C
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8df0553a9f2.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;memory-mapped-files&#34;&gt;Memory-Mapped Files&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Approach:
+
+&lt;ul&gt;
+&lt;li&gt;MMF allows file I/O to be treated as routine memory access by mapping a disk block to memory frame&lt;/li&gt;
+&lt;li&gt;A file  is initially read using demand paging. Subsequent read/writes to/from the file are treated as ordinary memory accesses&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Benefit:
+
+&lt;ul&gt;
+&lt;li&gt;Faster file access by using memory access rather than &lt;code&gt;read()&lt;/code&gt; and &lt;code&gt;write()&lt;/code&gt; system calls&lt;/li&gt;
+&lt;li&gt;Allows several process to map the SAME file allowing the pages in memory to be SHARED&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Concerns:
+
+&lt;ul&gt;
+&lt;li&gt;Security(access control), data lost, more programming efforts
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8df3f01bddd.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;page-replacement-1&#34;&gt;Page replacement&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;when a page fault occurs with on free frame
+
+&lt;ol&gt;
+&lt;li&gt;swap out a process,  freeing all its frames&lt;/li&gt;
+&lt;li&gt;page replacement, find one not currently used add free it.
+Use &lt;strong&gt;dirty bit&lt;/strong&gt; to reduce overhead of page transfers &amp;ndash; only modified pages are written to disk&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Solve two major problems for demand paging
+
+&lt;ul&gt;
+&lt;li&gt;Frame-allocation algorithm, determine how many frames to be allocated to a process&lt;/li&gt;
+&lt;li&gt;Page-replacement algorithm, select which frame to be replaced&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;page-replacement-algorithms&#34;&gt;Page Replacement Algorithms&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Goal: lowest page-fault rate&lt;/li&gt;
+&lt;li&gt;Evaluation: running against a string of memory references (reference string) and computing the number of page faults&lt;/li&gt;
+&lt;li&gt;Reference String: 1,2,3,4,1,2,5,1,2,3,4,5&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;fifo-algorithm&#34;&gt;FIFO algorithm&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;The oldest page in a FIFO queue is replaced&lt;/li&gt;
+&lt;li&gt;3 frames (available memory frames = 3) 9 page faults
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8df74139338.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;FIFO illustrating Belady&amp;rsquo;s Anomaly
+More allocated frames doesn&amp;rsquo;t guaranteed less page fault
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8df806c0447.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Figure illustration
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8df86990ad6.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;optimal-belady-algorithm&#34;&gt;Optimal (Belady) Algorithm&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Replace the page that will not be used for the longest period of time, need future knowledge&lt;/li&gt;
+&lt;li&gt;4 frames (6 page faults)&lt;/li&gt;
+&lt;li&gt;In practice, we don&amp;rsquo;t have future knowledge, only used for reference and comparison
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8e05f397a22.png&#34; width=&#34;400px&#34;/&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;lru-algorithm-least-recently-used&#34;&gt;LRU Algorithm (Least Recently Used)&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;An approximation of optimal algorithm, looking backward, rather than forward&lt;/li&gt;
+&lt;li&gt;It replaces the page that has not been used for the longest period of time&lt;/li&gt;
+&lt;li&gt;It is often used, and is considered as quite good&lt;/li&gt;
+&lt;li&gt;Counter implementation
+
+&lt;ol&gt;
+&lt;li&gt;page referenced: time stamp is copied into the counter&lt;/li&gt;
+&lt;li&gt;replacement: remove the one with oldest counter, but linear search is required&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Stack implementation
+
+&lt;ol&gt;
+&lt;li&gt;page referenced: move to top of the double-linked list&lt;/li&gt;
+&lt;li&gt;replacement: remove the page at the bottom
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8e078801cb9.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;stack-algorithm&#34;&gt;Stack Algorithm&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;A property of algorithms&lt;/li&gt;
+&lt;li&gt;Stack algorithm: the set of pagers in memory for n frames is always a subset of the set of pages that would be in memory with n+1 frames&lt;/li&gt;
+&lt;li&gt;Stack algorithms do not suffers from Belady&amp;rsquo;s anomaly&lt;/li&gt;
+&lt;li&gt;Both optimal algorithm and LRU algorithm stack algorithm&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;lru-approximation-algorithms&#34;&gt;LRU approximation algorithms&lt;/h3&gt;
+
+&lt;p&gt;Few systems provide sufficient hardware support for the LRU page-replacement&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;additional-reference-bits algorithm&lt;/li&gt;
+&lt;li&gt;second-chance algorithm&lt;/li&gt;
+&lt;li&gt;enhanced second-chance algorithm&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;counting-algorithms&#34;&gt;Counting Algorithms&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;LFU algorithms (least frequently used)
+
+&lt;ul&gt;
+&lt;li&gt;keep a counter for each page&lt;/li&gt;
+&lt;li&gt;idea: an actively used page should have a large reference count&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;MFU algorithms (most frequently used)
+
+&lt;ul&gt;
+&lt;li&gt;idea: the page with the smallest count was probably just brought in and has yet to be used&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Both counting algorithms are not common&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;implementation is expensive (overflow)&lt;/li&gt;
+&lt;li&gt;do not approximate OPT algorithm very well&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;allocation-of-frames&#34;&gt;Allocation of frames&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;each process needs minimum number of frames&lt;/li&gt;
+&lt;li&gt;Fixed allocation
+
+&lt;ul&gt;
+&lt;li&gt;Equal allocation &amp;ndash; 100 frames, 5 processes $\rightarrow$ 20 frames/process&lt;/li&gt;
+&lt;li&gt;Proportional allocation &amp;ndash; Allocate according to the size of the process&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Priority allocation
+Using proportional allocation based on priority, instead of size.&lt;/li&gt;
+&lt;li&gt;Local allocation: each process select from its own set of allocated frames&lt;/li&gt;
+&lt;li&gt;Global allocation : process selects a replacement frame from the set of all frames
+
+&lt;ul&gt;
+&lt;li&gt;One process can take away a frame of another process&lt;/li&gt;
+&lt;li&gt;e.g. Allow a high-priority process to take frames from a low-priority process&lt;/li&gt;
+&lt;li&gt;Good system performance and thus is common used&lt;/li&gt;
+&lt;li&gt;A minimum number of frames must be maintained for each process to prevent &lt;strong&gt;trashing&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;trashing&#34;&gt;Trashing&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If a process dost not have &amp;ldquo;enough&amp;rdquo; frames to support pages in active page $\rightarrow$ very high paging activity&lt;/li&gt;
+&lt;li&gt;A process is trashing if it spending more time paging than executing
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8e0d69140ec.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Performance problem caused by trashing
+Processes queued for I/O to swap (page fault) $\rightarrow$ low CPU utilization $\rightarrow$ OS increased the degree of multiprogramming $\rightarrow$ new processes take frames from old processes $\rightarrow$ CPU utilization drops even further&lt;/li&gt;
+&lt;li&gt;To prevent trashing, must provide enough frames for each process (Working-set model, page-fault frequency)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;working-set-model-实现起来比较繁琐-比较少用&#34;&gt;Working-Set Model (实现起来比较繁琐， 比较少用)&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Locality: a set of pages that are actively used together&lt;/li&gt;
+&lt;li&gt;Locality model: as a process executes, it moves from locality to locality (program structure, data structure)&lt;/li&gt;
+&lt;li&gt;Working-set model
+
+&lt;ol&gt;
+&lt;li&gt;working-set window: a parameter $\Delta$&lt;/li&gt;
+&lt;li&gt;working set: set of pages in most recent $\Delta$ page reference (an approximation locality)
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8e0fedf1e67.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Explanation
+
+&lt;ul&gt;
+&lt;li&gt;$WSS_i:$ Working-set size  for process i&lt;/li&gt;
+&lt;li&gt;$D = \sum WSS_i:$  Total demand frames&lt;/li&gt;
+&lt;li&gt;If $D &amp;gt; m$ (available frames) $\rightarrow$ trashing&lt;/li&gt;
+&lt;li&gt;The OS monitors the $WSS_i$ of each process and allocates to the process enough frames: if $D &amp;lt;&amp;lt; m$ , increase degree of MP, if $D &amp;gt; m$, suspend a process.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Advantages: prevent thrashing while keeping the degree of multiprogramming as high as possible , optimize CPU utilization&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;page-fault-frequency-scheme&#34;&gt;Page Fault frequency scheme&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;page fault frequency directly measures and controls the page-fault rate to prevent trashing&lt;/li&gt;
+&lt;li&gt;Establish upper and lower bounds on the desired page-fault rate of a process&lt;/li&gt;
+&lt;li&gt;If page fault rate exceed the upper limit, allocate another frame to the process&lt;/li&gt;
+&lt;li&gt;if page fault rate fails below the lower limit, remove a frame from the process
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8e249f97b68.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Multithread Programming</title>
+      <link>/courses/operating_system/multithread_programming/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/operating_system/multithread_programming/</guid>
+      <description>
+
+&lt;h2 id=&#34;threads&#34;&gt;Threads&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Threads is a light process, basic unit of CPU utilization&lt;/li&gt;
+&lt;li&gt;All threads belonging to the same process share &lt;strong&gt;code section&lt;/strong&gt;, &lt;strong&gt;data section&lt;/strong&gt;, and &lt;strong&gt;OS resources&lt;/strong&gt; (e.g. open files and signals)&lt;/li&gt;
+&lt;li&gt;Each thread has its own (thread control block) &lt;strong&gt;thread ID, program counter, register set, and a stack&lt;/strong&gt; &lt;img src=&#34;https://i.loli.net/2019/03/17/5c8e26e6c2312.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Example
+
+&lt;ul&gt;
+&lt;li&gt;web browser, once thread displays contents while the other thread receives data from network&lt;/li&gt;
+&lt;li&gt;web server, one request(thread), better performance as code and resource sharing&lt;/li&gt;
+&lt;li&gt;RPC server
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8e27ee06cfa.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Benefits of Multithreading
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Responsiveness&lt;/strong&gt;: allow a program to continue running even if part of it is blocked or is performing a lengthy operation&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Resource sharing&lt;/strong&gt;: several different threads of activity all within the same address space&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Utilization of MP arch&lt;/strong&gt;: Several thread may be running in parallel on different processors&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Economy&lt;/strong&gt;: Allocating memory and resources for process creation is costly.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;multicore-programming&#34;&gt;Multicore Programming&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;multithread programming provides a mechanism for more efficient use of multiple cores and improved concurrency (threads can run in parallel)&lt;/li&gt;
+&lt;li&gt;Multicore systems putting pressure on system designers and application program (scheduling algorithms use cores to allow the parallel execution&lt;/li&gt;
+&lt;li&gt;challenges in Multicore Programming
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Dividing activities&lt;/strong&gt;: divide program into concurrent tasks&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Data splitting&lt;/strong&gt;: divide data accessed and manipulated by the tasks&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Data dependency&lt;/strong&gt;: synchronize data access&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Balance&lt;/strong&gt;: evenly distribute tasks to cores&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Testing and debugging&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;user-vs-kernel-threads&#34;&gt;User vs. Kernel Threads&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;User thread &amp;ndash; thread management done by user level threads library (Pthreads, Java threads, Win32 threads)&lt;/li&gt;
+&lt;li&gt;Kernel threads &amp;ndash; supported by the kernel(OS) directly (Windows 2000, Linux)&lt;/li&gt;
+&lt;li&gt;User threads
+
+&lt;ul&gt;
+&lt;li&gt;thread library provides support for thread creation, scheduling and deletion&lt;/li&gt;
+&lt;li&gt;Generally fast to create and manage&lt;/li&gt;
+&lt;li&gt;If the kernel is single-threaded, a user-thread blocks $\rightarrow$ entire process blocks even if other threads are ready to run&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Kernel threads
+
+&lt;ul&gt;
+&lt;li&gt;The kernel performs thread creation, scheduling, etc.&lt;/li&gt;
+&lt;li&gt;Generally slower to create and manage&lt;/li&gt;
+&lt;li&gt;If a thread is blocked, the kernel can schedule another thread for execution&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Models (user threads to kernel threads)
+Many-to-one, one-to-one(kernel threads 有限制，大部分系统）, Many-to-Many&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;shared-memory-programming&#34;&gt;Shared-Memory Programming&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Definition: processes communicate or work together with each other through a shared memory space which can be accessed by all processes (Faster &amp;amp; more efficient than message passing)&lt;/li&gt;
+&lt;li&gt;Many issues as well, &lt;strong&gt;Synchronization&lt;/strong&gt;, &lt;strong&gt;Deadlock&lt;/strong&gt;, &lt;strong&gt;Cache coherence&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Programming techniques (Parallelizing compiler, Unix processes, Threads(Pthread, Java))&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;pthread&#34;&gt;Pthread&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Pthread is the implementation of POSIX standard for thread&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pthread_create(thread, attr, routine, arg)&lt;/code&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;thread&lt;/code&gt;: An unique identifier (token) for the new thread&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;attr&lt;/code&gt;: it is used to set thread attributes. NULL for the default values&lt;/li&gt;
+&lt;li&gt;routine: The routine that the thread will execute once it is created&lt;/li&gt;
+&lt;li&gt;arg: A single argument that may be passed to routine &lt;img src=&#34;https://i.loli.net/2019/03/17/5c8e3392a48d7.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;pthread_join(threadId, status)
+
+&lt;ul&gt;
+&lt;li&gt;Blocks until the specified threadId thread terminates&lt;/li&gt;
+&lt;li&gt;One way to accomplish synchronization between threads&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;pthread_detach(threadId)
+
+&lt;ul&gt;
+&lt;li&gt;Once a thread is detached, it can never be joined&lt;/li&gt;
+&lt;li&gt;Detach a thread could free some system resources&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/21/5c933ded79175.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;  #include &amp;lt;pthread.h&amp;gt;
+  #include &amp;lt;stdio.h&amp;gt; #define NUM_THREADS 5
+  void *PrintHello(void *threadId) {
+  long* data = static_cast &amp;lt;long*&amp;gt; threadId;
+    printf(&amp;quot;Hello World! It&#39;s me, thread #%ld!\n&amp;quot;, *data);
+    pthread_exit(NULL);
+  }
+  int main (int argc, char *argv[]) {
+  pthread_t threads[NUM_THREADS];
+  for(long tid=0; tid&amp;lt;NUM_THREADS; tid++){
+      pthread_create(&amp;amp;threads[tid], NULL, PrintHello, (void *)&amp;amp;tid);
+  }
+  /* Last thing that main() should do */
+    thread_exit(NULL);
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;java-threads&#34;&gt;Java Threads&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Thread is created by Extending Thread class, Implementing the Runnable interface&lt;/li&gt;
+&lt;li&gt;Java threads are implemented using a thread library on the host System&lt;/li&gt;
+&lt;li&gt;Thread mapping depends on the implementation of JVM&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;linux-threads&#34;&gt;Linux threads&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Linux does not support multithreading&lt;/li&gt;
+&lt;li&gt;Various Pthreads implementation are available for user-level&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;fork&lt;/code&gt; system call &amp;ndash; create a new process and a copy of the associated data of the parent process&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;clone&lt;/code&gt; system call &amp;ndash; create a new process and a link that points to the associated data of the parent process&lt;/li&gt;
+&lt;li&gt;A set of flags is used in the clone call for indication of the level of the sharing
+
+&lt;ul&gt;
+&lt;li&gt;None of the flag is set $\rightarrow$ clone = fork&lt;/li&gt;
+&lt;li&gt;All flags are set $\rightarrow$ parent and child share everything
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8e3635b4594.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;threading-issues&#34;&gt;Threading Issues&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Does &lt;code&gt;fork()&lt;/code&gt; duplicate only the calling thread or all threads? Some UNIX system support two versions of &lt;code&gt;fork()&lt;/code&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;execlp()&lt;/code&gt; works the same, replace the entire process, if &lt;code&gt;exec()&lt;/code&gt; is called immediately after forking, then duplicating all threads is unnecessary
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8e37759091b.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Thread Cancellation
+
+&lt;ul&gt;
+&lt;li&gt;Asynchronous cancellation (one thread terminates the target thread immediately) 等 main thread 有空&lt;/li&gt;
+&lt;li&gt;Deferred cancellation (default option) The target thread periodically checks whether it should be terminated, allowing it an opportunity to terminate itself in an orderly fashion (canceled safety)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Signal Handling
+
+&lt;ul&gt;
+&lt;li&gt;Signals (synchronous or asynchronous) are used in UNIX systems to notify a process that an event has occurred&lt;/li&gt;
+&lt;li&gt;A signal handler is used to process signals&lt;/li&gt;
+&lt;li&gt;Signal is generated by particular event&lt;/li&gt;
+&lt;li&gt;Signal is delivered to a process&lt;/li&gt;
+&lt;li&gt;Signal is handled&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Thread Pools
+
+&lt;ul&gt;
+&lt;li&gt;Create a number of threads in a pool where they await work&lt;/li&gt;
+&lt;li&gt;Advantages&lt;/li&gt;
+&lt;li&gt;Usually slightly faster to service a request with an existing thread than create a new thread&lt;/li&gt;
+&lt;li&gt;Allows the number of threads in the application(s) to be bound the size of the pool&lt;/li&gt;
+&lt;li&gt;#  Of threads: # of CPUs, expected # of requests, amount of physical memory&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Process Scheduling</title>
+      <link>/courses/operating_system/process_schedule/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/operating_system/process_schedule/</guid>
+      <description>
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;CPU-I/O burst cycle&lt;/strong&gt;: Process execution consists of a cycle of CPU execution and I/O wait&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Generally, there is a large number of short CPU bursts, and a small number of long CPU bursts&lt;/li&gt;
+&lt;li&gt;A I/O bound program would typically has many very short CPU bursts&lt;/li&gt;
+&lt;li&gt;A CPU-bound program might have a few long CPU bursts
+&lt;img src=&#34;https://i.loli.net/2019/03/17/5c8e3c19c049e.png&#34; width=&#34;400px&#34;/&gt;
+CPU scheduler: Select from ready queue to execute (i.e. allocates a CPU for the selected process)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;preemptive-vs-non-preemptive&#34;&gt;Preemptive vs. Non-preemptive&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CPU scheduling decisions may take palce when a process:
+
+&lt;ol&gt;
+&lt;li&gt;Switches from running to waitting state (IO)&lt;/li&gt;
+&lt;li&gt;Switches from running to ready state (Time-sharing)&lt;/li&gt;
+&lt;li&gt;Swtiches from waiting to ready state&lt;/li&gt;
+&lt;li&gt;Terminates&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Non-preemptive scheduling (不会打断)
+
+&lt;ul&gt;
+&lt;li&gt;Scheduling under 1 and 4 (no choice in terms of scheduling)&lt;/li&gt;
+&lt;li&gt;The process keeps the CPU until it is terminated or switched to the waitting state&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Preemptive scheduling, Scheduling under all cases 使用率很高&lt;/li&gt;
+&lt;li&gt;Preemptive Issues
+
+&lt;ul&gt;
+&lt;li&gt;Inconsistent state of shared data, require process synchronization, incurs a cost assocated with access to shared data&lt;/li&gt;
+&lt;li&gt;Affect the design of OS kernel
+Unix solution: waiting either for a system call to complete or for an I/O block to take palce before doing a context switchd (disable interrupt)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;dispatcher&#34;&gt;Dispatcher&lt;/h3&gt;
+
+&lt;p&gt;Dispatcher module gives control of the CPU to the process selected by scheduler&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;switching context&lt;/li&gt;
+&lt;li&gt;jumping to the proper location in the selected program
+Dispatch latency &amp;ndash; time it takes for the dispatcher to stop one process and start another running&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;scheduling-algorithms&#34;&gt;Scheduling Algorithms&lt;/h2&gt;
+
+&lt;h3 id=&#34;scheduling-criteria&#34;&gt;Scheduling Criteria&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CPU utilization theoretically: $0\% ~ 100\%$, real systems : $40\% ~ 90\%$&lt;/li&gt;
+&lt;li&gt;Throughput: number of completed processes per time unit&lt;/li&gt;
+&lt;li&gt;Turnaround time (submission ~ completion)&lt;/li&gt;
+&lt;li&gt;Waiting time (total waiting time in the ready queue)&lt;/li&gt;
+&lt;li&gt;Response time (submission ~ the first response is produced (第一个CPU burst(执行)的时间))&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;algorithms&#34;&gt;Algorithms&lt;/h3&gt;
+
+&lt;h4 id=&#34;first-come-first-served-fcfs-scheduling&#34;&gt;First-Come, First-served (FCFS) scheduling&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Process (Burst Time) in arriving order: P1(24), P2(3), P3(3)&lt;/li&gt;
+&lt;li&gt;Gantt chart &lt;img src=&#34;https://i.loli.net/2019/03/17/5c8e43e08ae78.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Waiting time P1 = 0, P2 =24, P3 =27&lt;/li&gt;
+&lt;li&gt;Average waiting time (AWT) (0+24+27)/3 = 17&lt;/li&gt;
+&lt;li&gt;Convoy effect: short process behind a long process&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;shortest-job-first-sjf-scheduling&#34;&gt;Shortest-Job-First (SJF) scheduling&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Associate with each process the length of its next CPU burst&lt;/li&gt;
+&lt;li&gt;A process with shortest burst length  gets the CPU first&lt;/li&gt;
+&lt;li&gt;SJF provides the minimum average waiting time (optimal)&lt;/li&gt;
+&lt;li&gt;Two schemes
+
+&lt;ul&gt;
+&lt;li&gt;Non-preemptive &amp;ndash; once CPU given to a process, it cannot be preempted until its completion&lt;/li&gt;
+&lt;li&gt;Preemptive &amp;ndash; if a new process arrives with shorter burst length, preemption happens&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Non-preemptive SJF example&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Process&lt;/th&gt;
+&lt;th&gt;Arrival Time&lt;/th&gt;
+&lt;th&gt;Burst Time&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;P1&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;P2&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;P3&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;p4&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/18/5c8ef25a8626f.png&#34; width=&#34;400px&#34;/&gt;
+- AWT = [(7-0-7) + (12 - 2 -3) + (8 -4-1) + (16-5-4)] /4 = 4
+  - Response Time: p1 =0, p2 = 6, p3=3, p4 = 7
+- Preemptive SJF example
+   &lt;img src=&#34;https://i.loli.net/2019/03/18/5c8ef3f119e66.png&#34; width=&#34;400px&#34;/&gt;
+   - AWT = 3
+   - Response time P1 = 0, P2 = 0, P3 = 0, P4 = 2
+&lt;div class=&#34;note warning&#34;&gt;&lt;p&gt;SJF difficulty: no way to know length of the next CPU burst&lt;/p&gt;&lt;/div&gt;
+- Approximate SJF: the next burst can be predicted as an exponentail average of the measured length of previous CPU bursts (set $\alpha = &lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;2&lt;/sub&gt;$)
+  $$\tau_{n+1} = \alpha t_n + (1-\alpha) \tau_n = \frac12 t&lt;em&gt;n + \frac14 t&lt;/em&gt;{n&lt;em&gt;1} + \frac18 t&lt;/em&gt;{n-2}​$$
+&lt;img src=&#34;https://i.loli.net/2019/03/18/5c8ef586096a8.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;priority-scheduling&#34;&gt;Priority Scheduling&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A priority number is associated with each process&lt;/li&gt;
+&lt;li&gt;The CPU is allocated to the highest priority process&lt;/li&gt;
+&lt;li&gt;SJF is a priority scheduling where priority is the predicted next CPU burst time&lt;/li&gt;
+&lt;li&gt;Problem: Starvation (low priority process never execute)&lt;/li&gt;
+&lt;li&gt;Solution: &lt;strong&gt;aging&lt;/strong&gt;(as time progresses increase the priority of process)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;round-robin-rr-scheduling&#34;&gt;Round-Robin(RR) Scheduling&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Each process gets a small unit of CPU time(time quantum)&lt;/li&gt;
+&lt;li&gt;After TQ elapsed, process is preempted and added to the end of the ready queue&lt;/li&gt;
+&lt;li&gt;TQ large $\rightarrow$ FIFO&lt;/li&gt;
+&lt;li&gt;TQ small $\rightarrow$ (context switch) overhead increases&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;multilevel-queue-scheduling&#34;&gt;Multilevel Queue Scheduling&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ready queue is partitioned ino separate queues&lt;/li&gt;
+&lt;li&gt;Each queue has its own scheduling algortihm&lt;/li&gt;
+&lt;li&gt;Scheduling must be done between queues
+
+&lt;ul&gt;
+&lt;li&gt;Fixed priority scheduling: prossibility of starvation
+&lt;img src=&#34;https://i.loli.net/2019/03/18/5c8efd2999070.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;mutillevel-feedback-queue-schedule&#34;&gt;Mutillevel Feedback Queue Schedule&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A process can move between the various queues; aging can be implemented&lt;/li&gt;
+&lt;li&gt;Idea:  separate processes according to the characteristic of their CPU burst
+
+&lt;ul&gt;
+&lt;li&gt;I/O-bound and interactive processes in higher priority queue $\rightarrow$ short CPU burst&lt;/li&gt;
+&lt;li&gt;CPU-bound processes in lower priority queue long CPU burst
+&lt;img src=&#34;https://i.loli.net/2019/03/18/5c8efe2739cf9.png&#34; width=&#34;350px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;multilevel feedback queue scheduler is defined by the following parameters:
+
+&lt;ul&gt;
+&lt;li&gt;Number of queues&lt;/li&gt;
+&lt;li&gt;Scheduling algorithm for each queue&lt;/li&gt;
+&lt;li&gt;Method used to determin when to upgrade/demote a process&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;evaluation-methods&#34;&gt;Evaluation methods&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Deterministic Modeling — takes a particular predetermined workload and defines the performance of each algorithm for the workload&lt;/li&gt;
+&lt;li&gt;Queueing Model — mathematical analysis&lt;/li&gt;
+&lt;li&gt;Simulation — random-number generator or trace tapes for workload generation&lt;/li&gt;
+&lt;li&gt;Implementation — the only completely accurate way for algorithm evaluation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;mutli-processor-scheduling-multi-core-processor-scheduling-real-time-scheduling&#34;&gt;Mutli-Processor Scheduling &amp;amp; Multi-Core Processor Scheduling &amp;amp; Real-Time Scheduling&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Asymmetric multiprocessing
+
+&lt;ul&gt;
+&lt;li&gt;All system activities are handled by a processor (alleviationg the need for data sharing)&lt;/li&gt;
+&lt;li&gt;the other only execute user code (allocated by the master)&lt;/li&gt;
+&lt;li&gt;far simple than SMP&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Symmetric multiprocesiing (SMP):
+
+&lt;ul&gt;
+&lt;li&gt;each processor is self-scheduling&lt;/li&gt;
+&lt;li&gt;all processor in common ready queue, or each has its own private queue of ready processes&lt;/li&gt;
+&lt;li&gt;need synchronization mechanism&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Processor affinity
+A process has an affinity for the processor on which it is currently running
+
+&lt;ul&gt;
+&lt;li&gt;A process populates its recent used data in cache memory of its running processor&lt;/li&gt;
+&lt;li&gt;cache invalidation and repopulation has high cost&lt;/li&gt;
+&lt;li&gt;Soft affinity: possible to migrate between processors&lt;/li&gt;
+&lt;li&gt;hard affinity: not to migrate to other processor&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;NUMA (non-uniform memory access):
+
+&lt;ul&gt;
+&lt;li&gt;Occurs in systems containing combines CPU and memory boards&lt;/li&gt;
+&lt;li&gt;CPU scheduler and memory-replacement works together&lt;/li&gt;
+&lt;li&gt;A process (assigned affinity to a CPU) can be allocated memory on the board where that CPU resides
+&lt;img src=&#34;https://i.loli.net/2019/03/18/5c8f03b791a45.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Load-balancing
+
+&lt;ul&gt;
+&lt;li&gt;Keep the workload evently distributed across all processors, only necessary on systems where each processor has its own private queue of eligible processes to execute&lt;/li&gt;
+&lt;li&gt;Push migration : move(push) processes from overloaded to idle or less-busy processor&lt;/li&gt;
+&lt;li&gt;Pull migration: idle processors pulls a waiting task from a busy processor&lt;/li&gt;
+&lt;li&gt;Often implemented in parallel&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;multi-core-processor-scheduling&#34;&gt;Multi-core Processor Scheduling&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Faster and consumer less power&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;memory stall&lt;/strong&gt;: When access memory, it spends a significant amount of time waiting for the data become available. (e.g. cache miss)&lt;/li&gt;
+&lt;li&gt;Multi-threaded multi-core systems
+
+&lt;ul&gt;
+&lt;li&gt;Two (or more) hardware threads are assigned to each core (Intel Hyper-threading)&lt;/li&gt;
+&lt;li&gt;Takes advantage of memory stall to make progress on another thread while memory retrieve happens
+&lt;img src=&#34;https://i.loli.net/2019/03/18/5c8f051f97e4d.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Two ways to multithread a processor:
+
+&lt;ul&gt;
+&lt;li&gt;coarse-grained: switch to another thread when a memory stall occurs. The cost is high as the instruction pipeline must be flushed&lt;/li&gt;
+&lt;li&gt;fine-grained(interleaved): switch between threads at the boundary of an instruction cycle. The architecture design includes logic for thread switching &amp;ndash; cost is low&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Scheduling for Multi-threaded multi-core systems
+
+&lt;ul&gt;
+&lt;li&gt;1st level: Choose which software thread to run on each hardware thread(logical processor)&lt;/li&gt;
+&lt;li&gt;2nd level: How each core decides which hardware thread to run&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;real-time-cpu-scheduling&#34;&gt;Real-Time CPU Scheduling&lt;/h3&gt;
+
+&lt;p&gt;Real-time does not mean speed, but keeping deadlines&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Soft real-time requirements, missing the deadline is unwanted , but is not immediately critical (multimedia streaming)&lt;/li&gt;
+&lt;li&gt;Hard real-time requirements, Missing the deadline results in a fundamental failure (nuclear power plant controller)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;read-time-scheduling-algorithms&#34;&gt;Read-Time Scheduling Algorithms&lt;/h3&gt;
+
+&lt;p&gt;Evaluation: Ready, Execution, Deadline&lt;/p&gt;
+
+&lt;h4 id=&#34;rate-monotoinc-rm-algorithm&#34;&gt;Rate-Monotoinc (RM) algorithm&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;short period, higher priority (fixed-priority RTS scheduling algorithm)&lt;/li&gt;
+&lt;li&gt;Ex: T1 = (4,1) (red), T2 = (5,2) (orange), T3 = (20,5)(green) (Period, Execution)&lt;/li&gt;
+&lt;li&gt;priority: T_1 &amp;gt; T_2 &amp;gt; T_3
+&lt;img src=&#34;https://i.loli.net/2019/03/18/5c8f086daa22a.png&#34; width=&#34;450px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;earliest-deadline-first-edf-algorithm&#34;&gt;Earliest-Deadline-First(EDF) algorithm&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Earlier deadline, higher priority (dynamic priority algorithm)&lt;/li&gt;
+&lt;li&gt;Ex: T1 = (2, 0.9), T2 = (5, 2.3)
+&lt;img src=&#34;https://i.loli.net/2019/03/18/5c8f09455c102.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;operating-system-examples&#34;&gt;Operating System Examples&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Solaris Scheduler&lt;/li&gt;
+&lt;li&gt;Windows XP Scheduler&lt;/li&gt;
+&lt;li&gt;Linux Scheduler&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Process Synchronization</title>
+      <link>/courses/operating_system/process_synchronization/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/operating_system/process_synchronization/</guid>
+      <description>
+
+&lt;h2 id=&#34;background&#34;&gt;Background&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Concurrent access to shared data may result in data inconsistency&lt;/li&gt;
+&lt;li&gt;Maintaining data consistency requires mechanism to ensure the orderly execution of cooperating processes&lt;/li&gt;
+&lt;li&gt;Consumer &amp;amp; Producer Problem&lt;/li&gt;
+&lt;li&gt;Race condition: the situation where several processes access and manipulate shared data concurrenlty. The final value of the shared data depends upon which process finishes last, commonly described as &lt;strong&gt;critical sectio&lt;/strong&gt;n problem&lt;/li&gt;
+&lt;li&gt;To prevent race condition, concurrent processes must be synchronized, on a single-process machine, we could disable interrupt or use non-preemptive CPU scheduling&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;crtical-section&#34;&gt;Crtical Section&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Purpose: a protocal for processes to cooperate&lt;/li&gt;
+&lt;li&gt;Probelm description:
+
+&lt;ul&gt;
+&lt;li&gt;N process are competing use some shared data&lt;/li&gt;
+&lt;li&gt;Each process has a code segment, called critical selection, in which the shared data is accessed&lt;/li&gt;
+&lt;li&gt;Ensure that when one process is executing in its critical section, no other process is allowed to execute in its critical selection  $\rightarrow$ &lt;strong&gt;mutually exclusive&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Critical Section Requirements
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Mutual Exclusion:&lt;/strong&gt; if process P in executing in its CS, no other processes can be executing in their CS&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Progress&lt;/strong&gt;: if no process is executing in its CS and there exist some processes that wish to enter their CS, these processes cannot be postponed indefinitely&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bounded Waiting&lt;/strong&gt;: A bound must exist on the number of times that other processes are allowed to enter their CS after a process has made a request to enter its CS&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;solution&#34;&gt;Solution&lt;/h2&gt;
+
+&lt;h3 id=&#34;algorithm-for-two-processes&#34;&gt;Algorithm for two Processes&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;only 2 processes, $P_0$ and $P_1$&lt;/li&gt;
+&lt;li&gt;Shared variables
+
+&lt;ul&gt;
+&lt;li&gt;int turn; // initially turn = 0&lt;/li&gt;
+&lt;li&gt;turn = i $\rightarrow$ $P_i$ can enter its critical section
+&lt;img src=&#34;https://i.loli.net/2019/03/18/5c8f267ace3ce.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Mutual exclustion (yes); Progress (No); Bounded-Wait(Yes)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;peterson-s-solution-for-two-processes&#34;&gt;Peterson&amp;rsquo;s solution for Two processes&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;shared variables
+
+&lt;ul&gt;
+&lt;li&gt;int turn, initially turn =0&lt;/li&gt;
+&lt;li&gt;turn = i $\rightarrow$ $P_i$ can enter its critical section&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;boolean flag[2]&lt;/code&gt; // initially flag[0] = flag[1] = false&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flag[I] = true&lt;/code&gt; $\rightarrow$ $P_i$ ready to enter its critical section&lt;/li&gt;
+&lt;li&gt;Mutual Selection, progress, bounded waiting proof&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Example&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;do {
+  flag[i] = TRUE; // Pi 是否想要进去
+  turn = j; // 先把key交给对方
+  while (flag[j] &amp;amp;&amp;amp; turn == j);
+  // critical section
+  flag[i] = FALSE;
+  remainder section
+} while(1);
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bakery-algorithm-n-processes&#34;&gt;Bakery Algorithm (n processes)&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Before enter its CS, each process receives a number&lt;/li&gt;
+&lt;li&gt;Holder of the smallest number enters CS&lt;/li&gt;
+&lt;li&gt;The numbering scheme always generates number in non-decreasing order; i.e. 1,2,3,3,4,5,5,5&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;if processes $P_i$ and $P_j$ receive the same numbe, if $i&amp;lt;j$ then $P_i$ is served first
+Bounded-waiting because processes enter CS on a First-come, First Served basis&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;// process i:
+do {
+  choosing[i] = TRUE;
+  num[i] = max(num[0], num[1], ..., num[n-1]) + 1;
+  choosing[i] = FALSE;
+  for(j =0; j&amp;lt;n; j++){
+    while(choosing[j]); // cannot compare when num is being modified
+    while((num[j]!=0) &amp;amp;&amp;amp; ((num[j], j)) &amp;lt; (num[i],i))); // FCFS
+  }
+  // critical section
+  num[i] = 0;
+  // reminder section
+}while(1);
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;pthread-lock-mutex-routines&#34;&gt;Pthread Lock/Mutex Routines&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To use mutex, it must be declared as type &lt;code&gt;pthread_mutex_t&lt;/code&gt; and initialized with &lt;code&gt;pthread()_mutex_init()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A mutex is destoryed with &lt;code&gt;pthread_mutex_destory()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A critical selection can then be protected using &lt;code&gt;pthread_mutex_lock()&lt;/code&gt; and &lt;code&gt;pthread_mutex_unlock()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;condition-variables-cv&#34;&gt;Condition Variables (CV)&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CV represent some condition that a thread can:
+
+&lt;ul&gt;
+&lt;li&gt;Wait on, until the condition occurs; or&lt;/li&gt;
+&lt;li&gt;Notify other waiting threads that the condition has occured&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Three operations on condition variables:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;wait()&lt;/code&gt; — Block until another thread calls &lt;code&gt;signal()&lt;/code&gt; or &lt;code&gt;broadcast()&lt;/code&gt; on the CV&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;signal()&lt;/code&gt; — Wake up one thread waiting on the CV&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;broadcast()&lt;/code&gt; — Wake up all threads waiting on the CV&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;All condition variable operation must be performed while a mutex is locked&lt;/li&gt;
+&lt;li&gt;In Pthread, CV type is pthread_cond_t
+
+&lt;ul&gt;
+&lt;li&gt;Use &lt;code&gt;pthread_cond_init()&lt;/code&gt; to initalize&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pthread_cond_wait(&amp;amp;theCV, &amp;amp;somelock)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pthread_cond_signal(&amp;amp;theCV)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pthread_cond_broadcast(&amp;amp;theCV)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Example:
+
+&lt;ul&gt;
+&lt;li&gt;A thread is designed to take action when x = 0&lt;/li&gt;
+&lt;li&gt;Another thread is responsible for decrementing the counter&lt;/li&gt;
+&lt;li&gt;All condition variable operation must be performed while a mutex is locked
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c94451f9362f.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Procedure
+
+&lt;ul&gt;
+&lt;li&gt;left thread&lt;/li&gt;
+&lt;li&gt;Lock mutex&lt;/li&gt;
+&lt;li&gt;Wait()
+
+&lt;ol&gt;
+&lt;li&gt;Put the thread into sleep and releases the lock&lt;/li&gt;
+&lt;li&gt;Waked up, but the thread is locked&lt;/li&gt;
+&lt;li&gt;Re-acquire lock and resume execution&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Release the lock&lt;/li&gt;
+&lt;li&gt;right thread
+
+&lt;ol&gt;
+&lt;li&gt;Lock mutex&lt;/li&gt;
+&lt;li&gt;Signal()&lt;/li&gt;
+&lt;li&gt;Release the lock()&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;threadpool-implementation&#34;&gt;ThreadPool Implementation&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;  struct threadpool_t {
+    pthread_mutex_t lock;
+    pthread_cond_t notify;
+    pthread_t *treahd;
+    threadpool_task_t *queue;
+    int thread_count;
+    int queue_size;
+    int head;
+    int tail;
+    int count;
+    int shutdown;
+    int started;
+  };
+
+  typedef struct {
+    void (*function) (void*);
+    void *argument;
+  } threadpool_task_t;
+
+// allocate thread and task queue
+pool-&amp;gt;threads = (pthread_t *) malloc(sizeof(pthread_t) * thread_count);
+pool-&amp;gt;queue = (threadpool_task_t *) malloc(sizeof(threadpool_task_t) * queue_size);
+
+// threadpool implementation
+static void *threadpool_thread(void *threadpool)
+{
+  threadpool_t *pool = (threadpool_t *) threadpool;
+  threadpool_task_t task;
+
+  for(;;){
+    // lock must be taken to wait on conditional varaibl
+    pthread_mutex_lock(&amp;amp;(pool-&amp;gt;lock));
+    while((pool-&amp;gt;count=0) &amp;amp;&amp;amp; (!pool-&amp;gt;shutdown)) {
+      pthread_cond_wait(&amp;amp;(pool-&amp;gt;notify), &amp;amp;(pool-&amp;gt;lock));
+      task.function = pool-&amp;gt;queue[pool-&amp;gt;head].function;
+      task.argument = poll-&amp;gt;queue[pool-&amp;gt;head].argument;
+      pool-&amp;gt;head +=1;
+      pool-&amp;gt;head = (pool-&amp;gt;head == poll-&amp;gt;queue_size) ? 0 : pool-&amp;gt;head;
+      pool-&amp;gt;count -=1;
+
+      pthread_mutex_unlock(&amp;amp;(pool-&amp;gt;lock));
+      (*(task.function))(task.argument);
+    }
+  }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;hardware-support&#34;&gt;Hardware Support&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The CS problem occurs because the modification of a shared variable may be interrupted&lt;/li&gt;
+&lt;li&gt;If disable interrupts when in CS,  not feasible in multiprocessor machine, clock interrupts cannot fire in any machine&lt;/li&gt;
+&lt;li&gt;HW support solution: atomic instruction
+
+&lt;ul&gt;
+&lt;li&gt;atomic: as one uninterruptible unit&lt;/li&gt;
+&lt;li&gt;Examples: TestAndSet(var), Swap(a, b)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;atomic-testandset&#34;&gt;Atomic TestAndSet()&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;  booelean TestAndSet(bool &amp;amp;lock) {
+    bool value = lock;
+    lock = TRUE; // return the value of &amp;quot;lock&amp;quot; and set &amp;quot;lock&amp;quot; to ture
+    return value;
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/18/5c8f386e68d10.png&#34; width=&#34;400px&#34;/&gt;
+ Mutual Exclusion (Yes), Progress(Yes), Bounded-Wait(No)&lt;/p&gt;
+
+&lt;h4 id=&#34;atomic-swap&#34;&gt;Atomic Swap()&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Idea: enter CS if &lt;code&gt;lock=false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Shared data: boolean lock; //initially &lt;code&gt;lock=FALSE&lt;/code&gt;
+&lt;img src=&#34;https://i.loli.net/2019/03/18/5c8f398d3e9f6.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;semaphores&#34;&gt;Semaphores&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A tool to generalize the synchronization problem (easier to solve, but no guarantee for correctness)&lt;/li&gt;
+&lt;li&gt;A record of how many units of a particular resource are available
+
+&lt;ul&gt;
+&lt;li&gt;if #record = 1 $\rightarrow$ binary semaphore, mutex lock&lt;/li&gt;
+&lt;li&gt;if #record &amp;gt; 1 $\rightarrow$ counting semaphore&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Accessed only through 2 &lt;strong&gt;atomic&lt;/strong&gt; ops: &lt;code&gt;wait&lt;/code&gt; &amp;amp; &lt;code&gt;signal&lt;/code&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Spinlock&lt;/strong&gt; implementation (浪费CPU资源)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;wait(S) {
+  while (S&amp;lt;=0);
+  S--;
+}
+signal(S){
+  S++;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;POSIX Semaphore (OS support)
+Semaphore is part of POSIX standard but it is not belong to Pthread, it can be used with or without thread&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;POSIX Semaphore routines&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sem_init(sem_t *sem, int pshared, unsigned int value)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sem_wait(sem_t *sem)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sem_post(sem_t *sem)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sem_getvalue(sem_t *sem, int *valptr)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sem_destory(sem_t *sem)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Example&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;#include&amp;lt;semaphore.h&amp;gt;
+sem_t sem;
+sem_init(&amp;amp;sem);
+sem_wait(&amp;amp;sem);
+// critical section
+sem_post(&amp;amp;sem);
+sem_destory(&amp;amp;sem);
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;n-process-critical-section-problem&#34;&gt;n-Process Critical Section Problem&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;shared data: semaphore mutex; // initially mutex = 1&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Process Pi&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;do {
+wait(mutex); // pthread_mutex_lock(&amp;amp;mutex)
+  critical section
+signal(mutex); // pthread_mutex_unlock(&amp;amp;mutex)
+  remainder section
+} while(1);
+Progress? Yes
+Bounded waiting? Depends on the implementation of `wait()`
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;non-busy-waiting-implementation&#34;&gt;Non-busy waiting Implementation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Semaphore is data struct with a queue, may be any queuing strategy&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;typedef struct {
+  int value; // init to 0
+  struct process *L // queue
+} semaphore
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;wait() and signal()&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;use system calls: &lt;code&gt;block()&lt;/code&gt; and &lt;code&gt;wakeup()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;must be executed atomically&lt;/li&gt;
+&lt;li&gt;Ensure atomic wait &amp;amp; signal ops?&lt;/li&gt;
+&lt;li&gt;Single-process: disable interrupts&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Multi-processor: 1. HW support 2. SW solution(Peterson&amp;rsquo;s solution, Bakery algorithm)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;void wait(semaphore S)
+{
+S.value--;
+if(S.value &amp;lt; 0){
+  add this process to S.L
+  sleep();
+}
+}
+
+void signal(semaphore S) {
+S.value++;
+if(S.value&amp;lt;=0){
+  remove a process P from S.L;
+  wakeup(P);
+}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;semaphore-with-critical-section&#34;&gt;Semaphore with Critical Section&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/22/5c9460c709cdd.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;classical-synchronization-problems&#34;&gt;Classical Synchronization Problems&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Purpose: Used for testing newly proposed synchronization scheme&lt;/li&gt;
+&lt;li&gt;Bounded-Buffer (Producer-Consumer)&lt;/li&gt;
+&lt;li&gt;Reader-Writer Problem&lt;/li&gt;
+&lt;li&gt;Dining-Philosopher Problem&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bounded-buffer-problem&#34;&gt;Bounded-Buffer Problem&lt;/h3&gt;
+
+&lt;p&gt;A poof of n buffers, each capable of holding one item&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Producer:
+
+&lt;ul&gt;
+&lt;li&gt;Grad an empty buffer&lt;/li&gt;
+&lt;li&gt;place an item into the buffer&lt;/li&gt;
+&lt;li&gt;waits if no empty buffer is available&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Consumer
+
+&lt;ul&gt;
+&lt;li&gt;grab a buffer and retracts the item&lt;/li&gt;
+&lt;li&gt;place the buffer back to the free poll&lt;/li&gt;
+&lt;li&gt;waits if all buffers are empty&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;readers-writers-problem&#34;&gt;Readers-Writers Problem&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A set of shared data objects&lt;/li&gt;
+&lt;li&gt;A group of processes (reader processes, writer processes, a writer process has exclusive access to a shared object)&lt;/li&gt;
+&lt;li&gt;Different variations involving priority
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;first RW problem&lt;/strong&gt;: no reader will be kept waiting unless a writer is updating a shared object (writer会starvation)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;second RW problem&lt;/strong&gt;: once a writer is ready, it performs the updates as soon as the shared object is released (writer has higher priority than reader; once a writer is ready, no new reader may start reading)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;First Reader-Writer Algorithm&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;// mutual exclustion for write
+semaphore wrt = 1;
+semaphore mutex = 1;
+int readcount = 0;
+
+Writer() {
+while(TRUE) {
+  wait(wrt);
+  // Writer Code
+  signal(wrt);
+}
+}
+
+Reader() {
+while(TRUE) {
+  wait(mutex);
+    readcount++;
+    if(readcount==1) // 之后的 Reader 不需要拿lock
+      wait(wrt);
+  signal(mutex);
+  // Reader Code
+  wait(mutex);
+    readcount--;
+    if(readcount == 0)
+      signal(wrt);
+  signal(mutex);
+}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;dining-philosopher-problem&#34;&gt;Dining-Philosopher Problem&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;5 person sitting on 5 chairs with 5 chopsticks&lt;/li&gt;
+&lt;li&gt;A person is either thinking or eating
+
+&lt;ul&gt;
+&lt;li&gt;thinking: no interaction with the rest 4 persons&lt;/li&gt;
+&lt;li&gt;eating: need 2 chopsticks at hand&lt;/li&gt;
+&lt;li&gt;a person picks up 1 chopsticks at a time&lt;/li&gt;
+&lt;li&gt;done eating: put down both chopsticks&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;deadlock problem
+
+&lt;ul&gt;
+&lt;li&gt;one chopstick as one semaphore&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;starvation problem&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;monitors-a-high-level-language-construct&#34;&gt;Monitors (A high-level language construct)&lt;/h2&gt;
+
+&lt;h3 id=&#34;motivation&#34;&gt;Motivation&lt;/h3&gt;
+
+&lt;p&gt;Although semaphores provide a convenient and effective synchronization mechanism, its correctness is depending on the programmer&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;All processes access a shared data object must execute &lt;code&gt;wait()&lt;/code&gt; and &lt;code&gt;signal()&lt;/code&gt; in the right order and right place&lt;/li&gt;
+&lt;li&gt;This may not be true because honest programming error or uncooperative programmer&lt;/li&gt;
+&lt;li&gt;The representation of a monitor type consists of declarations of variables whose values define the state of an instance of the type and the functions(procedures) that implement operations on the type&lt;/li&gt;
+&lt;li&gt;The monitor type is similar to a class in O.O. language
+
+&lt;ul&gt;
+&lt;li&gt;A procedure within a monitor can access only local variables and the formal parameters&lt;/li&gt;
+&lt;li&gt;The local variables of a monitor can be used only by the local procedures&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;The monitor ensures that only one process at a time can be &lt;strong&gt;active&lt;/strong&gt; within the monitor
+&lt;div class=&#34;note info&#34;&gt;&lt;p&gt; Similar idea is incorporated to many programming language (concurrent pascal, C#, and Java) &lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;monitor-introduction&#34;&gt;Monitor introduction&lt;/h3&gt;
+
+&lt;p&gt;High-level synchronization construct that allows the safe sharing of an abstract data type among concurrent processes
+&lt;img src=&#34;https://i.loli.net/2019/03/19/5c90db44d3f69.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Monitor Condition Variables
+
+&lt;ul&gt;
+&lt;li&gt;To allow a process to wait within the monitor, a condition variable must be declared as &lt;code&gt;condtion x, y;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Condition variable can only be used with the operations &lt;code&gt;wait()&lt;/code&gt; and &lt;code&gt;signal()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;wait()&lt;/code&gt; means that the process invoking this operation is suspended until another process invokes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;signal()&lt;/code&gt; resumes exactly one suspended process. If no process is suspended, the signal operation &lt;strong&gt;has no effect&lt;/strong&gt; (in contrast, signal always change the state of semaphore)
+&lt;img src=&#34;https://i.loli.net/2019/03/19/5c90dd71b3c01.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;dining-philosophers-example&#34;&gt;Dining-Philosophers Example&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;monitor dp {
+  enum {thinking, hungry, eating} state[5]; //current state
+  condition self[5]; // delay eating if can&#39;t obtain chopsticks
+  void pickup(int i) // pickup chopsticks
+  void putdown (int i) // putdown chopsticks
+  void test (int i) // try to eat
+  void init(){
+    for (int i =0; i&amp;lt;5; i++)
+      state[i] = thinking;
+  }
+}
+
+void pickup(int i) {
+  state[i] = hungry;
+  test(i);
+  if (state[i] != eating)
+    self[i].wait(); // wait to eat
+}
+
+void putdown(int i) {
+  state[i] = thinking;
+  // check if neighbors are waiting to eat
+  test((i+4) % 5);
+  test((i+1) % 5);
+}
+
+void test(int i) {
+  if ((state[(i+4) % 5] != eating) &amp;amp;&amp;amp; (state[(i+1) % 5] != eating) &amp;amp;&amp;amp; (state[i] == hungry)) {
+    state[i] = eating;
+    self[i].signal(); // if Pi is suspended, resume it, if Pi is not suspended, no effect
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;synchronized-tools-in-java&#34;&gt;Synchronized Tools in JAVA&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Synchronized Methods(Monitor)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Synchronized method uses the method receiver as a lock&lt;/li&gt;
+&lt;li&gt;Two invocations of synchronized methods cannot interleave on the same object&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;When one thread is executing a synchronized method for a object, all other threads that invoke synchronized methods the same object block until the first thread exist the object&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class SynchronizedCounter {
+    private int c= 0;
+    public synchronized void increment() {c++;}
+    public synchronized void decrement() {c--;}
+    public synchronized int value() {return c;}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Synchronized Statement (Mutex Lock)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Synchronized blocks uses the expression as a lock&lt;/li&gt;
+&lt;li&gt;A synchronized statement can be only be executed once the thread has obtained a lock for the object or the class that has been referred to in the statement&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;useful for improving concurrency with fine-grained&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public void run(){
+synchronized(p1)
+{
+    int i = 10; // statement without locking requirement
+    p1.display(s1);
+}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;atomic-transactions&#34;&gt;Atomic Transactions&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Transactions: a collection of instructions (or instructions) that performs a single logic function&lt;/li&gt;
+&lt;li&gt;Atomic Transactions: Operations happen as a single logical unit of work, in its entirely, or not at all&lt;/li&gt;
+&lt;li&gt;Atomic translation is particular a concern for database system (Strong interest to use DB techniques in OS)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;file-i-o-example&#34;&gt;File I/O example&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Transaction is a series of read and write operations&lt;/li&gt;
+&lt;li&gt;Terminated by commit (transaction successful) or abort (transaction failed) operation&lt;/li&gt;
+&lt;li&gt;Aborted transaction must be rolled back to undo any changes it performed (it is part of )&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;log-based-recovery&#34;&gt;Log-Based Recovery&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Record to stable storage information about all modifications by a transaction&lt;/li&gt;
+&lt;li&gt;Write-ahead logging: Each log record describes single transaction write operation
+
+&lt;ul&gt;
+&lt;li&gt;Transaction time&lt;/li&gt;
+&lt;li&gt;Data item name&lt;/li&gt;
+&lt;li&gt;Old &amp;amp; new values&lt;/li&gt;
+&lt;li&gt;Special Events: &amp;lt;$T_i$, start&amp;gt;, &amp;lt;$T_i$, commmits&amp;gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Log is used to reconstruct the state of the data items modified by the transactions&lt;/li&gt;
+&lt;li&gt;Checkpoints
+
+&lt;ul&gt;
+&lt;li&gt;when faiulre occurs, must consult the log to determine which transactions must be re-done, searching process is time consuming and redone may not be necessary for all transactions&lt;/li&gt;
+&lt;li&gt;use checkpoints to reduce the above overhead, output all log records, modified data, log record &lt;checkpoint&gt; to stable storage&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>DeadLocks</title>
+      <link>/courses/operating_system/deadlocks/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/operating_system/deadlocks/</guid>
+      <description>
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A set of blocked process each holding some resources and waiting to acquire a resource held by another process in the set&lt;/li&gt;
+&lt;li&gt;Ex1: 2 processes and 2 tape dirves, each process holds a tape drive, each process requests another tape drive&lt;/li&gt;
+&lt;li&gt;Ex2: 2 processes, and semaphores A &amp;amp; B, P1(hold B, wait A): wait(A), signal(B), P2(hold A, wait B): wait(B), signal(A)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;necessary-conditions&#34;&gt;Necessary Conditions&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Mutual exclustion (only 1 process at a time can use a resource)&lt;/li&gt;
+&lt;li&gt;Hold &amp;amp; Wait: a process holding some resources and is waiting for another resource&lt;/li&gt;
+&lt;li&gt;No preemption: a resource can be only released by a process voluntarily&lt;/li&gt;
+&lt;li&gt;Circular wait: there exist a set {$P_0, P_1, &amp;hellip;, P_n$} of waiting process such that $P_0 \rightarrow P_1 \rightarrow P_2, &amp;hellip; , P_0$&lt;/li&gt;
+&lt;li&gt;All four conditions must hold for possible deadlock
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c9194d343ffc.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;system-model&#34;&gt;System Model&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Resources type $R_1, R_2, &amp;hellip; , R_m$ E.g. CPU, memory pages, I/O devices&lt;/li&gt;
+&lt;li&gt;Each resource type $R_i$ has $W_i$ instances, E.g. a computer has 2 CPUs&lt;/li&gt;
+&lt;li&gt;Each process utilizes a resouce as follows:
+Request $\rightarrow$ use $\rightarrow$ release&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;resource-alocation-graph&#34;&gt;Resource-Alocation Graph&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;3 processes, P1-P3&lt;/li&gt;
+&lt;li&gt;4 resources, R1-R4 (the black dot represent the number of instance)&lt;/li&gt;
+&lt;li&gt;Request edges: P1$\rightarrow$ R1: P1 requests R1&lt;/li&gt;
+&lt;li&gt;Assignment edges: R2$\rightarrow$ P1: one instance of R2 is allocated to P1&lt;/li&gt;
+&lt;li&gt;P1 is hold on an instance of R2 and waiting for an instance of R1
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c9196704420b.png&#34; width=&#34;200px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;if the graph consists a cycle, a deadlock may  exist&lt;/li&gt;
+&lt;li&gt;deadlock
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c919780cc361.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;no deadlock
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c9197d43b55e.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;If graph contains no cycle $\rightarrow$ no deadlock&lt;/li&gt;
+&lt;li&gt;If graph contains a cype:
+
+&lt;ul&gt;
+&lt;li&gt;if one instance per resource type $\rightarrow$ deadlock&lt;/li&gt;
+&lt;li&gt;if multiple instances per resource type $\rightarrow$ possibility of deadlock&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;handing-deadlocks&#34;&gt;Handing Deadlocks&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ensure the system will never a deadlock state
+
+&lt;ul&gt;
+&lt;li&gt;deadlock preventation: ensure that at least one of the 4 necessary conditions cannot hold&lt;/li&gt;
+&lt;li&gt;deadlock avoidance: dynamically examines the resource-allocation state before allocation&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Allow to enter a deadlock state and then recover
+
+&lt;ul&gt;
+&lt;li&gt;deadlock detection&lt;/li&gt;
+&lt;li&gt;dedlock recovery&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Ignore the problem and pretend that deadlocks never occur in the system (used by most operating systems, including UNIX)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;deadlock-prevention&#34;&gt;Deadlock Prevention&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Mutual Exclustion(ME): do not require ME on sharable resources
+
+&lt;ul&gt;
+&lt;li&gt;e.g. there is no needto ensure ME on read-only files&lt;/li&gt;
+&lt;li&gt;Some resources are not shareable, however (e.g. printer)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Hold &amp;amp; Wait:
+
+&lt;ul&gt;
+&lt;li&gt;When a process requests a resource, it does not hold any resource&lt;/li&gt;
+&lt;li&gt;Pre-allocate all resources before executing (resource utilization is low, starvation is possible)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;No preemption
+
+&lt;ul&gt;
+&lt;li&gt;When a process is waiting on a resource, all its holding resources are preempted (e.g. P1 request R1, which is allocated P2, which in turn is waiting on R2, R1 can be preempted and reallocated to P1)&lt;/li&gt;
+&lt;li&gt;Applied to resources whose states can be easily saved and restored later (e.g. CPU registers &amp;amp; memory)&lt;/li&gt;
+&lt;li&gt;It cannot easily be applied to other resources(e.g. printers &amp;amp; tape drives)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Circular wait
+
+&lt;ul&gt;
+&lt;li&gt;impose a total ordering of all resources types&lt;/li&gt;
+&lt;li&gt;A process requests resources in an increasing order&lt;/li&gt;
+&lt;li&gt;Let $R = {R_0, R_1, &amp;hellip; , R_N}$ be the set of resource types&lt;/li&gt;
+&lt;li&gt;When request $R_k$, should release all $R_i$, $i \geq k$&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;avoidance-algortihm&#34;&gt;Avoidance Algortihm&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;safe state: a system is in a safe state if there exists a sequence of allocations to satisfy requests by all processes (this sequence of allocations is called safe sequence)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91a399d222f.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Single instance of resource type (resource-allocation graph (RAG) algorithm based on circle detection)&lt;/li&gt;
+&lt;li&gt;Multiple instance of resource type
+banker&amp;rsquo;s algorithm based on safe sequence detection&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;resource-allocation-graph-rag-algorithm&#34;&gt;Resource-Allocation Graph (RAG) Algorithm&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Request edge&lt;/li&gt;
+&lt;li&gt;Assignment edge&lt;/li&gt;
+&lt;li&gt;Claim  edge: $P_i \rightarrow R_j$, process $P_i$ may request $R_j$ in the future&lt;/li&gt;
+&lt;li&gt;Clain edge converts to request edge (when a resource is requested by process)&lt;/li&gt;
+&lt;li&gt;Assignment edge converts back to claim edge (when a resource is released by a process)&lt;/li&gt;
+&lt;li&gt;Resources must be claimed a priori in the system&lt;/li&gt;
+&lt;li&gt;Grant a request only if no cycle created&lt;/li&gt;
+&lt;li&gt;Check for safety using a &lt;strong&gt;cycle-detection algorithm, $O(n^2)$&lt;/strong&gt;
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c94686f2a7e4.png&#34; width=&#34;250px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;R2 cannot be allocated to P2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;banker-s-algorithm&#34;&gt;Banker&amp;rsquo;s algorithm&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Safe State with Safe Sequnce&lt;/li&gt;
+&lt;li&gt;use for multiple instance of each resource type&lt;/li&gt;
+&lt;li&gt;use a general safety algorithm to pre-determine if any safe sequence exists after allocation&lt;/li&gt;
+&lt;li&gt;only proceed the allocation if safe sequence exists&lt;/li&gt;
+&lt;li&gt;Procedures:
+
+&lt;ol&gt;
+&lt;li&gt;Assume processes need maximum resources&lt;/li&gt;
+&lt;li&gt;Find a process that can be satisfied by free resources&lt;/li&gt;
+&lt;li&gt;Free the resource usage of the process&lt;/li&gt;
+&lt;li&gt;repeat to step 2 until all processes are satisfied&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Example
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91a8e8527a0.png&#34; width=&#34;200px&#34;/&gt;
+Safe sequence: $P_1, P_3, P_4, P_2, P_0$
+
+&lt;ul&gt;
+&lt;li&gt;if Request (P1) = (1,0,2): P1 allocation $\rightarrow$ 3, 0, 2 (Safe sequence: $P_1, P_3, P_4, P_0, P_2$)&lt;/li&gt;
+&lt;li&gt;if request (P4) = (3,3,0): P4 allocation  $\rightarrow$ 3,3,2 (no safe sequence can be found)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;deadlock-detection&#34;&gt;Deadlock Detection&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Single instance of each resource type
+
+&lt;ul&gt;
+&lt;li&gt;convert request/assignment edges into wait-for graph&lt;/li&gt;
+&lt;li&gt;deadlock exists if there is a cycle in the wait-for graph
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91aa599dca0.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Multiple-Instance for each Resource type
+Total instances: A(7), B(2), C(6) (Request 表示已经发生)
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91aae734f68.png&#34; width=&#34;400px&#34;/&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The system is in a safe state $\rightarrow$ &lt;P_0, P_2, P_3, P_1, P_4&gt; (no deadlock)&lt;/li&gt;
+&lt;li&gt;If P2 request = &lt;0, 0, 1&gt; $\rightarrow$ no safe sequence can be found $\rightarrow$ the system is deadlocked&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;deadlock-recovery&#34;&gt;Deadlock Recovery&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;process termination
+
+&lt;ul&gt;
+&lt;li&gt;abort all deadlocked processes&lt;/li&gt;
+&lt;li&gt;abort 1 process at a time until the deadlock cyle is eliminated (which process should we abort first)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Resource preemption
+
+&lt;ul&gt;
+&lt;li&gt;select a victim: which one to preempt&lt;/li&gt;
+&lt;li&gt;rollback: partial rollback or total rollback?&lt;/li&gt;
+&lt;li&gt;starvation: can the same process be preempted always?&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>File System Interface</title>
+      <link>/courses/operating_system/file_system_interface/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/operating_system/file_system_interface/</guid>
+      <description>
+
+&lt;h2 id=&#34;file-concept&#34;&gt;File Concept&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A logical storage unit created by OS (v.s. physical storage unit in disk (sector, track))
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91ae7d9b269.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;file attributes (identifier, Name, type, Location, Size, protection, Last-access time, last-updated time)&lt;/li&gt;
+&lt;li&gt;file operations (creating, reading, writing, repositioning, deleting, truncating)&lt;/li&gt;
+&lt;li&gt;file types: .exe .com .obj .cc .mov (Hint for OS to operate file in a resonable way)&lt;/li&gt;
+&lt;li&gt;Process: open-file table&lt;/li&gt;
+&lt;li&gt;OS: system-wide table (process shared)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;open-file-tables-system-wide-table&#34;&gt;Open-File Tables &amp;amp; System-wide table&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Per-process table
+
+&lt;ul&gt;
+&lt;li&gt;Tracking all files opened by this process&lt;/li&gt;
+&lt;li&gt;Current file pointer for each opened file&lt;/li&gt;
+&lt;li&gt;Access rights and accounting information&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;System-wide table
+
+&lt;ul&gt;
+&lt;li&gt;Each entry in the per-process table points to this table&lt;/li&gt;
+&lt;li&gt;Process-independent information such as disk location, access dates, file size
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91b0ff4221e.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;access-methods&#34;&gt;Access Methods&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Sequential access
+
+&lt;ul&gt;
+&lt;li&gt;Read/write next (block)&lt;/li&gt;
+&lt;li&gt;Reset: repositoning the file pointer to the beginning&lt;/li&gt;
+&lt;li&gt;Skip/rewind n records&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Direct(relative) access
+
+&lt;ul&gt;
+&lt;li&gt;Access an element at an arbitrary positin in a sequence&lt;/li&gt;
+&lt;li&gt;File operation include the block # as parameter&lt;/li&gt;
+&lt;li&gt;Often use random access to refer the access pattern from direct access
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91cb4992681.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Index Access Methods
+
+&lt;ul&gt;
+&lt;li&gt;Index: contains pointers to blocks of a file&lt;/li&gt;
+&lt;li&gt;To find a record in a file (search the index file $\rightarrow$ find the pointer, use the pointer to directly access the record)&lt;/li&gt;
+&lt;li&gt;with a large file $\rightarrow$ index could become too large
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91cbfd09552.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;directory-structure&#34;&gt;Directory Structure&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Partition (formatted or raw)
+
+&lt;ul&gt;
+&lt;li&gt;raw partiton (no file system): UNIX swap space, database&lt;/li&gt;
+&lt;li&gt;Formatted partition with file system is called volume&lt;/li&gt;
+&lt;li&gt;a partition can be a portion of a disk or group of multiple disks (distributed system)&lt;/li&gt;
+&lt;li&gt;some storage devices (e.g.: floopy disk) dose not and cannot have partition&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Directories are used by file system to store the information about the files in the partition
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91cdf01ff41.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Directory Operations (search, create, delete, list, rename, traverse)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;single-level-directory&#34;&gt;Single-Level Directory&lt;/h3&gt;
+
+&lt;p&gt;All files in one directory, filename has to be unique, poor efficiency in locating a file as number of file increases
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91ceedaf6f6.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;two-level-dicectory&#34;&gt;Two-Level Dicectory&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;a separate dir for each user&lt;/li&gt;
+&lt;li&gt;path = user name + file name&lt;/li&gt;
+&lt;li&gt;single-level dir problems still exist per user
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91cf80d477b.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;tree-structured-directory&#34;&gt;Tree-Structured Directory&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Absolute path: starting from the root&lt;/li&gt;
+&lt;li&gt;Relative path: starting from a directory&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;acyclic-graph-directory&#34;&gt;Acyclic-Graph Directory&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;use links to share files or directories (symbolic link &lt;code&gt;ln&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;a file can have multiple absolute paths&lt;/li&gt;
+&lt;li&gt;when dose a file actually get deleted?
+
+&lt;ul&gt;
+&lt;li&gt;deleting the link but not the file&lt;/li&gt;
+&lt;li&gt;deleting the file but leaves the link $\rightarrow$ dangling pointer
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91d075632c0.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;general-graph-directory&#34;&gt;General-Graph Directory&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;May contain cycles
+
+&lt;ul&gt;
+&lt;li&gt;Reference count dose not work any more (e.g. self-reference file)&lt;/li&gt;
+&lt;li&gt;How can we deal with cycles? (Garbage collection)&lt;/li&gt;
+&lt;li&gt;First pass traverses the entire graph and marks accessible files or directories&lt;/li&gt;
+&lt;li&gt;second pass collect and free everything that is un-marked&lt;/li&gt;
+&lt;li&gt;poor performance on millions of files&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Use cycle-detection algorithm when a link is created&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;file-system-mounting-file-sharing&#34;&gt;File-System Mounting &amp;amp; File sharing&lt;/h2&gt;
+
+&lt;h3 id=&#34;file-system-mounting&#34;&gt;File-System Mounting&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A file system must be mounted before it can be accessed&lt;/li&gt;
+&lt;li&gt;Mount point: the root path that a FS will be mounted to&lt;/li&gt;
+&lt;li&gt;Mount timing: boot time, automatically at run-time, manually at run time
+&lt;div class=&#34;note info&#34;&gt;&lt;p&gt; mount -t type deivce dir (mount -t ext2 /dev/sda0 /mnt) &lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;file-sharing-on-multiple-users&#34;&gt;File sharing On Multiple Users&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Each user: (userID, groupID)
+
+&lt;ul&gt;
+&lt;li&gt;ID is associated with every ops/process/thread/ the user issues&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;each file has 3 sets of attributes (owner, group, others)&lt;/li&gt;
+&lt;li&gt;Owner attributes describe the privileges for the owner of the file
+
+&lt;ul&gt;
+&lt;li&gt;same for group/others attributes&lt;/li&gt;
+&lt;li&gt;group/others attributes are set by owner or root&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;access-control-list&#34;&gt;Access-Control List&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We can create an access-control list (ACL) for each user
+
+&lt;ul&gt;
+&lt;li&gt;check requested file access against ACL&lt;/li&gt;
+&lt;li&gt;problem: unlimited # of users&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;3 classes of users $\rightarrow$ 3 ACL (RWX) for each file
+
+&lt;ul&gt;
+&lt;li&gt;owner (e.g 7 = RWX = 111)&lt;/li&gt;
+&lt;li&gt;group (e.g. 6 = RWX = 110)&lt;/li&gt;
+&lt;li&gt;others (e.g. 4 = RWX = 100)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;file-protection&#34;&gt;File Protection&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;File owner/creator should be able to control (what can be done, by whom, access control list(ACL))&lt;/li&gt;
+&lt;li&gt;file should be kept from (
+
+&lt;ul&gt;
+&lt;li&gt;physical damage (reliability): RAID&lt;/li&gt;
+&lt;li&gt;improper access (protection): i.e. password&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>File System Implementation</title>
+      <link>/courses/operating_system/file_system_implementatin/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/operating_system/file_system_implementatin/</guid>
+      <description>
+
+&lt;h2 id=&#34;file-system-structure&#34;&gt;File-System Structure&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I/O transfer between memory and disk are performed in units of blocks
+
+&lt;ul&gt;
+&lt;li&gt;one block is one or more sectors&lt;/li&gt;
+&lt;li&gt;one sector is usually 512 bytes&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;One OS can support more than 1 FS types (NTFS, FAT32)&lt;/li&gt;
+&lt;li&gt;Two design problems in FS
+
+&lt;ul&gt;
+&lt;li&gt;interface to user programs&lt;/li&gt;
+&lt;li&gt;interface to physical storage (disk)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Layered File System
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91d9f708bcb.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;data-structure&#34;&gt;Data Structure&lt;/h2&gt;
+
+&lt;h3 id=&#34;on-disk-structure&#34;&gt;On-Disk Structure&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Boot control block (&lt;strong&gt;per partition&lt;/strong&gt;): information needed to boot an OS from that partition
+
+&lt;ul&gt;
+&lt;li&gt;typical the first block of the partition (empty means no OS)&lt;/li&gt;
+&lt;li&gt;UFS (Unix File Sys): boot block, NTFS: partition boot sector&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Partition Control Block (&lt;strong&gt;per partion&lt;/strong&gt;): partion details
+
+&lt;ul&gt;
+&lt;li&gt;details: # of blocks, block size, free-block-size, free FCB pointers&lt;/li&gt;
+&lt;li&gt;USF: superblock, NTFS: Master File Table&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;File control block (&lt;strong&gt;per file&lt;/strong&gt;): details regrading a file
+
+&lt;ul&gt;
+&lt;li&gt;details: permission, size, location of data blocks&lt;/li&gt;
+&lt;li&gt;UFS: inode, NTFS: stored in MFT(relational database)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Directory structure (&lt;strong&gt;pef file system&lt;/strong&gt;): organize files
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91e69eb521e.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;in-memory-structure&#34;&gt;In-Memory Structure&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;in-memory partition table: information about each &lt;strong&gt;mounted parition&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;in-memory directory structure: information of &lt;strong&gt;recently accessed directories&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;system-wide open-file table: contain a copy of each &lt;strong&gt;opened file&amp;rsquo;s FCB (file control block)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;per-process open-file table: &lt;strong&gt;pointer (file handler / descriptor)&lt;/strong&gt; to the corresponding entry in the above table&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;example&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91e9048c086.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91e976881de.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;create
+
+&lt;ol&gt;
+&lt;li&gt;OS allocates a new FCB&lt;/li&gt;
+&lt;li&gt;update directory structure
+
+&lt;ol&gt;
+&lt;li&gt;OS reads in the corresponding directory&lt;/li&gt;
+&lt;li&gt;Updates the dir structure with the new file name and the FCB&lt;/li&gt;
+&lt;li&gt;(After file being closed), OS writes back the directory structure back to disk&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;the file appears in user&amp;rsquo;s dir command&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;virtual-file-system&#34;&gt;Virtual File System&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;VFS provides an object-oriented way of implementing file systems&lt;/li&gt;
+&lt;li&gt;VFS allows the same system call interface to be used for different types of FS&lt;/li&gt;
+&lt;li&gt;VFS calls the appropriate FS routines based on the partition info
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c91eadf85fd1.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Four main object types defined by Linux VFS:
+
+&lt;ul&gt;
+&lt;li&gt;inode (an individual file, file control block)&lt;/li&gt;
+&lt;li&gt;file object (an open file)&lt;/li&gt;
+&lt;li&gt;superblock object (an entire file system)&lt;/li&gt;
+&lt;li&gt;dentry object (an individual directory entry)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;VSF defines a set of operations that must be implemented (e.g. for file object)
+
+&lt;ul&gt;
+&lt;li&gt;int open(&amp;hellip;) (open a file)&lt;/li&gt;
+&lt;li&gt;ssize_t read() (read from a file)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Directory implementation
+
+&lt;ul&gt;
+&lt;li&gt;Linear Lists (list of names with pointers to data blocks, easy to program but poor performance)&lt;/li&gt;
+&lt;li&gt;Hash table &amp;ndash; linear list w/hash data structure, constant time for searching, linked list for collosions on a hash entry, hash table usually has fixed number of entires&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;allocation-methods&#34;&gt;Allocation Methods&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;An allocation method refers to how disk blocks are allocated for files&lt;/li&gt;
+&lt;li&gt;Allocation strategy: Contiguous allocation, Linked allocation, Indexed allocation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;contiguous-allocation&#34;&gt;Contiguous Allocation&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/20/5c921846bbb60.png&#34; width=&#34;400px&#34;/&gt;
+- Each file occupies a set of contiguous blocks
+  - num of disk seeks is minimized
+  - The dir entry for each file = (starting num, size)
+- Both sequential &amp;amp; random access can be implemented efficiently
+- Problems
+  - External fragmentation $\rightarrow$ compaction
+  - file cannot grow $\rightarrow$ extend-based FS&lt;/p&gt;
+
+&lt;h4 id=&#34;extent-based-file-system&#34;&gt;Extent-Based File System&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Many newer file system use a modified contiguous allocation scheme&lt;/li&gt;
+&lt;li&gt;Extent-based file system allocate disk blocks in extents&lt;/li&gt;
+&lt;li&gt;An extent is a contiguous blocks of disks
+
+&lt;ul&gt;
+&lt;li&gt;A file contains one or more extents&lt;/li&gt;
+&lt;li&gt;An extent: (starting block num, length, pointer to next extent)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Random access become more costly&lt;/li&gt;
+&lt;li&gt;Both internal &amp;amp; external fragmentation are possible&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;linked-allocation&#34;&gt;Linked Allocation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;each file is a linked list of blocks
+
+&lt;ul&gt;
+&lt;li&gt;each block contains a pointer to the next block&lt;/li&gt;
+&lt;li&gt;data portion: block size &amp;ndash; pointer size&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;file read: following through the list
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c921a6e40243.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Problems
+
+&lt;ul&gt;
+&lt;li&gt;only good for sequential-access files&lt;/li&gt;
+&lt;li&gt;random access requires traversing through the link list&lt;/li&gt;
+&lt;li&gt;each access to link listis a disk I/O (link pointer is stored inside the data block)&lt;/li&gt;
+&lt;li&gt;space required for pointer (&lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;512&lt;/sub&gt; = 0.78%) (solution: cluster of blocks)&lt;/li&gt;
+&lt;li&gt;Reliability (one missing link breaks the whole file)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;fat-file-allocation-table-file-system&#34;&gt;FAT (File Allocation Table) file system&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/20/5c921c3220923.png&#34; width=&#34;400px&#34;/&gt;
+- FAT32
+  - store all links in a table
+  - 32 bits per table entry
+  - located in a section of disk at the beginning of each partition
+- FAT(table) is often cached in memory
+  - Random access is improved
+  - Disk head find the location of any block by reading FAT&lt;/p&gt;
+
+&lt;h3 id=&#34;index-allocation-example&#34;&gt;Index Allocation Example&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The directory contains the address of the file index block&lt;/li&gt;
+&lt;li&gt;each file has its own index block&lt;/li&gt;
+&lt;li&gt;index block stores block # for file data
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c921c3220923.png&#34; width=400px/&gt;&lt;/li&gt;
+&lt;li&gt;Bring all the pointers together into one location: the index block (one for each file)&lt;/li&gt;
+&lt;li&gt;Implement direct and random access efficiently&lt;/li&gt;
+&lt;li&gt;No external fragmentation&lt;/li&gt;
+&lt;li&gt;Easy to create file (no allocation problem)&lt;/li&gt;
+&lt;li&gt;Disadvantages
+
+&lt;ol&gt;
+&lt;li&gt;space for index blocks&lt;/li&gt;
+&lt;li&gt;how large the index block should be:
+
+&lt;ul&gt;
+&lt;li&gt;linked scheme&lt;/li&gt;
+&lt;li&gt;multilevel index&lt;/li&gt;
+&lt;li&gt;combined scheme (inode in BSD UNIX)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;linked-indexed-scheme&#34;&gt;Linked Indexed Scheme&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/20/5c9220756eea4.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;multilevel-scheme-two-level&#34;&gt;Multilevel Scheme (two-level)&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/20/5c92213d6c2a5.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;combined-scheme-unix-inode&#34;&gt;combined scheme: unix inode&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;File pointer: 4B (32 bits)&lt;/li&gt;
+&lt;li&gt;Let each data/index block be 4KB
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c92220210861.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;free-space&#34;&gt;Free space&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Free-space list: records all free disk blocks&lt;/li&gt;
+&lt;li&gt;Scheme
+
+&lt;ul&gt;
+&lt;li&gt;Bit vector&lt;/li&gt;
+&lt;li&gt;Linked List (same as linked allocation)&lt;/li&gt;
+&lt;li&gt;Grouping (same as linked index allocation)&lt;/li&gt;
+&lt;li&gt;Counting (same as contiguous allocation)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;file system usually manage free space in the same way as a file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;bit-vector&#34;&gt;Bit vector&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Bit vector(bitmap): one bit foreach block&lt;/li&gt;
+&lt;li&gt;simplicity, efficient (HW support bit-manipulation instruction)&lt;/li&gt;
+&lt;li&gt;bitmap must be cached for gooe performance
+
+&lt;ul&gt;
+&lt;li&gt;A 1-TB(4KB block) disk needs 32MB bitmap
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c9223f4ac1e5.png&#34; width=&#34;250px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Mass Storage System</title>
+      <link>/courses/operating_system/mass_storage_system/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/operating_system/mass_storage_system/</guid>
+      <description>
+
+&lt;h2 id=&#34;disk-structure&#34;&gt;Disk Structure&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Disk drives are addressed as large 1-dim array of logical blocks (logical block: smallest unit of transfer(sector))&lt;/li&gt;
+&lt;li&gt;Logical blocks are mapped onto disk sequentially
+
+&lt;ul&gt;
+&lt;li&gt;Sector 0: 1st sector of 1st track on the outermost cyl&lt;/li&gt;
+&lt;li&gt;go from outermost cylinder to innermost one&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Disk drive attached to a computer by an I/O bus&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;sectors-per-track&#34;&gt;Sectors Per Track&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Constant linear velocity (CLV)
+
+&lt;ul&gt;
+&lt;li&gt;density of bits per track is uniform&lt;/li&gt;
+&lt;li&gt;more sectors on a track in outer cylinders&lt;/li&gt;
+&lt;li&gt;keeping same data rate
+increase rotation speed in inner cylinders&lt;/li&gt;
+&lt;li&gt;applications: CD-ROM and DVD-ROM&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Constant angular velocity (CAV)
+
+&lt;ul&gt;
+&lt;li&gt;keep same rotation speed&lt;/li&gt;
+&lt;li&gt;larger bit density on inner tracks&lt;/li&gt;
+&lt;li&gt;keep same data rate&lt;/li&gt;
+&lt;li&gt;applications: hard disks&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;disk-scheduling&#34;&gt;Disk Scheduling&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Disk-access time has 3 major components
+
+&lt;ul&gt;
+&lt;li&gt;Seek time: move disk arm to the desired cylinder&lt;/li&gt;
+&lt;li&gt;rotational latency: rotate disk head to the desired sector&lt;/li&gt;
+&lt;li&gt;read time: constant transfer time&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Disk bandwidth:
+number of bytes transferred / (complete of last req - start of first req)
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c92296114e16.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Minimize seek time&lt;/li&gt;
+&lt;li&gt;illustrate with a request queue(0-199) (98, 183, 37, 122, 14, 124, 65, 67)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;algorithm&#34;&gt;Algorithm&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;FCFS (First come first served)&lt;/li&gt;
+&lt;li&gt;SSTF(Shortest-seek-time-first)
+
+&lt;ul&gt;
+&lt;li&gt;SSTF scheduling is a form of SJF scheduling; may cause starvation of some requests&lt;/li&gt;
+&lt;li&gt;total head movement: 236 cylinders&lt;/li&gt;
+&lt;li&gt;common and has a natural appeal, but not optimal&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;SCAN scheduling
+
+&lt;ul&gt;
+&lt;li&gt;disk head move from one end to the other end&lt;/li&gt;
+&lt;li&gt;A.k.a elvator algorithm&lt;/li&gt;
+&lt;li&gt;total head movement: 236 cylinders&lt;/li&gt;
+&lt;li&gt;perform better for disks with heavy load&lt;/li&gt;
+&lt;li&gt;No staravation problem&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;C-SCAN scheduling
+
+&lt;ul&gt;
+&lt;li&gt;Disk head move in one direction only&lt;/li&gt;
+&lt;li&gt;A variant of SCAN to provide more uniform wait time&lt;/li&gt;
+&lt;li&gt;More uniform wait time&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;C-LOOK scheduling
+
+&lt;ul&gt;
+&lt;li&gt;version of C-SCAN&lt;/li&gt;
+&lt;li&gt;Disk head moves only to the last request location&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Performance is also influenced by the file-allocation method
+
+&lt;ul&gt;
+&lt;li&gt;Contiguous: less head movement&lt;/li&gt;
+&lt;li&gt;Indexed &amp;amp; linked: greater head movement&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;disk-management&#34;&gt;Disk Management&lt;/h2&gt;
+
+&lt;h3 id=&#34;disk-formatting&#34;&gt;Disk Formatting&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Low-level formatting (or physical formatting): dividing a disk into sectors that disk controller can read and write&lt;/li&gt;
+&lt;li&gt;each sector = header + data area + trailer
+
+&lt;ul&gt;
+&lt;li&gt;header &amp;amp; trailer : sector number and ECC (error-correction code)&lt;/li&gt;
+&lt;li&gt;ECC is calculated based on all bytes in data area&lt;/li&gt;
+&lt;li&gt;data area size: 512B, 1KB, 4KB&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;OS does the next 2 steps to use the disk
+
+&lt;ul&gt;
+&lt;li&gt;partition the disk into one or more groups of cylinders&lt;/li&gt;
+&lt;li&gt;logical formatting (i.e. creation of a file system)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;boot-block&#34;&gt;Boot Block&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Bootstrap program
+
+&lt;ul&gt;
+&lt;li&gt;Initialize CPU, registers, device, controllers, memory, and then starts OS&lt;/li&gt;
+&lt;li&gt;First boostrap code stored in ROM&lt;/li&gt;
+&lt;li&gt;complete bootstrap in the boot block of the boot disk (aka system disk)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;windows-2000&#34;&gt;Windows 2000&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Run bootstrap code in ROM&lt;/li&gt;
+&lt;li&gt;Read boot code in MBR (Master Boot Record)&lt;/li&gt;
+&lt;li&gt;Find boot partition from partition table&lt;/li&gt;
+&lt;li&gt;read boot sector/block and continue booting
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c922eec7cc23.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;bad-blocks&#34;&gt;Bad Blocks&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Simple disks like IDE disks&lt;/li&gt;
+&lt;li&gt;Sophisticated disks like SCSI disks&lt;/li&gt;
+&lt;li&gt;Sector sparing (forwarding): remap bad block to a spare one
+
+&lt;ul&gt;
+&lt;li&gt;Could affect disk-scheduling performance&lt;/li&gt;
+&lt;li&gt;A few spare sectors in each cylinder during formatting&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Sector slipping: ships sectors all down one spot&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;swap-space-management&#34;&gt;Swap-Space Management&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;swap-space: Virtual memory use disk space (swap-space) as an extension of main memory&lt;/li&gt;
+&lt;li&gt;UNIX: allows use of multiple swap spaces&lt;/li&gt;
+&lt;li&gt;Location
+
+&lt;ul&gt;
+&lt;li&gt;part of a normal file system (e.g. NT) less efficient&lt;/li&gt;
+&lt;li&gt;separate disk partition (raw partition) size is fixed&lt;/li&gt;
+&lt;li&gt;allows access to both types (e.g. LINUX)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;swap-space-allocation&#34;&gt;Swap Space Allocation&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;1st version: copy entire process between contiguous disk regions and memory&lt;/li&gt;
+&lt;li&gt;2nd version: copy pages to swap space
+
+&lt;ul&gt;
+&lt;li&gt;Solaris 1: text segments read from file system, thrown away when pageout, only anonymous memory (stack, heap, etc) store in swap space&lt;/li&gt;
+&lt;li&gt;Solaris 2: swap-space allocation only when pageout rather than vitrual memory creation time&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Data structures for Swapping
+&lt;img src=&#34;https://i.loli.net/2019/03/20/5c9232c43fbc0.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;raid-structure&#34;&gt;RAID Structure&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RAID = Redundant Arrays of Inexpensive Disks
+
+&lt;ul&gt;
+&lt;li&gt;Provide reliability via redundacy&lt;/li&gt;
+&lt;li&gt;improve performance via parallelism&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;RAID is arranged into different levels (Striping, mirror, Error-correcting code (ECC) &amp;amp; Parity bit)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;raid-0-raid-1&#34;&gt;RAID 0 &amp;amp; RAID 1&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RAID 0: non-redundant striping
+
+&lt;ul&gt;
+&lt;li&gt;improve performance via parallelism&lt;/li&gt;
+&lt;li&gt;I/O bandwidth is proportional to the striping count (Both read and write BW increase by N times)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;RAID 1: Mirrored disks
+
+&lt;ul&gt;
+&lt;li&gt;Provide reliability via redundancy&lt;/li&gt;
+&lt;li&gt;Read BW increases by N times&lt;/li&gt;
+&lt;li&gt;Write BW remains the same
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c946b246195c.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;raid-2-hamming-code&#34;&gt;RAID 2: Hamming code&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;E.g.: &lt;a href=&#34;https://en.wikipedia.org/wiki/Hamming_code&#34;&gt;Hamming code&lt;/a&gt; (7,4)
+
+&lt;ul&gt;
+&lt;li&gt;4 data bits (on 4 disks) + 3 parity bits (on 3 disks)&lt;/li&gt;
+&lt;li&gt;each parity bit is linear code of 3 data bits&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Recover from any single disk failure
+
+&lt;ul&gt;
+&lt;li&gt;can detect up to two disk (i.e. bits) error&lt;/li&gt;
+&lt;li&gt;but can only &amp;ldquo;correct&amp;rdquo; one bit error&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;better space efficient than RAID1 (75% overhead)
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c946b80ad6ba.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;raid-3-4-parity-bit&#34;&gt;RAID 3 &amp;amp; 4: Parity Bit&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Disk controller can detect whether a sector has been read correctly&lt;/li&gt;
+&lt;li&gt;a single parity bit is enough to correct error from a single disk failure&lt;/li&gt;
+&lt;li&gt;RAID 3: bit-level striping; RAID 4: Block-level striping&lt;/li&gt;
+&lt;li&gt;Even though space efficiency&lt;/li&gt;
+&lt;li&gt;Cost to compute &amp;amp; store parity bit&lt;/li&gt;
+&lt;li&gt;RAID4 has higher I/O throughput, because controller does not need to reconstruct block from multiple disks
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c946bf615735.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;raid-5-distributed-parity&#34;&gt;RAID 5: Distributed Parity&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Spread data &amp;amp; parity across all disks&lt;/li&gt;
+&lt;li&gt;Prevent over use of a single disk
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c946c1f69fc1.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Read BW increases by N times, because all four disks can serve a read request&lt;/li&gt;
+&lt;li&gt;write BW:
+
+&lt;ul&gt;
+&lt;li&gt;Method 1: (1) read out all unmodified (N-2) data bits (2) re-compute parity bit (3) write both modified bit and parity bit to disks (BW = N/(N-2+2) = 1) remains the same&lt;/li&gt;
+&lt;li&gt;Method 2: (1) only read the parity bit and modified bit. (2) re-compute parity bit by the difference. (3) write both modified bit and parity bit (BW = N/(2+2) = N/4 times faster)
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c946d18c09fb.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;raid-6-p-q-dual-parity-redundancy&#34;&gt;RAID 6: P + Q Dual Parity Redundancy&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Like RAID 5, but stores extra redundant information to guard against multiple disk failure&lt;/li&gt;
+&lt;li&gt;Use Ecc code (i.e. Error correction code) instead of single parity bit&lt;/li&gt;
+&lt;li&gt;Parity bits are also striped across disks
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c946dc4da720.png&#34; width=&#34;400px&#34;/&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;hybird-raid&#34;&gt;Hybird RAID&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RAID 0+1: Stripe then replicate&lt;/li&gt;
+&lt;li&gt;RAID 1+0: Replicate then stripe
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c946e29393a7.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;First level control by a controller. Therefore, RAID 10 has better fault tolerance than RAID01 when multiple disk failes&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>I/O system</title>
+      <link>/courses/operating_system/io_system/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/operating_system/io_system/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The two main jobs of a computer I/O and computation&lt;/li&gt;
+&lt;li&gt;I/O devices: tape, HD, mouse, joystick, screen&lt;/li&gt;
+&lt;li&gt;I/O subsytems: the methods to control all I/O devices&lt;/li&gt;
+&lt;li&gt;Two conflicting trends
+
+&lt;ul&gt;
+&lt;li&gt;Standardization of HW/SW interfaces&lt;/li&gt;
+&lt;li&gt;Board variety of I/O devices&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Device drivers: a uniform device-access interface to the I/O subsystem(Simliar to system calls between apps and OS)&lt;/li&gt;
+&lt;li&gt;I/O Hardware
+
+&lt;ul&gt;
+&lt;li&gt;Port: A connection point between I/O diveces and the host(E.g. USB ports)&lt;/li&gt;
+&lt;li&gt;Bus: A set of wires and a well-defined protocal that specifies message sent over the wires (E.g. PCI bus)&lt;/li&gt;
+&lt;li&gt;Controller: A collecton of electronics that can operate a port, a bus, or a device (A controller could have its own processor, memory, etc(E.g. SCSI controller))&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/22/5c94719d776dd.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;basic-i-o-method-port-mapped-i-o&#34;&gt;Basic I/O method (Port-mapped I/O)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Each I/O port (device) is identified by a unique port address&lt;/li&gt;
+&lt;li&gt;Each I/O port consists of four registers (1~4 Bytes)
+
+&lt;ul&gt;
+&lt;li&gt;Data-in regsiter: read by the host to get input&lt;/li&gt;
+&lt;li&gt;Data-out register: written by the host to send output&lt;/li&gt;
+&lt;li&gt;status register: read by the host to check I/O status&lt;/li&gt;
+&lt;li&gt;Control register: written by the host to control the device&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Program interact with an I/O port through special I/O instructions (differnet from memory access)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;i-o-methods-categorization&#34;&gt;I/O methods Categorization&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Depends on how to address a deive
+
+&lt;ul&gt;
+&lt;li&gt;port-mapped I/O: use different address space from memory, access by special I/O instruction(e.g. IN, OUT)&lt;/li&gt;
+&lt;li&gt;Memory-mapped I/O: Reserve specific memory space for device, Access by standard data-transfer instruction (e.g. MOV) (more efficient for large memory I/O, vulnerable to accidental modification)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Depends on how to interact with a deivce:
+
+&lt;ul&gt;
+&lt;li&gt;Poll(busy-waiting): processor periodically check status register of a device&lt;/li&gt;
+&lt;li&gt;Interrupt: device notify processor of its completion&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Depending on who to control the transer:
+
+&lt;ul&gt;
+&lt;li&gt;Programmed I/O: transfer controlled by CPU&lt;/li&gt;
+&lt;li&gt;Direct memory access(DMA) I/O: controlled by DMA controller(A special purpose controller, design for large data transfer)
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c94740d3444a.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;kernel-i-o-subsystem&#34;&gt;Kernel I/O Subsystem&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I/O scheduling &amp;ndash; improve system performance by ordering the jobs in I/O queue (e.g. disk I/O order scheduling)&lt;/li&gt;
+&lt;li&gt;Buffering &amp;ndash; store data in memory while transferring between I/O deivces
+
+&lt;ul&gt;
+&lt;li&gt;Speed mismatch between devices&lt;/li&gt;
+&lt;li&gt;Devices with different data-transfer sizes&lt;/li&gt;
+&lt;li&gt;Support copy semantics&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Caching &amp;ndash; fast momory that holds copies of data (Key to performance)&lt;/li&gt;
+&lt;li&gt;Spooling &amp;ndash; holds output for a device(e.g. printing, cannot accept interleaved files)&lt;/li&gt;
+&lt;li&gt;Error handlig &amp;ndash; when I/O error happens(e.g. SCSI device returns error information)&lt;/li&gt;
+&lt;li&gt;I/O protection(privileged instructions)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;blocking-and-nonblocking-i-o&#34;&gt;Blocking and Nonblocking I/O&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Blocking &amp;ndash; process suspended until I/O completed
+
+&lt;ul&gt;
+&lt;li&gt;Easy to use and understand&lt;/li&gt;
+&lt;li&gt;Insufficient for some needs&lt;/li&gt;
+&lt;li&gt;Use for synchronous communication &amp;amp; I/O&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Nonblocking
+
+&lt;ul&gt;
+&lt;li&gt;Implemented via multi-threading&lt;/li&gt;
+&lt;li&gt;Returns quickly with count of bytes read or wriiten&lt;/li&gt;
+&lt;li&gt;Use for asynchronous communication &amp;amp; I/O&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;transforming-i-o-requests-to-hardware-operations&#34;&gt;Transforming I/O requests to Hardware operations&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/22/5c947676a3809.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;performance-and-improving&#34;&gt;Performance and Improving&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I/O is a major factor in system performance
+
+&lt;ul&gt;
+&lt;li&gt;It placs heavy demancs on the CPU to execute device driver code&lt;/li&gt;
+&lt;li&gt;The resulting context switches stress the CPU and its hareware caches&lt;/li&gt;
+&lt;li&gt;I/O loads dwon the memory bus during data copy bewteen controllers and physcial memory&lt;/li&gt;
+&lt;li&gt;Interrupt handling is a relatively expensive task&lt;/li&gt;
+&lt;li&gt;Busy-waiting could be more efficient than interrupt-driven if I/O time is small&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Improving Performance
+
+&lt;ul&gt;
+&lt;li&gt;Reduce number of context switches&lt;/li&gt;
+&lt;li&gt;Reduce data copying&lt;/li&gt;
+&lt;li&gt;Reduce interrupts by using large transers, smart controllers, polling&lt;/li&gt;
+&lt;li&gt;Use DMA&lt;/li&gt;
+&lt;li&gt;Balance CPU, memory, bus and I/O performance for highest throughput&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;application-i-o-interface&#34;&gt;Application I/O interface&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Device drivers: a uniform device-access interface to the I/O subsystem; hide the differences among device controllers from the I/O sub-system of OS&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

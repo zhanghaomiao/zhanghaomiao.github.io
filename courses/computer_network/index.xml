@@ -1,0 +1,3087 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Overview | Haomiao</title>
+    <link>/courses/computer_network/</link>
+      <atom:link href="/courses/computer_network/index.xml" rel="self" type="application/rss+xml" />
+    <description>Overview</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 09 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
+      <title>Overview</title>
+      <link>/courses/computer_network/</link>
+    </image>
+    
+    <item>
+      <title>Application Layer</title>
+      <link>/courses/computer_network/application_layer/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/computer_network/application_layer/</guid>
+      <description>
+
+&lt;p&gt;Creating a network application, run on different end systems and communicate over a network, no software written for devices in network core, network core devices do not function at application layer (e.g. Web server software communicate with browser software)&lt;/p&gt;
+
+&lt;h2 id=&#34;principle-of-network-application&#34;&gt;Principle of network application&lt;/h2&gt;
+
+&lt;h3 id=&#34;application-architectures&#34;&gt;Application architectures&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Client-server
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c9726afec632.png&#34; width=&#34;300px&#34;/&gt;
+
+&lt;ul&gt;
+&lt;li&gt;server: always-on host, permanent IP address, server forms for scaling&lt;/li&gt;
+&lt;li&gt;clients: communicate with server, may be intermittently connected, may have dynamic IP address, do not communicate directly with each other&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;peer-to-peer
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c972763ee74f.png&#34; width=&#34;300px&#34;/&gt;
+
+&lt;ul&gt;
+&lt;li&gt;no always on server&lt;/li&gt;
+&lt;li&gt;arbitrary end systems directly communicate&lt;/li&gt;
+&lt;li&gt;peers are intermittently connected and change IP address, highly scalable, but difficult to manage&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Hybrid of client-server and P2P
+
+&lt;ul&gt;
+&lt;li&gt;Napster, file transfer P2P, file search centralized(peer register content at central server, peers query same central server to locate content)&lt;/li&gt;
+&lt;li&gt;Instant message: chatting between two users is P2P, presence detection/location centralized (User registers its IP address with central server when it comes online,User contacts central server to find IP addresses of buddies)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;processes-communicating&#34;&gt;Processes Communicating&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;process: program running within a host&lt;/li&gt;
+&lt;li&gt;with same host, two processes communicate using inter-process communication (defined by OS)&lt;/li&gt;
+&lt;li&gt;processes in different hosts communicated by exchanging messages (Client process: process that initiates communication, Server process: process that waits to be contacted)&lt;/li&gt;
+&lt;li&gt;figure
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c972a03ee1fb.png&#34; width=&#34;450px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;process sends/receives messages to/from its socket&lt;/li&gt;
+&lt;li&gt;socket analogous to door, sending process relies on transport infrastructure on other side of door which brings message to socket at receiving process&lt;/li&gt;
+&lt;li&gt;API (1) choice of transport protocol (2) ability to fix a few parameters&lt;/li&gt;
+&lt;li&gt;addressing process(判断哪一个process需要沟通)
+
+&lt;ul&gt;
+&lt;li&gt;For a process to receive messages, it must have an identifier&lt;/li&gt;
+&lt;li&gt;Every host has a unique 32-bit IP address&lt;/li&gt;
+&lt;li&gt;Identifier includes both the IP address and port numbers(16-bit) associated with the process on the host (HTTP server: 80, Mail server: 25)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;app-layer-protocol-defines&#34;&gt;App-layer protocol defines&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Types of messages exchanged (e.g. request &amp;amp; response)&lt;/li&gt;
+&lt;li&gt;Syntax of message types (what fields in message &amp;amp; how field are delineated)&lt;/li&gt;
+&lt;li&gt;Semantics of the field (i.e. meaning of information in fields)&lt;/li&gt;
+&lt;li&gt;Rules for when and how processes send &amp;amp; respond to messages&lt;/li&gt;
+&lt;li&gt;Public-domain protocols:
+
+&lt;ul&gt;
+&lt;li&gt;defined in RFCs&lt;/li&gt;
+&lt;li&gt;allows for interoperability(相容)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;what-transport-service-does-provide&#34;&gt;What transport service does provide&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Data loss
+
+&lt;ul&gt;
+&lt;li&gt;some apps can tolerate some loss&lt;/li&gt;
+&lt;li&gt;other apps require 100% reliable data transfer&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Timing
+
+&lt;ul&gt;
+&lt;li&gt;some apps require low delay to be &amp;ldquo;effective&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Bandwidth
+
+&lt;ul&gt;
+&lt;li&gt;some apps require minimum amount of bandwidth to be (games) effective(multimedia)&lt;/li&gt;
+&lt;li&gt;other apps(&amp;ldquo;elastic apps&amp;rdquo;) make use of whatever bandwidth they get
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c972dff3be06.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;TCP service: connection-oriented, reliable transport, flow control, congestion control (does not providing: timing, minimum bandwidth guarantees)&lt;/li&gt;
+&lt;li&gt;UDP service: unreliable data transfer between sending and receiving process, dons not provide connection setup, reliability, flow control, congestion control, timing or bandwidth guarantee
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c9731b3899d9.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;web-and-http&#34;&gt;Web and HTTP&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Web
+
+&lt;ul&gt;
+&lt;li&gt;web page consists of objects&lt;/li&gt;
+&lt;li&gt;An object is a file such as HTML, file ,a JPEG image&lt;/li&gt;
+&lt;li&gt;A web page consists of a bast HTML-file and several referenced object&lt;/li&gt;
+&lt;li&gt;The base HTML file references the other objects in the page with the object&amp;rsquo;s URLs (Uniform Resource Locators)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;http-overview&#34;&gt;HTTP Overview&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;HTTP: hypertext transfer protocol&lt;/li&gt;
+&lt;li&gt;web&amp;rsquo;s application layer protocol&lt;/li&gt;
+&lt;li&gt;client/server model (HTTP1.0, HTTP1.1)&lt;/li&gt;
+&lt;li&gt;procedure
+
+&lt;ol&gt;
+&lt;li&gt;client initiates TCP connection (creates socket) to server&lt;/li&gt;
+&lt;li&gt;server accepts TCP connection from client&lt;/li&gt;
+&lt;li&gt;HTTP message exchanged between browser and web server&lt;/li&gt;
+&lt;li&gt;TCP connection closed&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;HTTP is stateless, server maintains no information about post client requests&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;http-connections&#34;&gt;HTTP connections&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Non-persistent HTTP
+
+&lt;ul&gt;
+&lt;li&gt;At most one object is sent over a TCP connection&lt;/li&gt;
+&lt;li&gt;HTTP/1.0 uses non-persistent HTTP&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Persistent HTTP
+
+&lt;ul&gt;
+&lt;li&gt;Multiple objects can be sent over singe TCP connection between client and server&lt;/li&gt;
+&lt;li&gt;A new connection need not be set up for the transfer of each Web object&lt;/li&gt;
+&lt;li&gt;HTTP/1.1 use persistent connections in default mode&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;response-time-modeling-non-persistent-http&#34;&gt;Response time modeling (Non-persistent HTTP)&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RTT: time to send a small packet to travel from client to server and back&lt;/li&gt;
+&lt;li&gt;Response Time: one RTT to initiate TCP connection, one RTT for HTTP request and first few bytes of HTTP response to return, file transmission time&lt;/li&gt;
+&lt;li&gt;file transmission time = 2RTT + transmit time
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c9736941a772.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;two-versions-of-persistent-connections&#34;&gt;Two versions of persistent connections&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Persistent without pipelining
+
+&lt;ul&gt;
+&lt;li&gt;client issues new request only when previous response has been received&lt;/li&gt;
+&lt;li&gt;One RTT for each referenced object&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Persistent with pipelining
+
+&lt;ul&gt;
+&lt;li&gt;default in HTTP/1.1&lt;/li&gt;
+&lt;li&gt;client sends requests as soon as it encounters a referenced object&lt;/li&gt;
+&lt;li&gt;as little as one RTT for all the referenced objects&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;http-request-message&#34;&gt;HTTP request message&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;two types of HTTP messages: request, response&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;HTTP request message (ASCII format)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-HTTP&#34;&gt;GET /somedir/page.html HTTP/1.1
+Host: www.someschool.edu
+Connection: close
+User-agent: Mozilla/5.0
+Accept-language: fr
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/24/5c9739d016ad7.png&#34; width=&#34;500px&#34;/&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;method-types&#34;&gt;Method Types&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;HTTP/1.0
+
+&lt;ul&gt;
+&lt;li&gt;GET: return the object&lt;/li&gt;
+&lt;li&gt;POST: send information to be stored on the server&lt;/li&gt;
+&lt;li&gt;Head: return only information about the object, such as how old it is, but not the object itself&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;HTTP/1.1
+
+&lt;ul&gt;
+&lt;li&gt;GET, POST, HEAD&lt;/li&gt;
+&lt;li&gt;PUt: uploads a new copy of existing object in entity body to path specified in URL field&lt;/li&gt;
+&lt;li&gt;DELETE: delete object specified in the URL field&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;http-response-message&#34;&gt;HTTP response message&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;A status line&lt;/strong&gt;,  which indicates the success of failure of the request&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Header line&lt;/strong&gt;, A description of the information in the response, this is the metadata or meta information&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;actual information&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;response status code
+
+&lt;ul&gt;
+&lt;li&gt;200 OK&lt;/li&gt;
+&lt;li&gt;300 Moved permanently&lt;/li&gt;
+&lt;li&gt;400 Bad request&lt;/li&gt;
+&lt;li&gt;404 Not found&lt;/li&gt;
+&lt;li&gt;505 HTTP version not supported
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c973bc5afdcd.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;user-server-interaction-cookies&#34;&gt;User-Server Interaction: Cookies&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;it is often desirable for a Web site to identify users&lt;/li&gt;
+&lt;li&gt;Four components of cookie technology:
+
+&lt;ul&gt;
+&lt;li&gt;cookie header line in the HTTP response message&lt;/li&gt;
+&lt;li&gt;cookie header line in HTTP request message&lt;/li&gt;
+&lt;li&gt;cookie file kept on user&amp;rsquo;s host and managed by user&amp;rsquo;s browser&lt;/li&gt;
+&lt;li&gt;back-end database at web site
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c973e402af4c.png&#34; width=&#34;450px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;advantages
+
+&lt;ul&gt;
+&lt;li&gt;authorization&lt;/li&gt;
+&lt;li&gt;shopping carts&lt;/li&gt;
+&lt;li&gt;recommendations&lt;/li&gt;
+&lt;li&gt;user session state (Web  e-mail)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Cookies and privacy:
+
+&lt;ul&gt;
+&lt;li&gt;Permit sites to learn a lot about you&lt;/li&gt;
+&lt;li&gt;you may supply name and e-mail to sites&lt;/li&gt;
+&lt;li&gt;search engines use redirection &amp;amp; cookies to learn yet more&lt;/li&gt;
+&lt;li&gt;advertising companies obtain info across sites&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;web-caches-proxy-server&#34;&gt;Web caches (proxy server)&lt;/h3&gt;
+
+&lt;p&gt;Satisfy client request without involving origin server
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c973f6c5ec0d.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;User sets browser: web accesses via cache&lt;/li&gt;
+&lt;li&gt;browser sends all HTTP requests to cache
+
+&lt;ul&gt;
+&lt;li&gt;object in cache: cache returns object&lt;/li&gt;
+&lt;li&gt;else cache requests object from origin server, then returns object to client&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;cache acts as both client and server&lt;/li&gt;
+&lt;li&gt;Typically cache is installed by ISP&lt;/li&gt;
+&lt;li&gt;why web caching
+
+&lt;ul&gt;
+&lt;li&gt;Reduce response for client request&lt;/li&gt;
+&lt;li&gt;Reduce traffic&lt;/li&gt;
+&lt;li&gt;Internet dense with caches enables poor content providers to effectively deliver content&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Example&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;conditional-get-client-side-caching&#34;&gt;Conditional GET: client-side caching&lt;/h3&gt;
+
+&lt;p&gt;Don&amp;rsquo;t send object if client has up-to-date cached version&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;client: specify date of cached copy in HTTP (&lt;code&gt;If-Modified-Since &amp;lt;data&amp;gt;&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;server: response contains no object if cached copy is up-to-date &lt;code&gt;HTTP/1.1 304 Not Modified&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ftp-file-transfer-protocol&#34;&gt;FTP (File transfer protocol)&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/24/5c9744679515d.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;transfer file to/from remote host&lt;/li&gt;
+&lt;li&gt;client/server model
+
+&lt;ul&gt;
+&lt;li&gt;client side: the side that initiates transfer&lt;/li&gt;
+&lt;li&gt;server side: remote host&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;ftp : RFC 959&lt;/li&gt;
+&lt;li&gt;ftp server port 21&lt;/li&gt;
+&lt;li&gt;Procedure
+
+&lt;ol&gt;
+&lt;li&gt;FTP client contacts FTP server at port 21, specifying TCP as transport protocol&lt;/li&gt;
+&lt;li&gt;Client obtains authorization over control connection&lt;/li&gt;
+&lt;li&gt;Client browses remote directory by sending commands over control connection&lt;/li&gt;
+&lt;li&gt;When server receives a command for a file transfer, the server opens a  TCP data connection to client&lt;/li&gt;
+&lt;li&gt;After transferring one file, server closes connection&lt;/li&gt;
+&lt;li&gt;Servers open a second TCP data connection to transfer another file&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;FTP server maintains &amp;ldquo;state&amp;rdquo;: current directory&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ftp-commands-responses&#34;&gt;FTP Commands, responses&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;commands
+
+&lt;ul&gt;
+&lt;li&gt;USER, username&lt;/li&gt;
+&lt;li&gt;PASS, password&lt;/li&gt;
+&lt;li&gt;LIST, return list of file in current directory&lt;/li&gt;
+&lt;li&gt;RETR filename &amp;ndash; retrieves (gets) file&lt;/li&gt;
+&lt;li&gt;STOR filename &amp;ndash; stores file onto remote host&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;response
+
+&lt;ul&gt;
+&lt;li&gt;331 Username OK, password required&lt;/li&gt;
+&lt;li&gt;125 data connection already open, transfer starting&lt;/li&gt;
+&lt;li&gt;425 can&amp;rsquo;t open data connection&lt;/li&gt;
+&lt;li&gt;452 Error writing file&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;electronic-mail-smtp-pop3-imap&#34;&gt;Electronic Mail (SMTP, POP3, IMAP)&lt;/h2&gt;
+
+&lt;p&gt;Three major components of a mail system user agents, mail servers ,simple mail transfer protocol: SMTP
+  &lt;img src=&#34;https://i.loli.net/2019/03/24/5c974714a2626.png&#34; width=&#34;450px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;User Agent:
+
+&lt;ul&gt;
+&lt;li&gt;known as &amp;ldquo;mail reader&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;composing, editing, reading mail messages&lt;/li&gt;
+&lt;li&gt;outgoing, incoming message stored on server&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Mail server:
+
+&lt;ul&gt;
+&lt;li&gt;mailbox: contains incoming messages for user&lt;/li&gt;
+&lt;li&gt;message queue: of outgoing (to be sent) mail messages&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;protocol&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;smtp-protocol&#34;&gt;SMTP protocol&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;client: sending mail receiver&lt;/li&gt;
+&lt;li&gt;server: receiving mail server&lt;/li&gt;
+&lt;li&gt;use TCP to reliably transfer email message from client to server, port25&lt;/li&gt;
+&lt;li&gt;direct transfer: sending server to receiving server&lt;/li&gt;
+&lt;li&gt;three phases of transfer
+
+&lt;ol&gt;
+&lt;li&gt;handshaking&lt;/li&gt;
+&lt;li&gt;transfer of messages&lt;/li&gt;
+&lt;li&gt;closure&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;command/response interaction
+
+&lt;ul&gt;
+&lt;li&gt;command: ASCII text&lt;/li&gt;
+&lt;li&gt;response: status code and phrase&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;SMTP use persistent connections&lt;/li&gt;
+&lt;li&gt;SMTP requires message to be in 7-bit ASCII&lt;/li&gt;
+&lt;li&gt;SMTP server uses &lt;code&gt;CRLF.CRLT&lt;/code&gt; to determine end of message （&lt;code&gt;CRLF&lt;/code&gt; 表示换行）
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c9748876c1b9.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;comparison with HTTP
+
+&lt;ul&gt;
+&lt;li&gt;HTTP pull protocol (client&amp;rsquo;s point of view), SMTP(push protocol)&lt;/li&gt;
+&lt;li&gt;both have ASCII command/response interaction, status codes&lt;/li&gt;
+&lt;li&gt;HTTP dons not require message to be in 7-bit ASCII&lt;/li&gt;
+&lt;li&gt;HTTP: one object in  one response message&lt;/li&gt;
+&lt;li&gt;SMTP: multiple objects can be set in one message&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;message-format&#34;&gt;Message format&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;From, To, Subject&lt;/li&gt;
+&lt;li&gt;MIME(Multipurpose Internet Mail extensions)&lt;/li&gt;
+&lt;li&gt;additional lines in message header declare MIME content type&lt;/li&gt;
+&lt;li&gt;MIME types: (TEXT, Image, Audio, Video, Application, Multipart, Message)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;mail-access-protocols&#34;&gt;Mail access protocols&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SMTP: delivery/storage to receiver&amp;rsquo;s server&lt;/li&gt;
+&lt;li&gt;Mail access protocol: retrieval from server
+
+&lt;ul&gt;
+&lt;li&gt;POP3: Post Office Protocol, version 3 (authorization (agent -&amp;gt; server) and download)&lt;/li&gt;
+&lt;li&gt;IMAP: Internet Mail Access Protocol (RFC 2060)&lt;/li&gt;
+&lt;li&gt;more features (more complex)&lt;/li&gt;
+&lt;li&gt;manipulation of stores messages on server&lt;/li&gt;
+&lt;li&gt;HTTP: Hotmail, Gmail etc
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c9764e842cbf.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;pop3-protocol&#34;&gt;POP3 protocol&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;client opens a TCP connection to the mail server on port 110&lt;/li&gt;
+&lt;li&gt;authorization phase (client: declare username, password, server response: +OK)&lt;/li&gt;
+&lt;li&gt;transaction phase: client
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;list&lt;/code&gt;: list message number&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;retr&lt;/code&gt;: retrieve message by number&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dele&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;quit&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;update phase: mail server deletes the message marked for deletion&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;download and delete&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;download and keep&lt;/strong&gt;: copies of messages on different clients&lt;/li&gt;
+&lt;li&gt;POP3 is stateless across sessions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;imap&#34;&gt;IMAP&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;keep all messages in one place: the server&lt;/li&gt;
+&lt;li&gt;Allows user to organize messages in folders&lt;/li&gt;
+&lt;li&gt;IMAP keeps user state across sessions (names of folders and mappings between message IDs and folder name)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;dns-domain-name-system&#34;&gt;DNS (domain name system)&lt;/h2&gt;
+
+&lt;p&gt;MAP between IP addresses and name&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A distributed database implemented in hierarchy of many name servers&lt;/li&gt;
+&lt;li&gt;no server has all name-to-IP address mappings&lt;/li&gt;
+&lt;li&gt;Ap application-layer protocol that allows host, routers, name servers to communicate to resolve names(address/name translation)
+
+&lt;ul&gt;
+&lt;li&gt;DNS provides a core Internet function, implemented as application-layer protocol&lt;/li&gt;
+&lt;li&gt;DNS is an example of the Internet design philosophy of placing complexity at network&amp;rsquo;s edge&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Services
+
+&lt;ul&gt;
+&lt;li&gt;Mapping&lt;/li&gt;
+&lt;li&gt;Host aliasing (Canonical and alias name)&lt;/li&gt;
+&lt;li&gt;Mail server aliasing&lt;/li&gt;
+&lt;li&gt;Load distribution, Replicated Web servers: set of IP addresses for one canonical name (负载平衡)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Structures
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c9769b66f470.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Client wants IP for &lt;em&gt;www.amazon.com&lt;/em&gt;
+
+&lt;ul&gt;
+&lt;li&gt;client queries a root server to find com DNS server&lt;/li&gt;
+&lt;li&gt;client queries com DNS server to get amazon.com DNS server&lt;/li&gt;
+&lt;li&gt;Client queries amazon.com DNS server to get IP address for www.amazon.com&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Four types of name services
+
+&lt;ol&gt;
+&lt;li&gt;root name servers&lt;/li&gt;
+&lt;li&gt;top level name servers&lt;/li&gt;
+&lt;li&gt;authoritative name servers
+
+&lt;ul&gt;
+&lt;li&gt;for a host: stores that host&amp;rsquo;s IP address, name&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;local name servers, each ISP, company has local(default) name server, host DNS query first goes to local name server&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Top-level domain(TLD) servers: responsible for com, org, net, edu, etc, and all top-level country domains uk, fr, ca, jp
+
+&lt;ul&gt;
+&lt;li&gt;The company &lt;strong&gt;Network solutions&lt;/strong&gt; maintains servers for com TLD&lt;/li&gt;
+&lt;li&gt;The company &lt;strong&gt;Educause&lt;/strong&gt; maintains servers for edu TLD&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Authoritative DNS servers: organization&amp;rsquo;s DNS servers, providing authoritative hostname to IP mappings for organization&amp;rsquo;s servers, can be maintained by organization or service provider&lt;/li&gt;
+&lt;li&gt;local name server: does not strictly belong to hierarchy, each ISP has one&lt;/li&gt;
+&lt;li&gt;Example (iterative query)
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c976d5a0de29.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;recursive query (puts burden of name resolution on contacted name server)
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c976e1ace932.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;caching and updating
+
+&lt;ul&gt;
+&lt;li&gt;once name server learns mapping, it caches mapping, caches entries timeout(disappear) after some time&lt;/li&gt;
+&lt;li&gt;the contents of each DNS servers were configured &lt;strong&gt;statically&lt;/strong&gt; from a configuration file created by a system manager&lt;/li&gt;
+&lt;li&gt;An update option has been added to the DNS protocol to allow data to be added or deleted from the database vid DNS messages&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;DNS records
+distributed database storing resource records (RR), RR format: (name, value, type, ttl)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;dns-protocol-messages&#34;&gt;DNS protocol, messages&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;DNS protocol query and reply messages, both with same message format
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c97709813988.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;peer-to-peer-applications&#34;&gt;Peer-to-Peer Applications&lt;/h2&gt;
+
+&lt;p&gt;File distribution problem (client-server model)
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c977afd15e0a.png&#34; width=&#34;400px&#34;/&gt;
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c977b81b3242.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;bit-torrent&#34;&gt;Bit Torrent&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/24/5c977bf370a09.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;structure&#34;&gt;Structure&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;P2P centralized directory
+
+&lt;ul&gt;
+&lt;li&gt;when peer connects, it informs central server (IP address, content)&lt;/li&gt;
+&lt;li&gt;Single point of failure&lt;/li&gt;
+&lt;li&gt;performance bottleneck&lt;/li&gt;
+&lt;li&gt;copyright infringement&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;socket-programming&#34;&gt;Socket Programming&lt;/h2&gt;
+
+&lt;p&gt;build client/server application communication using sockets&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;client/server paradigm&lt;/li&gt;
+&lt;li&gt;types of transport service via socket API (unreliable datagram, reliable, byte stream-oriented)&lt;/li&gt;
+&lt;li&gt;socket: a host-local, application-created, OS-controlled interface(&amp;ldquo;door&amp;rdquo;) into which application can both send and receive message to/from another application process&lt;/li&gt;
+&lt;li&gt;Socket Programming using Java, cross platform without recompiling, easy programming with high-level API&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;socket-programming-using-tcp&#34;&gt;Socket-programming using TCP&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Socket: a door between application process and end-to-end transport protocol (UCP or TCP)&lt;/li&gt;
+&lt;li&gt;TCP service: reliable transfer of bytes from one process to another&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Client must contact server
+
+&lt;ul&gt;
+&lt;li&gt;server process must first be running&lt;/li&gt;
+&lt;li&gt;server must have created socket (door) that welcomes client&amp;rsquo;s contact&lt;/li&gt;
+&lt;li&gt;client contacts server by
+
+&lt;ul&gt;
+&lt;li&gt;creating client-local TCP socket&lt;/li&gt;
+&lt;li&gt;specifying IP address, port number of server process&lt;/li&gt;
+&lt;li&gt;when client creates socket: client TCP established connection to server TCP&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;when contacted by client, server TCP &lt;strong&gt;creates new socket&lt;/strong&gt; for server process to communicate with client
+
+&lt;ul&gt;
+&lt;li&gt;allows server to talk with multiple clients&lt;/li&gt;
+&lt;li&gt;source port numbers used to distinguish clients&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&#34;info note&#34;&gt;&lt;p&gt;
+Stream
+&lt;ul&gt;
+&lt;li&gt;A stream is a sequence of characters that flow into or out of a process&lt;/li&gt;
+&lt;li&gt;An input stream is attached to some input source for the process (e.g. keyboard or socket)&lt;/li&gt;
+&lt;li&gt;An output stream is attached  to an output source (e.g. monitor or socket)&lt;/li&gt;
+&lt;/ul&gt;
+ &lt;p&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/26/5c999a9e7389e.png&#34; width=&#34;500px&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;tcp-client&#34;&gt;TCP client&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A &amp;ldquo;Socket&amp;rdquo; object, making connection requests&lt;/li&gt;
+&lt;li&gt;Parameters
+
+&lt;ul&gt;
+&lt;li&gt;Remote ip address&lt;/li&gt;
+&lt;li&gt;Remote tcp port&lt;/li&gt;
+&lt;li&gt;Local ip address (optional)&lt;/li&gt;
+&lt;li&gt;Local port (optional)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Example&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;
+import java.net.*;
+import java.io.*;
+
+public class Client{
+private Socket socket = null;
+private DataOutputStream out = null;
+private BufferedReader input;
+
+public Client(String address, int port)
+{
+    try {
+        socket = new Socket(address, port);
+        System.out.println(&amp;quot;Connected&amp;quot;);
+        input = new BufferedReader(new InputStreamReader(System.in));
+        out = new DataOutputStream(socket.getOutputStream());
+    }
+    catch (UnknownHostException u){
+        System.out.println(u);}
+    catch (IOException i){
+        System.out.println(i);}
+
+    String line = &amp;quot;&amp;quot;;
+    while(!line.equals(&amp;quot;Over&amp;quot;))
+    {
+        try{
+            line = input.readLine();
+            out.writeUTF(line);
+        }
+        catch(IOException i)
+        {
+            System.out.println(i);
+        }
+    }
+    try{
+        input.close();
+        out.close();
+        socket.close();
+    }
+    catch(IOException i)
+    {
+        System.out.println(i);
+    }
+}
+public static void main(String[] args) {
+    Client client = new Client(&amp;quot;127.0.0.1&amp;quot;, 5000);
+}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import java.net.*;
+import java.io.*;
+
+public class Server{
+private Socket socket = null;
+private ServerSocket server = null;
+private DataInputStream in = null;
+
+public  Server (int port){
+    try{
+        server = new ServerSocket(port);
+        System.out.println(&amp;quot;Server started&amp;quot;);
+        socket = server.accept();
+        System.out.println(&amp;quot;client accepted&amp;quot;);
+
+        in = new DataInputStream(socket.getInputStream());
+
+        String line =  &amp;quot;&amp;quot;;
+        while (!line.equals(&amp;quot;Over&amp;quot;))
+        {
+            try{
+                line = in.readUTF();
+                System.out.println(line);
+            }
+            catch (IOException i)
+            {
+                System.out.println(i);
+            }
+        }
+        System.out.println(&amp;quot;Closing connected&amp;quot;);
+        socket.close();
+        in.close();
+    }
+    catch (IOException i){
+        System.out.println(i);
+    }
+}
+public static void main(String[] args){
+    Server server = new Server(5000);
+}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;java-socket-programming-with-thread&#34;&gt;Java socket Programming With thread&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import java.io.*;
+import java.text.*;
+import java.util.*;
+import java.net.*;
+
+public class Server {
+    public static void main(String[] args) throws IOException
+    {
+        ServerSocket ss = new ServerSocket(5056);
+        while (true)
+        {
+            Socket s = null;
+            try{
+                s = ss.accept();
+                System.out.println(&amp;quot;A new client is connected&amp;quot;);
+                DataInputStream dis = new DataInputStream(s.getInputStream());
+                DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+                System.out.println(&amp;quot;Assign new thread for this client&amp;quot;);
+                Thread t = new ClientHandler(s, dis, dos);
+                t.start();
+            }
+            catch (Exception e){
+                s.close();
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+class ClientHandler extends Thread{
+    private DateFormat fordate = new SimpleDateFormat(&amp;quot;yyyy/MM/dd&amp;quot;);
+    private DateFormat fortime = new SimpleDateFormat(&amp;quot;hh:mm:ss&amp;quot;);
+    final private DataInputStream dis;
+    final private DataOutputStream dos;
+    final private Socket s;
+
+    ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos){
+        this.dis = dis;
+        this.dos = dos;
+        this.s = s;
+    }
+
+    @Override
+    public void run(){
+        String received;
+        String toreturn;
+        while(true){
+            try{
+                dos.writeUTF(&amp;quot;what do you want? [Date|TIme]..\n&amp;quot; + &amp;quot;Type exit to terminate connection&amp;quot;);
+                received = dis.readUTF();
+                if(received.equals(&amp;quot;Exit&amp;quot;))
+                {
+                    System.out.println(&amp;quot;Client&amp;quot; + this.s + &amp;quot;Sends exist&amp;quot;);
+                    System.out.println(&amp;quot;Closing this connection&amp;quot;);
+                    this.s.close();
+                    System.out.println(&amp;quot;Connection closed&amp;quot;);
+                    break;
+                }
+                Date date = new Date();
+                switch (received) {
+                    case &amp;quot;Date&amp;quot;:
+                        toreturn = fordate.format(date);
+                        dos.writeUTF(toreturn);
+                        break;
+                    case &amp;quot;Time&amp;quot;:
+                        toreturn = fortime.format(date);
+                        dos.writeUTF(toreturn);
+                        break;
+                    default:
+                        dos.writeUTF(&amp;quot;Inavalid input&amp;quot;);
+                        break;
+                }
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        try {
+            this.dis.close();
+            this.dos.close();
+        } catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import java.io.*;
+import java.net.*;
+import java.util.Scanner;
+
+public class Client {
+    public static void main(String[] args)
+    {
+        try {
+            Scanner scn = new Scanner(System.in);
+            InetAddress ip = InetAddress.getByName(&amp;quot;localhost&amp;quot;);
+            Socket s = new Socket(ip, 5056);
+            DataInputStream dis = new DataInputStream(s.getInputStream());
+            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+
+            while (true) {
+                System.out.println(dis.readUTF());
+                String tosend = scn.nextLine();
+                dos.writeUTF(tosend);
+
+                if (tosend.equals(&amp;quot;Exit&amp;quot;)) {
+                    System.out.println(&amp;quot;Closing the connection&amp;quot;);
+                    s.close();
+                    System.out.println(&amp;quot;Connection closed&amp;quot;);
+                    break;
+                }
+                String received = dis.readUTF();
+                System.out.println(received);
+            }
+            scn.close();
+            dis.close();
+            dos.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;socket-programming-with-udp&#34;&gt;Socket programming with UDP&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;no handshaking&lt;/li&gt;
+&lt;li&gt;sender explicitly attaches IP address and port of destination to each packet&lt;/li&gt;
+&lt;li&gt;server must extract IP address, port of sender from received packet&lt;/li&gt;
+&lt;li&gt;transmitted data may be received out of water or lost
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9dc3a0bc9fa.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Exception Handling during initializing sockets, establishing connection, data transmission&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Transport Layer</title>
+      <link>/courses/computer_network/transport_layer/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/computer_network/transport_layer/</guid>
+      <description>
+
+&lt;h2 id=&#34;transport-services-and-protocols&#34;&gt;Transport services and protocols&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;provide logical communication between app processes running on different hosts&lt;/li&gt;
+&lt;li&gt;transport protocols run in end systems
+
+&lt;ul&gt;
+&lt;li&gt;send side: breaks app message into segments, passes to network layer&lt;/li&gt;
+&lt;li&gt;receive side: reassembles segments into message passes to app layer&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;more than one transport protocol available to apps (Internet: TCP and UDP)
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9dd08c3e25b.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;network layer vs. transport layer
+
+&lt;ul&gt;
+&lt;li&gt;network layer: logical communication between hosts&lt;/li&gt;
+&lt;li&gt;transport layer: logical communication between processes&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;reliable, in-order delivery(TCP), congestion control, flow control, connection setup&lt;/li&gt;
+&lt;li&gt;unreliable, unordered delivery(UDP): no-frills extension of &amp;ldquo;best-effort&amp;rdquo; IP&lt;/li&gt;
+&lt;li&gt;services not available: delay guarantees, bandwidth guarantees&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;multiplexing-demultiplexing&#34;&gt;Multiplexing / demultiplexing&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9dd2c317a10.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;demultiplexing: delivering received segments to correct socket&lt;/li&gt;
+&lt;li&gt;multiplexing: gathering data from multiple sockets, enveloping data with header(later used for demultiplexing)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;demultiplexing&#34;&gt;Demultiplexing&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Host receive IP datagrams:
+
+&lt;ul&gt;
+&lt;li&gt;each datagram has source IP address, destination IP address&lt;/li&gt;
+&lt;li&gt;each datagram carries 1 transport-layer segment&lt;/li&gt;
+&lt;li&gt;each segment has source, destination port number&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;host uses IP addresses &amp;amp; port numbers to direct segment to appropriate socket
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9dd47a8dd0d.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;connectionless-demultiplexing&#34;&gt;Connectionless demultiplexing&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;create sockets with port number&lt;/li&gt;
+&lt;li&gt;UDP socket identified by two-tuple(destination IP address and destination port number)&lt;/li&gt;
+&lt;li&gt;when host receives UDP segment: checks destination port number in segment, directs UDP segment to socket with that port number&lt;/li&gt;
+&lt;li&gt;IP datagrams with different source IP addresses and/or source port numbers directed to same socket&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;connection-oriented-demultiplexing&#34;&gt;Connection-oriented demultiplexing&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;TCP socket identified by 4-tuple: source/destination IP address, source/destination port number&lt;/li&gt;
+&lt;li&gt;receiving host uses all four segment to appropriate socket&lt;/li&gt;
+&lt;li&gt;Server host may support many simultaneous TCP sockets, each socket identified by its own 4-tuple&lt;/li&gt;
+&lt;li&gt;Web servers have different sockets for each connection client, non-persistent HTTP will have different socket for each request
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9dda9a2fa8b.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;udp-user-datagram-protocol-rfc-768&#34;&gt;UDP: User Datagram Protocol (RFC 768)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;no frills&amp;rdquo;, &amp;ldquo;bare bones&amp;rdquo; Internet transport protocol&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;best effort&amp;rdquo; service&lt;/li&gt;
+&lt;li&gt;connectionless, no handshaking between UDP sender, receiver, each UDP segment handled independently of others&lt;/li&gt;
+&lt;li&gt;why using UDP:
+
+&lt;ul&gt;
+&lt;li&gt;no connection establishment&lt;/li&gt;
+&lt;li&gt;simple: no connection state at sender, receiver&lt;/li&gt;
+&lt;li&gt;small segment header&lt;/li&gt;
+&lt;li&gt;no connection control: UDP can blast away as fast as desired&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;often used for streaming multimedia apps&lt;/li&gt;
+&lt;li&gt;other UDP uses (DNS, SNMP(Simple network manager protocol) 网络管理资料收集)&lt;/li&gt;
+&lt;li&gt;reliable transfer over UDP: add reliability at application layer(application-specific error recovery)
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9ddcd48373c.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;udp-checksum&#34;&gt;UDP checksum&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Goal: detect &amp;ldquo;errors&amp;rdquo; in transmitted segment&lt;/li&gt;
+&lt;li&gt;sender:
+
+&lt;ul&gt;
+&lt;li&gt;treat segment contents as sequence of 16-bit integers&lt;/li&gt;
+&lt;li&gt;checksum: addition (1&amp;rsquo;s complement sum) of segment contents&lt;/li&gt;
+&lt;li&gt;sender puts checksum value into UDP checksum fields&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Receiver:
+
+&lt;ul&gt;
+&lt;li&gt;compute checksum of received segment&lt;/li&gt;
+&lt;li&gt;check if computed checksum equals checksum field value
+(No, error-detected, Yes, no error-detected)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;principles-of-reliable-data-transfer&#34;&gt;Principles of Reliable data transfer&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;top-10 list of important networking topics
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9ddf4ae2bd3.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;characteristics of unreliable channel will determine complexity of reliable data transfer protocol&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;rdt_send()&lt;/code&gt;: called from above, passed data to deliver to receiver upper layer&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;udt_send()&lt;/code&gt;: called by &lt;code&gt;rdt&lt;/code&gt;, to transfer packet over unreliable channel to receiver&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;rdt_rcv()&lt;/code&gt;: called when packet arrives on &lt;code&gt;rcv-side&lt;/code&gt; of channel&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deliver_data()&lt;/code&gt; called by &lt;code&gt;rdt&lt;/code&gt; to deliver data to upper&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;reliable-data-transfer&#34;&gt;Reliable data transfer&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;incrementally develop sender, receiver sides of reliable data transfer protocol(rdt)&lt;/li&gt;
+&lt;li&gt;consider only unidirectional data transfer(but control info will flow on both directions)&lt;/li&gt;
+&lt;li&gt;use finite state machines(FSM) to specify sender, receiver&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;rdt1-0-reliable-transfer-over-a-reliable-channel&#34;&gt;Rdt1.0: reliable transfer over a reliable channel&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;underlying channel perfectly reliable
+
+&lt;ul&gt;
+&lt;li&gt;no bit errors&lt;/li&gt;
+&lt;li&gt;no loss of packets&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;separate FSMs for sender, receiver
+
+&lt;ul&gt;
+&lt;li&gt;sender sends data into underlying channel&lt;/li&gt;
+&lt;li&gt;receiver read data from underlying channel
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9df830253ec.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;rdt2-0-channel-with-bit-errors&#34;&gt;Rdt2.0: channel with bit errors&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;underlying channel may flip bits in pocket: checksum to detect bit errors&lt;/li&gt;
+&lt;li&gt;how to recover from errors:
+
+&lt;ul&gt;
+&lt;li&gt;acknowledgements(ACKs) receiver explicitly tells sender that packet received OK&lt;/li&gt;
+&lt;li&gt;negative acknowledgements(NAKs) receiver explicitly tells sender that packet had errors&lt;/li&gt;
+&lt;li&gt;sender retransmits packet on receipt of NAK&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;new mechanisms in rdt2.0
+
+&lt;ul&gt;
+&lt;li&gt;error detection&lt;/li&gt;
+&lt;li&gt;receiver feedback: control msgs(ACK, NAK)
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9dfa762b88f.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;rdt2.0 has a fatal flow(if ACK/NAK corrupted?)
+
+&lt;ul&gt;
+&lt;li&gt;sender doesn&amp;rsquo;t know what happened at receiver&lt;/li&gt;
+&lt;li&gt;can&amp;rsquo;t just retransmit: possible duplicate&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Handling duplicates:
+
+&lt;ul&gt;
+&lt;li&gt;sender retransmits current packet if ACK/NAK corrupted&lt;/li&gt;
+&lt;li&gt;sender adds sequence number to each packet&lt;/li&gt;
+&lt;li&gt;receiver discards (doesn&amp;rsquo;t deliver up) duplicate packet&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Stop and wait (sender sends one packet, then waits for receiver response)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;rdt2-1-sender-handles-garbled-ack-naks&#34;&gt;Rdt2.1: sender, handles garbled ACK/NAKs&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Sender
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9dfcac45e5e.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Receiver
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9dfd8b78c4b.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;rdt2-2-a-nak-free-protocol&#34;&gt;Rdt2.2: a NAK-free protocol&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;same functionality as rdt2.1, using ACKS only&lt;/li&gt;
+&lt;li&gt;instead of NAK, receiver sends ACK for &lt;strong&gt;last packet&lt;/strong&gt; received OK, receiver must explicitly include sequence number of packet being ACKed&lt;/li&gt;
+&lt;li&gt;duplicate ACK at sender results in same action as NAK: retransmit current packet&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;rdt3-0-channels-with-errors-and-loss&#34;&gt;Rdt3.0: channels with errors and loss&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;New assumption:
+
+&lt;ul&gt;
+&lt;li&gt;underlying channel can also pockets(data or ACKs)&lt;/li&gt;
+&lt;li&gt;checksum, sequence number, ACKs, retransmission will be of help, but not enough&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Approach: sender waits &amp;ldquo;reasonable&amp;rdquo; amount of time for ACK&lt;/li&gt;
+&lt;li&gt;retransmits if no ACK received in this time&lt;/li&gt;
+&lt;li&gt;if packet (or ACK) just delayed (not lost):
+
+&lt;ul&gt;
+&lt;li&gt;retransmission will be duplicate, but use of sequence number&lt;/li&gt;
+&lt;li&gt;receiver must specify sequence number of packet being ACKed&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;requires countdown timer
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9e04ebd9810.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;performance of rdt3.0
+1Gbps link, 15 ms prop. delay, 8000 bit packet:
+
+&lt;ul&gt;
+&lt;li&gt;sender time
+$$ d = L/R = \frac{8000 bits}{10^9bps} = 8 ms$$&lt;/li&gt;
+&lt;li&gt;utilization - fraction of time sender busy sending
+$$ \frac{L/R}{RTT + L/R} = 0.008/30.0008 = 0.00027$$&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;stop and wait operation
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9e07305c4bb.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;pipelined-protocols&#34;&gt;Pipelined protocols&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;sender allows multiple, &amp;ldquo;in-flight&amp;rdquo; yet-to-be-acknowledged` packets
+
+&lt;ul&gt;
+&lt;li&gt;range of sequence numbers must be increased&lt;/li&gt;
+&lt;li&gt;buffering at sender and/or receiver
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9e07a57c05d.png&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Two generic forms of pipelined protocols: &lt;strong&gt;go-Back-N, selective repeat&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;go-back-n-big-picture&#34;&gt;Go-back-N: big picture&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;sender can have up to N unacked packets in pipeline&lt;/li&gt;
+&lt;li&gt;Receiver only sends cumulative ACKs, doesn&amp;rsquo;t ACK packet if there&amp;rsquo;s gap&lt;/li&gt;
+&lt;li&gt;Sender has timer for oldest unacked packet, if timer expires, retransmit all unlocked packets
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9e09de9caf2.png&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;ACK(n): ACKs all packet up to including sequence number n &amp;ndash; &amp;ldquo;cumulative ACK&amp;rdquo; (may receive duplicate ACKs)&lt;/li&gt;
+&lt;li&gt;timer for each in-flight packet&lt;/li&gt;
+&lt;li&gt;timeout(n): retransmit packet n and all higher sequence number packets in window
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9e0ef5f0e00.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;sender
+&lt;img src=&#34;https://i.loli.net/2019/03/29/5c9e0ef5f0e00.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;receiver
+&lt;img src=&#34;https://i.loli.net/2019/03/31/5ca036ac9a793.png&#34; width=&#34;600px&#34;/&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;example
+&lt;img src=&#34;https://i.loli.net/2019/03/31/5ca036ee8e6d8.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;selective-repeat-big-picture&#34;&gt;Selective Repeat: big picture&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Sender can have up to N unacked packets in pipeline&lt;/li&gt;
+&lt;li&gt;Receiver ACKs individual packets&lt;/li&gt;
+&lt;li&gt;Sender maintains timer for each unacked packet, when timer expires, retransmit only unacked packet
+&lt;img src=&#34;https://i.loli.net/2019/03/31/5ca0371c00c83.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Sender
+
+&lt;ul&gt;
+&lt;li&gt;if next available sequence number in window, send packet&lt;/li&gt;
+&lt;li&gt;timeout(n): resend packet n, restart timer&lt;/li&gt;
+&lt;li&gt;ACK(n) in (sendbase, sendbase + N): mark packet n as reader, if n smallest unACked packet, advance window base to next unACKed sequence number&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;receiver
+
+&lt;ul&gt;
+&lt;li&gt;send ACK(N)&lt;/li&gt;
+&lt;li&gt;out-of-order : buffer&lt;/li&gt;
+&lt;li&gt;in-order: deliver, advance window to next not-yet-received packet&lt;/li&gt;
+&lt;li&gt;if packet n in [revbase-revbase+N], ACK(n), otherwise ignore
+&lt;img src=&#34;https://i.loli.net/2019/03/31/5ca03a0f20daa.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;problem
+&lt;img src=&#34;https://i.loli.net/2019/03/31/5ca03dc05ef79.png&#34; width=&#34;500px&#34;/&gt;
+window size must be less than or equal t0 half the size of the sequence number space&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;connection-oriented-transport-tcp&#34;&gt;Connection-Oriented Transport: TCP&lt;/h2&gt;
+
+&lt;h3 id=&#34;overview&#34;&gt;Overview&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Point-to-Point&lt;/li&gt;
+&lt;li&gt;reliable: in-order byte stream: no &amp;ldquo;message boundaries&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;pipelined: TCP congestion and flow control set window size&lt;/li&gt;
+&lt;li&gt;send &amp;amp; receive buffer&lt;/li&gt;
+&lt;li&gt;flow control: sender will not overwhelm receiver&lt;/li&gt;
+&lt;li&gt;full duplex data: bi-directional data flow in some connection, maximum segment size(MSS， 控制流量，控制传输速度)&lt;/li&gt;
+&lt;li&gt;connection-oriented: handshaking (Exchange of control messages)&lt;/li&gt;
+&lt;li&gt;TCP segment structure
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca1b0f974767.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Sequence number: byte stream &amp;ldquo;number&amp;rdquo; of first byte in segment&amp;rsquo;s data&lt;/li&gt;
+&lt;li&gt;ACKs: sequence number of next byte expected from other side, cumulative ACK
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca1b4dc5a0aa.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;round-trip-time-estimation-and-timeout&#34;&gt;Round-Trip Time Estimation and Timeout&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;how receiver handles out-of-order segments: TCP spec doesn&amp;rsquo;t say, up to implementor&lt;/li&gt;
+&lt;li&gt;how to set TCP timeout value?
+
+&lt;ul&gt;
+&lt;li&gt;longer than RTT(Round Trip Time)&lt;/li&gt;
+&lt;li&gt;too short: premature timeout (unnecessary retransmission)&lt;/li&gt;
+&lt;li&gt;too long: slow reaction to segment loss&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;how to estimate RTT?
+
+&lt;ul&gt;
+&lt;li&gt;SampleRTT: measured time from segment transmission until ACT receipt (ignore retransmissions)&lt;/li&gt;
+&lt;li&gt;SampleRTT will vary, want estimated RTT &amp;ldquo;smoother&amp;rdquo;, average several recent measurement, not just current SampleRTT&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;EstimatedRTT = $(1-\alpha)\cdot \text{EstimatedRTT} + \alpha \cdot \text{SampleRTT} \text{ typically}, \alpha$ is 0.125&lt;/li&gt;
+&lt;li&gt;estimate of how much SampleRTT deviates from EstimatedRTT
+$DevRTT = (1-\beta) \cdot \text{DevRTT} \cdot \beta \cdot |\text{SampleRTT}-\text{Estimated RTT}|$, typically, $\beta = 0.25$&lt;/li&gt;
+&lt;li&gt;set timeout interval
+TimeoutInterval = EstimatedRTT + 4 * DevRTT&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;tcp-sender-events&#34;&gt;TCP sender events&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;data received from application:
+
+&lt;ul&gt;
+&lt;li&gt;create segment with sequence number&lt;/li&gt;
+&lt;li&gt;sequence number is a byte-stream number of first data byte in segment&lt;/li&gt;
+&lt;li&gt;start timer if not already running (think of timer as for oldest unacked segment)&lt;/li&gt;
+&lt;li&gt;expiration interval: timeout Interval&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;timeout: retransmit segment that caused timeout, restart timer&lt;/li&gt;
+&lt;li&gt;ACK received: if acknowledges previously unacked segments, update what is known to be acked, start timer if there are outstanding segments&lt;/li&gt;
+&lt;li&gt;figure:
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca1febf72143.png&#34; width=&#34;700px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;TCP retransmission Scenarios
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca1ff1ec67a4.png&#34; width=&#34;400px&#34;/&gt;
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca1ff540a9f6.png&#34; width=&#34;450px&#34;/&gt;
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca1ff7dbea07.png&#34; width=&#34;4550px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;tcp-ark-generation&#34;&gt;TCP ARK Generation&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca1ffd31e346.png&#34; width=&#34;600px&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;fast-retransmit&#34;&gt;Fast retransmit&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Time-out period often relatively long (long delay before resending lost packet)&lt;/li&gt;
+&lt;li&gt;detect lost segment via duplicate ACKs (If segment is lost, there will likely be many duplicate ACKs)&lt;/li&gt;
+&lt;li&gt;if Sender receives ACKs for the same data, it supposes that segment after ACKed data was lost&lt;/li&gt;
+&lt;li&gt;fast retransmit: resend segment before timer expires
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca200cc1f243.png&#34; width=&#34;450px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Algorithm
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca20110e65d0.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;flow-control&#34;&gt;Flow Control&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Sender won&amp;rsquo;t overflow receiver&amp;rsquo;s buffer by transmitting too much or too fast&lt;/li&gt;
+&lt;li&gt;Receive side of TCP connection has a receive buffer
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca2019f72288.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Suppose TCP receiver discards out-of-order segments&lt;/li&gt;
+&lt;li&gt;Receiver advertises spare room by including value of  RcvWindow in segments&lt;/li&gt;
+&lt;li&gt;Sender limits unACKed data to RcvWindow&lt;/li&gt;
+&lt;li&gt;rwnd(receive window) = RcvBuffer - [LastByteRcvd - LastByteRead]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;tcp-connection-management&#34;&gt;TCP Connection Management&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Three way handshake
+
+&lt;ol&gt;
+&lt;li&gt;Client host sends TCP SYN segment to server, specifies initial sequence number (no data)&lt;/li&gt;
+&lt;li&gt;Server host receivers SYN, replies with SYNACK segment, server allocates buffers, specifies server initial sequence number&lt;/li&gt;
+&lt;li&gt;client receives SYNACK, replies with ACK segment, which may contain data
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca205d6c7de8.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Closing a connection
+
+&lt;ol&gt;
+&lt;li&gt;client end system send TCP FIN control segment to server&lt;/li&gt;
+&lt;li&gt;server receives FIN, replies with ACK, closes connection, sends FIN&lt;/li&gt;
+&lt;li&gt;client receives FIN, replies with ACK, enters &amp;ldquo;timed wait&amp;rdquo; will respond with ACK to received FINs&lt;/li&gt;
+&lt;li&gt;server, receives ACK, connection closed
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca205f6dfd5c.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Figure
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca206338a961.png&#34; width=&#34;400px&#34;/&gt;
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca2066d19100.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;tcp-congestion-control&#34;&gt;TCP congestion control&lt;/h3&gt;
+
+&lt;h4 id=&#34;principles-of-congestion-control&#34;&gt;Principles of Congestion Control&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;too many sources sending too much data too fast for network to handle&lt;/li&gt;
+&lt;li&gt;manifestations: lost packets, long delays&lt;/li&gt;
+&lt;li&gt;a top-10 problem&lt;/li&gt;
+&lt;li&gt;Cause/costs of congestion: scenario 1, two connections sharing a single hop with infinite buffers, maximum achievable throughput, large delays when congested
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca20729465a5.png&#34; width=&#34;450px&#34;/&gt;
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca2079000572.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;scenario 2, one router, finite buffers, and retransmission
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca207dfa7b04.png&#34; width=&#34;400px&#34;/&gt;
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca2083286448.png&#34; width=&#34;500px&#34;/&gt;
+
+&lt;ul&gt;
+&lt;li&gt;always: $\lambda&lt;em&gt;{in} = \lambda&lt;/em&gt;{out}$&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;perfect&amp;rdquo; retransmission only when loss: $\lambda&lt;em&gt;{in}&amp;rsquo; = \lambda&lt;/em&gt;{out}$&lt;/li&gt;
+&lt;li&gt;retransmission of delayed (not lost) packet makes $\lambda&lt;em&gt;{in}&amp;lsquo;$ larger (than perfect case) for same $\lambda&lt;/em&gt;{out}$&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Scenario 3, four senders, multi-hop paths, timeout/retransmit
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca2092db9321.png&#34; width=&#34;400px&#34;/&gt;
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca209691eb47.png&#34; width=&#34;400px&#34;/&gt;
+
+&lt;ul&gt;
+&lt;li&gt;even more crowded&lt;/li&gt;
+&lt;li&gt;when packet dropped, any upstream transmission capacity used for that packet was wasted (之前走过的路径全部浪费掉)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;approaches-towards-congestion-control&#34;&gt;Approaches towards congestion control&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;End-end congestion control
+
+&lt;ul&gt;
+&lt;li&gt;no explicit feedback from network&lt;/li&gt;
+&lt;li&gt;congestion inferred from end-system observed loss, delay&lt;/li&gt;
+&lt;li&gt;approach taken by TCP&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Network-assisted congestion control:
+
+&lt;ul&gt;
+&lt;li&gt;routers provide feedback to end system&lt;/li&gt;
+&lt;li&gt;single bit indicating congestion (SNA, TCP/IP ECN, ATM)&lt;/li&gt;
+&lt;li&gt;explicit rate sender should send&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;CASE: ATM (ABR congestion control)
+
+&lt;ul&gt;
+&lt;li&gt;ABR: available bit rate, elastic service&lt;/li&gt;
+&lt;li&gt;if sender&amp;rsquo;s path &amp;ldquo;underloaded&amp;rdquo;, sender should use available bandwidth&lt;/li&gt;
+&lt;li&gt;if sender&amp;rsquo;s path congested: sender throttled to minimum guaranteed rate&lt;/li&gt;
+&lt;li&gt;RM (resource management) cells:&lt;/li&gt;
+&lt;li&gt;sent by sender, interspersed with data cells&lt;/li&gt;
+&lt;li&gt;bit in RM cell set by switches: NI bit: no increase in rate; CI bit: congestion indication&lt;/li&gt;
+&lt;li&gt;RM cells returned to sender by receiver, with bits intact
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca20b6a0066b.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;EFCI bit in data cells: set to 1 in congested switch, if data cell preceding RM cell has EFCI set, receiver sets CI bit in returned RM cell&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;tcp-congestion-control-1&#34;&gt;TCP congestion control&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Congestion window(cwnd): imposes a constraint on the rate at which a TCP sender can send traffic into the network,
+LastByteSent – LastByteAcked &amp;lt;= cwnd&lt;/li&gt;
+&lt;li&gt;MSS: maximum segment size: the maximum amount of data that can be grabbed and placed in a segment&lt;/li&gt;
+&lt;li&gt;roughly rate = CongWin / RTT (Bytes/sec)&lt;/li&gt;
+&lt;li&gt;How does sender perceive congestion?
+
+&lt;ul&gt;
+&lt;li&gt;loss event = timeout or 3 duplicate ACKs&lt;/li&gt;
+&lt;li&gt;TCP sender reduces rate (cwnd) after loss event&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;three mechanisms:
+
+&lt;ul&gt;
+&lt;li&gt;AIMD&lt;/li&gt;
+&lt;li&gt;slow start&lt;/li&gt;
+&lt;li&gt;conservative after timeout events&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;aimd&#34;&gt;AIMD&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Approach: increase transmission rate (window size), probing for usable bandwidth, until loss occurs&lt;/li&gt;
+&lt;li&gt;Additive increase: increase CongWin by 1 MSS every RTT until loss detected&lt;/li&gt;
+&lt;li&gt;multiplicative decrease: cut CongWin in half after loss
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca20c3c5c2a0.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;slow-start&#34;&gt;Slow start&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;when connections begins, CongWIn = 1MSS&lt;/li&gt;
+&lt;li&gt;available bandwidth may be &amp;gt;&amp;gt; MSS/RTT&lt;/li&gt;
+&lt;li&gt;when connection begins, increase rate exponentially fast until first loss event
+
+&lt;ul&gt;
+&lt;li&gt;double congwin every RTT&lt;/li&gt;
+&lt;li&gt;done by incrementing congwin for every ACK received
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca20eb32840b.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;inferring loss
+
+&lt;ul&gt;
+&lt;li&gt;After 3 duplicate ACKs, cwnd is cut in half, window the grows linearly&lt;/li&gt;
+&lt;li&gt;after timeout event, cwnd set to 1 MSS, window then grows exponentially to a threshold, then grows linearly
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca20f8ca48d5.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;tcp-summary&#34;&gt;TCP Summary&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;TCP throughput: Let W be the window size when loss occurs, when window is W, throughput is W/RTT, just after loss, windows drops to W/2, throughput is W/(2RTT), average throughput 0.75W/RTT&lt;/li&gt;
+&lt;li&gt;TCP future: TCP over &amp;ldquo;long, fat pipes&amp;rdquo;
+1500 byte segments, 100ms RTT, want 10Gbps throughputs, requires window size W = 83.333 in flight ($W \cdot 1500 \cdot 8 / 100ms = 10Gbps$), throughput in terms of loss rate: $1.22\cdot MSS/(RTT\sqrt{L})$ , $L = 2\cdot 10^{-10}$&lt;/li&gt;
+&lt;li&gt;TCP Fairness, if K TCP sessions share same bottleneck link of bandwidth R, each should have average rate of R/K, the TCP is fair
+&lt;img src=&#34;https://i.loli.net/2019/04/01/5ca2208dd5029.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Network Layer</title>
+      <link>/courses/computer_network/network_layer/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/computer_network/network_layer/</guid>
+      <description>
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;transport segment from sending to receiving host&lt;/li&gt;
+&lt;li&gt;on sending side encapsulates segments into datagrams&lt;/li&gt;
+&lt;li&gt;on receiving side, delivers segments to transport layer&lt;/li&gt;
+&lt;li&gt;network layer protocols in every host, router&lt;/li&gt;
+&lt;li&gt;router examines header fields in all IP datagrams passing through it&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;two-keys&#34;&gt;Two keys&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Forwarding: move packets from router&amp;rsquo;s input to appropriate router output
+&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca48fce906b6.png&#34; width=&#34;450px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Routing: determine route taken by packets from source to destination, routing algorithm&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;connection-setup&#34;&gt;Connection setup&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;3rd important function in some network architectures: ATM, frame relay, X.25&lt;/li&gt;
+&lt;li&gt;before datagrams flow, two end hosts and intervening routers establish virtual connection (routers get involved)&lt;/li&gt;
+&lt;li&gt;network vs transport layer connection service:
+
+&lt;ul&gt;
+&lt;li&gt;network: between two hosts(may also involve intervening routers in case of VCs)&lt;/li&gt;
+&lt;li&gt;transport: between two processes&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;network-service-model&#34;&gt;Network Service model&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;example services for individual datagrams: guaranteed delivery, guaranteed delivery with less than 40 milliseconds delay&lt;/li&gt;
+&lt;li&gt;example services for a flow of datagrams: in order datagram delivery, guaranteed minimum bandwidth to flow,  restrictions on change in inter-packet spacing (封包和封包的间隔的变化(时间差), 变异度)&lt;/li&gt;
+&lt;li&gt;建连线有上面的这些机制&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca492c7dbe88.png&#34; width=&#34;650px&#34;/&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;virtual-circuit-and-datagram-networks&#34;&gt;Virtual circuit and datagram networks&lt;/h2&gt;
+
+&lt;h3 id=&#34;connection-and-connection-less-service&#34;&gt;connection and connection-less service&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;datagram network provides network-layer connectionless service&lt;/li&gt;
+&lt;li&gt;VC network provides network-layer connection service&lt;/li&gt;
+&lt;li&gt;analogous to transport-layer services, service: host-to-host; no choice: network providers one or the other(只能选一种); implementation: in network core&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;virtual-circuits&#34;&gt;Virtual circuits&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;source-to-dest path behaves like telephone circuit (performance-wise, network actions along source-to-dest path)&lt;/li&gt;
+&lt;li&gt;call setup, teardown for each call before data can flow&lt;/li&gt;
+&lt;li&gt;each packet carries VC identifier (not destination host address)&lt;/li&gt;
+&lt;li&gt;every router on source-dest path maintains &amp;ldquo;state&amp;rdquo; for each passing connection&lt;/li&gt;
+&lt;li&gt;link, router resources(bandwidth, buffers) may be allocated to VC (dedicated resources = predictable service)
+&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4968c668c7.png&#34; width=&#34;400px&#34;/&gt;
+&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4969aecdd0.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;vc-implementation&#34;&gt;VC implementation&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;VC consists of
+
+&lt;ul&gt;
+&lt;li&gt;path from source to destination&lt;/li&gt;
+&lt;li&gt;VC numbers, one number for each link along path&lt;/li&gt;
+&lt;li&gt;entries in forwarding tables in routers along path&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;packet belonging to VC carries VC number(rather than destination address)&lt;/li&gt;
+&lt;li&gt;VC number can be changed on each link (New VC number comes from forwarding table)
+&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4981ed5b64.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;datagram-networks&#34;&gt;Datagram Networks&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;no call setup at network layer&lt;/li&gt;
+&lt;li&gt;routers: no state about end-to-end connections, no network-level concept of &amp;ldquo;connection&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;packets forwarded using destination host address, packets between some source-destination pair may take different paths
+&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4995db5593.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;forwarding table
+
+&lt;ul&gt;
+&lt;li&gt;longest prefix matching
+&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca49a3b909dd.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;datagram-or-vc-network-why&#34;&gt;Datagram or VC network: Why&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Internet (datagram)
+
+&lt;ul&gt;
+&lt;li&gt;data exchange among computers, elastic service, no strict timing request&lt;/li&gt;
+&lt;li&gt;smart end systems (computer), can adapt, perform control error recovery, simple inside network, complexity at &amp;ldquo;edge&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;many link types, different characteristics, uniform service difficult&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;ATM (VC)
+
+&lt;ul&gt;
+&lt;li&gt;evolved from telephony&lt;/li&gt;
+&lt;li&gt;human conversation, strict timing, reliability requirements, need for guaranteed service&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;dumb&amp;rdquo; end systems (telephones, complexity inside network)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;what-s-inside-a-router&#34;&gt;What&amp;rsquo;s inside a router&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4a00b51702.png&#34; width=&#34;400px&#34;/&gt;
+- routing algorithms / protocol (RIP, OSPF, BGP)
+- forwarding algorithms from incoming to outgoing link&lt;/p&gt;
+
+&lt;h3 id=&#34;input-port-functions&#34;&gt;Input Port Functions&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4a134239c6.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;given datagram destination, lookup output port using forwarding table in input port memory&lt;/li&gt;
+&lt;li&gt;goal: complete input port processing at line speed&lt;/li&gt;
+&lt;li&gt;queuing: if datagrams arrive faster than forwarding rate into switch fabric&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;switching-fabrics&#34;&gt;Switching fabrics&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4a2e556669.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;switching via a bus:
+
+&lt;ul&gt;
+&lt;li&gt;datagram from input port memory to output port memory via a shared bus&lt;/li&gt;
+&lt;li&gt;bus connection: switching speed limited by bus bandwidth&lt;/li&gt;
+&lt;li&gt;32 Gbps bus, Cisco 5600: sufficient speed for access and enterprise routers&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;switching through a crossbar&lt;/li&gt;
+&lt;li&gt;switching via An interconnection network
+
+&lt;ul&gt;
+&lt;li&gt;overcome bus bandwidth limitations&lt;/li&gt;
+&lt;li&gt;Banyan networks, other interconnection nets initially developed to connect processors in multiprocessor&lt;/li&gt;
+&lt;li&gt;advanced design: fragmenting datagram into fixed length cell&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;output-ports&#34;&gt;Output ports&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4a43acefdc.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;buffering: required when datagrams arrive from fabric faster than the transmission rate&lt;/li&gt;
+&lt;li&gt;scheduling discipline: chooses among queued datagrams for transmission
+&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4a4d9c5b79.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;queueing (delay) and loss due to output port buffer overflow&lt;/li&gt;
+&lt;li&gt;How much buffering
+
+&lt;ul&gt;
+&lt;li&gt;RFC 3439 rule of thumb: average buffering equal to &amp;ldquo;typical&amp;rdquo; RTT (250 millisecond) times link capacity C (C = 10 Gpbs link, 2.5 Gbit buffer)&lt;/li&gt;
+&lt;li&gt;Recent recommendation: with N flows, buffering equal to $RTT*C/(\sqrt(N))$&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Input port Queuing problem
+&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4a677b909c.png&#34; width=&#34;400px&#34;/&gt;
+
+&lt;ul&gt;
+&lt;li&gt;HOL (head-of-the-line) blocking&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ip-internet-protocol&#34;&gt;IP: Internet Protocol&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4a7516558a.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;ip-datagram-format&#34;&gt;IP datagram format&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4a861461f7.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;16-bit identifier, flags, 13-bit fragmentation offset: fragmentation/reassembly&lt;/li&gt;
+&lt;li&gt;time to live: max number remaining hops (decremented at each router)&lt;/li&gt;
+&lt;li&gt;upper layer: upper layer protocol to deliver&lt;/li&gt;
+&lt;li&gt;header checksum&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;ip-datagram-fragmentation&#34;&gt;IP Datagram Fragmentation&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4a906a20cf.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4a9b07232e.png&#34; width=&#34;600px&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;ipv4-addressing&#34;&gt;IPv4 addressing&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;IP address: 32-bit identifier for host, router interface&lt;/li&gt;
+&lt;li&gt;interface: connection between host/router and physical link
+
+&lt;ul&gt;
+&lt;li&gt;router&amp;rsquo;s typically have multiple interfaces&lt;/li&gt;
+&lt;li&gt;host typically has one interface&lt;/li&gt;
+&lt;li&gt;ip address associated with each interface&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;subnets&#34;&gt;Subnets&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;subnet part (high order bits)&lt;/li&gt;
+&lt;li&gt;host part (low order bits)&lt;/li&gt;
+&lt;li&gt;device interfaces with same subnet part of IP address&lt;/li&gt;
+&lt;li&gt;can physically reach other without intervening router
+&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4ace603a45.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;to determine the subnets, detach each interface from its host or router, creating islands of isolated networks, each isolated network is called a subnet&lt;/li&gt;
+&lt;li&gt;six subnets
+&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4ade4aa342.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;CIDR: Classless Inter Domain Routing
+
+&lt;ul&gt;
+&lt;li&gt;subnet portion of address of arbitrary length&lt;/li&gt;
+&lt;li&gt;address format: a.b.c.d/x where x is number bits in subnet portion of address&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Get IP
+
+&lt;ul&gt;
+&lt;li&gt;hard-coded by system admin in a file,  &lt;code&gt;unix: /etc/rc.config&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;DHCP: Dynamic Host Configuration Protocol: dynamically get address from as server, &amp;ldquo;plug-and-play&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Get subnet part of IP address: Gets allocated portion of its provider ISP&amp;rsquo;s address space&lt;/li&gt;
+&lt;li&gt;ISP get block of address? ICANN (Internet Corporation for Assigned Names and Numbers)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;dhcp-dynamic-host-configuration-protocol&#34;&gt;DHCP: Dynamic Host Configuration Protocol&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Goal: allow host to dynamically obtain its IP address from network server when it joins network, can renew its lease on address in use, allows reuse of address (only hold address while connected an &amp;ldquo;on&amp;rdquo;), support for mobile users who want to join network (more shortly)&lt;/li&gt;
+&lt;li&gt;DHCP overview:
+
+&lt;ul&gt;
+&lt;li&gt;host broadcasts &amp;ldquo;DHCP discover&amp;rdquo; message&lt;/li&gt;
+&lt;li&gt;DHCP server respond with &amp;ldquo;DHCP offer&amp;rdquo; message&lt;/li&gt;
+&lt;li&gt;host requests IP address &amp;ldquo;DHCP request&amp;rdquo; message&lt;/li&gt;
+&lt;li&gt;DHCP server sends address &amp;ldquo;DHCP ACK&amp;rdquo; message
+&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4b5f6e31b0.png&#34; width=&#34;400px&#34;/&gt;
+&lt;img src=&#34;https://i.loli.net/2019/04/03/5ca4b605e3bf1.png&#34; width=&#34;450px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;hierarchical-addressing&#34;&gt;Hierarchical addressing&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/04/5ca5a81531772.png&#34; width=&#34;400px&#34;/&gt;
+&lt;img src=&#34;https://i.loli.net/2019/04/04/5ca5a7df7e3e2.png&#34; width=&#34;400px&#34;/&gt;
+more specific route
+&lt;img src=&#34;https://i.loli.net/2019/04/04/5ca5a8c57f578.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;network-address-translation-nat&#34;&gt;Network Address Translation (NAT)&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Motivation: local network use just one IP address as far as outside world is concerned:
+
+&lt;ul&gt;
+&lt;li&gt;range of addresses not needed from ISP: just one IP address for all devices&lt;/li&gt;
+&lt;li&gt;can change addresses of devices in local network without notifying outside world&lt;/li&gt;
+&lt;li&gt;can change ISP without changing addresses of devices in local network&lt;/li&gt;
+&lt;li&gt;devices inside local net not explicitly addressable, visible by outside world (a security plus)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Implementation: NAT router must:
+
+&lt;ul&gt;
+&lt;li&gt;outgoing datagrams: replace (source IP address, port number) of every outgoing datagram to (NAT IP address, new port number), remote clients/ servers will respond using (NAT IP address, )&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/04/5ca5ac6370caf.png&#34; width=&#34;500px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;16 bit port-number field (65536)&lt;/li&gt;
+&lt;li&gt;NAT is controversial
+
+&lt;ul&gt;
+&lt;li&gt;routers should only process up to layer 3 (but involved layer 4)&lt;/li&gt;
+&lt;li&gt;violates end-to-end argument, NAT possibility must be taken into account by app designers (eg. P2P applications)&lt;/li&gt;
+&lt;li&gt;address shortage should instead be solved by IPv6&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;NAT traversal problem
+
+&lt;ul&gt;
+&lt;li&gt;client wants to connect to server with address 10.0.0.1, server address 10.0.0.1 local to LAN (client can&amp;rsquo;t use it as destination address), only one externally visible NAT address&lt;/li&gt;
+&lt;li&gt;solution 1: statically configure NAT to forward incoming connection requests at given port to server (e.g. 123.76.29.7 port 2500 always forwarded to 10.0.0.1 port 2500)&lt;/li&gt;
+&lt;li&gt;solution2: Universal Plug and Play (UPnP),  Internet Gateway Device(IGD) protocol. Allows NATed host to:&lt;/li&gt;
+&lt;li&gt;learn public IP address&lt;/li&gt;
+&lt;li&gt;add /remove port mappings (with lease times)&lt;/li&gt;
+&lt;li&gt;automate static NAT port map configuration&lt;/li&gt;
+&lt;li&gt;solution3: relaying (used in Skype)&lt;/li&gt;
+&lt;li&gt;NATed client establishes connection to relay&lt;/li&gt;
+&lt;li&gt;external client connects to relay&lt;/li&gt;
+&lt;li&gt;relay bridges packets between connections&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;icmp-internet-control-message-protocol&#34;&gt;ICMP (Internet Control Message Protocol)&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;used by host &amp;amp; routers to communicate network-level information
+
+&lt;ul&gt;
+&lt;li&gt;error reporting&lt;/li&gt;
+&lt;li&gt;unreachable host, network, port, protocol&lt;/li&gt;
+&lt;li&gt;echo request/reply (used by ping)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;network-layer above &amp;ldquo;IP&amp;rdquo;, ICMP messages carried in IP datagrams&lt;/li&gt;
+&lt;li&gt;ICMP message: type, code plus first 8 bytes of IP datagram causing error&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;traceroute-and-icmp&#34;&gt;Traceroute and ICMP&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;source sends series of UDP segment to destination
+
+&lt;ul&gt;
+&lt;li&gt;first has TTL=1&lt;/li&gt;
+&lt;li&gt;second has TTL=2, etc&lt;/li&gt;
+&lt;li&gt;unlikely port number&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;when nth datagram arrives to nth router
+
+&lt;ul&gt;
+&lt;li&gt;router discards datagram&lt;/li&gt;
+&lt;li&gt;and sends to source an ICMP message (type 11, code 0)&lt;/li&gt;
+&lt;li&gt;Message includes name of routers &amp;amp; IP address&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;when ICMP message arrives, source calculates RTT&lt;/li&gt;
+&lt;li&gt;traceroute does this 3 times&lt;/li&gt;
+&lt;li&gt;Stoping criterion
+
+&lt;ul&gt;
+&lt;li&gt;UDP segment eventually arrives at destination host&lt;/li&gt;
+&lt;li&gt;destination returns ICMP &amp;ldquo;port unreachable&amp;rdquo; packet (type 3, code 3)&lt;/li&gt;
+&lt;li&gt;when source gets this ICMP, stops&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ipv6&#34;&gt;IPv6&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Initial motivation: 32-bit address space soon to be completely allocated&lt;/li&gt;
+&lt;li&gt;additional motivation:
+
+&lt;ul&gt;
+&lt;li&gt;header format helps speed processing/forwarding&lt;/li&gt;
+&lt;li&gt;header changes to facilitate QoS&lt;/li&gt;
+&lt;li&gt;IPv6 datagram format: fixed-length 40 byte header, no fragmentation allowed
+&lt;img src=&#34;https://i.loli.net/2019/04/04/5ca5e8da43dfe.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;priority: identify priority among datagrams in flow&lt;/li&gt;
+&lt;li&gt;flow label: identify datagrams in same &amp;ldquo;flow&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;next header: identify upper layer protocol for data&lt;/li&gt;
+&lt;li&gt;checksum: removed entirely to reduce processing time at each step&lt;/li&gt;
+&lt;li&gt;options: allowed, but outside of header, indicated by &amp;ldquo;Next Header&amp;rdquo; field&lt;/li&gt;
+&lt;li&gt;ICMPv6: new version of ICMP, additional message types (&amp;ldquo;packet too big&amp;rdquo;), multicast group management functions&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;transition-from-ipv4-to-ipv6&#34;&gt;Transition From IPv4 to IPv6&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;not all routers can be upgraded simultaneous, no &amp;ldquo;flag days&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;operate mixed IPv4 and IPv6 routers: &lt;strong&gt;Tunneling&lt;/strong&gt;, IPv6 carried as payload in IPv4 datagram among IPv4 routers
+&lt;img src=&#34;https://i.loli.net/2019/04/04/5ca5eacac3bed.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;routing-algorithm&#34;&gt;Routing Algorithm&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Graph abstraction
+&lt;img src=&#34;https://i.loli.net/2019/04/04/5ca5ebfacbbcd.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Routing Algorithm: algorithm that finds least-cost path&lt;/li&gt;
+&lt;li&gt;Global: all routers have complete topology, link cost info (link-state algorithm)&lt;/li&gt;
+&lt;li&gt;Decentralized
+
+&lt;ul&gt;
+&lt;li&gt;router knows physically-connected neighbors, link costs to neighbors&lt;/li&gt;
+&lt;li&gt;iterative process of computation, exchange info with neighbors&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;distance vector&amp;rdquo; algorithms&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;static or dynamic?
+
+&lt;ul&gt;
+&lt;li&gt;static: routes change slowly over time&lt;/li&gt;
+&lt;li&gt;dynamic: routes change more quickly (periodic update, in response to link cost changes)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;link-state-routing-algorithm&#34;&gt;Link-State Routing Algorithm&lt;/h3&gt;
+
+&lt;p&gt;Dijkstra&amp;rsquo;s algorithm (See Algorithm)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Oscillations with congestion-sensitive routing (link cost = amount of carried traffic)
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca8185104528.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;the-distance-vector-dv-routing-algorithm&#34;&gt;The Distance-Vector (DV) Routing Algorithm&lt;/h3&gt;
+
+&lt;p&gt;Distance Vector Algorithm (see Algorithm)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Node x maintains distance vector&lt;/li&gt;
+&lt;li&gt;Node x also maintains its neighbors&amp;rsquo; distance vectors&lt;/li&gt;
+&lt;li&gt;Bellman-Ford equation (dynamic programming)
+$d_x(y) = min_v (c(x,v) + d_v(y))$ where min is taken over all neighbors v of x
+&lt;img src=&#34;https://i.loli.net/2019/04/04/5ca5f6a51904f.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;good news travels fast, bad news travels slow
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca8155a2ec9c.png&#34; width=&#34;400px&#34;/&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Figure b needs 44 iterations before algorithm stabilizes&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Poisoned reverse
+
+&lt;ul&gt;
+&lt;li&gt;If Z routes through Y to get to X: Z tells Y its (Z&amp;rsquo;s) distance to X is infinite (So y won&amp;rsquo;t route to X via Z)&lt;/li&gt;
+&lt;li&gt;loops involving three or more nodes (rather than simply two immediately neighboring nodes) will not be detected by the poisoned reverse technique&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;comparison-of-ls-and-dv&#34;&gt;Comparison of LS and DV&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Message complexity
+
+&lt;ul&gt;
+&lt;li&gt;LS: with n nodes, E links O(nE) message send&lt;/li&gt;
+&lt;li&gt;DV: exchange between neighbors only, convergence time varies&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Speed of Convergence
+
+&lt;ul&gt;
+&lt;li&gt;LS: $O(n^2)$ algorithm requires $O(nE)$ messages, may have oscillations&lt;/li&gt;
+&lt;li&gt;DV: convergence time varies, may be routing loops, count-to-infinity&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Robustness: what happens if router malfunctions?
+
+&lt;ul&gt;
+&lt;li&gt;LS: node can advertise incorrect link cost, each node computes only its own table&lt;/li&gt;
+&lt;li&gt;DV node can advertise incorrect path cost, each node&amp;rsquo;s table used by others, error propagate through network&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;hierarchical-routing&#34;&gt;Hierarchical routing&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;scale: with 200 million destinations:
+
+&lt;ul&gt;
+&lt;li&gt;can&amp;rsquo;t store all destination&amp;rsquo;s in routing tables&lt;/li&gt;
+&lt;li&gt;routing table exchange would swamp links&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;administrative autonomy
+
+&lt;ul&gt;
+&lt;li&gt;internet = network of networks&lt;/li&gt;
+&lt;li&gt;each network admin may want to control routing in its own network&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;aggregate routers into regions &amp;ldquo;autonomous systems (AS)&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;routers in same AS run same routing protocol
+
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;intra-AS&amp;rdquo; routing protocol&lt;/li&gt;
+&lt;li&gt;routers in different AS can run different intra-AS running protocol&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Gateway router : direct link to router in another AS
+&lt;img src=&#34;https://i.loli.net/2019/04/04/5ca5fc1c11b2e.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Inter-AS tasks, suppose router in AS1 receives datagram destined outside of AS1: router should forward packet to gateway router, but which one?
+
+&lt;ul&gt;
+&lt;li&gt;AS1 must learn which destination are reachable through AS2, which through AS3&lt;/li&gt;
+&lt;li&gt;propagate this reachability info to all routers in AS1&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;hot-potato-routing&#34;&gt;Hot-potato routing&lt;/h4&gt;
+
+&lt;p&gt;Suppose AS1 learns from inter-AS protocol that subnet X is reachable from AS3 and from AS2, to configure forwarding table, router 1d must determine towards which gateway it should forward packets for destination x.(hot-potato routing- send packet towards closest of two routers)
+&lt;img src=&#34;https://i.loli.net/2019/04/04/5ca5ff85a0ec8.png&#34; width=&#34;600px&#34;/&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;routing-in-the-internet&#34;&gt;Routing in the Internet&lt;/h2&gt;
+
+&lt;p&gt;Interior Gateway Protocols (IGP)&lt;/p&gt;
+
+&lt;h3 id=&#34;rip-routing-information-protocol&#34;&gt;RIP (Routing Information Protocol)&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;distance vector algorithm&lt;/li&gt;
+&lt;li&gt;included in BSD-UNIX distribution in 1982&lt;/li&gt;
+&lt;li&gt;distance metric: number of hops (max = 15hops)
+&lt;img src=&#34;https://i.loli.net/2019/04/04/5ca600bf47feb.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;exchanged among neighbors every 30 seconds via Response Message (also called advertisement)&lt;/li&gt;
+&lt;li&gt;each advertisement: list of up to 25 destination subnets within AS&lt;/li&gt;
+&lt;li&gt;Link Failure and Recovery: if no advertisement heard after 180 seconds $\rightarrow$ neighbor/link declared dead
+
+&lt;ul&gt;
+&lt;li&gt;routes via neighbor invalidated&lt;/li&gt;
+&lt;li&gt;new advertisements send to neighbors&lt;/li&gt;
+&lt;li&gt;neighbors in turn send out new advertisements&lt;/li&gt;
+&lt;li&gt;link failure info quickly (?) propagates to entire network&lt;/li&gt;
+&lt;li&gt;poison reverse: used to prevent ping-pong loops (infinite distance = 16 loops)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;RIP table processing
+
+&lt;ul&gt;
+&lt;li&gt;RIP routing tables managed by application-level process called route-d (daemon) (Send distance vector)&lt;/li&gt;
+&lt;li&gt;advertisements send in UDP packets, periodically repeated
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca81b33efa24.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ospf-open-shortest-path-first&#34;&gt;OSPF (Open Shortest Path First)&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;open: publicly available&lt;/li&gt;
+&lt;li&gt;uses Link State algorithm:
+
+&lt;ul&gt;
+&lt;li&gt;LS packet dissemination&lt;/li&gt;
+&lt;li&gt;topology map at each node&lt;/li&gt;
+&lt;li&gt;route computation using Dijkstra&amp;rsquo;s algorithm&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;OSPF advertisement carries one entry per neighbor router&lt;/li&gt;
+&lt;li&gt;advertisements disseminated to entire AS (via flooding), carried in OSPF messages directly over IP (rather than TCP or UDP)&lt;/li&gt;
+&lt;li&gt;advanced features
+
+&lt;ul&gt;
+&lt;li&gt;security: all OSPF messages authenticated(to prevent malicious intrusion)&lt;/li&gt;
+&lt;li&gt;multiple same-cost paths allowed (only one path in RIP)&lt;/li&gt;
+&lt;li&gt;For each link, multiple cost metrics for different TOS (type of service) (e.g. satellite link cost set &amp;ldquo;low: for best effort: high for real time)&lt;/li&gt;
+&lt;li&gt;integrated uni- and multicast support: Multicast OSPF (MOSPF) uses same topology data base as OSPF&lt;/li&gt;
+&lt;li&gt;hierarchical OSPF in large domains&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;bgp-border-gateway-protocol-inter-as-routing&#34;&gt;BGP (Border Gateway Protocol) Inter-AS Routing&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;the de facto standard&lt;/li&gt;
+&lt;li&gt;BGP provides each AS a means to:
+
+&lt;ul&gt;
+&lt;li&gt;Obtain subnet reachability information from neighboring ASs&lt;/li&gt;
+&lt;li&gt;Propagate reachability information to all AS-internal routers&lt;/li&gt;
+&lt;li&gt;Determine &amp;ldquo;good&amp;rdquo; routers to subnets based on reachability information and policy&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;allows subnet to advertise its existence to rest of Internet&lt;/li&gt;
+&lt;li&gt;Pairs of routers (BGP peers) exchange routing info over semi-permanent TCP connections: BGP sessions (BGP sessions need not correspond to physical links)
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca81da7a1e5d.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;When As2 advertise to a prefix to AS1:
+
+&lt;ul&gt;
+&lt;li&gt;AS2 promises it will forward datagrams towards that prefix&lt;/li&gt;
+&lt;li&gt;AS2 can aggregate prefixes in its advertisement&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Distributing reachability information:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Using eBGP(external) session between 3a and 1c, AS3 sends prefix reachability info to AS1
+
+&lt;ul&gt;
+&lt;li&gt;1c can then use iBGP do distribute new prefix info to all routers in AS1&lt;/li&gt;
+&lt;li&gt;1b can then re-advertise new reachability info to AS2 over 1b-to-2a eBGP session&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;when router learns of new prefix, it creates entry for prefix in its forwarding table&lt;/li&gt;
+&lt;li&gt;advertised prefix includes BGP attributes: prefix + &amp;ldquo;attributes&amp;rdquo; = &amp;ldquo;route&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;two important attributes
+
+&lt;ol&gt;
+&lt;li&gt;AS-PATH: contains ASs through which prefix advertisement has passed&lt;/li&gt;
+&lt;li&gt;NEXT-HOP: indicates specific internal-AS router to next-hop AS(may be multiple links from current AS to next-hop-AS)&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;when gateway router receives route advertisement, use &lt;strong&gt;import policy&lt;/strong&gt; to accept/decline&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;bgp-route-selection&#34;&gt;BGP route selection&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;router may learn about more than 1 route to some prefix, router must select route&lt;/li&gt;
+&lt;li&gt;elimination rules:
+
+&lt;ol&gt;
+&lt;li&gt;local preference value attribute: policy decision&lt;/li&gt;
+&lt;li&gt;shortest AS-PATH&lt;/li&gt;
+&lt;li&gt;closest NEXT-HOP router: hot potato routing&lt;/li&gt;
+&lt;li&gt;additional criteria&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;bgp-messages-exchanged-using-tcp&#34;&gt;BGP messages exchanged using TCP&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;OPEN:  open TCP connections to peer and authenticates sender&lt;/li&gt;
+&lt;li&gt;UPDATE: advertises new path&lt;/li&gt;
+&lt;li&gt;KEEPALIVE: keeps connection alive in absence of UPDATES&lt;/li&gt;
+&lt;li&gt;NOTIFICATION: reports error in previous message also used to close connection&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;bgp-routing-policy&#34;&gt;BGP routing policy&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca820d85e63b.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A, B, C are provider networks&lt;/li&gt;
+&lt;li&gt;X, W, Y are customer (of provider networks)&lt;/li&gt;
+&lt;li&gt;X is dual-homed: attached  to two networks
+
+&lt;ul&gt;
+&lt;li&gt;X dose not want to route from B via X to C, so X will not advertise to B a route to C&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;A advertises path AW to B&lt;/li&gt;
+&lt;li&gt;B advertises path BAW to X&lt;/li&gt;
+&lt;li&gt;should B advertise path BAW to C?
+
+&lt;ul&gt;
+&lt;li&gt;No, B gets no &amp;ldquo;revenue&amp;rdquo; for routing CBAW since neither W nor C are B&amp;rsquo;s customers&lt;/li&gt;
+&lt;li&gt;B wants to force C route to w via A&lt;/li&gt;
+&lt;li&gt;B wants to route only to/from its customers&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;different-intra-and-inter-as-routing&#34;&gt;Different Intra- and Inter-AS routing&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Policy
+
+&lt;ul&gt;
+&lt;li&gt;Inter-AS: admin wants control over how its traffic routed, who routes through its net&lt;/li&gt;
+&lt;li&gt;Intra-AS: single admin, no policy&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Scale: hierarchical routing saves table size, reduced update traffic&lt;/li&gt;
+&lt;li&gt;Performance:
+
+&lt;ul&gt;
+&lt;li&gt;Intra-AS: can focus on performance&lt;/li&gt;
+&lt;li&gt;Inter-AS: policy may dominate over performance&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;broadcast-and-multicast-routing&#34;&gt;Broadcast and multicast routing&lt;/h2&gt;
+
+&lt;h3 id=&#34;broadcast-routing&#34;&gt;Broadcast Routing&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;deliver packets from source to all other nodes&lt;/li&gt;
+&lt;li&gt;source duplication is inefficient
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca822f9dc436.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;In-network duplication:
+
+&lt;ul&gt;
+&lt;li&gt;flooding: when node receives broadcast packet, sends copy to all neighbors (problem: cycles &amp;amp; broadcast storm)&lt;/li&gt;
+&lt;li&gt;controlled flooding: node only broadcast packet if it hasn&amp;rsquo;t broadcast same packet before, Node keeps track of packet ids already broadcasted; Reverse Path Forwarding(RPF): only forward packet if it arrived on shortest path between node and source&lt;/li&gt;
+&lt;li&gt;spanning tree: no redundant packet received by any node&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;spanning-tree&#34;&gt;Spanning Tree&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca82424dea45.png&#34; width=&#34;400px&#34;/&gt;
+- First construct a spanning tree
+- Nodes forward copies only along spanning tree
+- Creation:
+  - center node
+  - each node send unicast join message to center node
+  - message forwarded until it arrives at a node already belonging to spanning tree
+  &lt;img src=&#34;https://i.loli.net/2019/04/06/5ca824d3bd778.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;multicast-routing-problem-statement&#34;&gt;Multicast Routing: Problem statement&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;find a tree (or trees) connecting routers having local multicast group members
+
+&lt;ul&gt;
+&lt;li&gt;tree: not all paths between routers used&lt;/li&gt;
+&lt;li&gt;source-based: different tree from each sender to receivers&lt;/li&gt;
+&lt;li&gt;shared-tree: same tree used by all group members&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;sourced-based tree: one tree per source, shorted path trees, reverse path forwarding&lt;/li&gt;
+&lt;li&gt;group-shared tree: group uses one tree (minimal spanning tree, center-based trees)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;shortest-path-tree&#34;&gt;Shortest Path tree&lt;/h4&gt;
+
+&lt;p&gt;Dijkstra&amp;rsquo;s algorithm&lt;/p&gt;
+
+&lt;h4 id=&#34;reverse-path-forwarding&#34;&gt;Reverse path forwarding&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca827388a520.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Pruning: forwarding tree contains subtrees with no multicast group members: no need to forward datagrams down subtree, &amp;ldquo;prune&amp;rdquo; message send upstream by router with no downstream group members.&lt;/p&gt;
+
+&lt;h4 id=&#34;shared-tree-steiner-tree&#34;&gt;Shared-Tree: Steiner Tree&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;minimum cost tree connecting all routers with attached group members&lt;/li&gt;
+&lt;li&gt;problem is NP-complete&lt;/li&gt;
+&lt;li&gt;excellent heuristics exists (近似解)&lt;/li&gt;
+&lt;li&gt;not used in practice
+
+&lt;ol&gt;
+&lt;li&gt;computational complexity&lt;/li&gt;
+&lt;li&gt;information about entire network needed&lt;/li&gt;
+&lt;li&gt;monolithic(庞大): rerun whenever a router needs to join/leave&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;center-based-trees&#34;&gt;Center-based trees&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;single delivery tree shared by all&lt;/li&gt;
+&lt;li&gt;one router identified as &amp;ldquo;center&amp;rdquo; of tree&lt;/li&gt;
+&lt;li&gt;to join:
+
+&lt;ul&gt;
+&lt;li&gt;edge router sends unicast join-message addressed to center router&lt;/li&gt;
+&lt;li&gt;join-message &amp;ldquo;processed&amp;rdquo; by intermediate routers and forwarded towards center&lt;/li&gt;
+&lt;li&gt;join-message either hits existing tree branch for this center, or arrives at center&lt;/li&gt;
+&lt;li&gt;path taken by join-message becomes new branch of tree for this router&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;internet-multicasting-routing-dvmrp&#34;&gt;Internet Multicasting Routing: DVMRP&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;DVMRP: distance vector multicast routing protocol, RFC1075&lt;/li&gt;
+&lt;li&gt;flood and prune: reverse path forwarding, source-based tree&lt;/li&gt;
+&lt;li&gt;soft state: DVMRP router periodically (1min) &amp;ldquo;forgets&amp;rdquo; branches are pruned
+
+&lt;ul&gt;
+&lt;li&gt;multicast data again flows down unpruned branch&lt;/li&gt;
+&lt;li&gt;downstream router: re-prune or else continue to receive data&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;routers can quickly regraft to tree, following IGMP (internet Group Management protocol) join at leaf&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;protocol-independent-multicast-rip&#34;&gt;Protocol Independent Multicast: RIP&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;not dependent on any specific underlying unicast routing algorithm (works with all)&lt;/li&gt;
+&lt;li&gt;Dense: group members densely packed, in &amp;ldquo;close&amp;rdquo; proximity, bandwidth more plentiful
+
+&lt;ul&gt;
+&lt;li&gt;group membership by routers assumed until routers explicitly prune&lt;/li&gt;
+&lt;li&gt;data-driven construction on multicast tree (e.g. RPF1)&lt;/li&gt;
+&lt;li&gt;bandwidth and non-group-router processing profligate (浪费)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Sparse: number of networks with group members small w.r.t. number of interconnected networks, group members &amp;ldquo;widely dispersed&amp;rdquo;, bandwidth not plentiful
+
+&lt;ul&gt;
+&lt;li&gt;no membership until routers explicitly join&lt;/li&gt;
+&lt;li&gt;receiver-driven construction of multicast tree (e.g. center-based)&lt;/li&gt;
+&lt;li&gt;bandwidth and non-group-router processing conservative&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Link Layer</title>
+      <link>/courses/computer_network/link_layer/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/computer_network/link_layer/</guid>
+      <description>
+
+&lt;ul&gt;
+&lt;li&gt;understand principles behind data link layer services:
+
+&lt;ul&gt;
+&lt;li&gt;error detection, correction&lt;/li&gt;
+&lt;li&gt;sharing a broadcast channel, multiple access (无线网络)&lt;/li&gt;
+&lt;li&gt;link layer addressing (48 bit)&lt;/li&gt;
+&lt;li&gt;reliable data transfer, flow control&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;instantiation and implementation of various link layer technologies&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca85427a4c9a.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;hosts and routers are nodes&lt;/li&gt;
+&lt;li&gt;communication channels that connect adjacent nodes along communication path are links (wired links, wireless links, LANs)&lt;/li&gt;
+&lt;li&gt;layer-2 packet is a frame, encapsulates datagram&lt;/li&gt;
+&lt;li&gt;data-link layer has a responsibility of transferring datagram from one node to adjacent node over a link&lt;/li&gt;
+&lt;li&gt;datagram transferred by different link protocols over different links&lt;/li&gt;
+&lt;li&gt;each link protocol provides different services (may or may not provide rdt(reliable data service) over link)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;services&#34;&gt;Services&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Framing, link access
+
+&lt;ul&gt;
+&lt;li&gt;encapsulate datagram into frame, adding header, trailer&lt;/li&gt;
+&lt;li&gt;channel access if shared mediums&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;MAC&amp;rdquo; (media access control protocol) addresses used in frame headers to identify source, destination&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;reliable delivery between adjacent nodes
+
+&lt;ul&gt;
+&lt;li&gt;TCP&lt;/li&gt;
+&lt;li&gt;seldom used on low bit-error link(fiber, some twisted pair)&lt;/li&gt;
+&lt;li&gt;wireless links high error rates&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;flow control: pacing between adjacent sending and receiving nodes&lt;/li&gt;
+&lt;li&gt;error detections:
+
+&lt;ul&gt;
+&lt;li&gt;error caused by  noise&lt;/li&gt;
+&lt;li&gt;receiver detects presence of errors&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;error correction: receiver identifies and corrects bit error(s) without resorting to retransmission&lt;/li&gt;
+&lt;li&gt;half-duplex and full-duplex
+with half duplex, nodes at both ends of link can transmit, but not at same time&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;where-is-link-layer-implemented&#34;&gt;Where is link layer implemented&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca858ae361ff.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;in each and every host&lt;/li&gt;
+&lt;li&gt;link layer implemented in &amp;ldquo;adaptor&amp;rdquo; (network interface card)
+
+&lt;ul&gt;
+&lt;li&gt;ethernet card, PCMCI card, 802.11 card&lt;/li&gt;
+&lt;li&gt;implement link, physical layer&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;attaches into host&amp;rsquo;s system buses&lt;/li&gt;
+&lt;li&gt;combination of hardware, software, firmware&lt;/li&gt;
+&lt;li&gt;sending side : encapsulates datagram in frame, address error checking bits, rdt, flow control, etc&lt;/li&gt;
+&lt;li&gt;receiving side: look for errors, rdt, flow control etc, extracts datagram, passes to upper layer at receiving side&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;error-detection-and-error-correction&#34;&gt;Error detection and error correction&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;EDC: Error detection and correction bits (redundancy)&lt;/li&gt;
+&lt;li&gt;D: data protected by error checking, may include header files&lt;/li&gt;
+&lt;li&gt;Error detection not 100% reliable
+
+&lt;ul&gt;
+&lt;li&gt;protocol may miss some errors, but rarely&lt;/li&gt;
+&lt;li&gt;larger EDC field yields better detection and correction&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca85a9c09874.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;parity-checking&#34;&gt;Parity Checking&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Single Bit Parity (Detect single bit errors)
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca85b23a266e.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;Two dimensional Bit Parity (Detect and correct single bit errors)
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca85b845aa63.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;internet-checksum&#34;&gt;Internet Checksum&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;detect &amp;ldquo;errors&amp;rdquo; (e.g. flipped bits) in transmitted packet (used at transport layer only)&lt;/li&gt;
+&lt;li&gt;Sender:
+
+&lt;ul&gt;
+&lt;li&gt;treat segment contents as sequence of 16-bit integers&lt;/li&gt;
+&lt;li&gt;checksum: addition (1&amp;rsquo;s complement sum) of segment contents&lt;/li&gt;
+&lt;li&gt;sender puts checksum value into UDP checksum fields&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Receiver:
+
+&lt;ul&gt;
+&lt;li&gt;compute checksum of received checksum&lt;/li&gt;
+&lt;li&gt;check if computed checksum equals checksum field value&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;cyclic-redundancy-check&#34;&gt;Cyclic Redundancy Check&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;view data bits D as a binary number&lt;/li&gt;
+&lt;li&gt;choose r+1 bit pattern (generator) G&lt;/li&gt;
+&lt;li&gt;goal: choose r CRC bits, R, such that
+
+&lt;ul&gt;
+&lt;li&gt;&lt;D,R&gt; exactly divisible by G&lt;/li&gt;
+&lt;li&gt;receiver knows G, divides &lt;D,R&gt; by G&lt;/li&gt;
+&lt;li&gt;can detect all burst errors less than r+1 bits&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;widely used in practice (Ethernet, 802.11 WIFI, ATM)
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca85e5f9fc02.png&#34; width=&#34;400px&#34;/&gt;
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca85eca9089e.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;multiple-access-links-and-protocols&#34;&gt;Multiple Access Links and Protocols&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Two types of &amp;ldquo;links&amp;rdquo;
+
+&lt;ul&gt;
+&lt;li&gt;Point-to-point: PPP for dial-up access, point-to-point link between Ethernet switch and host&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;broadcast (shared wire or medium)
+
+&lt;ul&gt;
+&lt;li&gt;old-fashioned Ethernet&lt;/li&gt;
+&lt;li&gt;upstream HFC (hybrid fiber coax)&lt;/li&gt;
+&lt;li&gt;802.11 wireless LAN
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca85ff5c1043.png&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;single shared  broadcast channel&lt;/li&gt;
+&lt;li&gt;two or more simultaneous transmissions by nodes: collision if node receives two or more signals at the same time&lt;/li&gt;
+&lt;li&gt;multiple access protocol:
+
+&lt;ul&gt;
+&lt;li&gt;distributed algorithm that determines how nodes share channel, i.e. determine when node can transmit&lt;/li&gt;
+&lt;li&gt;communication about channel sharing must use channel itself, no out-of-band channel for coordination&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ideal-multiple-access-protocol&#34;&gt;Ideal Multiple Access Protocol&lt;/h3&gt;
+
+&lt;p&gt;Broadcast channel of rate R bps&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;when one node wants to transmit, it can send at rate R&lt;/li&gt;
+&lt;li&gt;when M nodes want to transmit, each can send at average rate R?M&lt;/li&gt;
+&lt;li&gt;fully decentralized
+
+&lt;ul&gt;
+&lt;li&gt;no special node to coordination transmissions&lt;/li&gt;
+&lt;li&gt;no synchronization of clocks, slots&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;simple&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;mac-protocols-a-taxonomy&#34;&gt;MAC protocols: a taxonomy&lt;/h3&gt;
+
+&lt;h4 id=&#34;channel-partitioning-tdma-fdma&#34;&gt;Channel Partitioning: TDMA/ FDMA&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;TDMA: time division multiple access
+
+&lt;ul&gt;
+&lt;li&gt;access to channel in &amp;ldquo;rounds&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;each station gets fixed length slot(length= packet transmission time) in each round&lt;/li&gt;
+&lt;li&gt;unused slots go idle&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;FDMA: frequency division multiple access
+
+&lt;ul&gt;
+&lt;li&gt;channel spectrum divided into frequency bands&lt;/li&gt;
+&lt;li&gt;each station assigned fixed frequency band&lt;/li&gt;
+&lt;li&gt;unused transmission time in frequency bands go idle
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca86e895021e.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;random-access&#34;&gt;Random access&lt;/h4&gt;
+
+&lt;p&gt;channel not divided, allow collisions, &amp;ldquo;recover&amp;rdquo; from collisions&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;when node has packet to send, transmit at full channel data rate R&lt;/li&gt;
+&lt;li&gt;two or more transmitting nodes $\rightarrow$ collision&lt;/li&gt;
+&lt;li&gt;random access MAC protocol specifies
+
+&lt;ul&gt;
+&lt;li&gt;how to detect collisions&lt;/li&gt;
+&lt;li&gt;how to recover from collisions (e.g. via delayed retransmission)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;examples of random access MAC protocols: slotted ALOHA, CSMA, CSMA/CD (ethernet), CSMA/CA&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;slotted-aloha&#34;&gt;Slotted ALOHA&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca86ff170d36.png&#34; width=&#34;400px&#34;/&gt;
+- all frames same size
+- time divided into equal size slots (time to )&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Operation: when node obtains fresh frame, transmits in next slot
+
+&lt;ul&gt;
+&lt;li&gt;if no collision:&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;if collision: node retransmits frame in each subsequent slot with pro&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Cons:
+
+&lt;ul&gt;
+&lt;li&gt;collisions, wasting slots&lt;/li&gt;
+&lt;li&gt;idle slots&lt;/li&gt;
+&lt;li&gt;nodes may be able to detect collision in less than time to transmit pocket&lt;/li&gt;
+&lt;li&gt;clock synchronization&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Pros
+
+&lt;ul&gt;
+&lt;li&gt;single&lt;/li&gt;
+&lt;li&gt;highly decentralized&lt;/li&gt;
+&lt;li&gt;simple&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Efficiency: long-run fraction of successful slots (many nodes, all with many frames to send)
+
+&lt;ul&gt;
+&lt;li&gt;suppose: N nodes with many frames to send, each transmits in slot with probability p&lt;/li&gt;
+&lt;li&gt;prob that given node has success in a slot = $p(1-p)^{N-1}$&lt;/li&gt;
+&lt;li&gt;prob than any node has a success = $Np(1-p)^{N-1}$&lt;/li&gt;
+&lt;li&gt;for many nodes, max efficiency $p = 1/e = 0.37$&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;pure-unslotted-aloha&#34;&gt;Pure(unslotted) ALOHA&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;unslotted Aloha: simpler, no synchronization&lt;/li&gt;
+&lt;li&gt;when frame first arrives: transmit immediately&lt;/li&gt;
+&lt;li&gt;collision probability increases, frame set at $t_0$ collides with other frames send in $[t_0-1, t_0+1]$
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca87295cba56.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;prob $p*(1-p)^{2(N-1)}$&lt;/li&gt;
+&lt;li&gt;for many nodes, max efficiency $p = 1/(2e) = 0.18$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;csma-carrier-sense-multiple-access&#34;&gt;CSMA (Carrier Sense Multiple Access)&lt;/h5&gt;
+
+&lt;p&gt;CSMA: listen before transmit, if channel sensed idle transmit entire frame, if channel sensed busy, defer transmission&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca87401d7b82.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;collision: entire packet transmission time wasted&lt;/li&gt;
+&lt;li&gt;role of distance &amp;amp; propagation delay in determining collision probability&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&#34;csma-cd-collision-detection&#34;&gt;CSMA/CD (collision detection)&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca8753567677.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;collision detection:
+
+&lt;ul&gt;
+&lt;li&gt;easy in wried LANS: measure signal strengths, compare transmitted, received signals&lt;/li&gt;
+&lt;li&gt;difficult in wireless LANs; received signal strength overwhelmed by local transmission strength&lt;/li&gt;
+&lt;li&gt;CSMA/CD used in Ethernet&lt;/li&gt;
+&lt;li&gt;CSMA/CA (collision avoidance) used in 802.11&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;taking-turns-mac-protocols&#34;&gt;&amp;ldquo;Taking Turns&amp;rdquo; MAC protocols&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;channel partitioning MAC protocols:
+
+&lt;ul&gt;
+&lt;li&gt;share channel efficiently and fairly at high load&lt;/li&gt;
+&lt;li&gt;inefficient at low load: delay in channel access, 1/N bandwidth allocated even if only 1 active node&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Random access MAC protocols:
+
+&lt;ul&gt;
+&lt;li&gt;efficient at low load: single node can fully utilized channel&lt;/li&gt;
+&lt;li&gt;high load: collision overhead&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;taking turns protocols: look for best of both worlds&lt;/li&gt;
+&lt;li&gt;Polling
+
+&lt;ul&gt;
+&lt;li&gt;master node &amp;ldquo;invites&amp;rdquo; slave nodes to transmit in turn&lt;/li&gt;
+&lt;li&gt;typically used with &amp;ldquo;dumb&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Token passing (Taking Turns):
+
+&lt;ul&gt;
+&lt;li&gt;control token passed from one node to next sequentially&lt;/li&gt;
+&lt;li&gt;token message&lt;/li&gt;
+&lt;li&gt;concerns: token overhead, latency, singe point of failure&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;example: Bluetooth, FDDI, IBM Token Ring&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;link-layer-addressing&#34;&gt;Link-Layer Addressing&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;32-bit IP address:
+
+&lt;ul&gt;
+&lt;li&gt;network-layer address&lt;/li&gt;
+&lt;li&gt;used to get datagram to destination IP subnet&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;MAC (or LAN or physical or Ethernet) address:
+
+&lt;ul&gt;
+&lt;li&gt;function: get frame from one interface to another physically-connected interface (same network)&lt;/li&gt;
+&lt;li&gt;48 bit MAC address (for most LANS)&lt;/li&gt;
+&lt;li&gt;burned in NIC ROM, also sometimes software settable&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Each adapter on LAN has unique LAN address (FF-FF-FF-FF-FF-FF: broadcast address)&lt;/li&gt;
+&lt;li&gt;mac address allocation administered by IEEE&lt;/li&gt;
+&lt;li&gt;manufacturer buys portion of MAC address space (to assure uniqueness)&lt;/li&gt;
+&lt;li&gt;MAC flat address $\rightarrow$ portability, can move LAN card from one LAN to another&lt;/li&gt;
+&lt;li&gt;IP hierarchical address not portable&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;arp-address-resolution-protocol&#34;&gt;ARP: address Resolution Protocol&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;how to determine MAC address of B knowing B&amp;rsquo;s IP address?&lt;/li&gt;
+&lt;li&gt;Each IP node (host, router) on LAN has ARP table&lt;/li&gt;
+&lt;li&gt;ARP table: IP/MAC address mappings for some LAN nodes, TTL(time to live): time after which address mapping will be forgotten (typically 20 minutes)
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca87cadbddda.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;procedure
+
+&lt;ul&gt;
+&lt;li&gt;A wants to send datagram to B, and B&amp;rsquo;s MAC address not in A&amp;rsquo;s ARP table&lt;/li&gt;
+&lt;li&gt;A broadcast ARP query packet, containing B&amp;rsquo;s IP address, all machines on LAN receive ARP query&lt;/li&gt;
+&lt;li&gt;B receivers ARP packet, replies to A with its (B&amp;rsquo;s) MAC address (frames send to A&amp;rsquo;s MAC address(unicast))&lt;/li&gt;
+&lt;li&gt;A caches (saves) IP-to-MAC address pair in its ARP table until information becomes old (times out)&lt;/li&gt;
+&lt;li&gt;ARP is &amp;ldquo;plug-and-play&amp;rdquo;, node creates their ARP tables without intervention form net administrator&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;example:
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca87f2ac983f.png&#34; width=&#34;550px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ethernet&#34;&gt;Ethernet&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;features:
+
+&lt;ul&gt;
+&lt;li&gt;cheap&lt;/li&gt;
+&lt;li&gt;first widely used LAN technology&lt;/li&gt;
+&lt;li&gt;simpler, cheaper than  token LANs and ATM&lt;/li&gt;
+&lt;li&gt;kept up with speed race: 10Mbps - 10 Gbps&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;bus topology popular through mid 90-s (all nodes in same collision domain, can collide with each other)&lt;/li&gt;
+&lt;li&gt;today: star topology prevails
+
+&lt;ul&gt;
+&lt;li&gt;active, switch in center&lt;/li&gt;
+&lt;li&gt;each &amp;ldquo;spoke&amp;rdquo; run a (separate) Ethernet protocol (nodes do not collide with each other)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Ethernet Frame structure
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca88188bf408.png&#34; width=&#34;500px&#34;/&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Preamble: 7 bytes with pattern 10101010 followed by one byte with pattern 10101011&lt;/li&gt;
+&lt;li&gt;used to synchronize receiver, sender clock rates&lt;/li&gt;
+&lt;li&gt;Addresses: 6 bytes, if adapter receives frame with matching destination address, or with broadcast address (e.g. ARP packet), it passes data in frame to network layer protocol, otherwise, adapter discards frame&lt;/li&gt;
+&lt;li&gt;Type: indicates higher layer protocol (mostly IP but others possible, e.g. Novell IPX, Apple Talk)&lt;/li&gt;
+&lt;li&gt;CRC: checked at receiver, if error is detected, frame is dropped&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Unreliable, connectionless
+
+&lt;ul&gt;
+&lt;li&gt;connectionless: No handshaking between sending and receiving NICs&lt;/li&gt;
+&lt;li&gt;unreliable： receiving NIC(network interface card) doesn&amp;rsquo;t send ACKs or NAKs to sending NIC&lt;/li&gt;
+&lt;li&gt;stream of datagrams passed to network layer can have gaps(missing datagrams)&lt;/li&gt;
+&lt;li&gt;gaps will be filled if app is using TCP, otherwise app will see gaps&lt;/li&gt;
+&lt;li&gt;Ethernet&amp;rsquo;s MAC protocol: unslotted CSMA/CD&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ethernet-csma-cd-algorithm&#34;&gt;Ethernet CSMA/CD algorithm&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;NIC receives datagram from network layer, creates frame&lt;/li&gt;
+&lt;li&gt;IF NIC senses channel idle, starts frame transmission, IF NIC senses channel busy, waits until channel idle, then transmits&lt;/li&gt;
+&lt;li&gt;If NIC transmits entire frame without detecting another transmission, NIC is done with frame&lt;/li&gt;
+&lt;li&gt;If NIC detects another transmission while transmitting, aborts and sends jam signal&lt;/li&gt;
+&lt;li&gt;After aborting, NIC enters exponential backoff: after mth collision, NIC chooses K at random from $(0, 1,2, &amp;hellip;, 2^m-1)$ NIC waits K*512 bit times, returns to Step2&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Jam signal: make sure all other transmitters are aware of collision: 48 bits&lt;/li&gt;
+&lt;li&gt;Bit time: 1 microsecond for 10 Mbps Ethernet, for K=1023,wait time is about 50 msec&lt;/li&gt;
+&lt;li&gt;Exponential Backoff (最多连续16次)
+
+&lt;ul&gt;
+&lt;li&gt;Goal: adapt retransmission attempts to estimated current load (heavy load: random wait will be longer)&lt;/li&gt;
+&lt;li&gt;first collision: choose K from (0,1), delay is K*512 bit transmission times&lt;/li&gt;
+&lt;li&gt;after second collision: choose K from {0,1,2,3}&lt;/li&gt;
+&lt;li&gt;after ten collisions: choose K from {0,1,2,3,4,&amp;hellip;,1023}&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Efficiency (70%)
+
+&lt;ul&gt;
+&lt;li&gt;$T_{prop}$ = max prop delay between 2 nodes in LAN&lt;/li&gt;
+&lt;li&gt;$T&lt;em&gt;{trans}$ = time to transmit max-size frame
+$$\text{efficiency} = \frac{1}{1+5t&lt;/em&gt;{prop}/t_{trans}}$$&lt;/li&gt;
+&lt;li&gt;Efficiency goes to 1 as $t&lt;em&gt;{prop}$ goes to 0, as t&lt;/em&gt;{trans}$ goes to infinity&lt;/li&gt;
+&lt;li&gt;better performance than ALOHA: and simple, cheap, decentralized&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;802-3-ethernet-standards-link-physical-layers&#34;&gt;802.3 Ethernet Standards: Link &amp;amp; Physical Layers&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;many different Ethernet standards
+
+&lt;ul&gt;
+&lt;li&gt;common MAC protocol and frame format&lt;/li&gt;
+&lt;li&gt;different speeds: 2Mbps, 10Mbps, 100Mbps, 1Gbps, 10Gbps&lt;/li&gt;
+&lt;li&gt;different physical layer media: fiber, cable
+&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca889e6adb92.png&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Manchester encoding
+
+&lt;ul&gt;
+&lt;li&gt;used in 10Base T&lt;/li&gt;
+&lt;li&gt;each bit has a transition&lt;/li&gt;
+&lt;li&gt;allows clocks in sending and receiving nodes to synchronize to each other, no need for a centralized, global clock among nodes&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;link-layer-switches&#34;&gt;Link-Layer switches&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Hubs
+
+&lt;ul&gt;
+&lt;li&gt;physical-layer (&amp;ldquo;dumb&amp;rdquo; repeaters, 只处理信号)&lt;/li&gt;
+&lt;li&gt;bits coming in one link go out all other links at same rate&lt;/li&gt;
+&lt;li&gt;all nodes connected to hub can collide with one another&lt;/li&gt;
+&lt;li&gt;no frame buffering&lt;/li&gt;
+&lt;li&gt;no CSMA/CD at hub: host NIC detect collisions&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Switch: allow multiple simultaneous transmissions
+
+&lt;ul&gt;
+&lt;li&gt;link-layer device: smarter than hubs, take active role&lt;/li&gt;
+&lt;li&gt;store, forward Ethernet frames&lt;/li&gt;
+&lt;li&gt;examine incoming frame&amp;rsquo;s MAC address, selectively forward frame to one-or-more outgoing links when frame is to be forwarded on segment, uses CSMA/CD to access segment&lt;/li&gt;
+&lt;li&gt;transparent, hosts are unaware of presence of switches&lt;/li&gt;
+&lt;li&gt;plug-and-play, self-learning, switch do not need to be configured&lt;/li&gt;
+&lt;li&gt;switch table:  Each switch has a switch table, each entry (MAC address of host, interface to reach host, time stamp&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;self-learning&#34;&gt;Self-Learning&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Switch table is initially empty&lt;/li&gt;
+&lt;li&gt;For each incoming frame received on an interface, the switches stores in its table
+
+&lt;ol&gt;
+&lt;li&gt;The MAC address in the frame&amp;rsquo;s source address field&lt;/li&gt;
+&lt;li&gt;the interface from which the frame arrived&lt;/li&gt;
+&lt;li&gt;the current time&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;the switch deletes an address in the table if no frames are received with that address as the source address after some period of time&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;filtering-forwarding&#34;&gt;Filtering/forwarding&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Filtering: whether a frame should be forwarded to some interface or should just be dropped&lt;/li&gt;
+&lt;li&gt;Forwarding: determine the interfaces to which a frame should be directed, and then moves the frame to those interfaces&lt;/li&gt;
+&lt;li&gt;suppose a frame with destination address DD-DD-DD-DD-DD-DD arrives at the switch on interface x
+
+&lt;ul&gt;
+&lt;li&gt;there is no entry in the table for DD-DD-DD-DD-DD-DD, the switch forwards copies of the frame to the output buffers preceding all interfaces (broadcast the frame)&lt;/li&gt;
+&lt;li&gt;there is an entry in the table, associating DD-DD-DD-DD-DD-DD with interface x: there is no need to forward the frame to any of the other interfaces, switch performs filtering function by discarding the frame. (送和收在同一区域）&lt;/li&gt;
+&lt;li&gt;there is an entry in table, associating DD-DD-DD-DD-DD-DD with interface $y \neq x$, the frame needs to be forwarded to the LAN segment attached to interface y. Switch performs its forwarding function by putting the frame in an output buffer that precedes interface y.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;switches-vs-routers&#34;&gt;Switches vs. Routers&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/04/06/5ca8921f69722.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;both store-and-forward devices: routers are network layer devices, switches are link layer address&lt;/li&gt;
+&lt;li&gt;Routers maintain routing tables, implement routing algorithms&lt;/li&gt;
+&lt;li&gt;switches maintain switch tables, implement filtering, learning algorithms&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ppp-rfc-1557&#34;&gt;PPP [RFC 1557]&lt;/h2&gt;
+
+&lt;p&gt;Point to Point Data Link Control&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;one sender, one receiver, one link: easier than broadcast link&lt;/li&gt;
+&lt;li&gt;no media Access control&lt;/li&gt;
+&lt;li&gt;no need for explicit MAC addressing  (e.g. dialup link)&lt;/li&gt;
+&lt;li&gt;popular point-to-point DLC protocols: PPP, HDLC&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ppp-frame&#34;&gt;PPP Frame&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;packet framing: encapsulation of network-layer datagram in data link frame
+
+&lt;ul&gt;
+&lt;li&gt;carry network layer data of any network layer protocol (not just IP) at same time&lt;/li&gt;
+&lt;li&gt;ability to demultiplex upwards&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;bit transparency: must carry any bit pattern in the data field&lt;/li&gt;
+&lt;li&gt;error detection (no correction)&lt;/li&gt;
+&lt;li&gt;connection liveness: detect, signal link failure to network layer&lt;/li&gt;
+&lt;li&gt;network layer address negotiation: endpoint can learn/configure each other&amp;rsquo;s network address&lt;/li&gt;
+&lt;li&gt;data frame
+&lt;img src=&#34;https://i.loli.net/2019/04/07/5ca9ba6436d50.png&#34; width=&#34;450px&#34;/&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Flag: delimiter (framing)&lt;/li&gt;
+&lt;li&gt;Address: does nothing&lt;/li&gt;
+&lt;li&gt;control: does nothing:&lt;/li&gt;
+&lt;li&gt;protocol: upper layer protocol to which frame delivered (e.g. PPP-LCP, IP, IPCP etc)&lt;/li&gt;
+&lt;li&gt;info: information&lt;/li&gt;
+&lt;li&gt;check: cyclic redundancy check for error-detection&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;PPP non-requirements
+
+&lt;ul&gt;
+&lt;li&gt;no error correction&lt;/li&gt;
+&lt;li&gt;no flow control&lt;/li&gt;
+&lt;li&gt;out of order delivery&lt;/li&gt;
+&lt;li&gt;no need to support multipoint links&lt;/li&gt;
+&lt;li&gt;error recovery, flow control, data re-ordering all relegated to higher layers&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Byte Stuffing
+
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;data transparency&amp;rdquo; requirement: data field must be allowed to include flag pattern  &lt;01111110&gt;&lt;/li&gt;
+&lt;li&gt;Sender: adds extra &lt;01111110&gt; byte after each &lt;01111110&gt; data byte&lt;/li&gt;
+&lt;li&gt;Receiver: two 01111110 bytes in a row: discard first byte, continue data reception; singe 01111110:flag byte&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;PPP data Control Protocol
+
+&lt;ul&gt;
+&lt;li&gt;before exchanging network-layer data, data link peers must&lt;/li&gt;
+&lt;li&gt;configure PPP link (max frame length, authentication)&lt;/li&gt;
+&lt;li&gt;learn / configure network layer information&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;atm&#34;&gt;ATM&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Virtualization of networks
+
+&lt;ul&gt;
+&lt;li&gt;Layering of abstractions: don&amp;rsquo;t sweat the details of the lower layer, only deal with lower layers abstractly&lt;/li&gt;
+&lt;li&gt;two layers of addressing: internetwork and local network&lt;/li&gt;
+&lt;li&gt;new layer (IP) makes everything homogeneous at internetwork layer&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Asynchronous Transfer Mode: ATM
+
+&lt;ul&gt;
+&lt;li&gt;Goal: integrated, end-end transport of carry voice, video, data&lt;/li&gt;
+&lt;li&gt;meeting timing / QoS requirements of voice, video (versus Internet best-effort model)&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;next generation&amp;rdquo; telephony (下一代网络电话）&lt;/li&gt;
+&lt;li&gt;packet-switching (fixed length packets, 53 bytes, called &amp;ldquo;cells&amp;rdquo;) using virtual circuits&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;For more information, see &lt;a href=&#34;https://www.net.t-labs.tu-berlin.de/teaching/computer_networking/05.09.htm&#34;&gt;Computer Networking Website&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;multi-protocol-label-switching-mpls&#34;&gt;Multi-protocol label switching (MPLS)&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Goal: speed up IP forwarding by using fixed length label (instead of IP address) to do forwarding (20bits)
+
+&lt;ul&gt;
+&lt;li&gt;Borrowing ideas from Virtual Circuit (VC) approach&lt;/li&gt;
+&lt;li&gt;but IP datagram still keeps IP address
+&lt;img src=&#34;https://i.loli.net/2019/04/07/5ca9bfc799f05.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;MPLS-enhanced forwarding
+&lt;img src=&#34;https://i.loli.net/2019/04/07/5ca9c076ea536.png&#34; width=&#34;500px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Introduction</title>
+      <link>/courses/computer_network/introduction/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/computer_network/introduction/</guid>
+      <description>
+
+&lt;h2 id=&#34;computing-devices&#34;&gt;Computing devices&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Hosts (= end systems)  (PC workstations, servers, Phones) running network apps&lt;/li&gt;
+&lt;li&gt;Communication Links (fiber, copper, radio, satellite) physical link
+
+&lt;ul&gt;
+&lt;li&gt;Transmission rate = bandwidth&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;routers: forward packets (chunks of data)&lt;/li&gt;
+&lt;li&gt;protocols: control sending, receiving of messages (TCP, IP, HTTP, FTP, PPP)&lt;/li&gt;
+&lt;li&gt;Internet: network of networks, loosely hierarchical, public Internet(有限的) versus private Intranet&lt;/li&gt;
+&lt;li&gt;Internet standards (定标准的组织)
+
+&lt;ul&gt;
+&lt;li&gt;RFC request for comments&lt;/li&gt;
+&lt;li&gt;IETF: Internet Engineering Task Force&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;communication infrastructure enables distributed applications (Web, email, games)&lt;/li&gt;
+&lt;li&gt;communication services provided to applications(connectionless, connection-oriented)&lt;/li&gt;
+&lt;li&gt;Protocol
+
+&lt;ul&gt;
+&lt;li&gt;all communication activity in Internet governed by protocols&lt;/li&gt;
+&lt;li&gt;format and order of messages sent and received among network entities as well as actions taken on the transmission/receipt of a message&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;network edge : applications and hosts&lt;/li&gt;
+&lt;li&gt;network core: routers, network of networks&lt;/li&gt;
+&lt;li&gt;access networks(连接 edge 和 core, 连接 physical media, communication links)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;the-network-edge&#34;&gt;The network edge&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;end systems(hosts) run application programs&lt;/li&gt;
+&lt;li&gt;client/server model: client host requests, receives service from always-on server&lt;/li&gt;
+&lt;li&gt;peer-peer model : minimal(no) use of dedicated server&lt;/li&gt;
+&lt;li&gt;TCP services (Transmission Control protocol)
+
+&lt;ul&gt;
+&lt;li&gt;reliable, in-order byte-stream data transfer(loss: 掉的做法是 acknowledgements and retransmissions)&lt;/li&gt;
+&lt;li&gt;Flow control, sender won&amp;rsquo;t overwhelm receiver 流量控制 (sender 可以送多快是由 receiver 决定的)&lt;/li&gt;
+&lt;li&gt;congestion control, senders slow down sending rate when networks congested (connection太多时， 网络发生拥挤， 会放慢速度, 逐渐增大封包量， 如果封包掉了，认为网络拥挤)&lt;/li&gt;
+&lt;li&gt;E.g. HTTP(web), FTP(File transfer), SMTP(email)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;UDP (User Datagram Protocol) 不需要建连线
+
+&lt;ul&gt;
+&lt;li&gt;unreliable data transfer&lt;/li&gt;
+&lt;li&gt;no flow control&lt;/li&gt;
+&lt;li&gt;no congestion control&lt;/li&gt;
+&lt;li&gt;E.g. streaming media(掉了不会影响), teleconferencing, DNS, Internet telephony&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;network-access-and-physical-media&#34;&gt;Network access and physical media&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;How to connect end systems to edge router?
+
+&lt;ul&gt;
+&lt;li&gt;residential access nets&lt;/li&gt;
+&lt;li&gt;institutional access networks (school, company)&lt;/li&gt;
+&lt;li&gt;mobile access networks&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;keep in mind:
+
+&lt;ul&gt;
+&lt;li&gt;bandwidth (bits per second) of access network&lt;/li&gt;
+&lt;li&gt;shared or dedicated&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;residential-access&#34;&gt;Residential access&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;dialup via modem
+
+&lt;ul&gt;
+&lt;li&gt;up to 56Kbps direct access to router (often less)&lt;/li&gt;
+&lt;li&gt;can&amp;rsquo;t surf and phone at same time&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;ADSL (asymmetric digital subscriber line)
+
+&lt;ul&gt;
+&lt;li&gt;up to 1 Mpbs upstream&lt;/li&gt;
+&lt;li&gt;up to 8 Mpbs downstream&lt;/li&gt;
+&lt;li&gt;FDM 50KHz - 1MHz for downstream, 4KHz-50kHZ for upstream, 0kHZ-4kHZ for ordinary telephone&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;HFC: hybrid fiber coaxial cable, asymmetric, up to 30 Mbps downstream, 2Mpbs upstream
+
+&lt;ul&gt;
+&lt;li&gt;network of cable and fiber attaches homes to ISP router, shared access to router among home, issues(congestion, dimensioning)&lt;/li&gt;
+&lt;li&gt;deployment: available via cable components, e.g. MediaOne&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;company-access&#34;&gt;Company access&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;company/university local area network (LAN) connects end system to edge router&lt;/li&gt;
+&lt;li&gt;Ethernet: shared or dedicated link connects end system and router(10Mbps, 100Mpbs, Gigabit Ethernet)&lt;/li&gt;
+&lt;li&gt;deployment: institutions, home&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;wireless-access-networks&#34;&gt;Wireless access networks&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;shared wireless access network connects end system to router, via base station&lt;/li&gt;
+&lt;li&gt;wireless LANs: 802.11b (WiFI): 11 Mbps, 802.11g: 54Mbps&lt;/li&gt;
+&lt;li&gt;wider-area wireless access, provided by telecom operator, 3G/4G, WAP/GPRS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;physical-media&#34;&gt;Physical Media&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Bit: propagates between transmitter/receiver pairs&lt;/li&gt;
+&lt;li&gt;Physical link: what lies between transmitter &amp;amp; receiver
+
+&lt;ul&gt;
+&lt;li&gt;Guided media, by solid media&lt;/li&gt;
+&lt;li&gt;Twisted Pairs(tow insulated copper wires)&lt;/li&gt;
+&lt;li&gt;Coaxial cable, two concentric copper conductors, bidirectional(baseband:single channel on cable, broadband: multiple channels on cable)&lt;/li&gt;
+&lt;li&gt;Fiber optic cable: glass fiber carrying light pulses, each pulse a bit, high-speed operation, low error rate: repeaters spaced far apart, immune to electromagnetic noise&lt;/li&gt;
+&lt;li&gt;unguided media, no physical line (effected by reflection, obstruction of objects, interference)&lt;/li&gt;
+&lt;li&gt;terrestrial microwave (45 Mpbs channels)&lt;/li&gt;
+&lt;li&gt;LAN (e.g. Wifi)&lt;/li&gt;
+&lt;li&gt;wide-area (e.g. cellular)&lt;/li&gt;
+&lt;li&gt;satellite(50 Mpbs channel, 270 millisecond end-end delay)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;network-core&#34;&gt;Network core&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;连接成网状 mesh of interconnected routers&lt;/li&gt;
+&lt;li&gt;how is data transferred through net?
+
+&lt;ul&gt;
+&lt;li&gt;Circuit Switching: dedicated circular per call: telephone net&lt;/li&gt;
+&lt;li&gt;packet-switching: data sent through net in discrete &amp;ldquo;chunks&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;circuit-switching&#34;&gt;Circuit Switching&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;end to end resources reserved(保留一定的频宽)&lt;/li&gt;
+&lt;li&gt;保留 link bandwidth, switch capacity, divided into pieces&lt;/li&gt;
+&lt;li&gt;dedicated resources: no sharing (别的core无法使用)&lt;/li&gt;
+&lt;li&gt;circuit-like (guaranteed) performance&lt;/li&gt;
+&lt;li&gt;call setup required(建连线)
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c94cfc339ab9.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;two splits (TDM)
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c94d0e9d088e.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;packet-switching&#34;&gt;Packet Switching&lt;/h3&gt;
+
+&lt;p&gt;each end-end data stream divided into packets, user A,B packets share network resources, each packet uses &lt;strong&gt;full link bandwidth&lt;/strong&gt;, resources used as needed&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;resource contention (竞争)
+
+&lt;ul&gt;
+&lt;li&gt;aggregate resource demand can exceed amount available&lt;/li&gt;
+&lt;li&gt;congestion: pockets queue, wait for link use&lt;/li&gt;
+&lt;li&gt;store and forward, packets move one hop at a time(先排队， 后发送), transmit over link, wait turn at next link
+&lt;img src=&#34;https://i.loli.net/2019/03/22/5c94d24556aa0.png&#34; width=&#34;400px&#34;/&gt;
+sequence of A &amp;amp; B packets done not have fixed pattern $\rightarrow$ statistical multiplexing, in TDM each host get some slot in revolving TDM frame&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;move packets through routers form source to destination (path selection algorithms)&lt;/li&gt;
+&lt;li&gt;datagram network:
+
+&lt;ul&gt;
+&lt;li&gt;destination address in packet determines next hop&lt;/li&gt;
+&lt;li&gt;routes may change during session&lt;/li&gt;
+&lt;li&gt;analogy, driving, asking directions&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;virtual circuit network
+
+&lt;ul&gt;
+&lt;li&gt;each packet carries tag (virtual circuit ID), tag determines next hop&lt;/li&gt;
+&lt;li&gt;fixed path determined at call setup time, remains fixed through call&lt;/li&gt;
+&lt;li&gt;routers maintain per-call state (每一个标签需要记住)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;packet-switching-vs-circuit-switching&#34;&gt;Packet Switching VS. Circuit Switching&lt;/h3&gt;
+
+&lt;p&gt;Packet switching allows more user to use network Example: 1Mbit link,  each user 100kbps when &amp;ldquo;active&amp;rdquo;, active 10% of per time&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Circuit-Switching : 10 users&lt;/li&gt;
+&lt;li&gt;Packet-Switching: with 35 users, probability &amp;gt; 10 active less than 0.004&lt;/li&gt;
+&lt;li&gt;Packet Switching: greater for bursty data, resource sharing, simpler, no call setup&lt;/li&gt;
+&lt;li&gt;Excessive congestion: packet delay and loss, protocols needed for reliable data transfer, congestion control&lt;/li&gt;
+&lt;li&gt;How to provide circuit-like behavior? bandwidth guarantees needed for audio/video apps, still an unsolved problem&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;internet-structure-network-of-network&#34;&gt;Internet Structure: network of network&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;roughly hierarchical&lt;/li&gt;
+&lt;li&gt;Tier 1 ISP(internet service provider) (e.g. UUNet, Sprint, AT&amp;amp;T) national/international coverage (treat each other as equals)&lt;/li&gt;
+&lt;li&gt;regional ISP, connect to one or more tire-1 ISPs&lt;/li&gt;
+&lt;li&gt;IXP (Internet Exchange point): meeting point where multiple ISPs can peer together
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c96e8bd04c95.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;delay-loss-in-packet-switched-networks&#34;&gt;Delay, Loss in Packet-Switched Networks&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/24/5c96eb7a50ee6.png&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Packets queue in router buffers
+
+&lt;ul&gt;
+&lt;li&gt;packet arrive rate to link exceeds output link capacity(packets queue, wait for turn)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;types
+
+&lt;ul&gt;
+&lt;li&gt;Processing delay, the time required to examine the packet&amp;rsquo;s header and determine where to direct to packet&lt;/li&gt;
+&lt;li&gt;queuing delay, the packet waits to be transmitted onto the link, depends on congestion level of router&lt;/li&gt;
+&lt;li&gt;transmission delay, time to send bits into link L/R (L: packet length, R: link bandwidth), 多快的速度可以从(router)送出去&lt;/li&gt;
+&lt;li&gt;propagation delay, d/s = (s: propagation speed in medium, d = length of physical link)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Transmission and Propagation Delay
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c96edc7b4186.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;nodal delay
+$$d&lt;em&gt;{nodal} = d&lt;/em&gt;{proc} + d&lt;em&gt;{queue} + d&lt;/em&gt;{trans} + d_{prop}$$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;queueing-delay&#34;&gt;Queueing delay&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;L: packet length (bits)&lt;/li&gt;
+&lt;li&gt;a: average packet arrival rate&lt;/li&gt;
+&lt;li&gt;R: link bandwidth(bps)&lt;/li&gt;
+&lt;li&gt;transfer intensity = (L*a) / R&lt;/li&gt;
+&lt;li&gt;(L*a) / R ~ 0 : average queueing delay small&lt;/li&gt;
+&lt;li&gt;(L*a) / R $\rightarrow$ 1: delays become large&lt;/li&gt;
+&lt;li&gt;(L*a) /R &amp;gt; 1: more work arriving than can be serviced, average delay infinite, or packet loss
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c96f0920a293.png&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;traceroute program: provides delay measurement from source to router along end-end internet path towards destination&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;packet-loss&#34;&gt;Packet Loss&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Queue(also known as buffer) preceding link in buffers has finite capacity&lt;/li&gt;
+&lt;li&gt;when packet arrives to full queue, packet is dropped&lt;/li&gt;
+&lt;li&gt;lost packet may be retransmitted by pervious node, by source and system, or not retransmitted at all&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;protocol-layers&#34;&gt;Protocol Layers&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Is there any hope of organizing structure of network&lt;/li&gt;
+&lt;li&gt;Layers: each layer implements a service
+&lt;img src=&#34;https://i.loli.net/2019/03/24/5c96f3fa35287.png&#34; width=&#34;400px&#34;/&gt;
+
+&lt;ul&gt;
+&lt;li&gt;application: supporting network applications (FTP, SMTP, HTTP)&lt;/li&gt;
+&lt;li&gt;transfer: host-host data transfer (TCP, UDP)&lt;/li&gt;
+&lt;li&gt;network: routing of datagrams from source to destination. IP, routing protocols&lt;/li&gt;
+&lt;li&gt;Link: data transfer between neighboring network elements (PPP, Ethernet)&lt;/li&gt;
+&lt;li&gt;physical: bits &amp;ldquo;on the wire&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;why layering:
+
+&lt;ul&gt;
+&lt;li&gt;explicit structure allows identification, relationship of complex system&amp;rsquo;s pieces&lt;/li&gt;
+&lt;li&gt;modularization eases maintenance, updating of system, change  of implementation of layer&amp;rsquo;s service transparent to rest of system.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;encapsulation&#34;&gt;Encapsulation&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2019/03/24/5c96f7453b640.png&#34; width=&#34;450px&#34;/&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

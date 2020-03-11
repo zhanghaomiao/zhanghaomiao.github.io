@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Haomiao Zhang">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Introduction  transport segment from sending to receiving host on sending side encapsulates segments into datagrams on receiving side, delivers segments to transport layer network layer protocols in every host, router router examines header fields in all IP datagrams passing through it  Two keys  Forwarding: move packets from router&rsquo;s input to appropriate router output  Routing: determine route taken by packets from source to destination, routing algorithm  Connection setup  3rd important function in some network architectures: ATM, frame relay, X.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/courses/computer_network/network_layer/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/courses/computer_network/network_layer/">
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Haomiao">
+  <meta property="og:url" content="/courses/computer_network/network_layer/">
+  <meta property="og:title" content="Network Layer | Haomiao">
+  <meta property="og:description" content="Introduction  transport segment from sending to receiving host on sending side encapsulates segments into datagrams on receiving side, delivers segments to transport layer network layer protocols in every host, router router examines header fields in all IP datagrams passing through it  Two keys  Forwarding: move packets from router&rsquo;s input to appropriate router output  Routing: determine route taken by packets from source to destination, routing algorithm  Connection setup  3rd important function in some network architectures: ATM, frame relay, X."><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-05-05T00:00:00&#43;01:00">
+    
+    <meta property="article:modified_time" content="2019-05-05T00:00:00&#43;01:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Network Layer | Haomiao</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
+            
+              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
+            
+              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <span><i class="fas fa-bars"></i></span>
+  </button>
+
+  
+  <input name="q" type="search" class="form-control" placeholder="Search..." autocomplete="off">
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+
+  
+  
+  
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/computer_network/">Overview</a>
+
+  </div>
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/computer_network/introduction/">Concepts</a>
+    <ul class="nav docs-sidenav">
+      
+      <li >
+        <a href="/courses/computer_network/introduction/">Introduction</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/application_layer/">Application Layer</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/transport_layer/">Transport Layer</a>
+      </li>
+      
+      <li class="active">
+        <a href="/courses/computer_network/network_layer/">Network Layer</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/link_layer/">Link Layer</a>
+      </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  
+</nav>
+
+    </div>
+
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#two-keys">Two keys</a></li>
+<li><a href="#connection-setup">Connection setup</a></li>
+<li><a href="#network-service-model">Network Service model</a></li>
+</ul></li>
+<li><a href="#virtual-circuit-and-datagram-networks">Virtual circuit and datagram networks</a>
+<ul>
+<li><a href="#connection-and-connection-less-service">connection and connection-less service</a></li>
+<li><a href="#virtual-circuits">Virtual circuits</a></li>
+<li><a href="#vc-implementation">VC implementation</a></li>
+<li><a href="#datagram-networks">Datagram Networks</a></li>
+<li><a href="#datagram-or-vc-network-why">Datagram or VC network: Why</a></li>
+</ul></li>
+<li><a href="#what-s-inside-a-router">What&rsquo;s inside a router</a>
+<ul>
+<li><a href="#input-port-functions">Input Port Functions</a></li>
+<li><a href="#switching-fabrics">Switching fabrics</a></li>
+<li><a href="#output-ports">Output ports</a></li>
+</ul></li>
+<li><a href="#ip-internet-protocol">IP: Internet Protocol</a>
+<ul>
+<li><a href="#ip-datagram-format">IP datagram format</a>
+<ul>
+<li><a href="#ip-datagram-fragmentation">IP Datagram Fragmentation</a></li>
+</ul></li>
+<li><a href="#ipv4-addressing">IPv4 addressing</a>
+<ul>
+<li><a href="#subnets">Subnets</a></li>
+<li><a href="#dhcp-dynamic-host-configuration-protocol">DHCP: Dynamic Host Configuration Protocol</a></li>
+<li><a href="#hierarchical-addressing">Hierarchical addressing</a></li>
+<li><a href="#network-address-translation-nat">Network Address Translation (NAT)</a></li>
+</ul></li>
+<li><a href="#icmp-internet-control-message-protocol">ICMP (Internet Control Message Protocol)</a>
+<ul>
+<li><a href="#traceroute-and-icmp">Traceroute and ICMP</a></li>
+</ul></li>
+<li><a href="#ipv6">IPv6</a>
+<ul>
+<li><a href="#transition-from-ipv4-to-ipv6">Transition From IPv4 to IPv6</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#routing-algorithm">Routing Algorithm</a>
+<ul>
+<li><a href="#link-state-routing-algorithm">Link-State Routing Algorithm</a></li>
+<li><a href="#the-distance-vector-dv-routing-algorithm">The Distance-Vector (DV) Routing Algorithm</a></li>
+<li><a href="#comparison-of-ls-and-dv">Comparison of LS and DV</a></li>
+<li><a href="#hierarchical-routing">Hierarchical routing</a>
+<ul>
+<li><a href="#hot-potato-routing">Hot-potato routing</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#routing-in-the-internet">Routing in the Internet</a>
+<ul>
+<li><a href="#rip-routing-information-protocol">RIP (Routing Information Protocol)</a></li>
+<li><a href="#ospf-open-shortest-path-first">OSPF (Open Shortest Path First)</a>
+<ul>
+<li><a href="#bgp-border-gateway-protocol-inter-as-routing">BGP (Border Gateway Protocol) Inter-AS Routing</a>
+<ul>
+<li><a href="#bgp-route-selection">BGP route selection</a></li>
+<li><a href="#bgp-messages-exchanged-using-tcp">BGP messages exchanged using TCP</a></li>
+<li><a href="#bgp-routing-policy">BGP routing policy</a></li>
+<li><a href="#different-intra-and-inter-as-routing">Different Intra- and Inter-AS routing</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#broadcast-and-multicast-routing">Broadcast and multicast routing</a>
+<ul>
+<li><a href="#broadcast-routing">Broadcast Routing</a>
+<ul>
+<li><a href="#spanning-tree">Spanning Tree</a></li>
+</ul></li>
+<li><a href="#multicast-routing-problem-statement">Multicast Routing: Problem statement</a>
+<ul>
+<li><a href="#shortest-path-tree">Shortest Path tree</a></li>
+<li><a href="#reverse-path-forwarding">Reverse path forwarding</a></li>
+<li><a href="#shared-tree-steiner-tree">Shared-Tree: Steiner Tree</a></li>
+<li><a href="#center-based-trees">Center-based trees</a></li>
+<li><a href="#internet-multicasting-routing-dvmrp">Internet Multicasting Routing: DVMRP</a>
+<ul>
+<li><a href="#protocol-independent-multicast-rip">Protocol Independent Multicast: RIP</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          <h1>Network Layer</h1>
+
+          <div class="article-style">
+            
+
+<h2 id="introduction">Introduction</h2>
+
+<ul>
+<li>transport segment from sending to receiving host</li>
+<li>on sending side encapsulates segments into datagrams</li>
+<li>on receiving side, delivers segments to transport layer</li>
+<li>network layer protocols in every host, router</li>
+<li>router examines header fields in all IP datagrams passing through it</li>
+</ul>
+
+<h3 id="two-keys">Two keys</h3>
+
+<ul>
+<li>Forwarding: move packets from router&rsquo;s input to appropriate router output
+<img src="https://i.loli.net/2019/04/03/5ca48fce906b6.png" width="450px"/></li>
+<li>Routing: determine route taken by packets from source to destination, routing algorithm</li>
+</ul>
+
+<h3 id="connection-setup">Connection setup</h3>
+
+<ul>
+<li>3rd important function in some network architectures: ATM, frame relay, X.25</li>
+<li>before datagrams flow, two end hosts and intervening routers establish virtual connection (routers get involved)</li>
+<li>network vs transport layer connection service:
+
+<ul>
+<li>network: between two hosts(may also involve intervening routers in case of VCs)</li>
+<li>transport: between two processes</li>
+</ul></li>
+</ul>
+
+<h3 id="network-service-model">Network Service model</h3>
+
+<ul>
+<li>example services for individual datagrams: guaranteed delivery, guaranteed delivery with less than 40 milliseconds delay</li>
+<li>example services for a flow of datagrams: in order datagram delivery, guaranteed minimum bandwidth to flow,  restrictions on change in inter-packet spacing (封包和封包的间隔的变化(时间差), 变异度)</li>
+<li>建连线有上面的这些机制</li>
+</ul>
+
+<p><img src="https://i.loli.net/2019/04/03/5ca492c7dbe88.png" width="650px"/></p>
+
+<h2 id="virtual-circuit-and-datagram-networks">Virtual circuit and datagram networks</h2>
+
+<h3 id="connection-and-connection-less-service">connection and connection-less service</h3>
+
+<ul>
+<li>datagram network provides network-layer connectionless service</li>
+<li>VC network provides network-layer connection service</li>
+<li>analogous to transport-layer services, service: host-to-host; no choice: network providers one or the other(只能选一种); implementation: in network core</li>
+</ul>
+
+<h3 id="virtual-circuits">Virtual circuits</h3>
+
+<ul>
+<li>source-to-dest path behaves like telephone circuit (performance-wise, network actions along source-to-dest path)</li>
+<li>call setup, teardown for each call before data can flow</li>
+<li>each packet carries VC identifier (not destination host address)</li>
+<li>every router on source-dest path maintains &ldquo;state&rdquo; for each passing connection</li>
+<li>link, router resources(bandwidth, buffers) may be allocated to VC (dedicated resources = predictable service)
+<img src="https://i.loli.net/2019/04/03/5ca4968c668c7.png" width="400px"/>
+<img src="https://i.loli.net/2019/04/03/5ca4969aecdd0.png" width="400px"/></li>
+</ul>
+
+<h3 id="vc-implementation">VC implementation</h3>
+
+<ul>
+<li>VC consists of
+
+<ul>
+<li>path from source to destination</li>
+<li>VC numbers, one number for each link along path</li>
+<li>entries in forwarding tables in routers along path</li>
+</ul></li>
+<li>packet belonging to VC carries VC number(rather than destination address)</li>
+<li>VC number can be changed on each link (New VC number comes from forwarding table)
+<img src="https://i.loli.net/2019/04/03/5ca4981ed5b64.png" width="400px"/></li>
+</ul>
+
+<h3 id="datagram-networks">Datagram Networks</h3>
+
+<ul>
+<li>no call setup at network layer</li>
+<li>routers: no state about end-to-end connections, no network-level concept of &ldquo;connection&rdquo;</li>
+<li>packets forwarded using destination host address, packets between some source-destination pair may take different paths
+<img src="https://i.loli.net/2019/04/03/5ca4995db5593.png" width="400px"/></li>
+<li>forwarding table
+
+<ul>
+<li>longest prefix matching
+<img src="https://i.loli.net/2019/04/03/5ca49a3b909dd.png" width="600px"/></li>
+</ul></li>
+</ul>
+
+<h3 id="datagram-or-vc-network-why">Datagram or VC network: Why</h3>
+
+<ul>
+<li>Internet (datagram)
+
+<ul>
+<li>data exchange among computers, elastic service, no strict timing request</li>
+<li>smart end systems (computer), can adapt, perform control error recovery, simple inside network, complexity at &ldquo;edge&rdquo;</li>
+<li>many link types, different characteristics, uniform service difficult</li>
+</ul></li>
+<li>ATM (VC)
+
+<ul>
+<li>evolved from telephony</li>
+<li>human conversation, strict timing, reliability requirements, need for guaranteed service</li>
+<li>&ldquo;dumb&rdquo; end systems (telephones, complexity inside network)</li>
+</ul></li>
+</ul>
+
+<h2 id="what-s-inside-a-router">What&rsquo;s inside a router</h2>
+
+<p><img src="https://i.loli.net/2019/04/03/5ca4a00b51702.png" width="400px"/>
+- routing algorithms / protocol (RIP, OSPF, BGP)
+- forwarding algorithms from incoming to outgoing link</p>
+
+<h3 id="input-port-functions">Input Port Functions</h3>
+
+<p><img src="https://i.loli.net/2019/04/03/5ca4a134239c6.png" width="400px"/></p>
+
+<ul>
+<li>given datagram destination, lookup output port using forwarding table in input port memory</li>
+<li>goal: complete input port processing at line speed</li>
+<li>queuing: if datagrams arrive faster than forwarding rate into switch fabric</li>
+</ul>
+
+<h3 id="switching-fabrics">Switching fabrics</h3>
+
+<p><img src="https://i.loli.net/2019/04/03/5ca4a2e556669.png" width="400px"/></p>
+
+<ul>
+<li>switching via a bus:
+
+<ul>
+<li>datagram from input port memory to output port memory via a shared bus</li>
+<li>bus connection: switching speed limited by bus bandwidth</li>
+<li>32 Gbps bus, Cisco 5600: sufficient speed for access and enterprise routers</li>
+</ul></li>
+<li>switching through a crossbar</li>
+<li>switching via An interconnection network
+
+<ul>
+<li>overcome bus bandwidth limitations</li>
+<li>Banyan networks, other interconnection nets initially developed to connect processors in multiprocessor</li>
+<li>advanced design: fragmenting datagram into fixed length cell</li>
+</ul></li>
+</ul>
+
+<h3 id="output-ports">Output ports</h3>
+
+<p><img src="https://i.loli.net/2019/04/03/5ca4a43acefdc.png" width="400px"/></p>
+
+<ul>
+<li>buffering: required when datagrams arrive from fabric faster than the transmission rate</li>
+<li>scheduling discipline: chooses among queued datagrams for transmission
+<img src="https://i.loli.net/2019/04/03/5ca4a4d9c5b79.png" width="400px"/></li>
+<li>queueing (delay) and loss due to output port buffer overflow</li>
+<li>How much buffering
+
+<ul>
+<li>RFC 3439 rule of thumb: average buffering equal to &ldquo;typical&rdquo; RTT (250 millisecond) times link capacity C (C = 10 Gpbs link, 2.5 Gbit buffer)</li>
+<li>Recent recommendation: with N flows, buffering equal to $RTT*C/(\sqrt(N))$</li>
+</ul></li>
+<li>Input port Queuing problem
+<img src="https://i.loli.net/2019/04/03/5ca4a677b909c.png" width="400px"/>
+
+<ul>
+<li>HOL (head-of-the-line) blocking</li>
+</ul></li>
+</ul>
+
+<h2 id="ip-internet-protocol">IP: Internet Protocol</h2>
+
+<p><img src="https://i.loli.net/2019/04/03/5ca4a7516558a.png" width="400px"/></p>
+
+<h3 id="ip-datagram-format">IP datagram format</h3>
+
+<p><img src="https://i.loli.net/2019/04/03/5ca4a861461f7.png" width="400px"/></p>
+
+<ul>
+<li>16-bit identifier, flags, 13-bit fragmentation offset: fragmentation/reassembly</li>
+<li>time to live: max number remaining hops (decremented at each router)</li>
+<li>upper layer: upper layer protocol to deliver</li>
+<li>header checksum</li>
+</ul>
+
+<h4 id="ip-datagram-fragmentation">IP Datagram Fragmentation</h4>
+
+<p><img src="https://i.loli.net/2019/04/03/5ca4a906a20cf.png" width="400px"/></p>
+
+<p><img src="https://i.loli.net/2019/04/03/5ca4a9b07232e.png" width="600px"/></p>
+
+<h3 id="ipv4-addressing">IPv4 addressing</h3>
+
+<ul>
+<li>IP address: 32-bit identifier for host, router interface</li>
+<li>interface: connection between host/router and physical link
+
+<ul>
+<li>router&rsquo;s typically have multiple interfaces</li>
+<li>host typically has one interface</li>
+<li>ip address associated with each interface</li>
+</ul></li>
+</ul>
+
+<h4 id="subnets">Subnets</h4>
+
+<ul>
+<li>subnet part (high order bits)</li>
+<li>host part (low order bits)</li>
+<li>device interfaces with same subnet part of IP address</li>
+<li>can physically reach other without intervening router
+<img src="https://i.loli.net/2019/04/03/5ca4ace603a45.png" width="400px"/></li>
+<li>to determine the subnets, detach each interface from its host or router, creating islands of isolated networks, each isolated network is called a subnet</li>
+<li>six subnets
+<img src="https://i.loli.net/2019/04/03/5ca4ade4aa342.png" width="400px"/></li>
+<li>CIDR: Classless Inter Domain Routing
+
+<ul>
+<li>subnet portion of address of arbitrary length</li>
+<li>address format: a.b.c.d/x where x is number bits in subnet portion of address</li>
+</ul></li>
+<li>Get IP
+
+<ul>
+<li>hard-coded by system admin in a file,  <code>unix: /etc/rc.config</code></li>
+<li>DHCP: Dynamic Host Configuration Protocol: dynamically get address from as server, &ldquo;plug-and-play&rdquo;</li>
+</ul></li>
+<li>Get subnet part of IP address: Gets allocated portion of its provider ISP&rsquo;s address space</li>
+<li>ISP get block of address? ICANN (Internet Corporation for Assigned Names and Numbers)</li>
+</ul>
+
+<h4 id="dhcp-dynamic-host-configuration-protocol">DHCP: Dynamic Host Configuration Protocol</h4>
+
+<ul>
+<li>Goal: allow host to dynamically obtain its IP address from network server when it joins network, can renew its lease on address in use, allows reuse of address (only hold address while connected an &ldquo;on&rdquo;), support for mobile users who want to join network (more shortly)</li>
+<li>DHCP overview:
+
+<ul>
+<li>host broadcasts &ldquo;DHCP discover&rdquo; message</li>
+<li>DHCP server respond with &ldquo;DHCP offer&rdquo; message</li>
+<li>host requests IP address &ldquo;DHCP request&rdquo; message</li>
+<li>DHCP server sends address &ldquo;DHCP ACK&rdquo; message
+<img src="https://i.loli.net/2019/04/03/5ca4b5f6e31b0.png" width="400px"/>
+<img src="https://i.loli.net/2019/04/03/5ca4b605e3bf1.png" width="450px"/></li>
+</ul></li>
+</ul>
+
+<h4 id="hierarchical-addressing">Hierarchical addressing</h4>
+
+<p><img src="https://i.loli.net/2019/04/04/5ca5a81531772.png" width="400px"/>
+<img src="https://i.loli.net/2019/04/04/5ca5a7df7e3e2.png" width="400px"/>
+more specific route
+<img src="https://i.loli.net/2019/04/04/5ca5a8c57f578.png" width="400px"/></p>
+
+<h4 id="network-address-translation-nat">Network Address Translation (NAT)</h4>
+
+<ul>
+<li>Motivation: local network use just one IP address as far as outside world is concerned:
+
+<ul>
+<li>range of addresses not needed from ISP: just one IP address for all devices</li>
+<li>can change addresses of devices in local network without notifying outside world</li>
+<li>can change ISP without changing addresses of devices in local network</li>
+<li>devices inside local net not explicitly addressable, visible by outside world (a security plus)</li>
+</ul></li>
+<li>Implementation: NAT router must:
+
+<ul>
+<li>outgoing datagrams: replace (source IP address, port number) of every outgoing datagram to (NAT IP address, new port number), remote clients/ servers will respond using (NAT IP address, )</li>
+</ul></li>
+</ul>
+
+<p><img src="https://i.loli.net/2019/04/04/5ca5ac6370caf.png" width="500px"/></p>
+
+<ul>
+<li>16 bit port-number field (65536)</li>
+<li>NAT is controversial
+
+<ul>
+<li>routers should only process up to layer 3 (but involved layer 4)</li>
+<li>violates end-to-end argument, NAT possibility must be taken into account by app designers (eg. P2P applications)</li>
+<li>address shortage should instead be solved by IPv6</li>
+</ul></li>
+<li>NAT traversal problem
+
+<ul>
+<li>client wants to connect to server with address 10.0.0.1, server address 10.0.0.1 local to LAN (client can&rsquo;t use it as destination address), only one externally visible NAT address</li>
+<li>solution 1: statically configure NAT to forward incoming connection requests at given port to server (e.g. 123.76.29.7 port 2500 always forwarded to 10.0.0.1 port 2500)</li>
+<li>solution2: Universal Plug and Play (UPnP),  Internet Gateway Device(IGD) protocol. Allows NATed host to:</li>
+<li>learn public IP address</li>
+<li>add /remove port mappings (with lease times)</li>
+<li>automate static NAT port map configuration</li>
+<li>solution3: relaying (used in Skype)</li>
+<li>NATed client establishes connection to relay</li>
+<li>external client connects to relay</li>
+<li>relay bridges packets between connections</li>
+</ul></li>
+</ul>
+
+<h3 id="icmp-internet-control-message-protocol">ICMP (Internet Control Message Protocol)</h3>
+
+<ul>
+<li>used by host &amp; routers to communicate network-level information
+
+<ul>
+<li>error reporting</li>
+<li>unreachable host, network, port, protocol</li>
+<li>echo request/reply (used by ping)</li>
+</ul></li>
+<li>network-layer above &ldquo;IP&rdquo;, ICMP messages carried in IP datagrams</li>
+<li>ICMP message: type, code plus first 8 bytes of IP datagram causing error</li>
+</ul>
+
+<h4 id="traceroute-and-icmp">Traceroute and ICMP</h4>
+
+<ul>
+<li>source sends series of UDP segment to destination
+
+<ul>
+<li>first has TTL=1</li>
+<li>second has TTL=2, etc</li>
+<li>unlikely port number</li>
+</ul></li>
+<li>when nth datagram arrives to nth router
+
+<ul>
+<li>router discards datagram</li>
+<li>and sends to source an ICMP message (type 11, code 0)</li>
+<li>Message includes name of routers &amp; IP address</li>
+</ul></li>
+<li>when ICMP message arrives, source calculates RTT</li>
+<li>traceroute does this 3 times</li>
+<li>Stoping criterion
+
+<ul>
+<li>UDP segment eventually arrives at destination host</li>
+<li>destination returns ICMP &ldquo;port unreachable&rdquo; packet (type 3, code 3)</li>
+<li>when source gets this ICMP, stops</li>
+</ul></li>
+</ul>
+
+<h3 id="ipv6">IPv6</h3>
+
+<ul>
+<li>Initial motivation: 32-bit address space soon to be completely allocated</li>
+<li>additional motivation:
+
+<ul>
+<li>header format helps speed processing/forwarding</li>
+<li>header changes to facilitate QoS</li>
+<li>IPv6 datagram format: fixed-length 40 byte header, no fragmentation allowed
+<img src="https://i.loli.net/2019/04/04/5ca5e8da43dfe.png" width="400px"/></li>
+</ul></li>
+<li>priority: identify priority among datagrams in flow</li>
+<li>flow label: identify datagrams in same &ldquo;flow&rdquo;</li>
+<li>next header: identify upper layer protocol for data</li>
+<li>checksum: removed entirely to reduce processing time at each step</li>
+<li>options: allowed, but outside of header, indicated by &ldquo;Next Header&rdquo; field</li>
+<li>ICMPv6: new version of ICMP, additional message types (&ldquo;packet too big&rdquo;), multicast group management functions</li>
+</ul>
+
+<h4 id="transition-from-ipv4-to-ipv6">Transition From IPv4 to IPv6</h4>
+
+<ul>
+<li>not all routers can be upgraded simultaneous, no &ldquo;flag days&rdquo;</li>
+<li>operate mixed IPv4 and IPv6 routers: <strong>Tunneling</strong>, IPv6 carried as payload in IPv4 datagram among IPv4 routers
+<img src="https://i.loli.net/2019/04/04/5ca5eacac3bed.png" width="400px"/></li>
+</ul>
+
+<h2 id="routing-algorithm">Routing Algorithm</h2>
+
+<ul>
+<li>Graph abstraction
+<img src="https://i.loli.net/2019/04/04/5ca5ebfacbbcd.png" width="400px"/></li>
+<li>Routing Algorithm: algorithm that finds least-cost path</li>
+<li>Global: all routers have complete topology, link cost info (link-state algorithm)</li>
+<li>Decentralized
+
+<ul>
+<li>router knows physically-connected neighbors, link costs to neighbors</li>
+<li>iterative process of computation, exchange info with neighbors</li>
+<li>&ldquo;distance vector&rdquo; algorithms</li>
+</ul></li>
+<li>static or dynamic?
+
+<ul>
+<li>static: routes change slowly over time</li>
+<li>dynamic: routes change more quickly (periodic update, in response to link cost changes)</li>
+</ul></li>
+</ul>
+
+<h3 id="link-state-routing-algorithm">Link-State Routing Algorithm</h3>
+
+<p>Dijkstra&rsquo;s algorithm (See Algorithm)</p>
+
+<ul>
+<li>Oscillations with congestion-sensitive routing (link cost = amount of carried traffic)
+<img src="https://i.loli.net/2019/04/06/5ca8185104528.png" width="500px"/></li>
+</ul>
+
+<h3 id="the-distance-vector-dv-routing-algorithm">The Distance-Vector (DV) Routing Algorithm</h3>
+
+<p>Distance Vector Algorithm (see Algorithm)</p>
+
+<ul>
+<li>Node x maintains distance vector</li>
+<li>Node x also maintains its neighbors&rsquo; distance vectors</li>
+<li>Bellman-Ford equation (dynamic programming)
+$d_x(y) = min_v (c(x,v) + d_v(y))$ where min is taken over all neighbors v of x
+<img src="https://i.loli.net/2019/04/04/5ca5f6a51904f.png" width="500px"/></li>
+<li>good news travels fast, bad news travels slow
+<img src="https://i.loli.net/2019/04/06/5ca8155a2ec9c.png" width="400px"/>
+
+<ul>
+<li>Figure b needs 44 iterations before algorithm stabilizes</li>
+</ul></li>
+<li>Poisoned reverse
+
+<ul>
+<li>If Z routes through Y to get to X: Z tells Y its (Z&rsquo;s) distance to X is infinite (So y won&rsquo;t route to X via Z)</li>
+<li>loops involving three or more nodes (rather than simply two immediately neighboring nodes) will not be detected by the poisoned reverse technique</li>
+</ul></li>
+</ul>
+
+<h3 id="comparison-of-ls-and-dv">Comparison of LS and DV</h3>
+
+<ul>
+<li>Message complexity
+
+<ul>
+<li>LS: with n nodes, E links O(nE) message send</li>
+<li>DV: exchange between neighbors only, convergence time varies</li>
+</ul></li>
+<li>Speed of Convergence
+
+<ul>
+<li>LS: $O(n^2)$ algorithm requires $O(nE)$ messages, may have oscillations</li>
+<li>DV: convergence time varies, may be routing loops, count-to-infinity</li>
+</ul></li>
+<li>Robustness: what happens if router malfunctions?
+
+<ul>
+<li>LS: node can advertise incorrect link cost, each node computes only its own table</li>
+<li>DV node can advertise incorrect path cost, each node&rsquo;s table used by others, error propagate through network</li>
+</ul></li>
+</ul>
+
+<h3 id="hierarchical-routing">Hierarchical routing</h3>
+
+<ul>
+<li>scale: with 200 million destinations:
+
+<ul>
+<li>can&rsquo;t store all destination&rsquo;s in routing tables</li>
+<li>routing table exchange would swamp links</li>
+</ul></li>
+<li>administrative autonomy
+
+<ul>
+<li>internet = network of networks</li>
+<li>each network admin may want to control routing in its own network</li>
+</ul></li>
+<li>aggregate routers into regions &ldquo;autonomous systems (AS)&rdquo;</li>
+<li>routers in same AS run same routing protocol
+
+<ul>
+<li>&ldquo;intra-AS&rdquo; routing protocol</li>
+<li>routers in different AS can run different intra-AS running protocol</li>
+</ul></li>
+<li>Gateway router : direct link to router in another AS
+<img src="https://i.loli.net/2019/04/04/5ca5fc1c11b2e.png" width="500px"/></li>
+<li>Inter-AS tasks, suppose router in AS1 receives datagram destined outside of AS1: router should forward packet to gateway router, but which one?
+
+<ul>
+<li>AS1 must learn which destination are reachable through AS2, which through AS3</li>
+<li>propagate this reachability info to all routers in AS1</li>
+</ul></li>
+</ul>
+
+<h4 id="hot-potato-routing">Hot-potato routing</h4>
+
+<p>Suppose AS1 learns from inter-AS protocol that subnet X is reachable from AS3 and from AS2, to configure forwarding table, router 1d must determine towards which gateway it should forward packets for destination x.(hot-potato routing- send packet towards closest of two routers)
+<img src="https://i.loli.net/2019/04/04/5ca5ff85a0ec8.png" width="600px"/></p>
+
+<h2 id="routing-in-the-internet">Routing in the Internet</h2>
+
+<p>Interior Gateway Protocols (IGP)</p>
+
+<h3 id="rip-routing-information-protocol">RIP (Routing Information Protocol)</h3>
+
+<ul>
+<li>distance vector algorithm</li>
+<li>included in BSD-UNIX distribution in 1982</li>
+<li>distance metric: number of hops (max = 15hops)
+<img src="https://i.loli.net/2019/04/04/5ca600bf47feb.png" width="400px"/></li>
+<li>exchanged among neighbors every 30 seconds via Response Message (also called advertisement)</li>
+<li>each advertisement: list of up to 25 destination subnets within AS</li>
+<li>Link Failure and Recovery: if no advertisement heard after 180 seconds $\rightarrow$ neighbor/link declared dead
+
+<ul>
+<li>routes via neighbor invalidated</li>
+<li>new advertisements send to neighbors</li>
+<li>neighbors in turn send out new advertisements</li>
+<li>link failure info quickly (?) propagates to entire network</li>
+<li>poison reverse: used to prevent ping-pong loops (infinite distance = 16 loops)</li>
+</ul></li>
+<li>RIP table processing
+
+<ul>
+<li>RIP routing tables managed by application-level process called route-d (daemon) (Send distance vector)</li>
+<li>advertisements send in UDP packets, periodically repeated
+<img src="https://i.loli.net/2019/04/06/5ca81b33efa24.png" width="400px"/></li>
+</ul></li>
+</ul>
+
+<h3 id="ospf-open-shortest-path-first">OSPF (Open Shortest Path First)</h3>
+
+<ul>
+<li>open: publicly available</li>
+<li>uses Link State algorithm:
+
+<ul>
+<li>LS packet dissemination</li>
+<li>topology map at each node</li>
+<li>route computation using Dijkstra&rsquo;s algorithm</li>
+</ul></li>
+<li>OSPF advertisement carries one entry per neighbor router</li>
+<li>advertisements disseminated to entire AS (via flooding), carried in OSPF messages directly over IP (rather than TCP or UDP)</li>
+<li>advanced features
+
+<ul>
+<li>security: all OSPF messages authenticated(to prevent malicious intrusion)</li>
+<li>multiple same-cost paths allowed (only one path in RIP)</li>
+<li>For each link, multiple cost metrics for different TOS (type of service) (e.g. satellite link cost set &ldquo;low: for best effort: high for real time)</li>
+<li>integrated uni- and multicast support: Multicast OSPF (MOSPF) uses same topology data base as OSPF</li>
+<li>hierarchical OSPF in large domains</li>
+</ul></li>
+</ul>
+
+<h4 id="bgp-border-gateway-protocol-inter-as-routing">BGP (Border Gateway Protocol) Inter-AS Routing</h4>
+
+<ul>
+<li>the de facto standard</li>
+<li>BGP provides each AS a means to:
+
+<ul>
+<li>Obtain subnet reachability information from neighboring ASs</li>
+<li>Propagate reachability information to all AS-internal routers</li>
+<li>Determine &ldquo;good&rdquo; routers to subnets based on reachability information and policy</li>
+</ul></li>
+<li>allows subnet to advertise its existence to rest of Internet</li>
+<li>Pairs of routers (BGP peers) exchange routing info over semi-permanent TCP connections: BGP sessions (BGP sessions need not correspond to physical links)
+<img src="https://i.loli.net/2019/04/06/5ca81da7a1e5d.png" width="400px"/></li>
+<li>When As2 advertise to a prefix to AS1:
+
+<ul>
+<li>AS2 promises it will forward datagrams towards that prefix</li>
+<li>AS2 can aggregate prefixes in its advertisement</li>
+</ul></li>
+</ul>
+
+<p>Distributing reachability information:</p>
+
+<ul>
+<li>Using eBGP(external) session between 3a and 1c, AS3 sends prefix reachability info to AS1
+
+<ul>
+<li>1c can then use iBGP do distribute new prefix info to all routers in AS1</li>
+<li>1b can then re-advertise new reachability info to AS2 over 1b-to-2a eBGP session</li>
+</ul></li>
+<li>when router learns of new prefix, it creates entry for prefix in its forwarding table</li>
+<li>advertised prefix includes BGP attributes: prefix + &ldquo;attributes&rdquo; = &ldquo;route&rdquo;</li>
+<li>two important attributes
+
+<ol>
+<li>AS-PATH: contains ASs through which prefix advertisement has passed</li>
+<li>NEXT-HOP: indicates specific internal-AS router to next-hop AS(may be multiple links from current AS to next-hop-AS)</li>
+</ol></li>
+<li>when gateway router receives route advertisement, use <strong>import policy</strong> to accept/decline</li>
+</ul>
+
+<h5 id="bgp-route-selection">BGP route selection</h5>
+
+<ul>
+<li>router may learn about more than 1 route to some prefix, router must select route</li>
+<li>elimination rules:
+
+<ol>
+<li>local preference value attribute: policy decision</li>
+<li>shortest AS-PATH</li>
+<li>closest NEXT-HOP router: hot potato routing</li>
+<li>additional criteria</li>
+</ol></li>
+</ul>
+
+<h5 id="bgp-messages-exchanged-using-tcp">BGP messages exchanged using TCP</h5>
+
+<ul>
+<li>OPEN:  open TCP connections to peer and authenticates sender</li>
+<li>UPDATE: advertises new path</li>
+<li>KEEPALIVE: keeps connection alive in absence of UPDATES</li>
+<li>NOTIFICATION: reports error in previous message also used to close connection</li>
+</ul>
+
+<h5 id="bgp-routing-policy">BGP routing policy</h5>
+
+<p><img src="https://i.loli.net/2019/04/06/5ca820d85e63b.png" width="400px"/></p>
+
+<ul>
+<li>A, B, C are provider networks</li>
+<li>X, W, Y are customer (of provider networks)</li>
+<li>X is dual-homed: attached  to two networks
+
+<ul>
+<li>X dose not want to route from B via X to C, so X will not advertise to B a route to C</li>
+</ul></li>
+<li>A advertises path AW to B</li>
+<li>B advertises path BAW to X</li>
+<li>should B advertise path BAW to C?
+
+<ul>
+<li>No, B gets no &ldquo;revenue&rdquo; for routing CBAW since neither W nor C are B&rsquo;s customers</li>
+<li>B wants to force C route to w via A</li>
+<li>B wants to route only to/from its customers</li>
+</ul></li>
+</ul>
+
+<h5 id="different-intra-and-inter-as-routing">Different Intra- and Inter-AS routing</h5>
+
+<ul>
+<li>Policy
+
+<ul>
+<li>Inter-AS: admin wants control over how its traffic routed, who routes through its net</li>
+<li>Intra-AS: single admin, no policy</li>
+</ul></li>
+<li>Scale: hierarchical routing saves table size, reduced update traffic</li>
+<li>Performance:
+
+<ul>
+<li>Intra-AS: can focus on performance</li>
+<li>Inter-AS: policy may dominate over performance</li>
+</ul></li>
+</ul>
+
+<h2 id="broadcast-and-multicast-routing">Broadcast and multicast routing</h2>
+
+<h3 id="broadcast-routing">Broadcast Routing</h3>
+
+<ul>
+<li>deliver packets from source to all other nodes</li>
+<li>source duplication is inefficient
+<img src="https://i.loli.net/2019/04/06/5ca822f9dc436.png" width="400px"/></li>
+<li>In-network duplication:
+
+<ul>
+<li>flooding: when node receives broadcast packet, sends copy to all neighbors (problem: cycles &amp; broadcast storm)</li>
+<li>controlled flooding: node only broadcast packet if it hasn&rsquo;t broadcast same packet before, Node keeps track of packet ids already broadcasted; Reverse Path Forwarding(RPF): only forward packet if it arrived on shortest path between node and source</li>
+<li>spanning tree: no redundant packet received by any node</li>
+</ul></li>
+</ul>
+
+<h4 id="spanning-tree">Spanning Tree</h4>
+
+<p><img src="https://i.loli.net/2019/04/06/5ca82424dea45.png" width="400px"/>
+- First construct a spanning tree
+- Nodes forward copies only along spanning tree
+- Creation:
+  - center node
+  - each node send unicast join message to center node
+  - message forwarded until it arrives at a node already belonging to spanning tree
+  <img src="https://i.loli.net/2019/04/06/5ca824d3bd778.png" width="400px"/></p>
+
+<h3 id="multicast-routing-problem-statement">Multicast Routing: Problem statement</h3>
+
+<ul>
+<li>find a tree (or trees) connecting routers having local multicast group members
+
+<ul>
+<li>tree: not all paths between routers used</li>
+<li>source-based: different tree from each sender to receivers</li>
+<li>shared-tree: same tree used by all group members</li>
+</ul></li>
+<li>sourced-based tree: one tree per source, shorted path trees, reverse path forwarding</li>
+<li>group-shared tree: group uses one tree (minimal spanning tree, center-based trees)</li>
+</ul>
+
+<h4 id="shortest-path-tree">Shortest Path tree</h4>
+
+<p>Dijkstra&rsquo;s algorithm</p>
+
+<h4 id="reverse-path-forwarding">Reverse path forwarding</h4>
+
+<p><img src="https://i.loli.net/2019/04/06/5ca827388a520.png" width="400px"/></p>
+
+<p>Pruning: forwarding tree contains subtrees with no multicast group members: no need to forward datagrams down subtree, &ldquo;prune&rdquo; message send upstream by router with no downstream group members.</p>
+
+<h4 id="shared-tree-steiner-tree">Shared-Tree: Steiner Tree</h4>
+
+<ul>
+<li>minimum cost tree connecting all routers with attached group members</li>
+<li>problem is NP-complete</li>
+<li>excellent heuristics exists (近似解)</li>
+<li>not used in practice
+
+<ol>
+<li>computational complexity</li>
+<li>information about entire network needed</li>
+<li>monolithic(庞大): rerun whenever a router needs to join/leave</li>
+</ol></li>
+</ul>
+
+<h4 id="center-based-trees">Center-based trees</h4>
+
+<ul>
+<li>single delivery tree shared by all</li>
+<li>one router identified as &ldquo;center&rdquo; of tree</li>
+<li>to join:
+
+<ul>
+<li>edge router sends unicast join-message addressed to center router</li>
+<li>join-message &ldquo;processed&rdquo; by intermediate routers and forwarded towards center</li>
+<li>join-message either hits existing tree branch for this center, or arrives at center</li>
+<li>path taken by join-message becomes new branch of tree for this router</li>
+</ul></li>
+</ul>
+
+<h4 id="internet-multicasting-routing-dvmrp">Internet Multicasting Routing: DVMRP</h4>
+
+<ul>
+<li>DVMRP: distance vector multicast routing protocol, RFC1075</li>
+<li>flood and prune: reverse path forwarding, source-based tree</li>
+<li>soft state: DVMRP router periodically (1min) &ldquo;forgets&rdquo; branches are pruned
+
+<ul>
+<li>multicast data again flows down unpruned branch</li>
+<li>downstream router: re-prune or else continue to receive data</li>
+</ul></li>
+<li>routers can quickly regraft to tree, following IGMP (internet Group Management protocol) join at leaf</li>
+</ul>
+
+<h5 id="protocol-independent-multicast-rip">Protocol Independent Multicast: RIP</h5>
+
+<ul>
+<li>not dependent on any specific underlying unicast routing algorithm (works with all)</li>
+<li>Dense: group members densely packed, in &ldquo;close&rdquo; proximity, bandwidth more plentiful
+
+<ul>
+<li>group membership by routers assumed until routers explicitly prune</li>
+<li>data-driven construction on multicast tree (e.g. RPF1)</li>
+<li>bandwidth and non-group-router processing profligate (浪费)</li>
+</ul></li>
+<li>Sparse: number of networks with group members small w.r.t. number of interconnected networks, group members &ldquo;widely dispersed&rdquo;, bandwidth not plentiful
+
+<ul>
+<li>no membership until routers explicitly join</li>
+<li>receiver-driven construction of multicast tree (e.g. center-based)</li>
+<li>bandwidth and non-group-router processing conservative</li>
+</ul></li>
+</ul>
+
+          </div>
+
+          
+
+
+
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/courses/computer_network/transport_layer/" rel="next">Transport Layer</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/courses/computer_network/link_layer/" rel="prev">Link Layer</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on May 5, 2019</p>
+
+          
+
+
+
+
+
+  
+  
+
+<p class="edit-page">
+  <a href="https://github.com/gcushen/hugo-academic/edit/master/content/courses/computer_network/network_layer.md">
+    <i class="fas fa-pen pr-2"></i>Edit this page
+  </a>
+</p>
+
+
+
+
+          
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js" integrity="sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck=" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2 | Haomiao</title>
+    <link>/publication_types/2/</link>
+      <atom:link href="/publication_types/2/index.xml" rel="self" type="application/rss+xml" />
+    <description>2</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 01 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
+      <title>2</title>
+      <link>/publication_types/2/</link>
+    </image>
+    
+    <item>
+      <title>Combining the Biased and Unbiased Sampling Strategy into One Convenient Free Energy Calculation Method</title>
+      <link>/publication/mixing-remd/</link>
+      <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>/publication/mixing-remd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>FSATOOL: A useful tool to do the conformational sampling and trajectory analysis work for biomolecules</title>
+      <link>/publication/fsatool/</link>
+      <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>/publication/fsatool/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

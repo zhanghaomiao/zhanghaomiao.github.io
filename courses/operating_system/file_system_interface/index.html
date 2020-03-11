@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Haomiao Zhang">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="File Concept  A logical storage unit created by OS (v.s. physical storage unit in disk (sector, track))  file attributes (identifier, Name, type, Location, Size, protection, Last-access time, last-updated time) file operations (creating, reading, writing, repositioning, deleting, truncating) file types: .">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/courses/operating_system/file_system_interface/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/courses/operating_system/file_system_interface/">
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Haomiao">
+  <meta property="og:url" content="/courses/operating_system/file_system_interface/">
+  <meta property="og:title" content="File System Interface | Haomiao">
+  <meta property="og:description" content="File Concept  A logical storage unit created by OS (v.s. physical storage unit in disk (sector, track))  file attributes (identifier, Name, type, Location, Size, protection, Last-access time, last-updated time) file operations (creating, reading, writing, repositioning, deleting, truncating) file types: ."><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-05-05T00:00:00&#43;01:00">
+    
+    <meta property="article:modified_time" content="2019-05-05T00:00:00&#43;01:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>File System Interface | Haomiao</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
+            
+              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
+            
+              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <span><i class="fas fa-bars"></i></span>
+  </button>
+
+  
+  <input name="q" type="search" class="form-control" placeholder="Search..." autocomplete="off">
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+
+  
+  
+  
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/operating_system/">Overview</a>
+
+  </div>
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/operating_system/os_structures/">Concepts</a>
+    <ul class="nav docs-sidenav">
+      
+      <li >
+        <a href="/courses/operating_system/os_structures/">OS structures</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/process/">Process</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/memory_manage/">Memory Management</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/virtual_memory/">Virtual Memory</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/multithread_programming/">Multithread Programming</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/process_schedule/">Process Scheduling</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/process_synchronization/">Process Synchronization</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/deadlocks/">DeadLocks</a>
+      </li>
+      
+      <li class="active">
+        <a href="/courses/operating_system/file_system_interface/">File System Interface</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/file_system_implementatin/">File System Implementation</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/mass_storage_system/">Mass Storage System</a>
+      </li>
+      
+      <li >
+        <a href="/courses/operating_system/io_system/">I/O system</a>
+      </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  
+</nav>
+
+    </div>
+
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#file-concept">File Concept</a>
+<ul>
+<li><a href="#open-file-tables-system-wide-table">Open-File Tables &amp; System-wide table</a></li>
+<li><a href="#access-methods">Access Methods</a></li>
+</ul></li>
+<li><a href="#directory-structure">Directory Structure</a>
+<ul>
+<li><a href="#single-level-directory">Single-Level Directory</a></li>
+<li><a href="#two-level-dicectory">Two-Level Dicectory</a></li>
+<li><a href="#tree-structured-directory">Tree-Structured Directory</a></li>
+<li><a href="#acyclic-graph-directory">Acyclic-Graph Directory</a></li>
+<li><a href="#general-graph-directory">General-Graph Directory</a></li>
+</ul></li>
+<li><a href="#file-system-mounting-file-sharing">File-System Mounting &amp; File sharing</a>
+<ul>
+<li><a href="#file-system-mounting">File-System Mounting</a></li>
+<li><a href="#file-sharing-on-multiple-users">File sharing On Multiple Users</a></li>
+<li><a href="#access-control-list">Access-Control List</a></li>
+<li><a href="#file-protection">File Protection</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          <h1>File System Interface</h1>
+
+          <div class="article-style">
+            
+
+<h2 id="file-concept">File Concept</h2>
+
+<ul>
+<li>A logical storage unit created by OS (v.s. physical storage unit in disk (sector, track))
+<img src="https://i.loli.net/2019/03/20/5c91ae7d9b269.png" width="400px"/></li>
+<li>file attributes (identifier, Name, type, Location, Size, protection, Last-access time, last-updated time)</li>
+<li>file operations (creating, reading, writing, repositioning, deleting, truncating)</li>
+<li>file types: .exe .com .obj .cc .mov (Hint for OS to operate file in a resonable way)</li>
+<li>Process: open-file table</li>
+<li>OS: system-wide table (process shared)</li>
+</ul>
+
+<h3 id="open-file-tables-system-wide-table">Open-File Tables &amp; System-wide table</h3>
+
+<ul>
+<li>Per-process table
+
+<ul>
+<li>Tracking all files opened by this process</li>
+<li>Current file pointer for each opened file</li>
+<li>Access rights and accounting information</li>
+</ul></li>
+<li>System-wide table
+
+<ul>
+<li>Each entry in the per-process table points to this table</li>
+<li>Process-independent information such as disk location, access dates, file size
+<img src="https://i.loli.net/2019/03/20/5c91b0ff4221e.png" width="400px"/></li>
+</ul></li>
+</ul>
+
+<h3 id="access-methods">Access Methods</h3>
+
+<ul>
+<li>Sequential access
+
+<ul>
+<li>Read/write next (block)</li>
+<li>Reset: repositoning the file pointer to the beginning</li>
+<li>Skip/rewind n records</li>
+</ul></li>
+<li>Direct(relative) access
+
+<ul>
+<li>Access an element at an arbitrary positin in a sequence</li>
+<li>File operation include the block # as parameter</li>
+<li>Often use random access to refer the access pattern from direct access
+<img src="https://i.loli.net/2019/03/20/5c91cb4992681.png" width="400px"/></li>
+</ul></li>
+<li>Index Access Methods
+
+<ul>
+<li>Index: contains pointers to blocks of a file</li>
+<li>To find a record in a file (search the index file $\rightarrow$ find the pointer, use the pointer to directly access the record)</li>
+<li>with a large file $\rightarrow$ index could become too large
+<img src="https://i.loli.net/2019/03/20/5c91cbfd09552.png" width="400px"/></li>
+</ul></li>
+</ul>
+
+<h2 id="directory-structure">Directory Structure</h2>
+
+<ul>
+<li>Partition (formatted or raw)
+
+<ul>
+<li>raw partiton (no file system): UNIX swap space, database</li>
+<li>Formatted partition with file system is called volume</li>
+<li>a partition can be a portion of a disk or group of multiple disks (distributed system)</li>
+<li>some storage devices (e.g.: floopy disk) dose not and cannot have partition</li>
+</ul></li>
+<li>Directories are used by file system to store the information about the files in the partition
+<img src="https://i.loli.net/2019/03/20/5c91cdf01ff41.png" width="400px"/></li>
+<li>Directory Operations (search, create, delete, list, rename, traverse)</li>
+</ul>
+
+<h3 id="single-level-directory">Single-Level Directory</h3>
+
+<p>All files in one directory, filename has to be unique, poor efficiency in locating a file as number of file increases
+<img src="https://i.loli.net/2019/03/20/5c91ceedaf6f6.png" width="400px"/></p>
+
+<h3 id="two-level-dicectory">Two-Level Dicectory</h3>
+
+<ul>
+<li>a separate dir for each user</li>
+<li>path = user name + file name</li>
+<li>single-level dir problems still exist per user
+<img src="https://i.loli.net/2019/03/20/5c91cf80d477b.png" width="400px"/></li>
+</ul>
+
+<h3 id="tree-structured-directory">Tree-Structured Directory</h3>
+
+<ul>
+<li>Absolute path: starting from the root</li>
+<li>Relative path: starting from a directory</li>
+</ul>
+
+<h3 id="acyclic-graph-directory">Acyclic-Graph Directory</h3>
+
+<ul>
+<li>use links to share files or directories (symbolic link <code>ln</code>)</li>
+<li>a file can have multiple absolute paths</li>
+<li>when dose a file actually get deleted?
+
+<ul>
+<li>deleting the link but not the file</li>
+<li>deleting the file but leaves the link $\rightarrow$ dangling pointer
+<img src="https://i.loli.net/2019/03/20/5c91d075632c0.png" width="400px"/></li>
+</ul></li>
+</ul>
+
+<h3 id="general-graph-directory">General-Graph Directory</h3>
+
+<ul>
+<li>May contain cycles
+
+<ul>
+<li>Reference count dose not work any more (e.g. self-reference file)</li>
+<li>How can we deal with cycles? (Garbage collection)</li>
+<li>First pass traverses the entire graph and marks accessible files or directories</li>
+<li>second pass collect and free everything that is un-marked</li>
+<li>poor performance on millions of files</li>
+</ul></li>
+<li>Use cycle-detection algorithm when a link is created</li>
+</ul>
+
+<h2 id="file-system-mounting-file-sharing">File-System Mounting &amp; File sharing</h2>
+
+<h3 id="file-system-mounting">File-System Mounting</h3>
+
+<ul>
+<li>A file system must be mounted before it can be accessed</li>
+<li>Mount point: the root path that a FS will be mounted to</li>
+<li>Mount timing: boot time, automatically at run-time, manually at run time
+<div class="note info"><p> mount -t type deivce dir (mount -t ext2 /dev/sda0 /mnt) </p></div></li>
+</ul>
+
+<h3 id="file-sharing-on-multiple-users">File sharing On Multiple Users</h3>
+
+<ul>
+<li>Each user: (userID, groupID)
+
+<ul>
+<li>ID is associated with every ops/process/thread/ the user issues</li>
+</ul></li>
+<li>each file has 3 sets of attributes (owner, group, others)</li>
+<li>Owner attributes describe the privileges for the owner of the file
+
+<ul>
+<li>same for group/others attributes</li>
+<li>group/others attributes are set by owner or root</li>
+</ul></li>
+</ul>
+
+<h3 id="access-control-list">Access-Control List</h3>
+
+<ul>
+<li>We can create an access-control list (ACL) for each user
+
+<ul>
+<li>check requested file access against ACL</li>
+<li>problem: unlimited # of users</li>
+</ul></li>
+<li>3 classes of users $\rightarrow$ 3 ACL (RWX) for each file
+
+<ul>
+<li>owner (e.g 7 = RWX = 111)</li>
+<li>group (e.g. 6 = RWX = 110)</li>
+<li>others (e.g. 4 = RWX = 100)</li>
+</ul></li>
+</ul>
+
+<h3 id="file-protection">File Protection</h3>
+
+<ul>
+<li>File owner/creator should be able to control (what can be done, by whom, access control list(ACL))</li>
+<li>file should be kept from (
+
+<ul>
+<li>physical damage (reliability): RAID</li>
+<li>improper access (protection): i.e. password</li>
+</ul></li>
+</ul>
+
+          </div>
+
+          
+
+
+
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/courses/operating_system/deadlocks/" rel="next">DeadLocks</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/courses/operating_system/file_system_implementatin/" rel="prev">File System Implementation</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on May 5, 2019</p>
+
+          
+
+
+
+
+
+  
+  
+
+<p class="edit-page">
+  <a href="https://github.com/gcushen/hugo-academic/edit/master/content/courses/operating_system/file_system_interface.md">
+    <i class="fas fa-pen pr-2"></i>Edit this page
+  </a>
+</p>
+
+
+
+
+          
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js" integrity="sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck=" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

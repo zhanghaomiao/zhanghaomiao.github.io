@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Haomiao Zhang">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Transport services and protocols  provide logical communication between app processes running on different hosts transport protocols run in end systems  send side: breaks app message into segments, passes to network layer receive side: reassembles segments into message passes to app layer  more than one transport protocol available to apps (Internet: TCP and UDP)  network layer vs.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/courses/computer_network/transport_layer/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/courses/computer_network/transport_layer/">
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Haomiao">
+  <meta property="og:url" content="/courses/computer_network/transport_layer/">
+  <meta property="og:title" content="Transport Layer | Haomiao">
+  <meta property="og:description" content="Transport services and protocols  provide logical communication between app processes running on different hosts transport protocols run in end systems  send side: breaks app message into segments, passes to network layer receive side: reassembles segments into message passes to app layer  more than one transport protocol available to apps (Internet: TCP and UDP)  network layer vs."><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-05-05T00:00:00&#43;01:00">
+    
+    <meta property="article:modified_time" content="2019-05-05T00:00:00&#43;01:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Transport Layer | Haomiao</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
+            
+              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
+            
+              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <span><i class="fas fa-bars"></i></span>
+  </button>
+
+  
+  <input name="q" type="search" class="form-control" placeholder="Search..." autocomplete="off">
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+
+  
+  
+  
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/computer_network/">Overview</a>
+
+  </div>
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/computer_network/introduction/">Concepts</a>
+    <ul class="nav docs-sidenav">
+      
+      <li >
+        <a href="/courses/computer_network/introduction/">Introduction</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/application_layer/">Application Layer</a>
+      </li>
+      
+      <li class="active">
+        <a href="/courses/computer_network/transport_layer/">Transport Layer</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/network_layer/">Network Layer</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/link_layer/">Link Layer</a>
+      </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  
+</nav>
+
+    </div>
+
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#transport-services-and-protocols">Transport services and protocols</a></li>
+<li><a href="#multiplexing-demultiplexing">Multiplexing / demultiplexing</a>
+<ul>
+<li><a href="#demultiplexing">Demultiplexing</a>
+<ul>
+<li><a href="#connectionless-demultiplexing">Connectionless demultiplexing</a></li>
+<li><a href="#connection-oriented-demultiplexing">Connection-oriented demultiplexing</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#udp-user-datagram-protocol-rfc-768">UDP: User Datagram Protocol (RFC 768)</a>
+<ul>
+<li><a href="#udp-checksum">UDP checksum</a></li>
+</ul></li>
+<li><a href="#principles-of-reliable-data-transfer">Principles of Reliable data transfer</a>
+<ul>
+<li><a href="#reliable-data-transfer">Reliable data transfer</a></li>
+<li><a href="#rdt1-0-reliable-transfer-over-a-reliable-channel">Rdt1.0: reliable transfer over a reliable channel</a></li>
+<li><a href="#rdt2-0-channel-with-bit-errors">Rdt2.0: channel with bit errors</a></li>
+<li><a href="#rdt2-1-sender-handles-garbled-ack-naks">Rdt2.1: sender, handles garbled ACK/NAKs</a></li>
+<li><a href="#rdt2-2-a-nak-free-protocol">Rdt2.2: a NAK-free protocol</a></li>
+<li><a href="#rdt3-0-channels-with-errors-and-loss">Rdt3.0: channels with errors and loss</a></li>
+<li><a href="#pipelined-protocols">Pipelined protocols</a>
+<ul>
+<li><a href="#go-back-n-big-picture">Go-back-N: big picture</a></li>
+<li><a href="#selective-repeat-big-picture">Selective Repeat: big picture</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#connection-oriented-transport-tcp">Connection-Oriented Transport: TCP</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#round-trip-time-estimation-and-timeout">Round-Trip Time Estimation and Timeout</a></li>
+<li><a href="#tcp-sender-events">TCP sender events</a></li>
+<li><a href="#tcp-ark-generation">TCP ARK Generation</a></li>
+<li><a href="#fast-retransmit">Fast retransmit</a></li>
+<li><a href="#flow-control">Flow Control</a></li>
+<li><a href="#tcp-connection-management">TCP Connection Management</a></li>
+<li><a href="#tcp-congestion-control">TCP congestion control</a>
+<ul>
+<li><a href="#principles-of-congestion-control">Principles of Congestion Control</a></li>
+<li><a href="#approaches-towards-congestion-control">Approaches towards congestion control</a></li>
+<li><a href="#tcp-congestion-control-1">TCP congestion control</a>
+<ul>
+<li><a href="#aimd">AIMD</a></li>
+<li><a href="#slow-start">Slow start</a></li>
+</ul></li>
+<li><a href="#tcp-summary">TCP Summary</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          <h1>Transport Layer</h1>
+
+          <div class="article-style">
+            
+
+<h2 id="transport-services-and-protocols">Transport services and protocols</h2>
+
+<ul>
+<li>provide logical communication between app processes running on different hosts</li>
+<li>transport protocols run in end systems
+
+<ul>
+<li>send side: breaks app message into segments, passes to network layer</li>
+<li>receive side: reassembles segments into message passes to app layer</li>
+</ul></li>
+<li>more than one transport protocol available to apps (Internet: TCP and UDP)
+<img src="https://i.loli.net/2019/03/29/5c9dd08c3e25b.png" width="400px"/></li>
+<li>network layer vs. transport layer
+
+<ul>
+<li>network layer: logical communication between hosts</li>
+<li>transport layer: logical communication between processes</li>
+</ul></li>
+<li>reliable, in-order delivery(TCP), congestion control, flow control, connection setup</li>
+<li>unreliable, unordered delivery(UDP): no-frills extension of &ldquo;best-effort&rdquo; IP</li>
+<li>services not available: delay guarantees, bandwidth guarantees</li>
+</ul>
+
+<h2 id="multiplexing-demultiplexing">Multiplexing / demultiplexing</h2>
+
+<p><img src="https://i.loli.net/2019/03/29/5c9dd2c317a10.png" width="400px"/></p>
+
+<ul>
+<li>demultiplexing: delivering received segments to correct socket</li>
+<li>multiplexing: gathering data from multiple sockets, enveloping data with header(later used for demultiplexing)</li>
+</ul>
+
+<h3 id="demultiplexing">Demultiplexing</h3>
+
+<ul>
+<li>Host receive IP datagrams:
+
+<ul>
+<li>each datagram has source IP address, destination IP address</li>
+<li>each datagram carries 1 transport-layer segment</li>
+<li>each segment has source, destination port number</li>
+</ul></li>
+<li>host uses IP addresses &amp; port numbers to direct segment to appropriate socket
+<img src="https://i.loli.net/2019/03/29/5c9dd47a8dd0d.png" width="400px"/></li>
+</ul>
+
+<h4 id="connectionless-demultiplexing">Connectionless demultiplexing</h4>
+
+<ul>
+<li>create sockets with port number</li>
+<li>UDP socket identified by two-tuple(destination IP address and destination port number)</li>
+<li>when host receives UDP segment: checks destination port number in segment, directs UDP segment to socket with that port number</li>
+<li>IP datagrams with different source IP addresses and/or source port numbers directed to same socket</li>
+</ul>
+
+<h4 id="connection-oriented-demultiplexing">Connection-oriented demultiplexing</h4>
+
+<ul>
+<li>TCP socket identified by 4-tuple: source/destination IP address, source/destination port number</li>
+<li>receiving host uses all four segment to appropriate socket</li>
+<li>Server host may support many simultaneous TCP sockets, each socket identified by its own 4-tuple</li>
+<li>Web servers have different sockets for each connection client, non-persistent HTTP will have different socket for each request
+<img src="https://i.loli.net/2019/03/29/5c9dda9a2fa8b.png" width="400px"/></li>
+</ul>
+
+<h2 id="udp-user-datagram-protocol-rfc-768">UDP: User Datagram Protocol (RFC 768)</h2>
+
+<ul>
+<li>&ldquo;no frills&rdquo;, &ldquo;bare bones&rdquo; Internet transport protocol</li>
+<li>&ldquo;best effort&rdquo; service</li>
+<li>connectionless, no handshaking between UDP sender, receiver, each UDP segment handled independently of others</li>
+<li>why using UDP:
+
+<ul>
+<li>no connection establishment</li>
+<li>simple: no connection state at sender, receiver</li>
+<li>small segment header</li>
+<li>no connection control: UDP can blast away as fast as desired</li>
+</ul></li>
+<li>often used for streaming multimedia apps</li>
+<li>other UDP uses (DNS, SNMP(Simple network manager protocol) 网络管理资料收集)</li>
+<li>reliable transfer over UDP: add reliability at application layer(application-specific error recovery)
+<img src="https://i.loli.net/2019/03/29/5c9ddcd48373c.png" width="400px"/></li>
+</ul>
+
+<h3 id="udp-checksum">UDP checksum</h3>
+
+<ul>
+<li>Goal: detect &ldquo;errors&rdquo; in transmitted segment</li>
+<li>sender:
+
+<ul>
+<li>treat segment contents as sequence of 16-bit integers</li>
+<li>checksum: addition (1&rsquo;s complement sum) of segment contents</li>
+<li>sender puts checksum value into UDP checksum fields</li>
+</ul></li>
+<li>Receiver:
+
+<ul>
+<li>compute checksum of received segment</li>
+<li>check if computed checksum equals checksum field value
+(No, error-detected, Yes, no error-detected)</li>
+</ul></li>
+</ul>
+
+<h2 id="principles-of-reliable-data-transfer">Principles of Reliable data transfer</h2>
+
+<ul>
+<li>top-10 list of important networking topics
+<img src="https://i.loli.net/2019/03/29/5c9ddf4ae2bd3.png" width="600px"/></li>
+<li>characteristics of unreliable channel will determine complexity of reliable data transfer protocol</li>
+<li><code>rdt_send()</code>: called from above, passed data to deliver to receiver upper layer</li>
+<li><code>udt_send()</code>: called by <code>rdt</code>, to transfer packet over unreliable channel to receiver</li>
+<li><code>rdt_rcv()</code>: called when packet arrives on <code>rcv-side</code> of channel</li>
+<li><code>deliver_data()</code> called by <code>rdt</code> to deliver data to upper</li>
+</ul>
+
+<h3 id="reliable-data-transfer">Reliable data transfer</h3>
+
+<ul>
+<li>incrementally develop sender, receiver sides of reliable data transfer protocol(rdt)</li>
+<li>consider only unidirectional data transfer(but control info will flow on both directions)</li>
+<li>use finite state machines(FSM) to specify sender, receiver</li>
+</ul>
+
+<h3 id="rdt1-0-reliable-transfer-over-a-reliable-channel">Rdt1.0: reliable transfer over a reliable channel</h3>
+
+<ul>
+<li>underlying channel perfectly reliable
+
+<ul>
+<li>no bit errors</li>
+<li>no loss of packets</li>
+</ul></li>
+<li>separate FSMs for sender, receiver
+
+<ul>
+<li>sender sends data into underlying channel</li>
+<li>receiver read data from underlying channel
+<img src="https://i.loli.net/2019/03/29/5c9df830253ec.png" width="600px"/></li>
+</ul></li>
+</ul>
+
+<h3 id="rdt2-0-channel-with-bit-errors">Rdt2.0: channel with bit errors</h3>
+
+<ul>
+<li>underlying channel may flip bits in pocket: checksum to detect bit errors</li>
+<li>how to recover from errors:
+
+<ul>
+<li>acknowledgements(ACKs) receiver explicitly tells sender that packet received OK</li>
+<li>negative acknowledgements(NAKs) receiver explicitly tells sender that packet had errors</li>
+<li>sender retransmits packet on receipt of NAK</li>
+</ul></li>
+<li>new mechanisms in rdt2.0
+
+<ul>
+<li>error detection</li>
+<li>receiver feedback: control msgs(ACK, NAK)
+<img src="https://i.loli.net/2019/03/29/5c9dfa762b88f.png" width="600px"/></li>
+</ul></li>
+<li>rdt2.0 has a fatal flow(if ACK/NAK corrupted?)
+
+<ul>
+<li>sender doesn&rsquo;t know what happened at receiver</li>
+<li>can&rsquo;t just retransmit: possible duplicate</li>
+</ul></li>
+<li>Handling duplicates:
+
+<ul>
+<li>sender retransmits current packet if ACK/NAK corrupted</li>
+<li>sender adds sequence number to each packet</li>
+<li>receiver discards (doesn&rsquo;t deliver up) duplicate packet</li>
+</ul></li>
+<li>Stop and wait (sender sends one packet, then waits for receiver response)</li>
+</ul>
+
+<h3 id="rdt2-1-sender-handles-garbled-ack-naks">Rdt2.1: sender, handles garbled ACK/NAKs</h3>
+
+<ul>
+<li>Sender
+<img src="https://i.loli.net/2019/03/29/5c9dfcac45e5e.png" width="600px"/></li>
+<li>Receiver
+<img src="https://i.loli.net/2019/03/29/5c9dfd8b78c4b.png" width="600px"/></li>
+</ul>
+
+<h3 id="rdt2-2-a-nak-free-protocol">Rdt2.2: a NAK-free protocol</h3>
+
+<ul>
+<li>same functionality as rdt2.1, using ACKS only</li>
+<li>instead of NAK, receiver sends ACK for <strong>last packet</strong> received OK, receiver must explicitly include sequence number of packet being ACKed</li>
+<li>duplicate ACK at sender results in same action as NAK: retransmit current packet</li>
+</ul>
+
+<h3 id="rdt3-0-channels-with-errors-and-loss">Rdt3.0: channels with errors and loss</h3>
+
+<ul>
+<li>New assumption:
+
+<ul>
+<li>underlying channel can also pockets(data or ACKs)</li>
+<li>checksum, sequence number, ACKs, retransmission will be of help, but not enough</li>
+</ul></li>
+<li>Approach: sender waits &ldquo;reasonable&rdquo; amount of time for ACK</li>
+<li>retransmits if no ACK received in this time</li>
+<li>if packet (or ACK) just delayed (not lost):
+
+<ul>
+<li>retransmission will be duplicate, but use of sequence number</li>
+<li>receiver must specify sequence number of packet being ACKed</li>
+</ul></li>
+<li>requires countdown timer
+<img src="https://i.loli.net/2019/03/29/5c9e04ebd9810.png" width="600px"/></li>
+<li>performance of rdt3.0
+1Gbps link, 15 ms prop. delay, 8000 bit packet:
+
+<ul>
+<li>sender time
+$$ d = L/R = \frac{8000 bits}{10^9bps} = 8 ms$$</li>
+<li>utilization - fraction of time sender busy sending
+$$ \frac{L/R}{RTT + L/R} = 0.008/30.0008 = 0.00027$$</li>
+</ul></li>
+<li>stop and wait operation
+<img src="https://i.loli.net/2019/03/29/5c9e07305c4bb.png" width="500px"/></li>
+</ul>
+
+<h3 id="pipelined-protocols">Pipelined protocols</h3>
+
+<ul>
+<li>sender allows multiple, &ldquo;in-flight&rdquo; yet-to-be-acknowledged` packets
+
+<ul>
+<li>range of sequence numbers must be increased</li>
+<li>buffering at sender and/or receiver
+<img src="https://i.loli.net/2019/03/29/5c9e07a57c05d.png"/></li>
+</ul></li>
+<li>Two generic forms of pipelined protocols: <strong>go-Back-N, selective repeat</strong></li>
+</ul>
+
+<h4 id="go-back-n-big-picture">Go-back-N: big picture</h4>
+
+<ul>
+<li>sender can have up to N unacked packets in pipeline</li>
+<li>Receiver only sends cumulative ACKs, doesn&rsquo;t ACK packet if there&rsquo;s gap</li>
+<li>Sender has timer for oldest unacked packet, if timer expires, retransmit all unlocked packets
+<img src="https://i.loli.net/2019/03/29/5c9e09de9caf2.png"/></li>
+<li>ACK(n): ACKs all packet up to including sequence number n &ndash; &ldquo;cumulative ACK&rdquo; (may receive duplicate ACKs)</li>
+<li>timer for each in-flight packet</li>
+<li>timeout(n): retransmit packet n and all higher sequence number packets in window
+<img src="https://i.loli.net/2019/03/29/5c9e0ef5f0e00.png" width="600px"/></li>
+<li>sender
+<img src="https://i.loli.net/2019/03/29/5c9e0ef5f0e00.png" width="600px"/></li>
+<li>receiver
+<img src="https://i.loli.net/2019/03/31/5ca036ac9a793.png" width="600px"/><br /></li>
+<li>example
+<img src="https://i.loli.net/2019/03/31/5ca036ee8e6d8.png" width="400px"/></li>
+</ul>
+
+<h4 id="selective-repeat-big-picture">Selective Repeat: big picture</h4>
+
+<ul>
+<li>Sender can have up to N unacked packets in pipeline</li>
+<li>Receiver ACKs individual packets</li>
+<li>Sender maintains timer for each unacked packet, when timer expires, retransmit only unacked packet
+<img src="https://i.loli.net/2019/03/31/5ca0371c00c83.png" width="400px"/></li>
+<li>Sender
+
+<ul>
+<li>if next available sequence number in window, send packet</li>
+<li>timeout(n): resend packet n, restart timer</li>
+<li>ACK(n) in (sendbase, sendbase + N): mark packet n as reader, if n smallest unACked packet, advance window base to next unACKed sequence number</li>
+</ul></li>
+<li>receiver
+
+<ul>
+<li>send ACK(N)</li>
+<li>out-of-order : buffer</li>
+<li>in-order: deliver, advance window to next not-yet-received packet</li>
+<li>if packet n in [revbase-revbase+N], ACK(n), otherwise ignore
+<img src="https://i.loli.net/2019/03/31/5ca03a0f20daa.png" width="400px"/></li>
+</ul></li>
+<li>problem
+<img src="https://i.loli.net/2019/03/31/5ca03dc05ef79.png" width="500px"/>
+window size must be less than or equal t0 half the size of the sequence number space</li>
+</ul>
+
+<h2 id="connection-oriented-transport-tcp">Connection-Oriented Transport: TCP</h2>
+
+<h3 id="overview">Overview</h3>
+
+<ul>
+<li>Point-to-Point</li>
+<li>reliable: in-order byte stream: no &ldquo;message boundaries&rdquo;</li>
+<li>pipelined: TCP congestion and flow control set window size</li>
+<li>send &amp; receive buffer</li>
+<li>flow control: sender will not overwhelm receiver</li>
+<li>full duplex data: bi-directional data flow in some connection, maximum segment size(MSS， 控制流量，控制传输速度)</li>
+<li>connection-oriented: handshaking (Exchange of control messages)</li>
+<li>TCP segment structure
+<img src="https://i.loli.net/2019/04/01/5ca1b0f974767.png" width="400px"/></li>
+<li>Sequence number: byte stream &ldquo;number&rdquo; of first byte in segment&rsquo;s data</li>
+<li>ACKs: sequence number of next byte expected from other side, cumulative ACK
+<img src="https://i.loli.net/2019/04/01/5ca1b4dc5a0aa.png" width="400px"/></li>
+</ul>
+
+<h3 id="round-trip-time-estimation-and-timeout">Round-Trip Time Estimation and Timeout</h3>
+
+<ul>
+<li>how receiver handles out-of-order segments: TCP spec doesn&rsquo;t say, up to implementor</li>
+<li>how to set TCP timeout value?
+
+<ul>
+<li>longer than RTT(Round Trip Time)</li>
+<li>too short: premature timeout (unnecessary retransmission)</li>
+<li>too long: slow reaction to segment loss</li>
+</ul></li>
+<li>how to estimate RTT?
+
+<ul>
+<li>SampleRTT: measured time from segment transmission until ACT receipt (ignore retransmissions)</li>
+<li>SampleRTT will vary, want estimated RTT &ldquo;smoother&rdquo;, average several recent measurement, not just current SampleRTT</li>
+</ul></li>
+<li>EstimatedRTT = $(1-\alpha)\cdot \text{EstimatedRTT} + \alpha \cdot \text{SampleRTT} \text{ typically}, \alpha$ is 0.125</li>
+<li>estimate of how much SampleRTT deviates from EstimatedRTT
+$DevRTT = (1-\beta) \cdot \text{DevRTT} \cdot \beta \cdot |\text{SampleRTT}-\text{Estimated RTT}|$, typically, $\beta = 0.25$</li>
+<li>set timeout interval
+TimeoutInterval = EstimatedRTT + 4 * DevRTT</li>
+</ul>
+
+<h3 id="tcp-sender-events">TCP sender events</h3>
+
+<ul>
+<li>data received from application:
+
+<ul>
+<li>create segment with sequence number</li>
+<li>sequence number is a byte-stream number of first data byte in segment</li>
+<li>start timer if not already running (think of timer as for oldest unacked segment)</li>
+<li>expiration interval: timeout Interval</li>
+</ul></li>
+<li>timeout: retransmit segment that caused timeout, restart timer</li>
+<li>ACK received: if acknowledges previously unacked segments, update what is known to be acked, start timer if there are outstanding segments</li>
+<li>figure:
+<img src="https://i.loli.net/2019/04/01/5ca1febf72143.png" width="700px"/></li>
+<li>TCP retransmission Scenarios
+<img src="https://i.loli.net/2019/04/01/5ca1ff1ec67a4.png" width="400px"/>
+<img src="https://i.loli.net/2019/04/01/5ca1ff540a9f6.png" width="450px"/>
+<img src="https://i.loli.net/2019/04/01/5ca1ff7dbea07.png" width="4550px"/></li>
+</ul>
+
+<h3 id="tcp-ark-generation">TCP ARK Generation</h3>
+
+<p><img src="https://i.loli.net/2019/04/01/5ca1ffd31e346.png" width="600px"/></p>
+
+<h3 id="fast-retransmit">Fast retransmit</h3>
+
+<ul>
+<li>Time-out period often relatively long (long delay before resending lost packet)</li>
+<li>detect lost segment via duplicate ACKs (If segment is lost, there will likely be many duplicate ACKs)</li>
+<li>if Sender receives ACKs for the same data, it supposes that segment after ACKed data was lost</li>
+<li>fast retransmit: resend segment before timer expires
+<img src="https://i.loli.net/2019/04/01/5ca200cc1f243.png" width="450px"/></li>
+<li>Algorithm
+<img src="https://i.loli.net/2019/04/01/5ca20110e65d0.png" width="600px"/></li>
+</ul>
+
+<h3 id="flow-control">Flow Control</h3>
+
+<ul>
+<li>Sender won&rsquo;t overflow receiver&rsquo;s buffer by transmitting too much or too fast</li>
+<li>Receive side of TCP connection has a receive buffer
+<img src="https://i.loli.net/2019/04/01/5ca2019f72288.png" width="400px"/></li>
+<li>Suppose TCP receiver discards out-of-order segments</li>
+<li>Receiver advertises spare room by including value of  RcvWindow in segments</li>
+<li>Sender limits unACKed data to RcvWindow</li>
+<li>rwnd(receive window) = RcvBuffer - [LastByteRcvd - LastByteRead]</li>
+</ul>
+
+<h3 id="tcp-connection-management">TCP Connection Management</h3>
+
+<ul>
+<li>Three way handshake
+
+<ol>
+<li>Client host sends TCP SYN segment to server, specifies initial sequence number (no data)</li>
+<li>Server host receivers SYN, replies with SYNACK segment, server allocates buffers, specifies server initial sequence number</li>
+<li>client receives SYNACK, replies with ACK segment, which may contain data
+<img src="https://i.loli.net/2019/04/01/5ca205d6c7de8.png" width="400px"/></li>
+</ol></li>
+<li>Closing a connection
+
+<ol>
+<li>client end system send TCP FIN control segment to server</li>
+<li>server receives FIN, replies with ACK, closes connection, sends FIN</li>
+<li>client receives FIN, replies with ACK, enters &ldquo;timed wait&rdquo; will respond with ACK to received FINs</li>
+<li>server, receives ACK, connection closed
+<img src="https://i.loli.net/2019/04/01/5ca205f6dfd5c.png" width="400px"/></li>
+</ol></li>
+<li>Figure
+<img src="https://i.loli.net/2019/04/01/5ca206338a961.png" width="400px"/>
+<img src="https://i.loli.net/2019/04/01/5ca2066d19100.png" width="400px"/></li>
+</ul>
+
+<h3 id="tcp-congestion-control">TCP congestion control</h3>
+
+<h4 id="principles-of-congestion-control">Principles of Congestion Control</h4>
+
+<ul>
+<li>too many sources sending too much data too fast for network to handle</li>
+<li>manifestations: lost packets, long delays</li>
+<li>a top-10 problem</li>
+<li>Cause/costs of congestion: scenario 1, two connections sharing a single hop with infinite buffers, maximum achievable throughput, large delays when congested
+<img src="https://i.loli.net/2019/04/01/5ca20729465a5.png" width="450px"/>
+<img src="https://i.loli.net/2019/04/01/5ca2079000572.png" width="500px"/></li>
+<li>scenario 2, one router, finite buffers, and retransmission
+<img src="https://i.loli.net/2019/04/01/5ca207dfa7b04.png" width="400px"/>
+<img src="https://i.loli.net/2019/04/01/5ca2083286448.png" width="500px"/>
+
+<ul>
+<li>always: $\lambda<em>{in} = \lambda</em>{out}$</li>
+<li>&ldquo;perfect&rdquo; retransmission only when loss: $\lambda<em>{in}&rsquo; = \lambda</em>{out}$</li>
+<li>retransmission of delayed (not lost) packet makes $\lambda<em>{in}&lsquo;$ larger (than perfect case) for same $\lambda</em>{out}$</li>
+</ul></li>
+<li>Scenario 3, four senders, multi-hop paths, timeout/retransmit
+<img src="https://i.loli.net/2019/04/01/5ca2092db9321.png" width="400px"/>
+<img src="https://i.loli.net/2019/04/01/5ca209691eb47.png" width="400px"/>
+
+<ul>
+<li>even more crowded</li>
+<li>when packet dropped, any upstream transmission capacity used for that packet was wasted (之前走过的路径全部浪费掉)</li>
+</ul></li>
+</ul>
+
+<h4 id="approaches-towards-congestion-control">Approaches towards congestion control</h4>
+
+<ul>
+<li>End-end congestion control
+
+<ul>
+<li>no explicit feedback from network</li>
+<li>congestion inferred from end-system observed loss, delay</li>
+<li>approach taken by TCP</li>
+</ul></li>
+<li>Network-assisted congestion control:
+
+<ul>
+<li>routers provide feedback to end system</li>
+<li>single bit indicating congestion (SNA, TCP/IP ECN, ATM)</li>
+<li>explicit rate sender should send</li>
+</ul></li>
+<li>CASE: ATM (ABR congestion control)
+
+<ul>
+<li>ABR: available bit rate, elastic service</li>
+<li>if sender&rsquo;s path &ldquo;underloaded&rdquo;, sender should use available bandwidth</li>
+<li>if sender&rsquo;s path congested: sender throttled to minimum guaranteed rate</li>
+<li>RM (resource management) cells:</li>
+<li>sent by sender, interspersed with data cells</li>
+<li>bit in RM cell set by switches: NI bit: no increase in rate; CI bit: congestion indication</li>
+<li>RM cells returned to sender by receiver, with bits intact
+<img src="https://i.loli.net/2019/04/01/5ca20b6a0066b.png" width="400px"/></li>
+<li>EFCI bit in data cells: set to 1 in congested switch, if data cell preceding RM cell has EFCI set, receiver sets CI bit in returned RM cell</li>
+</ul></li>
+</ul>
+
+<h4 id="tcp-congestion-control-1">TCP congestion control</h4>
+
+<ul>
+<li>Congestion window(cwnd): imposes a constraint on the rate at which a TCP sender can send traffic into the network,
+LastByteSent – LastByteAcked &lt;= cwnd</li>
+<li>MSS: maximum segment size: the maximum amount of data that can be grabbed and placed in a segment</li>
+<li>roughly rate = CongWin / RTT (Bytes/sec)</li>
+<li>How does sender perceive congestion?
+
+<ul>
+<li>loss event = timeout or 3 duplicate ACKs</li>
+<li>TCP sender reduces rate (cwnd) after loss event</li>
+</ul></li>
+<li>three mechanisms:
+
+<ul>
+<li>AIMD</li>
+<li>slow start</li>
+<li>conservative after timeout events</li>
+</ul></li>
+</ul>
+
+<h5 id="aimd">AIMD</h5>
+
+<ul>
+<li>Approach: increase transmission rate (window size), probing for usable bandwidth, until loss occurs</li>
+<li>Additive increase: increase CongWin by 1 MSS every RTT until loss detected</li>
+<li>multiplicative decrease: cut CongWin in half after loss
+<img src="https://i.loli.net/2019/04/01/5ca20c3c5c2a0.png" width="400px"/></li>
+</ul>
+
+<h5 id="slow-start">Slow start</h5>
+
+<ul>
+<li>when connections begins, CongWIn = 1MSS</li>
+<li>available bandwidth may be &gt;&gt; MSS/RTT</li>
+<li>when connection begins, increase rate exponentially fast until first loss event
+
+<ul>
+<li>double congwin every RTT</li>
+<li>done by incrementing congwin for every ACK received
+<img src="https://i.loli.net/2019/04/01/5ca20eb32840b.png" width="400px"/></li>
+</ul></li>
+<li>inferring loss
+
+<ul>
+<li>After 3 duplicate ACKs, cwnd is cut in half, window the grows linearly</li>
+<li>after timeout event, cwnd set to 1 MSS, window then grows exponentially to a threshold, then grows linearly
+<img src="https://i.loli.net/2019/04/01/5ca20f8ca48d5.png" width="400px"/></li>
+</ul></li>
+</ul>
+
+<h4 id="tcp-summary">TCP Summary</h4>
+
+<ul>
+<li>TCP throughput: Let W be the window size when loss occurs, when window is W, throughput is W/RTT, just after loss, windows drops to W/2, throughput is W/(2RTT), average throughput 0.75W/RTT</li>
+<li>TCP future: TCP over &ldquo;long, fat pipes&rdquo;
+1500 byte segments, 100ms RTT, want 10Gbps throughputs, requires window size W = 83.333 in flight ($W \cdot 1500 \cdot 8 / 100ms = 10Gbps$), throughput in terms of loss rate: $1.22\cdot MSS/(RTT\sqrt{L})$ , $L = 2\cdot 10^{-10}$</li>
+<li>TCP Fairness, if K TCP sessions share same bottleneck link of bandwidth R, each should have average rate of R/K, the TCP is fair
+<img src="https://i.loli.net/2019/04/01/5ca2208dd5029.png" width="400px"/></li>
+</ul>
+
+          </div>
+
+          
+
+
+
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/courses/computer_network/application_layer/" rel="next">Application Layer</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/courses/computer_network/network_layer/" rel="prev">Network Layer</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on May 5, 2019</p>
+
+          
+
+
+
+
+
+  
+  
+
+<p class="edit-page">
+  <a href="https://github.com/gcushen/hugo-academic/edit/master/content/courses/computer_network/transport_layer.md">
+    <i class="fas fa-pen pr-2"></i>Edit this page
+  </a>
+</p>
+
+
+
+
+          
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js" integrity="sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck=" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

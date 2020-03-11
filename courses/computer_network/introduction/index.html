@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Haomiao Zhang">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Computing devices  Hosts (= end systems) (PC workstations, servers, Phones) running network apps Communication Links (fiber, copper, radio, satellite) physical link  Transmission rate = bandwidth  routers: forward packets (chunks of data) protocols: control sending, receiving of messages (TCP, IP, HTTP, FTP, PPP) Internet: network of networks, loosely hierarchical, public Internet(有限的) versus private Intranet Internet standards (定标准的组织)  RFC request for comments IETF: Internet Engineering Task Force  communication infrastructure enables distributed applications (Web, email, games) communication services provided to applications(connectionless, connection-oriented) Protocol  all communication activity in Internet governed by protocols format and order of messages sent and received among network entities as well as actions taken on the transmission/receipt of a message  network edge : applications and hosts network core: routers, network of networks access networks(连接 edge 和 core, 连接 physical media, communication links)  The network edge  end systems(hosts) run application programs client/server model: client host requests, receives service from always-on server peer-peer model : minimal(no) use of dedicated server TCP services (Transmission Control protocol)  reliable, in-order byte-stream data transfer(loss: 掉的做法是 acknowledgements and retransmissions) Flow control, sender won&rsquo;t overwhelm receiver 流量控制 (sender 可以送多快是由 receiver 决定的) congestion control, senders slow down sending rate when networks congested (connection太多时， 网络发生拥挤， 会放慢速度, 逐渐增大封包量， 如果封包掉了，认为网络拥挤) E.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/courses/computer_network/introduction/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/courses/computer_network/introduction/">
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Haomiao">
+  <meta property="og:url" content="/courses/computer_network/introduction/">
+  <meta property="og:title" content="Introduction | Haomiao">
+  <meta property="og:description" content="Computing devices  Hosts (= end systems) (PC workstations, servers, Phones) running network apps Communication Links (fiber, copper, radio, satellite) physical link  Transmission rate = bandwidth  routers: forward packets (chunks of data) protocols: control sending, receiving of messages (TCP, IP, HTTP, FTP, PPP) Internet: network of networks, loosely hierarchical, public Internet(有限的) versus private Intranet Internet standards (定标准的组织)  RFC request for comments IETF: Internet Engineering Task Force  communication infrastructure enables distributed applications (Web, email, games) communication services provided to applications(connectionless, connection-oriented) Protocol  all communication activity in Internet governed by protocols format and order of messages sent and received among network entities as well as actions taken on the transmission/receipt of a message  network edge : applications and hosts network core: routers, network of networks access networks(连接 edge 和 core, 连接 physical media, communication links)  The network edge  end systems(hosts) run application programs client/server model: client host requests, receives service from always-on server peer-peer model : minimal(no) use of dedicated server TCP services (Transmission Control protocol)  reliable, in-order byte-stream data transfer(loss: 掉的做法是 acknowledgements and retransmissions) Flow control, sender won&rsquo;t overwhelm receiver 流量控制 (sender 可以送多快是由 receiver 决定的) congestion control, senders slow down sending rate when networks congested (connection太多时， 网络发生拥挤， 会放慢速度, 逐渐增大封包量， 如果封包掉了，认为网络拥挤) E."><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-05-05T00:00:00&#43;01:00">
+    
+    <meta property="article:modified_time" content="2019-05-05T00:00:00&#43;01:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Introduction | Haomiao</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
+            
+              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
+            
+              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <span><i class="fas fa-bars"></i></span>
+  </button>
+
+  
+  <input name="q" type="search" class="form-control" placeholder="Search..." autocomplete="off">
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+
+  
+  
+  
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/computer_network/">Overview</a>
+
+  </div>
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/computer_network/introduction/">Concepts</a>
+    <ul class="nav docs-sidenav">
+      
+      <li class="active">
+        <a href="/courses/computer_network/introduction/">Introduction</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/application_layer/">Application Layer</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/transport_layer/">Transport Layer</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/network_layer/">Network Layer</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/link_layer/">Link Layer</a>
+      </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  
+</nav>
+
+    </div>
+
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#computing-devices">Computing devices</a></li>
+<li><a href="#the-network-edge">The network edge</a></li>
+<li><a href="#network-access-and-physical-media">Network access and physical media</a>
+<ul>
+<li><a href="#residential-access">Residential access</a></li>
+<li><a href="#company-access">Company access</a></li>
+<li><a href="#wireless-access-networks">Wireless access networks</a></li>
+<li><a href="#physical-media">Physical Media</a></li>
+</ul></li>
+<li><a href="#network-core">Network core</a>
+<ul>
+<li><a href="#circuit-switching">Circuit Switching</a></li>
+<li><a href="#packet-switching">Packet Switching</a></li>
+<li><a href="#packet-switching-vs-circuit-switching">Packet Switching VS. Circuit Switching</a></li>
+</ul></li>
+<li><a href="#internet-structure-network-of-network">Internet Structure: network of network</a></li>
+<li><a href="#delay-loss-in-packet-switched-networks">Delay, Loss in Packet-Switched Networks</a>
+<ul>
+<li><a href="#queueing-delay">Queueing delay</a></li>
+<li><a href="#packet-loss">Packet Loss</a></li>
+</ul></li>
+<li><a href="#protocol-layers">Protocol Layers</a>
+<ul>
+<li><a href="#encapsulation">Encapsulation</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          <h1>Introduction</h1>
+
+          <div class="article-style">
+            
+
+<h2 id="computing-devices">Computing devices</h2>
+
+<ul>
+<li>Hosts (= end systems)  (PC workstations, servers, Phones) running network apps</li>
+<li>Communication Links (fiber, copper, radio, satellite) physical link
+
+<ul>
+<li>Transmission rate = bandwidth</li>
+</ul></li>
+<li>routers: forward packets (chunks of data)</li>
+<li>protocols: control sending, receiving of messages (TCP, IP, HTTP, FTP, PPP)</li>
+<li>Internet: network of networks, loosely hierarchical, public Internet(有限的) versus private Intranet</li>
+<li>Internet standards (定标准的组织)
+
+<ul>
+<li>RFC request for comments</li>
+<li>IETF: Internet Engineering Task Force</li>
+</ul></li>
+<li>communication infrastructure enables distributed applications (Web, email, games)</li>
+<li>communication services provided to applications(connectionless, connection-oriented)</li>
+<li>Protocol
+
+<ul>
+<li>all communication activity in Internet governed by protocols</li>
+<li>format and order of messages sent and received among network entities as well as actions taken on the transmission/receipt of a message</li>
+</ul></li>
+<li>network edge : applications and hosts</li>
+<li>network core: routers, network of networks</li>
+<li>access networks(连接 edge 和 core, 连接 physical media, communication links)</li>
+</ul>
+
+<h2 id="the-network-edge">The network edge</h2>
+
+<ul>
+<li>end systems(hosts) run application programs</li>
+<li>client/server model: client host requests, receives service from always-on server</li>
+<li>peer-peer model : minimal(no) use of dedicated server</li>
+<li>TCP services (Transmission Control protocol)
+
+<ul>
+<li>reliable, in-order byte-stream data transfer(loss: 掉的做法是 acknowledgements and retransmissions)</li>
+<li>Flow control, sender won&rsquo;t overwhelm receiver 流量控制 (sender 可以送多快是由 receiver 决定的)</li>
+<li>congestion control, senders slow down sending rate when networks congested (connection太多时， 网络发生拥挤， 会放慢速度, 逐渐增大封包量， 如果封包掉了，认为网络拥挤)</li>
+<li>E.g. HTTP(web), FTP(File transfer), SMTP(email)</li>
+</ul></li>
+<li>UDP (User Datagram Protocol) 不需要建连线
+
+<ul>
+<li>unreliable data transfer</li>
+<li>no flow control</li>
+<li>no congestion control</li>
+<li>E.g. streaming media(掉了不会影响), teleconferencing, DNS, Internet telephony</li>
+</ul></li>
+</ul>
+
+<h2 id="network-access-and-physical-media">Network access and physical media</h2>
+
+<ul>
+<li>How to connect end systems to edge router?
+
+<ul>
+<li>residential access nets</li>
+<li>institutional access networks (school, company)</li>
+<li>mobile access networks</li>
+</ul></li>
+<li>keep in mind:
+
+<ul>
+<li>bandwidth (bits per second) of access network</li>
+<li>shared or dedicated</li>
+</ul></li>
+</ul>
+
+<h3 id="residential-access">Residential access</h3>
+
+<ul>
+<li>dialup via modem
+
+<ul>
+<li>up to 56Kbps direct access to router (often less)</li>
+<li>can&rsquo;t surf and phone at same time</li>
+</ul></li>
+<li>ADSL (asymmetric digital subscriber line)
+
+<ul>
+<li>up to 1 Mpbs upstream</li>
+<li>up to 8 Mpbs downstream</li>
+<li>FDM 50KHz - 1MHz for downstream, 4KHz-50kHZ for upstream, 0kHZ-4kHZ for ordinary telephone</li>
+</ul></li>
+<li>HFC: hybrid fiber coaxial cable, asymmetric, up to 30 Mbps downstream, 2Mpbs upstream
+
+<ul>
+<li>network of cable and fiber attaches homes to ISP router, shared access to router among home, issues(congestion, dimensioning)</li>
+<li>deployment: available via cable components, e.g. MediaOne</li>
+</ul></li>
+</ul>
+
+<h3 id="company-access">Company access</h3>
+
+<ul>
+<li>company/university local area network (LAN) connects end system to edge router</li>
+<li>Ethernet: shared or dedicated link connects end system and router(10Mbps, 100Mpbs, Gigabit Ethernet)</li>
+<li>deployment: institutions, home</li>
+</ul>
+
+<h3 id="wireless-access-networks">Wireless access networks</h3>
+
+<ul>
+<li>shared wireless access network connects end system to router, via base station</li>
+<li>wireless LANs: 802.11b (WiFI): 11 Mbps, 802.11g: 54Mbps</li>
+<li>wider-area wireless access, provided by telecom operator, 3G/4G, WAP/GPRS</li>
+</ul>
+
+<h3 id="physical-media">Physical Media</h3>
+
+<ul>
+<li>Bit: propagates between transmitter/receiver pairs</li>
+<li>Physical link: what lies between transmitter &amp; receiver
+
+<ul>
+<li>Guided media, by solid media</li>
+<li>Twisted Pairs(tow insulated copper wires)</li>
+<li>Coaxial cable, two concentric copper conductors, bidirectional(baseband:single channel on cable, broadband: multiple channels on cable)</li>
+<li>Fiber optic cable: glass fiber carrying light pulses, each pulse a bit, high-speed operation, low error rate: repeaters spaced far apart, immune to electromagnetic noise</li>
+<li>unguided media, no physical line (effected by reflection, obstruction of objects, interference)</li>
+<li>terrestrial microwave (45 Mpbs channels)</li>
+<li>LAN (e.g. Wifi)</li>
+<li>wide-area (e.g. cellular)</li>
+<li>satellite(50 Mpbs channel, 270 millisecond end-end delay)</li>
+</ul></li>
+</ul>
+
+<h2 id="network-core">Network core</h2>
+
+<ul>
+<li>连接成网状 mesh of interconnected routers</li>
+<li>how is data transferred through net?
+
+<ul>
+<li>Circuit Switching: dedicated circular per call: telephone net</li>
+<li>packet-switching: data sent through net in discrete &ldquo;chunks&rdquo;</li>
+</ul></li>
+</ul>
+
+<h3 id="circuit-switching">Circuit Switching</h3>
+
+<ul>
+<li>end to end resources reserved(保留一定的频宽)</li>
+<li>保留 link bandwidth, switch capacity, divided into pieces</li>
+<li>dedicated resources: no sharing (别的core无法使用)</li>
+<li>circuit-like (guaranteed) performance</li>
+<li>call setup required(建连线)
+<img src="https://i.loli.net/2019/03/22/5c94cfc339ab9.png" width="400px"/></li>
+<li>two splits (TDM)
+<img src="https://i.loli.net/2019/03/22/5c94d0e9d088e.png" width="400px"/></li>
+</ul>
+
+<h3 id="packet-switching">Packet Switching</h3>
+
+<p>each end-end data stream divided into packets, user A,B packets share network resources, each packet uses <strong>full link bandwidth</strong>, resources used as needed</p>
+
+<ul>
+<li>resource contention (竞争)
+
+<ul>
+<li>aggregate resource demand can exceed amount available</li>
+<li>congestion: pockets queue, wait for link use</li>
+<li>store and forward, packets move one hop at a time(先排队， 后发送), transmit over link, wait turn at next link
+<img src="https://i.loli.net/2019/03/22/5c94d24556aa0.png" width="400px"/>
+sequence of A &amp; B packets done not have fixed pattern $\rightarrow$ statistical multiplexing, in TDM each host get some slot in revolving TDM frame</li>
+</ul></li>
+<li>move packets through routers form source to destination (path selection algorithms)</li>
+<li>datagram network:
+
+<ul>
+<li>destination address in packet determines next hop</li>
+<li>routes may change during session</li>
+<li>analogy, driving, asking directions</li>
+</ul></li>
+<li>virtual circuit network
+
+<ul>
+<li>each packet carries tag (virtual circuit ID), tag determines next hop</li>
+<li>fixed path determined at call setup time, remains fixed through call</li>
+<li>routers maintain per-call state (每一个标签需要记住)</li>
+</ul></li>
+</ul>
+
+<h3 id="packet-switching-vs-circuit-switching">Packet Switching VS. Circuit Switching</h3>
+
+<p>Packet switching allows more user to use network Example: 1Mbit link,  each user 100kbps when &ldquo;active&rdquo;, active 10% of per time</p>
+
+<ul>
+<li>Circuit-Switching : 10 users</li>
+<li>Packet-Switching: with 35 users, probability &gt; 10 active less than 0.004</li>
+<li>Packet Switching: greater for bursty data, resource sharing, simpler, no call setup</li>
+<li>Excessive congestion: packet delay and loss, protocols needed for reliable data transfer, congestion control</li>
+<li>How to provide circuit-like behavior? bandwidth guarantees needed for audio/video apps, still an unsolved problem</li>
+</ul>
+
+<h2 id="internet-structure-network-of-network">Internet Structure: network of network</h2>
+
+<ul>
+<li>roughly hierarchical</li>
+<li>Tier 1 ISP(internet service provider) (e.g. UUNet, Sprint, AT&amp;T) national/international coverage (treat each other as equals)</li>
+<li>regional ISP, connect to one or more tire-1 ISPs</li>
+<li>IXP (Internet Exchange point): meeting point where multiple ISPs can peer together
+<img src="https://i.loli.net/2019/03/24/5c96e8bd04c95.png" width="400px"/></li>
+</ul>
+
+<h2 id="delay-loss-in-packet-switched-networks">Delay, Loss in Packet-Switched Networks</h2>
+
+<p><img src="https://i.loli.net/2019/03/24/5c96eb7a50ee6.png" width="400px"/></p>
+
+<ul>
+<li>Packets queue in router buffers
+
+<ul>
+<li>packet arrive rate to link exceeds output link capacity(packets queue, wait for turn)</li>
+</ul></li>
+<li>types
+
+<ul>
+<li>Processing delay, the time required to examine the packet&rsquo;s header and determine where to direct to packet</li>
+<li>queuing delay, the packet waits to be transmitted onto the link, depends on congestion level of router</li>
+<li>transmission delay, time to send bits into link L/R (L: packet length, R: link bandwidth), 多快的速度可以从(router)送出去</li>
+<li>propagation delay, d/s = (s: propagation speed in medium, d = length of physical link)</li>
+</ul></li>
+<li>Transmission and Propagation Delay
+<img src="https://i.loli.net/2019/03/24/5c96edc7b4186.png" width="400px"/></li>
+<li>nodal delay
+$$d<em>{nodal} = d</em>{proc} + d<em>{queue} + d</em>{trans} + d_{prop}$$</li>
+</ul>
+
+<h3 id="queueing-delay">Queueing delay</h3>
+
+<ul>
+<li>L: packet length (bits)</li>
+<li>a: average packet arrival rate</li>
+<li>R: link bandwidth(bps)</li>
+<li>transfer intensity = (L*a) / R</li>
+<li>(L*a) / R ~ 0 : average queueing delay small</li>
+<li>(L*a) / R $\rightarrow$ 1: delays become large</li>
+<li>(L*a) /R &gt; 1: more work arriving than can be serviced, average delay infinite, or packet loss
+<img src="https://i.loli.net/2019/03/24/5c96f0920a293.png" width="400px"/></li>
+<li>traceroute program: provides delay measurement from source to router along end-end internet path towards destination</li>
+</ul>
+
+<h3 id="packet-loss">Packet Loss</h3>
+
+<ul>
+<li>Queue(also known as buffer) preceding link in buffers has finite capacity</li>
+<li>when packet arrives to full queue, packet is dropped</li>
+<li>lost packet may be retransmitted by pervious node, by source and system, or not retransmitted at all</li>
+</ul>
+
+<h2 id="protocol-layers">Protocol Layers</h2>
+
+<ul>
+<li>Is there any hope of organizing structure of network</li>
+<li>Layers: each layer implements a service
+<img src="https://i.loli.net/2019/03/24/5c96f3fa35287.png" width="400px"/>
+
+<ul>
+<li>application: supporting network applications (FTP, SMTP, HTTP)</li>
+<li>transfer: host-host data transfer (TCP, UDP)</li>
+<li>network: routing of datagrams from source to destination. IP, routing protocols</li>
+<li>Link: data transfer between neighboring network elements (PPP, Ethernet)</li>
+<li>physical: bits &ldquo;on the wire&rdquo;</li>
+</ul></li>
+<li>why layering:
+
+<ul>
+<li>explicit structure allows identification, relationship of complex system&rsquo;s pieces</li>
+<li>modularization eases maintenance, updating of system, change  of implementation of layer&rsquo;s service transparent to rest of system.</li>
+</ul></li>
+</ul>
+
+<h3 id="encapsulation">Encapsulation</h3>
+
+<p><img src="https://i.loli.net/2019/03/24/5c96f7453b640.png" width="450px"/></p>
+
+          </div>
+
+          
+
+
+
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/courses/computer_network/link_layer/" rel="next">Link Layer</a>
+  </div>
+  
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on May 5, 2019</p>
+
+          
+
+
+
+
+
+  
+  
+
+<p class="edit-page">
+  <a href="https://github.com/gcushen/hugo-academic/edit/master/content/courses/computer_network/Introduction.md">
+    <i class="fas fa-pen pr-2"></i>Edit this page
+  </a>
+</p>
+
+
+
+
+          
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js" integrity="sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck=" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

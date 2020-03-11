@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Haomiao Zhang">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Creating a network application, run on different end systems and communicate over a network, no software written for devices in network core, network core devices do not function at application layer (e.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/courses/computer_network/application_layer/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/courses/computer_network/application_layer/">
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Haomiao">
+  <meta property="og:url" content="/courses/computer_network/application_layer/">
+  <meta property="og:title" content="Application Layer | Haomiao">
+  <meta property="og:description" content="Creating a network application, run on different end systems and communicate over a network, no software written for devices in network core, network core devices do not function at application layer (e."><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2019-05-05T00:00:00&#43;01:00">
+    
+    <meta property="article:modified_time" content="2019-05-05T00:00:00&#43;01:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Application Layer | Haomiao</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
+            
+              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
+            
+              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <span><i class="fas fa-bars"></i></span>
+  </button>
+
+  
+  <input name="q" type="search" class="form-control" placeholder="Search..." autocomplete="off">
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+
+  
+  
+  
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/computer_network/">Overview</a>
+
+  </div>
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/computer_network/introduction/">Concepts</a>
+    <ul class="nav docs-sidenav">
+      
+      <li >
+        <a href="/courses/computer_network/introduction/">Introduction</a>
+      </li>
+      
+      <li class="active">
+        <a href="/courses/computer_network/application_layer/">Application Layer</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/transport_layer/">Transport Layer</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/network_layer/">Network Layer</a>
+      </li>
+      
+      <li >
+        <a href="/courses/computer_network/link_layer/">Link Layer</a>
+      </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  
+</nav>
+
+    </div>
+
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#principle-of-network-application">Principle of network application</a>
+<ul>
+<li><a href="#application-architectures">Application architectures</a></li>
+<li><a href="#processes-communicating">Processes Communicating</a></li>
+<li><a href="#app-layer-protocol-defines">App-layer protocol defines</a></li>
+<li><a href="#what-transport-service-does-provide">What transport service does provide</a></li>
+</ul></li>
+<li><a href="#web-and-http">Web and HTTP</a>
+<ul>
+<li><a href="#http-overview">HTTP Overview</a></li>
+<li><a href="#http-connections">HTTP connections</a>
+<ul>
+<li><a href="#response-time-modeling-non-persistent-http">Response time modeling (Non-persistent HTTP)</a></li>
+<li><a href="#two-versions-of-persistent-connections">Two versions of persistent connections</a></li>
+</ul></li>
+<li><a href="#http-request-message">HTTP request message</a>
+<ul>
+<li><a href="#method-types">Method Types</a></li>
+</ul></li>
+<li><a href="#http-response-message">HTTP response message</a></li>
+<li><a href="#user-server-interaction-cookies">User-Server Interaction: Cookies</a></li>
+<li><a href="#web-caches-proxy-server">Web caches (proxy server)</a></li>
+<li><a href="#conditional-get-client-side-caching">Conditional GET: client-side caching</a></li>
+</ul></li>
+<li><a href="#ftp-file-transfer-protocol">FTP (File transfer protocol)</a>
+<ul>
+<li><a href="#ftp-commands-responses">FTP Commands, responses</a></li>
+</ul></li>
+<li><a href="#electronic-mail-smtp-pop3-imap">Electronic Mail (SMTP, POP3, IMAP)</a>
+<ul>
+<li><a href="#smtp-protocol">SMTP protocol</a></li>
+<li><a href="#message-format">Message format</a></li>
+<li><a href="#mail-access-protocols">Mail access protocols</a>
+<ul>
+<li><a href="#pop3-protocol">POP3 protocol</a></li>
+<li><a href="#imap">IMAP</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#dns-domain-name-system">DNS (domain name system)</a>
+<ul>
+<li><a href="#dns-protocol-messages">DNS protocol, messages</a></li>
+</ul></li>
+<li><a href="#peer-to-peer-applications">Peer-to-Peer Applications</a>
+<ul>
+<li><a href="#bit-torrent">Bit Torrent</a></li>
+<li><a href="#structure">Structure</a></li>
+</ul></li>
+<li><a href="#socket-programming">Socket Programming</a>
+<ul>
+<li><a href="#socket-programming-using-tcp">Socket-programming using TCP</a></li>
+<li><a href="#tcp-client">TCP client</a></li>
+<li><a href="#java-socket-programming-with-thread">Java socket Programming With thread</a></li>
+<li><a href="#socket-programming-with-udp">Socket programming with UDP</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          <h1>Application Layer</h1>
+
+          <div class="article-style">
+            
+
+<p>Creating a network application, run on different end systems and communicate over a network, no software written for devices in network core, network core devices do not function at application layer (e.g. Web server software communicate with browser software)</p>
+
+<h2 id="principle-of-network-application">Principle of network application</h2>
+
+<h3 id="application-architectures">Application architectures</h3>
+
+<ul>
+<li>Client-server
+<img src="https://i.loli.net/2019/03/24/5c9726afec632.png" width="300px"/>
+
+<ul>
+<li>server: always-on host, permanent IP address, server forms for scaling</li>
+<li>clients: communicate with server, may be intermittently connected, may have dynamic IP address, do not communicate directly with each other</li>
+</ul></li>
+<li>peer-to-peer
+<img src="https://i.loli.net/2019/03/24/5c972763ee74f.png" width="300px"/>
+
+<ul>
+<li>no always on server</li>
+<li>arbitrary end systems directly communicate</li>
+<li>peers are intermittently connected and change IP address, highly scalable, but difficult to manage</li>
+</ul></li>
+<li>Hybrid of client-server and P2P
+
+<ul>
+<li>Napster, file transfer P2P, file search centralized(peer register content at central server, peers query same central server to locate content)</li>
+<li>Instant message: chatting between two users is P2P, presence detection/location centralized (User registers its IP address with central server when it comes online,User contacts central server to find IP addresses of buddies)</li>
+</ul></li>
+</ul>
+
+<h3 id="processes-communicating">Processes Communicating</h3>
+
+<ul>
+<li>process: program running within a host</li>
+<li>with same host, two processes communicate using inter-process communication (defined by OS)</li>
+<li>processes in different hosts communicated by exchanging messages (Client process: process that initiates communication, Server process: process that waits to be contacted)</li>
+<li>figure
+<img src="https://i.loli.net/2019/03/24/5c972a03ee1fb.png" width="450px"/></li>
+<li>process sends/receives messages to/from its socket</li>
+<li>socket analogous to door, sending process relies on transport infrastructure on other side of door which brings message to socket at receiving process</li>
+<li>API (1) choice of transport protocol (2) ability to fix a few parameters</li>
+<li>addressing process(判断哪一个process需要沟通)
+
+<ul>
+<li>For a process to receive messages, it must have an identifier</li>
+<li>Every host has a unique 32-bit IP address</li>
+<li>Identifier includes both the IP address and port numbers(16-bit) associated with the process on the host (HTTP server: 80, Mail server: 25)</li>
+</ul></li>
+</ul>
+
+<h3 id="app-layer-protocol-defines">App-layer protocol defines</h3>
+
+<ul>
+<li>Types of messages exchanged (e.g. request &amp; response)</li>
+<li>Syntax of message types (what fields in message &amp; how field are delineated)</li>
+<li>Semantics of the field (i.e. meaning of information in fields)</li>
+<li>Rules for when and how processes send &amp; respond to messages</li>
+<li>Public-domain protocols:
+
+<ul>
+<li>defined in RFCs</li>
+<li>allows for interoperability(相容)</li>
+</ul></li>
+</ul>
+
+<h3 id="what-transport-service-does-provide">What transport service does provide</h3>
+
+<ul>
+<li>Data loss
+
+<ul>
+<li>some apps can tolerate some loss</li>
+<li>other apps require 100% reliable data transfer</li>
+</ul></li>
+<li>Timing
+
+<ul>
+<li>some apps require low delay to be &ldquo;effective&rdquo;</li>
+</ul></li>
+<li>Bandwidth
+
+<ul>
+<li>some apps require minimum amount of bandwidth to be (games) effective(multimedia)</li>
+<li>other apps(&ldquo;elastic apps&rdquo;) make use of whatever bandwidth they get
+<img src="https://i.loli.net/2019/03/24/5c972dff3be06.png" width="600px"/></li>
+</ul></li>
+<li>TCP service: connection-oriented, reliable transport, flow control, congestion control (does not providing: timing, minimum bandwidth guarantees)</li>
+<li>UDP service: unreliable data transfer between sending and receiving process, dons not provide connection setup, reliability, flow control, congestion control, timing or bandwidth guarantee
+<img src="https://i.loli.net/2019/03/24/5c9731b3899d9.png" width="500px"/></li>
+</ul>
+
+<h2 id="web-and-http">Web and HTTP</h2>
+
+<ul>
+<li>Web
+
+<ul>
+<li>web page consists of objects</li>
+<li>An object is a file such as HTML, file ,a JPEG image</li>
+<li>A web page consists of a bast HTML-file and several referenced object</li>
+<li>The base HTML file references the other objects in the page with the object&rsquo;s URLs (Uniform Resource Locators)</li>
+</ul></li>
+</ul>
+
+<h3 id="http-overview">HTTP Overview</h3>
+
+<ul>
+<li>HTTP: hypertext transfer protocol</li>
+<li>web&rsquo;s application layer protocol</li>
+<li>client/server model (HTTP1.0, HTTP1.1)</li>
+<li>procedure
+
+<ol>
+<li>client initiates TCP connection (creates socket) to server</li>
+<li>server accepts TCP connection from client</li>
+<li>HTTP message exchanged between browser and web server</li>
+<li>TCP connection closed</li>
+</ol></li>
+<li>HTTP is stateless, server maintains no information about post client requests</li>
+</ul>
+
+<h3 id="http-connections">HTTP connections</h3>
+
+<ul>
+<li>Non-persistent HTTP
+
+<ul>
+<li>At most one object is sent over a TCP connection</li>
+<li>HTTP/1.0 uses non-persistent HTTP</li>
+</ul></li>
+<li>Persistent HTTP
+
+<ul>
+<li>Multiple objects can be sent over singe TCP connection between client and server</li>
+<li>A new connection need not be set up for the transfer of each Web object</li>
+<li>HTTP/1.1 use persistent connections in default mode</li>
+</ul></li>
+</ul>
+
+<h4 id="response-time-modeling-non-persistent-http">Response time modeling (Non-persistent HTTP)</h4>
+
+<ul>
+<li>RTT: time to send a small packet to travel from client to server and back</li>
+<li>Response Time: one RTT to initiate TCP connection, one RTT for HTTP request and first few bytes of HTTP response to return, file transmission time</li>
+<li>file transmission time = 2RTT + transmit time
+<img src="https://i.loli.net/2019/03/24/5c9736941a772.png" width="500px"/></li>
+</ul>
+
+<h4 id="two-versions-of-persistent-connections">Two versions of persistent connections</h4>
+
+<ul>
+<li>Persistent without pipelining
+
+<ul>
+<li>client issues new request only when previous response has been received</li>
+<li>One RTT for each referenced object</li>
+</ul></li>
+<li>Persistent with pipelining
+
+<ul>
+<li>default in HTTP/1.1</li>
+<li>client sends requests as soon as it encounters a referenced object</li>
+<li>as little as one RTT for all the referenced objects</li>
+</ul></li>
+</ul>
+
+<h3 id="http-request-message">HTTP request message</h3>
+
+<ul>
+<li>two types of HTTP messages: request, response</li>
+
+<li><p>HTTP request message (ASCII format)</p>
+
+<pre><code class="language-HTTP">GET /somedir/page.html HTTP/1.1
+Host: www.someschool.edu
+Connection: close
+User-agent: Mozilla/5.0
+Accept-language: fr
+</code></pre></li>
+</ul>
+
+<p><img src="https://i.loli.net/2019/03/24/5c9739d016ad7.png" width="500px"/></p>
+
+<h4 id="method-types">Method Types</h4>
+
+<ul>
+<li>HTTP/1.0
+
+<ul>
+<li>GET: return the object</li>
+<li>POST: send information to be stored on the server</li>
+<li>Head: return only information about the object, such as how old it is, but not the object itself</li>
+</ul></li>
+<li>HTTP/1.1
+
+<ul>
+<li>GET, POST, HEAD</li>
+<li>PUt: uploads a new copy of existing object in entity body to path specified in URL field</li>
+<li>DELETE: delete object specified in the URL field</li>
+</ul></li>
+</ul>
+
+<h3 id="http-response-message">HTTP response message</h3>
+
+<ul>
+<li><strong>A status line</strong>,  which indicates the success of failure of the request</li>
+<li><strong>Header line</strong>, A description of the information in the response, this is the metadata or meta information</li>
+<li><strong>actual information</strong></li>
+<li>response status code
+
+<ul>
+<li>200 OK</li>
+<li>300 Moved permanently</li>
+<li>400 Bad request</li>
+<li>404 Not found</li>
+<li>505 HTTP version not supported
+<img src="https://i.loli.net/2019/03/24/5c973bc5afdcd.png" width="500px"/></li>
+</ul></li>
+</ul>
+
+<h3 id="user-server-interaction-cookies">User-Server Interaction: Cookies</h3>
+
+<ul>
+<li>it is often desirable for a Web site to identify users</li>
+<li>Four components of cookie technology:
+
+<ul>
+<li>cookie header line in the HTTP response message</li>
+<li>cookie header line in HTTP request message</li>
+<li>cookie file kept on user&rsquo;s host and managed by user&rsquo;s browser</li>
+<li>back-end database at web site
+<img src="https://i.loli.net/2019/03/24/5c973e402af4c.png" width="450px"/></li>
+</ul></li>
+<li>advantages
+
+<ul>
+<li>authorization</li>
+<li>shopping carts</li>
+<li>recommendations</li>
+<li>user session state (Web  e-mail)</li>
+</ul></li>
+<li>Cookies and privacy:
+
+<ul>
+<li>Permit sites to learn a lot about you</li>
+<li>you may supply name and e-mail to sites</li>
+<li>search engines use redirection &amp; cookies to learn yet more</li>
+<li>advertising companies obtain info across sites</li>
+</ul></li>
+</ul>
+
+<h3 id="web-caches-proxy-server">Web caches (proxy server)</h3>
+
+<p>Satisfy client request without involving origin server
+<img src="https://i.loli.net/2019/03/24/5c973f6c5ec0d.png" width="400px"/></p>
+
+<ul>
+<li>User sets browser: web accesses via cache</li>
+<li>browser sends all HTTP requests to cache
+
+<ul>
+<li>object in cache: cache returns object</li>
+<li>else cache requests object from origin server, then returns object to client</li>
+</ul></li>
+<li>cache acts as both client and server</li>
+<li>Typically cache is installed by ISP</li>
+<li>why web caching
+
+<ul>
+<li>Reduce response for client request</li>
+<li>Reduce traffic</li>
+<li>Internet dense with caches enables poor content providers to effectively deliver content</li>
+</ul></li>
+<li>Example</li>
+</ul>
+
+<h3 id="conditional-get-client-side-caching">Conditional GET: client-side caching</h3>
+
+<p>Don&rsquo;t send object if client has up-to-date cached version</p>
+
+<ul>
+<li>client: specify date of cached copy in HTTP (<code>If-Modified-Since &lt;data&gt;</code>)</li>
+<li>server: response contains no object if cached copy is up-to-date <code>HTTP/1.1 304 Not Modified</code></li>
+</ul>
+
+<h2 id="ftp-file-transfer-protocol">FTP (File transfer protocol)</h2>
+
+<p><img src="https://i.loli.net/2019/03/24/5c9744679515d.png" width="400px"/></p>
+
+<ul>
+<li>transfer file to/from remote host</li>
+<li>client/server model
+
+<ul>
+<li>client side: the side that initiates transfer</li>
+<li>server side: remote host</li>
+</ul></li>
+<li>ftp : RFC 959</li>
+<li>ftp server port 21</li>
+<li>Procedure
+
+<ol>
+<li>FTP client contacts FTP server at port 21, specifying TCP as transport protocol</li>
+<li>Client obtains authorization over control connection</li>
+<li>Client browses remote directory by sending commands over control connection</li>
+<li>When server receives a command for a file transfer, the server opens a  TCP data connection to client</li>
+<li>After transferring one file, server closes connection</li>
+<li>Servers open a second TCP data connection to transfer another file</li>
+</ol></li>
+<li>FTP server maintains &ldquo;state&rdquo;: current directory</li>
+</ul>
+
+<h3 id="ftp-commands-responses">FTP Commands, responses</h3>
+
+<ul>
+<li>commands
+
+<ul>
+<li>USER, username</li>
+<li>PASS, password</li>
+<li>LIST, return list of file in current directory</li>
+<li>RETR filename &ndash; retrieves (gets) file</li>
+<li>STOR filename &ndash; stores file onto remote host</li>
+</ul></li>
+<li>response
+
+<ul>
+<li>331 Username OK, password required</li>
+<li>125 data connection already open, transfer starting</li>
+<li>425 can&rsquo;t open data connection</li>
+<li>452 Error writing file</li>
+</ul></li>
+</ul>
+
+<h2 id="electronic-mail-smtp-pop3-imap">Electronic Mail (SMTP, POP3, IMAP)</h2>
+
+<p>Three major components of a mail system user agents, mail servers ,simple mail transfer protocol: SMTP
+  <img src="https://i.loli.net/2019/03/24/5c974714a2626.png" width="450px"/></p>
+
+<ul>
+<li>User Agent:
+
+<ul>
+<li>known as &ldquo;mail reader&rdquo;</li>
+<li>composing, editing, reading mail messages</li>
+<li>outgoing, incoming message stored on server</li>
+</ul></li>
+<li>Mail server:
+
+<ul>
+<li>mailbox: contains incoming messages for user</li>
+<li>message queue: of outgoing (to be sent) mail messages</li>
+</ul></li>
+<li>protocol</li>
+</ul>
+
+<h3 id="smtp-protocol">SMTP protocol</h3>
+
+<ul>
+<li>client: sending mail receiver</li>
+<li>server: receiving mail server</li>
+<li>use TCP to reliably transfer email message from client to server, port25</li>
+<li>direct transfer: sending server to receiving server</li>
+<li>three phases of transfer
+
+<ol>
+<li>handshaking</li>
+<li>transfer of messages</li>
+<li>closure</li>
+</ol></li>
+<li>command/response interaction
+
+<ul>
+<li>command: ASCII text</li>
+<li>response: status code and phrase</li>
+</ul></li>
+<li>SMTP use persistent connections</li>
+<li>SMTP requires message to be in 7-bit ASCII</li>
+<li>SMTP server uses <code>CRLF.CRLT</code> to determine end of message （<code>CRLF</code> 表示换行）
+<img src="https://i.loli.net/2019/03/24/5c9748876c1b9.png" width="500px"/></li>
+<li>comparison with HTTP
+
+<ul>
+<li>HTTP pull protocol (client&rsquo;s point of view), SMTP(push protocol)</li>
+<li>both have ASCII command/response interaction, status codes</li>
+<li>HTTP dons not require message to be in 7-bit ASCII</li>
+<li>HTTP: one object in  one response message</li>
+<li>SMTP: multiple objects can be set in one message</li>
+</ul></li>
+</ul>
+
+<h3 id="message-format">Message format</h3>
+
+<ul>
+<li>From, To, Subject</li>
+<li>MIME(Multipurpose Internet Mail extensions)</li>
+<li>additional lines in message header declare MIME content type</li>
+<li>MIME types: (TEXT, Image, Audio, Video, Application, Multipart, Message)</li>
+</ul>
+
+<h3 id="mail-access-protocols">Mail access protocols</h3>
+
+<ul>
+<li>SMTP: delivery/storage to receiver&rsquo;s server</li>
+<li>Mail access protocol: retrieval from server
+
+<ul>
+<li>POP3: Post Office Protocol, version 3 (authorization (agent -&gt; server) and download)</li>
+<li>IMAP: Internet Mail Access Protocol (RFC 2060)</li>
+<li>more features (more complex)</li>
+<li>manipulation of stores messages on server</li>
+<li>HTTP: Hotmail, Gmail etc
+<img src="https://i.loli.net/2019/03/24/5c9764e842cbf.png" width="500px"/></li>
+</ul></li>
+</ul>
+
+<h4 id="pop3-protocol">POP3 protocol</h4>
+
+<ol>
+<li>client opens a TCP connection to the mail server on port 110</li>
+<li>authorization phase (client: declare username, password, server response: +OK)</li>
+<li>transaction phase: client
+
+<ul>
+<li><code>list</code>: list message number</li>
+<li><code>retr</code>: retrieve message by number</li>
+<li><code>dele</code></li>
+<li><code>quit</code></li>
+</ul></li>
+<li>update phase: mail server deletes the message marked for deletion</li>
+</ol>
+
+<ul>
+<li><strong>download and delete</strong></li>
+<li><strong>download and keep</strong>: copies of messages on different clients</li>
+<li>POP3 is stateless across sessions</li>
+</ul>
+
+<h4 id="imap">IMAP</h4>
+
+<ul>
+<li>keep all messages in one place: the server</li>
+<li>Allows user to organize messages in folders</li>
+<li>IMAP keeps user state across sessions (names of folders and mappings between message IDs and folder name)</li>
+</ul>
+
+<h2 id="dns-domain-name-system">DNS (domain name system)</h2>
+
+<p>MAP between IP addresses and name</p>
+
+<ul>
+<li>A distributed database implemented in hierarchy of many name servers</li>
+<li>no server has all name-to-IP address mappings</li>
+<li>Ap application-layer protocol that allows host, routers, name servers to communicate to resolve names(address/name translation)
+
+<ul>
+<li>DNS provides a core Internet function, implemented as application-layer protocol</li>
+<li>DNS is an example of the Internet design philosophy of placing complexity at network&rsquo;s edge</li>
+</ul></li>
+<li>Services
+
+<ul>
+<li>Mapping</li>
+<li>Host aliasing (Canonical and alias name)</li>
+<li>Mail server aliasing</li>
+<li>Load distribution, Replicated Web servers: set of IP addresses for one canonical name (负载平衡)</li>
+</ul></li>
+<li>Structures
+<img src="https://i.loli.net/2019/03/24/5c9769b66f470.png" width="400px"/></li>
+<li>Client wants IP for <em>www.amazon.com</em>
+
+<ul>
+<li>client queries a root server to find com DNS server</li>
+<li>client queries com DNS server to get amazon.com DNS server</li>
+<li>Client queries amazon.com DNS server to get IP address for www.amazon.com</li>
+</ul></li>
+<li>Four types of name services
+
+<ol>
+<li>root name servers</li>
+<li>top level name servers</li>
+<li>authoritative name servers
+
+<ul>
+<li>for a host: stores that host&rsquo;s IP address, name</li>
+</ul></li>
+<li>local name servers, each ISP, company has local(default) name server, host DNS query first goes to local name server</li>
+</ol></li>
+<li>Top-level domain(TLD) servers: responsible for com, org, net, edu, etc, and all top-level country domains uk, fr, ca, jp
+
+<ul>
+<li>The company <strong>Network solutions</strong> maintains servers for com TLD</li>
+<li>The company <strong>Educause</strong> maintains servers for edu TLD</li>
+</ul></li>
+<li>Authoritative DNS servers: organization&rsquo;s DNS servers, providing authoritative hostname to IP mappings for organization&rsquo;s servers, can be maintained by organization or service provider</li>
+<li>local name server: does not strictly belong to hierarchy, each ISP has one</li>
+<li>Example (iterative query)
+<img src="https://i.loli.net/2019/03/24/5c976d5a0de29.png" width="400px"/></li>
+<li>recursive query (puts burden of name resolution on contacted name server)
+<img src="https://i.loli.net/2019/03/24/5c976e1ace932.png" width="400px"/></li>
+<li>caching and updating
+
+<ul>
+<li>once name server learns mapping, it caches mapping, caches entries timeout(disappear) after some time</li>
+<li>the contents of each DNS servers were configured <strong>statically</strong> from a configuration file created by a system manager</li>
+<li>An update option has been added to the DNS protocol to allow data to be added or deleted from the database vid DNS messages</li>
+</ul></li>
+<li>DNS records
+distributed database storing resource records (RR), RR format: (name, value, type, ttl)</li>
+</ul>
+
+<h3 id="dns-protocol-messages">DNS protocol, messages</h3>
+
+<ul>
+<li>DNS protocol query and reply messages, both with same message format
+<img src="https://i.loli.net/2019/03/24/5c97709813988.png" width="400px"/></li>
+</ul>
+
+<h2 id="peer-to-peer-applications">Peer-to-Peer Applications</h2>
+
+<p>File distribution problem (client-server model)
+<img src="https://i.loli.net/2019/03/24/5c977afd15e0a.png" width="400px"/>
+<img src="https://i.loli.net/2019/03/24/5c977b81b3242.png" width="400px"/></p>
+
+<h3 id="bit-torrent">Bit Torrent</h3>
+
+<p><img src="https://i.loli.net/2019/03/24/5c977bf370a09.png" width="400px"/></p>
+
+<h3 id="structure">Structure</h3>
+
+<ul>
+<li>P2P centralized directory
+
+<ul>
+<li>when peer connects, it informs central server (IP address, content)</li>
+<li>Single point of failure</li>
+<li>performance bottleneck</li>
+<li>copyright infringement</li>
+</ul></li>
+</ul>
+
+<h2 id="socket-programming">Socket Programming</h2>
+
+<p>build client/server application communication using sockets</p>
+
+<ul>
+<li>client/server paradigm</li>
+<li>types of transport service via socket API (unreliable datagram, reliable, byte stream-oriented)</li>
+<li>socket: a host-local, application-created, OS-controlled interface(&ldquo;door&rdquo;) into which application can both send and receive message to/from another application process</li>
+<li>Socket Programming using Java, cross platform without recompiling, easy programming with high-level API</li>
+</ul>
+
+<h3 id="socket-programming-using-tcp">Socket-programming using TCP</h3>
+
+<ul>
+<li>Socket: a door between application process and end-to-end transport protocol (UCP or TCP)</li>
+<li>TCP service: reliable transfer of bytes from one process to another</li>
+</ul>
+
+<ol>
+<li>Client must contact server
+
+<ul>
+<li>server process must first be running</li>
+<li>server must have created socket (door) that welcomes client&rsquo;s contact</li>
+<li>client contacts server by
+
+<ul>
+<li>creating client-local TCP socket</li>
+<li>specifying IP address, port number of server process</li>
+<li>when client creates socket: client TCP established connection to server TCP</li>
+</ul></li>
+</ul></li>
+<li>when contacted by client, server TCP <strong>creates new socket</strong> for server process to communicate with client
+
+<ul>
+<li>allows server to talk with multiple clients</li>
+<li>source port numbers used to distinguish clients</li>
+</ul></li>
+</ol>
+
+<div class="info note"><p>
+Stream
+<ul>
+<li>A stream is a sequence of characters that flow into or out of a process</li>
+<li>An input stream is attached to some input source for the process (e.g. keyboard or socket)</li>
+<li>An output stream is attached  to an output source (e.g. monitor or socket)</li>
+</ul>
+ <p></div>
+
+<p><img src="https://i.loli.net/2019/03/26/5c999a9e7389e.png" width="500px"/></p>
+
+<h3 id="tcp-client">TCP client</h3>
+
+<ul>
+<li>A &ldquo;Socket&rdquo; object, making connection requests</li>
+<li>Parameters
+
+<ul>
+<li>Remote ip address</li>
+<li>Remote tcp port</li>
+<li>Local ip address (optional)</li>
+<li>Local port (optional)</li>
+</ul></li>
+
+<li><p>Example</p>
+
+<pre><code class="language-java">
+import java.net.*;
+import java.io.*;
+
+public class Client{
+private Socket socket = null;
+private DataOutputStream out = null;
+private BufferedReader input;
+
+public Client(String address, int port)
+{
+    try {
+        socket = new Socket(address, port);
+        System.out.println(&quot;Connected&quot;);
+        input = new BufferedReader(new InputStreamReader(System.in));
+        out = new DataOutputStream(socket.getOutputStream());
+    }
+    catch (UnknownHostException u){
+        System.out.println(u);}
+    catch (IOException i){
+        System.out.println(i);}
+
+    String line = &quot;&quot;;
+    while(!line.equals(&quot;Over&quot;))
+    {
+        try{
+            line = input.readLine();
+            out.writeUTF(line);
+        }
+        catch(IOException i)
+        {
+            System.out.println(i);
+        }
+    }
+    try{
+        input.close();
+        out.close();
+        socket.close();
+    }
+    catch(IOException i)
+    {
+        System.out.println(i);
+    }
+}
+public static void main(String[] args) {
+    Client client = new Client(&quot;127.0.0.1&quot;, 5000);
+}
+}
+</code></pre>
+
+<pre><code class="language-java">import java.net.*;
+import java.io.*;
+
+public class Server{
+private Socket socket = null;
+private ServerSocket server = null;
+private DataInputStream in = null;
+
+public  Server (int port){
+    try{
+        server = new ServerSocket(port);
+        System.out.println(&quot;Server started&quot;);
+        socket = server.accept();
+        System.out.println(&quot;client accepted&quot;);
+
+        in = new DataInputStream(socket.getInputStream());
+
+        String line =  &quot;&quot;;
+        while (!line.equals(&quot;Over&quot;))
+        {
+            try{
+                line = in.readUTF();
+                System.out.println(line);
+            }
+            catch (IOException i)
+            {
+                System.out.println(i);
+            }
+        }
+        System.out.println(&quot;Closing connected&quot;);
+        socket.close();
+        in.close();
+    }
+    catch (IOException i){
+        System.out.println(i);
+    }
+}
+public static void main(String[] args){
+    Server server = new Server(5000);
+}
+}
+</code></pre></li>
+</ul>
+
+<h3 id="java-socket-programming-with-thread">Java socket Programming With thread</h3>
+
+<pre><code class="language-java">import java.io.*;
+import java.text.*;
+import java.util.*;
+import java.net.*;
+
+public class Server {
+    public static void main(String[] args) throws IOException
+    {
+        ServerSocket ss = new ServerSocket(5056);
+        while (true)
+        {
+            Socket s = null;
+            try{
+                s = ss.accept();
+                System.out.println(&quot;A new client is connected&quot;);
+                DataInputStream dis = new DataInputStream(s.getInputStream());
+                DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+                System.out.println(&quot;Assign new thread for this client&quot;);
+                Thread t = new ClientHandler(s, dis, dos);
+                t.start();
+            }
+            catch (Exception e){
+                s.close();
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+class ClientHandler extends Thread{
+    private DateFormat fordate = new SimpleDateFormat(&quot;yyyy/MM/dd&quot;);
+    private DateFormat fortime = new SimpleDateFormat(&quot;hh:mm:ss&quot;);
+    final private DataInputStream dis;
+    final private DataOutputStream dos;
+    final private Socket s;
+
+    ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos){
+        this.dis = dis;
+        this.dos = dos;
+        this.s = s;
+    }
+
+    @Override
+    public void run(){
+        String received;
+        String toreturn;
+        while(true){
+            try{
+                dos.writeUTF(&quot;what do you want? [Date|TIme]..\n&quot; + &quot;Type exit to terminate connection&quot;);
+                received = dis.readUTF();
+                if(received.equals(&quot;Exit&quot;))
+                {
+                    System.out.println(&quot;Client&quot; + this.s + &quot;Sends exist&quot;);
+                    System.out.println(&quot;Closing this connection&quot;);
+                    this.s.close();
+                    System.out.println(&quot;Connection closed&quot;);
+                    break;
+                }
+                Date date = new Date();
+                switch (received) {
+                    case &quot;Date&quot;:
+                        toreturn = fordate.format(date);
+                        dos.writeUTF(toreturn);
+                        break;
+                    case &quot;Time&quot;:
+                        toreturn = fortime.format(date);
+                        dos.writeUTF(toreturn);
+                        break;
+                    default:
+                        dos.writeUTF(&quot;Inavalid input&quot;);
+                        break;
+                }
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        try {
+            this.dis.close();
+            this.dos.close();
+        } catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">import java.io.*;
+import java.net.*;
+import java.util.Scanner;
+
+public class Client {
+    public static void main(String[] args)
+    {
+        try {
+            Scanner scn = new Scanner(System.in);
+            InetAddress ip = InetAddress.getByName(&quot;localhost&quot;);
+            Socket s = new Socket(ip, 5056);
+            DataInputStream dis = new DataInputStream(s.getInputStream());
+            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+
+            while (true) {
+                System.out.println(dis.readUTF());
+                String tosend = scn.nextLine();
+                dos.writeUTF(tosend);
+
+                if (tosend.equals(&quot;Exit&quot;)) {
+                    System.out.println(&quot;Closing the connection&quot;);
+                    s.close();
+                    System.out.println(&quot;Connection closed&quot;);
+                    break;
+                }
+                String received = dis.readUTF();
+                System.out.println(received);
+            }
+            scn.close();
+            dis.close();
+            dos.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+
+<h3 id="socket-programming-with-udp">Socket programming with UDP</h3>
+
+<ul>
+<li>no handshaking</li>
+<li>sender explicitly attaches IP address and port of destination to each packet</li>
+<li>server must extract IP address, port of sender from received packet</li>
+<li>transmitted data may be received out of water or lost
+<img src="https://i.loli.net/2019/03/29/5c9dc3a0bc9fa.png" width="400px"/></li>
+<li>Exception Handling during initializing sockets, establishing connection, data transmission</li>
+</ul>
+
+          </div>
+
+          
+
+
+
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/courses/computer_network/transport_layer/" rel="prev">Transport Layer</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on May 5, 2019</p>
+
+          
+
+
+
+
+
+  
+  
+
+<p class="edit-page">
+  <a href="https://github.com/gcushen/hugo-academic/edit/master/content/courses/computer_network/application_layer.md">
+    <i class="fas fa-pen pr-2"></i>Edit this page
+  </a>
+</p>
+
+
+
+
+          
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js" integrity="sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck=" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

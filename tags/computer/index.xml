@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>computer | Haomiao</title>
+    <link>/tags/computer/</link>
+      <atom:link href="/tags/computer/index.xml" rel="self" type="application/rss+xml" />
+    <description>computer</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 12 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
+      <title>computer</title>
+      <link>/tags/computer/</link>
+    </image>
+    
+    <item>
+      <title>GDB 调试</title>
+      <link>/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 12 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/</guid>
+      <description>&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;要求&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;所有的程序编译时需要使用 &lt;code&gt;-g&lt;/code&gt; 参数， 这样gdb程序可以识别&lt;/li&gt;
+&lt;li&gt;编译时不要使用优化，使用优化时一些变量的值无法跟踪， 即优化等级设置为 &lt;code&gt;O0&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;命令&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;b&lt;/code&gt; 后加行数， 设置断点&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;li&lt;/code&gt;(start, [end]) 显示在start 和 end 之间的代码， end 为可选参数， 如果没有 end, 则显示以start 为中心前后5句代码&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;r&lt;/code&gt; 重新开始调试程序, 在遇到断点处终止&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;c&lt;/code&gt; 开始调试程序，在遇到断点处终止, 与 &lt;code&gt;step into my code&lt;/code&gt; 功能类似&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;s&lt;/code&gt; 可后接参数 N ， 表示step n 次， 与 &lt;code&gt;step into&lt;/code&gt; 功能类似&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;n&lt;/code&gt; 可后接参数 N ， 表示next n 次， 与 &lt;code&gt;step over&lt;/code&gt; 功能类似&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fin&lt;/code&gt; 从子程序跳出， 与 &lt;code&gt;step out&lt;/code&gt; 功能类似&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;p&lt;/code&gt; 打印变量值
+
+&lt;ul&gt;
+&lt;li&gt;对于一维数组， 使用 p &lt;code&gt;temp(n)&lt;/code&gt; 会显示temp第&lt;code&gt;n&lt;/code&gt;个元素&lt;/li&gt;
+&lt;li&gt;对于二维数组， 使用 p &lt;code&gt;temp(i:j)&lt;/code&gt; 会显示第 &lt;code&gt;i&lt;/code&gt; 和 第 &lt;code&gt;j&lt;/code&gt; 行的元素&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;where&lt;/code&gt; 显示当前程序所处位置&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;info&lt;/code&gt; b 显示所设置的断点&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;del&lt;/code&gt; breakpoints  删除断点&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
