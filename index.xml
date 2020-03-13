@@ -6263,10 +6263,10 @@ number of bytes transferred / (complete of last req - start of first req)
 &lt;figure id=&#34;figure-three-advantages&#34;&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/ML/ensemble_01.png&#34; data-caption=&#34;Three advantages&#34;&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/img/ensemble_01.png&#34; data-caption=&#34;Three advantages&#34;&gt;
 
 
-  &lt;img src=&#34;/post/ML/ensemble_01.png&#34; alt=&#34;&#34;  &gt;
+  &lt;img src=&#34;/img/ensemble_01.png&#34; alt=&#34;&#34;  &gt;
 &lt;/a&gt;
 
 
@@ -6335,10 +6335,10 @@ Stacking 从初始数据集训练出初级学习器， 然后生成一个新数�
 &lt;figure id=&#34;figure-stacking-method&#34;&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/ML/ensem_02.png&#34; data-caption=&#34;Stacking Method&#34;&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/img/ensem_02.png&#34; data-caption=&#34;Stacking Method&#34;&gt;
 
 
-  &lt;img src=&#34;/post/ML/ensem_02.png&#34; alt=&#34;&#34;  &gt;
+  &lt;img src=&#34;/img/ensem_02.png&#34; alt=&#34;&#34;  &gt;
 &lt;/a&gt;
 
 
@@ -6419,10 +6419,10 @@ Stacking 从初始数据集训练出初级学习器， 然后生成一个新数�
 &lt;figure id=&#34;figure-boosting-example&#34;&gt;
 
 
-  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/ML/ensem_03.jpg&#34; data-caption=&#34;Boosting example&#34;&gt;
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/img/ensem_03.jpg&#34; data-caption=&#34;Boosting example&#34;&gt;
 
 
-  &lt;img src=&#34;/post/ML/ensem_03.jpg&#34; alt=&#34;&#34;  &gt;
+  &lt;img src=&#34;/img/ensem_03.jpg&#34; alt=&#34;&#34;  &gt;
 &lt;/a&gt;
 
 
@@ -6472,20 +6472,20 @@ Requires a large traning set to afford the three-way split
 &lt;/ol&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Example
-&lt;img src=&#34;/post/ML/ensem_04.jpg&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;img src=&#34;/img/ensem_04.jpg&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Why AdaBoost Works&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Empirical study: AdaBoost reduces overfitting as $L$ grows, even when there is no training error
-&lt;img src=&#34;/post/ML/ensem_05.jpg&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;img src=&#34;/img/ensem_05.jpg&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
 &lt;li&gt;AdaBoost &lt;strong&gt;increases margin&lt;/strong&gt; (Same as SVM)&lt;/li&gt;
 &lt;li&gt;A large margin imporves generalizability&lt;/li&gt;
 &lt;li&gt;Define margin of prediction of an example $(x^{(i)}, y^{(i)}) \in X$ as:
 $$ 
       margin(x^{(i)}, y^{(i)}) = y^{(i)}f(x^{(i)}) = \sum_{j:y^{(i)} = d^{(j)}(x^{(i)})} \alpha_j - \sum_{j:y^{(i)} \neq d^{(j)}(x^{(i)})} \alpha_j
      $$
-&lt;img src=&#34;/post/ML/ensem_06.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;img src=&#34;/img/ensem_06.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
