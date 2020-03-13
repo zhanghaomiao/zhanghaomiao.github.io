@@ -615,7 +615,7 @@
 <ul>
 <li>Simple averaging
 
-    H(X) = \frac1T \sum_{i=1}^{T} h_i(x)
+    $$H(X) = \frac1T \sum_{i=1}^{T} h_i(x)$$
    </li>
 <li>Weighted averaging
 $$H(x) = \sum_{i=1}^{T} \omega_i h_i(x)$$</li>
@@ -630,17 +630,17 @@ $$H(x) = \sum_{i=1}^{T} \omega_i h_i(x)$$</li>
 </ul>
 
 
-  H(\boldsymbol{x})=\left\{\begin{array}{ll}{c_{j},} & {\text { if } \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})>0.5 \sum_{k=1}^{N} \sum_{i=1}^{T} h_{i}^{k}(\boldsymbol{x})} \\ {\text { reject, }} & {\text { otherwise. }}\end{array}\right.
+  $$H(\boldsymbol{x})=\left\{\begin{array}{ll}{c_{j},} & {\text { if } \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})>0.5 \sum_{k=1}^{N} \sum_{i=1}^{T} h_{i}^{k}(\boldsymbol{x})} \\ {\text { reject, }} & {\text { otherwise. }}\end{array}\right.$$
    
 
 <p>可以拒绝， 即保证要提供可靠的结果
   - Plurality voting (预测为票数最多的标记)
     
-    H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})}
+    $$H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})}$$
      
   - Weighted Voting (加权平均)
     
-      H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} \omega_i h_{i}^{j}(\boldsymbol{x})}
+      $$H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} \omega_i h_{i}^{j}(\boldsymbol{x})}$$
      </p>
 
 <ul>
@@ -812,7 +812,7 @@ Requires a large traning set to afford the three-way split
 <li>A large margin imporves generalizability</li>
 <li>Define margin of prediction of an example $(x^{(i)}, y^{(i)}) \in X$ as:
 
-      margin(x^{(i)}, y^{(i)}) = y^{(i)}f(x^{(i)}) = \sum_{j:y^{(i)} = d^{(j)}(x^{(i)})} \alpha_j - \sum_{j:y^{(i)} \neq d^{(j)}(x^{(i)})} \alpha_j
+      $$margin(x^{(i)}, y^{(i)}) = y^{(i)}f(x^{(i)}) = \sum_{j:y^{(i)} = d^{(j)}(x^{(i)})} \alpha_j - \sum_{j:y^{(i)} \neq d^{(j)}(x^{(i)})} \alpha_j$$
      
 <img src="/img/ensem_06.png" width="600px"/></li>
 </ul></li>

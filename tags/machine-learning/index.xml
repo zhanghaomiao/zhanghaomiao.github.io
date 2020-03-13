@@ -465,7 +465,7 @@ $$\mathbf{w = (X^TX)^{-1}X^Ty}$$&lt;/p&gt;&lt;/li&gt;
 &lt;ul&gt;
 &lt;li&gt;Simple averaging
 
-    H(X) = \frac1T \sum_{i=1}^{T} h_i(x)
+    $$H(X) = \frac1T \sum_{i=1}^{T} h_i(x)$$
    &lt;/li&gt;
 &lt;li&gt;Weighted averaging
 $$H(x) = \sum_{i=1}^{T} \omega_i h_i(x)$$&lt;/li&gt;
@@ -480,17 +480,17 @@ $$H(x) = \sum_{i=1}^{T} \omega_i h_i(x)$$&lt;/li&gt;
 &lt;/ul&gt;
 
 
-  H(\boldsymbol{x})=\left\{\begin{array}{ll}{c_{j},} &amp; {\text { if } \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})&gt;0.5 \sum_{k=1}^{N} \sum_{i=1}^{T} h_{i}^{k}(\boldsymbol{x})} \\ {\text { reject, }} &amp; {\text { otherwise. }}\end{array}\right.
+  $$H(\boldsymbol{x})=\left\{\begin{array}{ll}{c_{j},} &amp; {\text { if } \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})&gt;0.5 \sum_{k=1}^{N} \sum_{i=1}^{T} h_{i}^{k}(\boldsymbol{x})} \\ {\text { reject, }} &amp; {\text { otherwise. }}\end{array}\right.$$
    
 
 &lt;p&gt;可以拒绝， 即保证要提供可靠的结果
   - Plurality voting (预测为票数最多的标记)
     
-    H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})}
+    $$H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})}$$
      
   - Weighted Voting (加权平均)
     
-      H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} \omega_i h_{i}^{j}(\boldsymbol{x})}
+      $$H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} \omega_i h_{i}^{j}(\boldsymbol{x})}$$
      &lt;/p&gt;
 
 &lt;ul&gt;
@@ -662,7 +662,7 @@ Requires a large traning set to afford the three-way split
 &lt;li&gt;A large margin imporves generalizability&lt;/li&gt;
 &lt;li&gt;Define margin of prediction of an example $(x^{(i)}, y^{(i)}) \in X$ as:
 
-      margin(x^{(i)}, y^{(i)}) = y^{(i)}f(x^{(i)}) = \sum_{j:y^{(i)} = d^{(j)}(x^{(i)})} \alpha_j - \sum_{j:y^{(i)} \neq d^{(j)}(x^{(i)})} \alpha_j
+      $$margin(x^{(i)}, y^{(i)}) = y^{(i)}f(x^{(i)}) = \sum_{j:y^{(i)} = d^{(j)}(x^{(i)})} \alpha_j - \sum_{j:y^{(i)} \neq d^{(j)}(x^{(i)})} \alpha_j$$
      
 &lt;img src=&#34;/img/ensem_06.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
