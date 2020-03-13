@@ -5,12 +5,328 @@
     <link>/tags/machine-learning/</link>
       <atom:link href="/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
     <description>machine learning</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 01 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 04 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
       <title>machine learning</title>
       <link>/tags/machine-learning/</link>
     </image>
+    
+    <item>
+      <title>T-SNE</title>
+      <link>/post/ml/t-sne/</link>
+      <pubDate>Fri, 04 Oct 2019 00:00:00 +0000</pubDate>
+      <guid>/post/ml/t-sne/</guid>
+      <description>
+
+&lt;h2 id=&#34;prepare&#34;&gt;Prepare&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Perplexity
+Measurement of how well a probability model predicts a sample.
+
+&lt;ul&gt;
+&lt;li&gt;Definition
+$$H(P) = -\sum_x p(x) \log_2 p(x)$$
+$$\text{Perplexity} = 2^{H(p)}$$&lt;/li&gt;
+&lt;li&gt;Understanding&lt;/li&gt;
+&lt;li&gt;$H(p)$ be the average of bits to decode the information&lt;/li&gt;
+&lt;li&gt;$\text{Perplexity}$ is the total amount of all possible information&lt;/li&gt;
+&lt;li&gt;Usage
+In the NLP, the best language model is one that predicts an unseen test set gives the highest P
+$$ PP(w) = p (w_1w_2\dots w_N )^{-1/N}$$
+Minmizing perplexity is the same as maximizing probability&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Gaussian Distriubtion and T Distribution
+
+&lt;ul&gt;
+&lt;li&gt;T distribution is used when the samples is small&lt;/li&gt;
+&lt;li&gt;T distribution is heavy tail
+&lt;img src=&#34;https://upload.wikimedia.org/wikipedia/commons/4/41/Student_t_pdf.svg&#34; alt=&#34;Student_t_pdf.svg&#34; /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;t-sne-method&#34;&gt;T-SNE method&lt;/h2&gt;
+
+&lt;h3 id=&#34;sne-method-stochastic-neighbor-embedding&#34;&gt;SNE method (Stochastic Neighbor Embedding)&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;High Dimension Space
+
+    $$p_{j | i}=\frac{\exp \left(-\left\|x_{i}-x_{j}\right\|^{2} / 2 \sigma_{i}^{2}\right)}{\sum_{k \neq i} \exp \left(-\left\|x_{i}-x_{k}\right\|^{2} / 2 \sigma_{i}^{2}\right)}$$
+     &lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Low dimension space&lt;/p&gt;
+
+
+    $$q_{j | i}=\frac{\exp \left(-\left\|y_{i}-y_{j}\right\|^{2}\right)}{\sum_{k \neq i} \exp \left(-\left\|y_{i}-y_{k}\right\|^{2}\right)}$$
+     &lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Cost function
+
+    $$C=\sum_{i} K L\left(P_{i} \| Q_{i}\right)=\sum_{i} \sum_{j} p_{j | i} \log \frac{p_{j | i}}{q_{j | i}}$$
+     &lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;How to choose $\sigma$ for different points&lt;/p&gt;
+
+&lt;p&gt;Different region have different density, so the $\sigma$ determines how many effective neighbors needs to be considered. As the $\sigma$ increase, the entropy of the distribution is increased. And the entroy has an expontential form with &lt;strong&gt;perplexity&lt;/strong&gt;. Using the &lt;strong&gt;perplexity&lt;/strong&gt; to determine the $\sigma$ with every point has a fixed &lt;strong&gt;perplexity&lt;/strong&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Problem
+
+&lt;ul&gt;
+&lt;li&gt;The cost function is not symmetric, it focus on retaining the local structure of the data&lt;/li&gt;
+&lt;li&gt;Dealing with outlier&lt;/li&gt;
+&lt;li&gt;Crowding problem : The area of the two-dimensional map that is available to accommodate distant datapoints will not be large enough compared with the area available to accommodate nearby datapoints
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;t-sne-advantages&#34;&gt;T-SNE advantages&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Symmetric SNE&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Pairwise similarities in the low dimensional map $q_{ij}$
+
+    $$q_{i j}=\frac{\exp \left(-\left\|y_{i}-y_{j}\right\|^{2}\right)}{\sum_{k \neq l} \exp \left(-\left\|y_{k}-y_{l}\right\|^{2}\right)}$$
+     &lt;/li&gt;
+&lt;li&gt;High dimensional $p_{ij}$
+
+    $$P_{ij} = \frac {p_{j|i} + p_{i|j}}{2n}$$
+     &lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Crowding problem
+&lt;img src=&#34;/img/tsne_01.png&#34;/&gt;
+The gradient could be negative, so the low dimensional space could be expanded, and the heavy tail T-Distribution is preferred.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Easy to compute the gradient&lt;/p&gt;
+
+
+    $$\frac{\delta C}{\delta y_{i}}=4 \sum_{j}\left(p_{i j}-q_{i j}\right)\left(y_{i}-y_{j}\right)\left(1+\left\|y_{i}-y_{j}\right\|^{2}\right)^{-1}$$
+     &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;algorithm&#34;&gt;Algorithm&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Data : data Set $\mathcal{X} = {x_1, x_2, \dots, x_n}$&lt;/li&gt;
+&lt;li&gt;cost function parameters: perplexity $Perp$&lt;/li&gt;
+&lt;li&gt;optimzation paraemters: number of iterations $T$, learning rate $\eta$, momentum $\alpha(t)$&lt;/li&gt;
+&lt;li&gt;Output: low-dimensional data representation $\mathcal{Y}^{T} = {y_1, y_2, \dots, y_n}$&lt;/li&gt;
+&lt;li&gt;Steps
+
+&lt;ol&gt;
+&lt;li&gt;compute pairwise affinities $p_{j|i}$ with perplexity $Perp$&lt;/li&gt;
+&lt;li&gt;Set $p_{ij} = (p_{j|i} + p_{i|j}) / 2n$, sample initial solution $\mathcal{Y}^{(0)} = {y_1, y_2, \dots, y_n}$ from $\mathcal{N}(0, 10^{-4}I)$&lt;/li&gt;
+&lt;li&gt;for $t = 1$ to $T$ do
+
+&lt;ul&gt;
+&lt;li&gt;compute low-dimensional affinities $q_ij$&lt;/li&gt;
+&lt;li&gt;compute gradient $\partial C / \partial \mathcal{Y}$&lt;/li&gt;
+&lt;li&gt;set
+$$\mathcal{Y}^{(t)}=\mathcal{Y}^{(t-1)}+\eta \frac{\delta C}{\delta \gamma}+\alpha(t)\left(\mathcal{Y}^{(t-1)}-\mathcal{Y}^{(t-2)}\right)$$&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;code-with-python&#34;&gt;Code with python&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import numpy as np
+import pylab
+
+
+def Hbeta(D=np.array([]), beta=1.0):
+    &amp;quot;&amp;quot;&amp;quot;
+        Compute the perplexity and the P-row for a specific value of the
+        precision of a Gaussian distribution.
+    &amp;quot;&amp;quot;&amp;quot;
+
+    # Compute P-row and corresponding perplexity
+    P = np.exp(-D.copy() * beta)
+    sumP = sum(P)
+    H = np.log(sumP) + beta * np.sum(D * P) / sumP
+    P = P / sumP
+    return H, P
+
+
+def x2p(X=np.array([]), tol=1e-5, perplexity=30.0):
+    &amp;quot;&amp;quot;&amp;quot;
+        Performs a binary search to get P-values in such a way that each
+        conditional Gaussian has the same perplexity.
+    &amp;quot;&amp;quot;&amp;quot;
+
+    # Initialize some variables
+    print(&amp;quot;Computing pairwise distances...&amp;quot;)
+    (n, d) = X.shape
+    sum_X = np.sum(np.square(X), 1)
+    D = np.add(np.add(-2 * np.dot(X, X.T), sum_X).T, sum_X)
+    P = np.zeros((n, n))
+    beta = np.ones((n, 1))
+    logU = np.log(perplexity)
+
+    # Loop over all datapoints
+    for i in range(n):
+
+        # Print progress
+        if i % 500 == 0:
+            print(&amp;quot;Computing P-values for point %d of %d...&amp;quot; % (i, n))
+
+        # Compute the Gaussian kernel and entropy for the current precision
+        betamin = -np.inf
+        betamax = np.inf
+        Di = D[i, np.concatenate((np.r_[0:i], np.r_[i+1:n]))]
+        (H, thisP) = Hbeta(Di, beta[i])
+
+        # Evaluate whether the perplexity is within tolerance
+        Hdiff = H - logU
+        tries = 0
+        while np.abs(Hdiff) &amp;gt; tol and tries &amp;lt; 50:
+
+            # If not, increase or decrease precision
+            if Hdiff &amp;gt; 0:
+                betamin = beta[i].copy()
+                if betamax == np.inf or betamax == -np.inf:
+                    beta[i] = beta[i] * 2.
+                else:
+                    beta[i] = (beta[i] + betamax) / 2.
+            else:
+                betamax = beta[i].copy()
+                if betamin == np.inf or betamin == -np.inf:
+                    beta[i] = beta[i] / 2.
+                else:
+                    beta[i] = (beta[i] + betamin) / 2.
+
+            # Recompute the values
+            (H, thisP) = Hbeta(Di, beta[i])
+            Hdiff = H - logU
+            tries += 1
+
+        # Set the final row of P
+        P[i, np.concatenate((np.r_[0:i], np.r_[i+1:n]))] = thisP
+
+    # Return final P-matrix
+    print(&amp;quot;Mean value of sigma: %f&amp;quot; % np.mean(np.sqrt(1 / beta)))
+    return P
+
+
+def pca(X=np.array([]), no_dims=50):
+    &amp;quot;&amp;quot;&amp;quot;
+        Runs PCA on the NxD array X in order to reduce its dimensionality to
+        no_dims dimensions.
+    &amp;quot;&amp;quot;&amp;quot;
+
+    print(&amp;quot;Preprocessing the data using PCA...&amp;quot;)
+    (n, d) = X.shape
+    X = X - np.tile(np.mean(X, 0), (n, 1))
+    (l, M) = np.linalg.eig(np.dot(X.T, X))
+    Y = np.dot(X, M[:, 0:no_dims])
+    return Y
+
+
+def tsne(X=np.array([]), no_dims=2, initial_dims=50, perplexity=30.0):
+    &amp;quot;&amp;quot;&amp;quot;
+        Runs t-SNE on the dataset in the NxD array X to reduce its
+        dimensionality to no_dims dimensions. The syntaxis of the function is
+        `Y = tsne.tsne(X, no_dims, perplexity), where X is an NxD NumPy array.
+    &amp;quot;&amp;quot;&amp;quot;
+
+    # Check inputs
+    if isinstance(no_dims, float):
+        print(&amp;quot;Error: array X should have type float.&amp;quot;)
+        return -1
+    if round(no_dims) != no_dims:
+        print(&amp;quot;Error: number of dimensions should be an integer.&amp;quot;)
+        return -1
+
+    # Initialize variables
+    X = pca(X, initial_dims).real
+    (n, d) = X.shape
+    max_iter = 1000
+    initial_momentum = 0.5
+    final_momentum = 0.8
+    eta = 500
+    min_gain = 0.01
+    Y = np.random.randn(n, no_dims)
+    dY = np.zeros((n, no_dims))
+    iY = np.zeros((n, no_dims))
+    gains = np.ones((n, no_dims))
+
+    # Compute P-values
+    P = x2p(X, 1e-5, perplexity)
+    P = P + np.transpose(P)
+    P = P / np.sum(P)
+    P = P * 4.									# early exaggeration
+    P = np.maximum(P, 1e-12)
+
+    # Run iterations
+    for iter in range(max_iter):
+
+        # Compute pairwise affinities
+        sum_Y = np.sum(np.square(Y), 1)
+        num = -2. * np.dot(Y, Y.T)
+        num = 1. / (1. + np.add(np.add(num, sum_Y).T, sum_Y))
+        num[range(n), range(n)] = 0.
+        Q = num / np.sum(num)
+        Q = np.maximum(Q, 1e-12)
+
+        # Compute gradient
+        PQ = P - Q
+        for i in range(n):
+            dY[i, :] = np.sum(np.tile(PQ[:, i] * num[:, i], (no_dims, 1)).T * (Y[i, :] - Y), 0)
+
+        # Perform the update
+        if iter &amp;lt; 20:
+            momentum = initial_momentum
+        else:
+            momentum = final_momentum
+        gains = (gains + 0.2) * ((dY &amp;gt; 0.) != (iY &amp;gt; 0.)) + \
+                (gains * 0.8) * ((dY &amp;gt; 0.) == (iY &amp;gt; 0.))
+        gains[gains &amp;lt; min_gain] = min_gain
+        iY = momentum * iY - eta * (gains * dY)
+        Y = Y + iY
+        Y = Y - np.tile(np.mean(Y, 0), (n, 1))
+
+        # Compute current value of cost function
+        if (iter + 1) % 10 == 0:
+            C = np.sum(P * np.log(P / Q))
+            print(&amp;quot;Iteration %d: error is %f&amp;quot; % (iter + 1, C))
+
+        # Stop lying about P-values
+        if iter == 100:
+            P = P / 4.
+
+    # Return solution
+    return Y
+
+
+if __name__ == &amp;quot;__main__&amp;quot;:
+    print(&amp;quot;Run Y = tsne.tsne(X, no_dims, perplexity) to perform t-SNE on your dataset.&amp;quot;)
+    print(&amp;quot;Running example on 2,500 MNIST digits...&amp;quot;)
+    X = np.loadtxt(&amp;quot;mnist2500_X.txt&amp;quot;)
+    print(X.shape)
+    labels = np.loadtxt(&amp;quot;mnist2500_labels.txt&amp;quot;)
+    Y = tsne(X, 2, 50, 20.0)
+    pylab.scatter(Y[:, 0], Y[:, 1], 20, labels)
+    pylab.show()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;outcome-for-mnist-dataset&#34;&gt;Outcome for mnist dataset&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;/img/tsne_02.png&#34;&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://towardsdatascience.com/perplexity-intuition-and-derivation-105dd481c8f3&#34;&gt;Perplexity Intuition (and its derivation) - Towards Data Science&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/lvdmaaten/bhtsne&#34;&gt;GitHub - lvdmaaten/bhtsne: Barnes-Hut t-SNE&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://lvdmaaten.github.io/tsne/&#34;&gt;t-SNE – Laurens van der Maaten&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
     
     <item>
       <title>矩阵求导</title>
