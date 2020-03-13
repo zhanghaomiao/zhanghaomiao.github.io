@@ -7,8 +7,10 @@ window.MathJax = {
   tex: {
     inlineMath: [['$', '$'], ['\\(', '\\)']],
     displayMath: [['$$', '$$'], ['\\[', '\\]']],
-    processEscapes: false,
-    packages: {'[+]': ['noerrors']}
+    processEscapes: true,
+    packages: {'[+]': ['noerrors']},
+    processEnvironments: true,
+    processRefs: true,
   },
   loader: {
     load: ['[tex]/noerrors']

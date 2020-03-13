@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Haomiao</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 01 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 27 Sep 2019 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
       <title>Haomiao</title>
@@ -6223,6 +6223,270 @@ number of bytes transferred / (complete of last req - start of first req)
 
 &lt;ul&gt;
 &lt;li&gt;Device drivers: a uniform device-access interface to the I/O subsystem; hide the differences among device controllers from the I/O sub-system of OS&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ensemble Method</title>
+      <link>/post/ml/ensemble/</link>
+      <pubDate>Fri, 27 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>/post/ml/ensemble/</guid>
+      <description>
+
+&lt;p&gt;Combine multiple base-learners to imporve applicability across different domains or generalization performance in a specific task&lt;/p&gt;
+
+&lt;h2 id=&#34;ensemble-strategy&#34;&gt;Ensemble Strategy&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;将多个学习器结合可以带来三个方面的好处&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;增强泛化性能&lt;/li&gt;
+&lt;li&gt;计算有可能陷入局部最小， 降低局部最小的风险&lt;/li&gt;
+&lt;li&gt;扩大假设空间
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-three-advantages&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/ML/ensemble_01.png&#34; data-caption=&#34;Three advantages&#34;&gt;
+
+
+  &lt;img src=&#34;/post/ML/ensemble_01.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Three advantages
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Average&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Simple averaging
+$$ 
+    H(X) = \frac1T \sum_{i=1}^{T} h_i(x)
+   $$&lt;/li&gt;
+&lt;li&gt;Weighted averaging
+$$H(x) = \sum_{i=1}^{T} \omega_i h_i(x)$$&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Voting&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;learner $h_i$ predicte a label from the collection of class ${c_1, c_2, \dots, c_N}$. The learner $h_i$ generate a vector $(h_i^1(x); h_i^2(x); \dots; h_i^N(x))$ from the sample $x$.&lt;/li&gt;
+&lt;li&gt;Marority voting&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+$$ 
+  H(\boldsymbol{x})=\left\{\begin{array}{ll}{c_{j},} &amp; {\text { if } \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})&gt;0.5 \sum_{k=1}^{N} \sum_{i=1}^{T} h_{i}^{k}(\boldsymbol{x})} \\ {\text { reject, }} &amp; {\text { otherwise. }}\end{array}\right.
+   $$
+
+&lt;p&gt;可以拒绝， 即保证要提供可靠的结果
+  - Plurality voting (预测为票数最多的标记)
+    $$ 
+    H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})}
+     $$
+  - Weighted Voting (加权平均)
+    $$ 
+      H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} \omega_i h_{i}^{j}(\boldsymbol{x})}
+     $$&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;学习法(stacking)
+Stacking 从初始数据集训练出初级学习器， 然后生成一个新数据集用于训练次级学习器。 在新数据集中， 初级学习器的输出被当做样例输入特征， 而初始样本的标记被当做样例标记
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-stacking-method&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/ML/ensem_02.png&#34; data-caption=&#34;Stacking Method&#34;&gt;
+
+
+  &lt;img src=&#34;/post/ML/ensem_02.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Stacking Method
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;若直接使用初级学习器的训练集产生次级训练集， 则过拟合的风险较大&lt;/li&gt;
+&lt;li&gt;K-Fold： 初始训练集被划为$k$ 个大小相似的集合 $D_1, D_2, \dots D_k$, 令 $\overline{D}_j = D \backslash D_j$&lt;/li&gt;
+&lt;li&gt;给定 T 个 base learner, 初级学习器 $h_t^j$ 通过在 $\overline{D_j}$ 上使用 第$t$ 个学习算法&lt;/li&gt;
+&lt;li&gt;对 $D_j$ 中每个样本 $x_i$, 令$z_{it} = h_t^j(x_i)$, 则由 $x_i$ 产生的次级训练样例的示例部分为 $z_i = (z_{i1}; z_{i2}; \dots z_{iT})$, 标记部分为 $y_i$&lt;/li&gt;
+&lt;li&gt;交叉验证过程结束后， 从T个初级学习器产生的次级训练集为 $D&amp;rsquo;=(Z_i, y_i)_{i=1}^m$&lt;/li&gt;
+&lt;li&gt;将 $D&amp;rsquo;$ 用于训练次级学习器
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;bagging&#34;&gt;Bagging&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Bagging is a voting method, but base-learners are made different deliberately
+
+&lt;ul&gt;
+&lt;li&gt;Train them using slightly different training sets&lt;/li&gt;
+&lt;li&gt;Generate $L$ slightly different samples from a given sample is done by &lt;strong&gt;bootstrap&lt;/strong&gt;: given $X$ of size N, we draw N points randomly from $X$ with replacement to get $X^{(j)}$&lt;/li&gt;
+&lt;li&gt;Train a base-learner for ecah $X^{(j)}$&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;boosting&#34;&gt;Boosting&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In bagging, generate &amp;ldquo;uncorrelated&amp;rdquo; base-learners is left to chance and unstability of the learning method. (让下面的 learner train 前几个learner错误的地方)&lt;/li&gt;
+&lt;li&gt;考虑 binary classification: $d^{(j)}(x) \in {1, -1}$&lt;/li&gt;
+&lt;li&gt;Cominber three &lt;code&gt;weak learners&lt;/code&gt; to generate a &lt;code&gt;strong learner&lt;/code&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A week learner has error probability less than &lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;2&lt;/sub&gt;&lt;/li&gt;
+&lt;li&gt;A strong learner has arbitrarily small error probability&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Traning Algorithm
+
+&lt;ol&gt;
+&lt;li&gt;Given a large traning set, randomly divide in into three&lt;/li&gt;
+&lt;li&gt;Use $X^{(1)}$ to train the first learner $d^{(1)}$ and feed $X^{(2)}$ to $d^{(1)}$&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Use all points misclassified by $d^{d(1)}$ and $X^{(2)}$ to train $d^{(2)}$. Then feed $X^{(3)}$ to $d^{(1)}$ and $d^{(2)}$&lt;/li&gt;
+&lt;li&gt;Use the points on which $d^{(1)}$ and $d^{(2)}$ disgree to train $d^{(3)}$&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Tesing Algorithm
+
+&lt;ol&gt;
+&lt;li&gt;Feed a point it to $d^{(1)}$ and $d^{(2)}$ first. If outpus agree, use them as final predction&lt;/li&gt;
+&lt;li&gt;Otherwise the output of $d^{(3)}$ is taken&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Example
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-boosting-example&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;/post/ML/ensem_03.jpg&#34; data-caption=&#34;Boosting example&#34;&gt;
+
+
+  &lt;img src=&#34;/post/ML/ensem_03.jpg&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption&gt;
+    Boosting example
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;Disadvantages
+Requires a large traning set to afford the three-way split
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;adaboost&#34;&gt;AdaBoost&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use the same training set over and over again, but how to make points &amp;ldquo;larger&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;Modify the probabilities of drawing the instances as a function of error&lt;/li&gt;
+&lt;li&gt;Notation:
+
+&lt;ul&gt;
+&lt;li&gt;$\text{Pr}^{(i,j)}$: probability that an example $x^{(i)}, y^{(i)}$ is drawn to train the $j$th base-learner $d^{(j)}$&lt;/li&gt;
+&lt;li&gt;$\varepsilon^{(j)} = \sum_i \text{Pr}^{(i,j)} 1(y^{(i)} \neq d^{(j)}x^{(i)})$  error rate of $d^{(j)}$ on its training set.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Algorithm
+
+&lt;ol&gt;
+&lt;li&gt;Initalize $\text{Pr}^{(i,j)} = \frac1N$ for all i&lt;/li&gt;
+&lt;li&gt;start from $j = 1$:
+
+&lt;ol&gt;
+&lt;li&gt;Randomly draw $N$ examples for $X$ with probabilities $\text{Pr}^{(i,j)}$ and use them to train $d^{(j)}$&lt;/li&gt;
+&lt;li&gt;Stop adding new base-learners if $\varepsilon^{(j)} \geq \frac12$&lt;/li&gt;
+&lt;li&gt;Define $\alpha_j=\frac12 \log \left( \frac{1-\varepsilon^{(j)}}{\varepsilon^{(j)}}\right)&amp;gt;0$ and set $\text{Pr}^{(i,j+1)}  = \text{Pr}^{(i,j)} \exp(-\alpha_j y^{(i)} d^{(j)} (x^{(i)}))$ for all $i$&lt;/li&gt;
+&lt;li&gt;Normalize $\Pr^{(i, j+1)}$&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Testing
+
+&lt;ol&gt;
+&lt;li&gt;Given $x$, calcualte $\hat{y}^{(j)}$ for all $j$&lt;/li&gt;
+&lt;li&gt;Make final prediction $\hat{y}$ by voting $\hat{y} = \sum_j \alpha_j d^{(j)}(x)$&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Example
+&lt;img src=&#34;/post/ML/ensem_04.jpg&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Why AdaBoost Works&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Empirical study: AdaBoost reduces overfitting as $L$ grows, even when there is no training error
+&lt;img src=&#34;/post/ML/ensem_05.jpg&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
+&lt;li&gt;AdaBoost &lt;strong&gt;increases margin&lt;/strong&gt; (Same as SVM)&lt;/li&gt;
+&lt;li&gt;A large margin imporves generalizability&lt;/li&gt;
+&lt;li&gt;Define margin of prediction of an example $(x^{(i)}, y^{(i)}) \in X$ as:
+$$ 
+      margin(x^{(i)}, y^{(i)}) = y^{(i)}f(x^{(i)}) = \sum_{j:y^{(i)} = d^{(j)}(x^{(i)})} \alpha_j - \sum_{j:y^{(i)} \neq d^{(j)}(x^{(i)})} \alpha_j
+     $$
+&lt;img src=&#34;/post/ML/ensem_06.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
