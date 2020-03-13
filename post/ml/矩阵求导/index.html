@@ -28,10 +28,10 @@
   
     
   
-  <meta name="description" content="PhD in BioPhysics">
+  <meta name="description" content="矩阵求导">
 
   
-  <link rel="alternate" hreflang="en-us" href="/categories/">
+  <link rel="alternate" hreflang="en-us" href="/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/">
 
   
 
@@ -211,14 +211,12 @@
 
 
   
-  <link rel="alternate" href="/categories/index.xml" type="application/rss+xml" title="Haomiao">
-  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/categories/">
+  <link rel="canonical" href="/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/">
 
   
   
@@ -232,18 +230,63 @@
   <meta property="twitter:card" content="summary">
   
   <meta property="og:site_name" content="Haomiao">
-  <meta property="og:url" content="/categories/">
-  <meta property="og:title" content="Categories | Haomiao">
-  <meta property="og:description" content="PhD in BioPhysics"><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="og:url" content="/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/">
+  <meta property="og:title" content="矩阵求导 | Haomiao">
+  <meta property="og:description" content="矩阵求导"><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
   <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2019-10-01T00:00:00&#43;00:00">
+    
+      <meta property="article:published_time" content="2019-10-01T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2019-10-01T00:00:00&#43;00:00">
   
 
   
 
 
+    
 
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/"
+  },
+  "headline": "矩阵求导",
+  
+  "datePublished": "2019-10-01T00:00:00Z",
+  "dateModified": "2019-10-01T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Haomiao Zhang"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Haomiao",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "矩阵求导"
+}
+</script>
+
+  
 
   
 
@@ -251,10 +294,13 @@
   
 
 
+  
 
 
 
-  <title>Categories | Haomiao</title>
+
+
+  <title>矩阵求导 | Haomiao</title>
 
 </head>
 
@@ -346,7 +392,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/post/"><span>Posts</span></a>
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
         </li>
 
         
@@ -426,55 +472,402 @@
 </nav>
 
 
-  
-
-
-
-
-
-
-
-
-
-
-
+  <article class="article">
 
   
 
+
+
+
+
+
+
+
+
+
+
+
+  
+
   
   
+  
+<div class="article-container pt-3">
+  <h1>矩阵求导</h1>
+
+  
+
   
     
-  
-<div class="universal-wrapper pt-3">
-  <h1>Categories</h1>
+
+
+<div class="article-metadata">
 
   
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Oct 1, 2019
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    2 min read
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/learn/">Learn</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
 </div>
 
 
 
-<div class="universal-wrapper">
-  
+  <div class="article-container">
 
-  
-  
-    
-    
-    
-    <div>
-      <h2><a href="/categories/learn/" >Learn</a></h2>
-      <div class="article-style">
-        
-      </div>
+    <div class="article-style">
+      
+
+<h2 id="定义">定义</h2>
+
+<ul>
+<li>标量 $f$ 对矩阵 $\mathbf{X}$ 的导数， 定义为
+$$\frac{\partial f}{\partial \mathbf{X}} = \left[\frac{\partial f}{\partial X_{ij}}\right]$$
+在求导时不宜拆开矩阵， 需要找到一个整体的算法</li>
+<li>一元微积分中的导数与微分的关系有
+$$df = f&rsquo;(x) dx$$</li>
+<li>多元的导数与微分的关系
+$$df = \sum_{i=1}^{n}\frac{\partial f}{\partial x_i} dx_i = \frac{\partial f}{\partial \mathbf{x}}^{t} d\mathbf{x}$$</li>
+<li>矩阵导数与微分建立联系：
+
+ $$d f=\sum_{i=1}^{m} \sum_{j=1}^{n} \frac{\partial f}{\partial X_{i j}} d X_{i j}=\operatorname{tr}\left(\frac{\partial f^{T}}{\partial X} d X\right)$$
+ 
+$tr$ 表示方阵对角元素之和
+<br /></li>
+</ul>
+
+<h2 id="运算法则">运算法则</h2>
+
+<ul>
+<li>加减法 $d(\mathbf{X}\pm \mathbf{Y}) = d\mathbf{X} \pm d\mathbf{Y}$</li>
+<li>乘法 $d(\mathbf{XY}) = (d\mathbf{X})\mathbf{Y} + \mathbf{X}d\mathbf{Y}$</li>
+<li>转置 $d(\mathbf{X}^T) = (d\mathbf{X})^T$</li>
+<li><a href="https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf">参考 matrix cookbook</a></li>
+</ul>
+
+<h2 id="计算">计算</h2>
+
+<p>建立矩阵与微分联系时， 在求出左侧的微分 $df$, 需要写出右侧形式的导数
+  $$df = tr\left(\frac{\partial f}{\partial \mathbf{X}}^T d\mathbf{X}\right)$$</p>
+
+<ul>
+<li>标量上迹 $a = tr(a)$</li>
+<li>转置 $tr(A^T) = tr(A)$</li>
+<li>加减法 $tr(A\pm B) = tr(A) \pm tr(B)$</li>
+<li>矩阵乘法交换 $tr(AB) = tr(BA)$</li>
+<li>矩阵乘法/逐元乘法交换 $\text{tr}(A^T(B \odot C))=\text{tr}((A\odot B)^TC)$, 其中 A, B, C 尺寸相同</li>
+</ul>
+
+<h2 id="example">Example</h2>
+
+<ul>
+<li><p>Linear Regression $l = || \mathbf{Xw - y}||^2$,  solve $\mathbf{w}, \mathbf{y}$ is a $m\times 1$ vector, $\mathbf X$ has the shape $m\times n$, and $w$&rsquo;s shape is $n\times 1$, and the $l$ is a scalar</p>
+
+<p>In this example, we need to solve a scalar&rsquo;s derivate with respect to a vector. As the defintion, we can&rsquo;t calcuate the derivate of a vector or a matrix directly. Instead, we need to calcuate the differential of a matrix.
+
+    $$\begin{aligned}l &= \mathbf{(Xw - y)}^T(\mathbf{Xw - y}) \\s  
+        dl &= (X d \boldsymbol{w})^{T}(X \boldsymbol{w}-\boldsymbol{y})+(X \boldsymbol{w}-\boldsymbol{y})^{T}(X d \boldsymbol{w}) \end{aligned}$$
+     
+As the first and second form is a dot product between two vector, so we can get
+$$dl = 2(X \boldsymbol{w}-\boldsymbol{y})^{T} \boldsymbol{X} d \boldsymbol{w}$$
+The differential form of $dl$
+$$dl = \frac{\partial l}{\partial \mathbf{w}}^T d\mathbf{w}$$
+The formula transforms to
+$$\frac{\partial l}{\partial \boldsymbol{w}}=2 X^{T}(X \boldsymbol{w}-\boldsymbol{y})$$
+Set the partial form to $0$, we could get
+$$\mathbf{X^TXw} = \mathbf{X^Ty}$$
+and the $w$ will be
+$$\mathbf{w = (X^TX)^{-1}X^Ty}$$</p></li>
+</ul>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/24709748">矩阵求导术（上）知乎</a><br /></li>
+<li><a href="https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf">matrix cookbook</a></li>
+</ul>
+
     </div>
-  
 
-  
+    
 
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/machine-learning/">machine learning</a>
+  
+  <a class="badge badge-light" href="/tags/math/">math</a>
+  
 </div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/&amp;text=%e7%9f%a9%e9%98%b5%e6%b1%82%e5%af%bc" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/&amp;t=%e7%9f%a9%e9%98%b5%e6%b1%82%e5%af%bc" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=%e7%9f%a9%e9%98%b5%e6%b1%82%e5%af%bc&amp;body=/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/&amp;title=%e7%9f%a9%e9%98%b5%e6%b1%82%e5%af%bc" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=%e7%9f%a9%e9%98%b5%e6%b1%82%e5%af%bc%20/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/&amp;title=%e7%9f%a9%e9%98%b5%e6%b1%82%e5%af%bc" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      <img class="avatar mr-3 avatar-circle" src="https://s.gravatar.com/avatar/d15dcd7020c8a70372e617a134183216?s=200')" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Haomiao Zhang</a></h5>
+      <h6 class="card-subtitle">PhD in BioPhysics</h6>
+      <p class="card-text">My research interests in maching leanring, biomolecule configuration and molecular dynamics</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:zhanghaomiao@hust.edu.cn" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/" >
+        <i class="fab fa-weixin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?view_op=list_works&amp;hl=en&amp;user=uhyo6hIAAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/zhanghaomiao" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/ml/ensemble/">Ensemble Method</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
 
       
 
