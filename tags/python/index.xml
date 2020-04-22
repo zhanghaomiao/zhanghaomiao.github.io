@@ -14,9 +14,9 @@
     
     <item>
       <title>用 PyQT 创建一个识别公式的应用</title>
-      <link>/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/</link>
+      <link>/post/image_latex_app/</link>
       <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
-      <guid>/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/</guid>
+      <guid>/post/image_latex_app/</guid>
       <description>
 
 &lt;p&gt;在科研论文中，经常需要输入LaTeX公式，这是一件很令人头疼的事，因为公式输入很复杂且容易出错。MathPix这个软件简化了这个过程，可以直接通过图片识别出 LaTeX 公式。以前这个软件是免费的，后来开始收费且价格不菲。不过推出了 API 调用，一个月3000条免费，后面超出的价格也不贵。&lt;/p&gt;
