@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Haomiao Zhang">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="给定识别图像公式的api, 返回需要的数学公式">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/">
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Haomiao">
+  <meta property="og:url" content="/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/">
+  <meta property="og:title" content="用 PyQT 创建一个识别公式的应用 | Haomiao">
+  <meta property="og:description" content="给定识别图像公式的api, 返回需要的数学公式"><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-03-12T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-03-12T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/"
+  },
+  "headline": "用 PyQT 创建一个识别公式的应用",
+  
+  "datePublished": "2020-03-12T00:00:00Z",
+  "dateModified": "2020-03-12T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Haomiao Zhang"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Haomiao",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "给定识别图像公式的api, 返回需要的数学公式"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>用 PyQT 创建一个识别公式的应用 | Haomiao</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
+            
+              <a class="dropdown-item" href="/courses/deep_learning"><span>Deep Learning</span></a>
+            
+              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
+            
+              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>用 PyQT 创建一个识别公式的应用</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Mar 12, 2020
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    1 min read
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/categories/learn/">Learn</a></span>
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+
+<p>在科研论文中，经常需要输入LaTeX公式，这是一件很令人头疼的事，因为公式输入很复杂且容易出错。MathPix这个软件简化了这个过程，可以直接通过图片识别出 LaTeX 公式。以前这个软件是免费的，后来开始收费且价格不菲。不过推出了 API 调用，一个月3000条免费，后面超出的价格也不贵。</p>
+
+<p>为了更好的使用这个API, 一键操作，仿照以前的 MathPix界面用 pyqt 写了一个简略的界面，不过也可以实现基本功能。</p>
+
+<h2 id="ide">IDE</h2>
+
+<p>用的是 PyCharm, 不像 Qt 有 QtCreater, python 版本的 pyqt 没找到官方的 IDE, 因此用的是PyCharm. 在 PyCharm 上加了两个 External Tools:</p>
+
+<ol>
+<li>qt designer, 设计 UI 界面
+<img src="/img/pyQT/pyqt_tool.png" width="450px" /></li>
+<li>pyUIC5, 将 UI file 转为 .py file
+<img src="/img/pyQT/pyuic_tool.png" width="450px" /></li>
+</ol>
+
+<h2 id="qt-designer">Qt Designer</h2>
+
+<p>主要用来设计UI界面，设计好的界面如下
+   <img src="/img/pyQT/pyqt_ui.png" width="450px" /></p>
+
+<ol>
+<li>图片显示界面， 可以从剪切板里导入图片，或者是从应用外拖进图片</li>
+<li>Convert, 触发调用命令，并将结果现在在下面</li>
+<li>Qt Web, 一个网页显示界面，在 convert， 生成 LaTeX 代码之后，通过调用 MathJax Api， 显示生成后的 LaTeX 公式， 方便与原始图片进行比较</li>
+<li>PasteBoard 从剪切板导入图片</li>
+<li>生成后的 LaTeX 代码，通过 copy 将文字导入到剪切板， 三个copy 对应三种不同的格式</li>
+</ol>
+
+<p>用到的对象如下</p>
+
+<p><img src="/img/pyQT/object.png" width="450px" /></p>
+
+<p>这里有一点需要注意的是，label 标签对应的类不是 QLabel, 因为如果 QLabel 要支持拖拽功能，需要  重新在 QLabel 下重新定义一个子类，并让子类重写<code>dragEnterEvent</code> 和 <code>dropEvent</code> 两个函数，这样，需要对 Qt Designer 的 QLabel 进行提升，这里我将提升的类其命名为 <code>ImageArea</code>.</p>
+
+<h2 id="代码">代码</h2>
+
+<p><img src="/img/pyQT/code.png" width="650px" /></p>
+
+<ul>
+<li><code>app_run.py</code> 主程序，程序代码的入口，定义了整个对象，以及对象之间如何交互</li>
+<li><code>customClass.py</code> 定义了 <code>ImageArea</code> 类， 让 <code>QLabel</code> 支持拖拽</li>
+<li><code>dealWithApi.py</code>  MathPix 的调用接口</li>
+<li><code>qtDesigner.py</code> 通过 <code>pyUIC</code> 将 ui 文件转换为 py 文件</li>
+<li><code>showLaTeXImage.py</code> 将生成的LaTeX 公式文本，用 MathJax 显示</li>
+</ul>
+
+<h2 id="演示">演示</h2>
+
+<p><img src="/img/pyQT/moive.gif" width="650px" /></p>
+
+<p>For the source code, see at <a href="https://github.com/zhanghaomiao/image_to_latex_app">https://github.com/zhanghaomiao/image_to_latex_app</a></p>
+
+    </div>
+
+    
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/computer/">computer</a>
+  
+  <a class="badge badge-light" href="/tags/qt/">qt</a>
+  
+  <a class="badge badge-light" href="/tags/python/">python</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/&amp;text=%e7%94%a8%20PyQT%20%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa%e8%af%86%e5%88%ab%e5%85%ac%e5%bc%8f%e7%9a%84%e5%ba%94%e7%94%a8" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/&amp;t=%e7%94%a8%20PyQT%20%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa%e8%af%86%e5%88%ab%e5%85%ac%e5%bc%8f%e7%9a%84%e5%ba%94%e7%94%a8" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=%e7%94%a8%20PyQT%20%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa%e8%af%86%e5%88%ab%e5%85%ac%e5%bc%8f%e7%9a%84%e5%ba%94%e7%94%a8&amp;body=/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/&amp;title=%e7%94%a8%20PyQT%20%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa%e8%af%86%e5%88%ab%e5%85%ac%e5%bc%8f%e7%9a%84%e5%ba%94%e7%94%a8" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=%e7%94%a8%20PyQT%20%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa%e8%af%86%e5%88%ab%e5%85%ac%e5%bc%8f%e7%9a%84%e5%ba%94%e7%94%a8%20/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/&amp;title=%e7%94%a8%20PyQT%20%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa%e8%af%86%e5%88%ab%e5%85%ac%e5%bc%8f%e7%9a%84%e5%ba%94%e7%94%a8" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      <img class="avatar mr-3 avatar-circle" src="https://s.gravatar.com/avatar/d15dcd7020c8a70372e617a134183216?s=200')" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Haomiao Zhang</a></h5>
+      <h6 class="card-subtitle">PhD in BioPhysics</h6>
+      <p class="card-text">My research interests in maching leanring, biomolecule configuration and molecular dynamics</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:zhanghaomiao@hust.edu.cn" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/" >
+        <i class="fab fa-weixin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?view_op=list_works&amp;hl=en&amp;user=uhyo6hIAAAAJ" target="_blank" rel="noopener">
+        <i class="ai ai-google-scholar"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/zhanghaomiao" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/">GDB 调试</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -28,9 +28,9 @@
   
     
   
-  <meta name="description" content=" Overview 一般计算机视觉问题包含以下几类:
- 图像分类(Image classification) 目标检测(Object Detection) 风格转换(Neural Style Transfer)  面临计算机视觉问题时，如何处理图像数据变得很重要，对于一般图片 $1000 \times 1000 \times 3$, 神经网络的输入层将有 $300,000,000$ 数据, 那么网络权重 $W$ 则很大，这会导致两个后果
- 数据量很少，但是神经网络很复杂，容易出现过拟合 所需要的内存和计算量很大  卷积运算 ">
+  <meta name="description" content="Overview 一般计算机视觉问题包含以下几类:
+ 图像分类(Image classification) 目标检测(Object Detection) 风格转换(Neural Style Transfer)  面临计算机视觉问题时，如何处理图像数据变得很重要，对于一般图片 $1000 \times 1000 \times 3$, 神经网络的输入层将有 $300,000,000$ 数据, 那么网络权重 $W$ 则很大，这会导致两个后果:
+ 数据量很少，但是神经网络很复杂，容易出现过拟合 所需要的内存和计算量很大  卷积运算 神经网络从浅层到深层，可以检测出图片的边缘特征，局部特征，最后一层泽科识别整体的面部轮廓， 这些都是通过卷积神经网络实现的">
 
   
   <link rel="alternate" hreflang="en-us" href="/courses/deep_learning/cnn/">
@@ -234,9 +234,9 @@
   <meta property="og:site_name" content="Haomiao">
   <meta property="og:url" content="/courses/deep_learning/cnn/">
   <meta property="og:title" content="Foundations of Convolutional Neural Networks | Haomiao">
-  <meta property="og:description" content=" Overview 一般计算机视觉问题包含以下几类:
- 图像分类(Image classification) 目标检测(Object Detection) 风格转换(Neural Style Transfer)  面临计算机视觉问题时，如何处理图像数据变得很重要，对于一般图片 $1000 \times 1000 \times 3$, 神经网络的输入层将有 $300,000,000$ 数据, 那么网络权重 $W$ 则很大，这会导致两个后果
- 数据量很少，但是神经网络很复杂，容易出现过拟合 所需要的内存和计算量很大  卷积运算 "><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="og:description" content="Overview 一般计算机视觉问题包含以下几类:
+ 图像分类(Image classification) 目标检测(Object Detection) 风格转换(Neural Style Transfer)  面临计算机视觉问题时，如何处理图像数据变得很重要，对于一般图片 $1000 \times 1000 \times 3$, 神经网络的输入层将有 $300,000,000$ 数据, 那么网络权重 $W$ 则很大，这会导致两个后果:
+ 数据量很少，但是神经网络很复杂，容易出现过拟合 所需要的内存和计算量很大  卷积运算 神经网络从浅层到深层，可以检测出图片的边缘特征，局部特征，最后一层泽科识别整体的面部轮廓， 这些都是通过卷积神经网络实现的"><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
   <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
   
     
@@ -367,6 +367,8 @@
             
               <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
             
+              <a class="dropdown-item" href="/courses/deep_learning"><span>Deep Learning</span></a>
+            
               <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
             
               <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
@@ -469,64 +471,7 @@
   
   
   <div class="docs-toc-item">
-    <a class="docs-toc-link" href="/courses/operating_system/">Overview</a>
-
-  </div>
-  
-  <div class="docs-toc-item">
-    <a class="docs-toc-link" href="/courses/operating_system/os_structures/">Concepts</a>
-    <ul class="nav docs-sidenav">
-      
-      <li >
-        <a href="/courses/operating_system/os_structures/">OS structures</a>
-      </li>
-      
-      <li >
-        <a href="/courses/operating_system/process/">Process</a>
-      </li>
-      
-      <li >
-        <a href="/courses/operating_system/memory_manage/">Memory Management</a>
-      </li>
-      
-      <li >
-        <a href="/courses/operating_system/virtual_memory/">Virtual Memory</a>
-      </li>
-      
-      <li >
-        <a href="/courses/operating_system/multithread_programming/">Multithread Programming</a>
-      </li>
-      
-      <li >
-        <a href="/courses/operating_system/process_schedule/">Process Scheduling</a>
-      </li>
-      
-      <li >
-        <a href="/courses/operating_system/process_synchronization/">Process Synchronization</a>
-      </li>
-      
-      <li >
-        <a href="/courses/operating_system/deadlocks/">DeadLocks</a>
-      </li>
-      
-      <li >
-        <a href="/courses/operating_system/file_system_interface/">File System Interface</a>
-      </li>
-      
-      <li >
-        <a href="/courses/operating_system/file_system_implementatin/">File System Implementation</a>
-      </li>
-      
-      <li >
-        <a href="/courses/operating_system/mass_storage_system/">Mass Storage System</a>
-      </li>
-      
-      <li >
-        <a href="/courses/operating_system/io_system/">I/O system</a>
-      </li>
-      
-    </ul>
-    
+    <a class="docs-toc-link" href="/courses/deep_learning/">Overview</a>
 
   </div>
   
@@ -559,7 +504,10 @@
 <li>
 <ul>
 <li><a href="#overview">Overview</a></li>
-<li><a href="#卷积运算">卷积运算</a></li>
+<li><a href="#卷积运算">卷积运算</a>
+<ul>
+<li><a href="#边缘检测">边缘检测</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -588,7 +536,7 @@
 <li>风格转换(Neural Style Transfer)</li>
 </ol>
 
-<p>面临计算机视觉问题时，如何处理图像数据变得很重要，对于一般图片 $1000 \times 1000 \times 3$, 神经网络的输入层将有 $300,000,000$ 数据, 那么网络权重 $W$ 则很大，这会导致两个后果</p>
+<p>面临计算机视觉问题时，如何处理图像数据变得很重要，对于一般图片 $1000 \times 1000 \times 3$, 神经网络的输入层将有 $300,000,000$ 数据, 那么网络权重 $W$ 则很大，这会导致两个后果:</p>
 
 <ol>
 <li>数据量很少，但是神经网络很复杂，容易出现过拟合</li>
@@ -596,6 +544,10 @@
 </ol>
 
 <h2 id="卷积运算">卷积运算</h2>
+
+<p>神经网络从浅层到深层，可以检测出图片的边缘特征，局部特征，最后一层泽科识别整体的面部轮廓， 这些都是通过卷积神经网络实现的</p>
+
+<h3 id="边缘检测">边缘检测</h3>
 
           </div>
 

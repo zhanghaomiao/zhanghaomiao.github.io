@@ -5,12 +5,73 @@
     <link>/tags/computer/</link>
       <atom:link href="/tags/computer/index.xml" rel="self" type="application/rss+xml" />
     <description>computer</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 12 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 12 Mar 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
       <title>computer</title>
       <link>/tags/computer/</link>
     </image>
+    
+    <item>
+      <title>用 PyQT 创建一个识别公式的应用</title>
+      <link>/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/</link>
+      <pubDate>Thu, 12 Mar 2020 00:00:00 +0000</pubDate>
+      <guid>/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95-copy/</guid>
+      <description>
+
+&lt;p&gt;在科研论文中，经常需要输入LaTeX公式，这是一件很令人头疼的事，因为公式输入很复杂且容易出错。MathPix这个软件简化了这个过程，可以直接通过图片识别出 LaTeX 公式。以前这个软件是免费的，后来开始收费且价格不菲。不过推出了 API 调用，一个月3000条免费，后面超出的价格也不贵。&lt;/p&gt;
+
+&lt;p&gt;为了更好的使用这个API, 一键操作，仿照以前的 MathPix界面用 pyqt 写了一个简略的界面，不过也可以实现基本功能。&lt;/p&gt;
+
+&lt;h2 id=&#34;ide&#34;&gt;IDE&lt;/h2&gt;
+
+&lt;p&gt;用的是 PyCharm, 不像 Qt 有 QtCreater, python 版本的 pyqt 没找到官方的 IDE, 因此用的是PyCharm. 在 PyCharm 上加了两个 External Tools:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;qt designer, 设计 UI 界面
+&lt;img src=&#34;/img/pyQT/pyqt_tool.png&#34; width=&#34;450px&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;pyUIC5, 将 UI file 转为 .py file
+&lt;img src=&#34;/img/pyQT/pyuic_tool.png&#34; width=&#34;450px&#34; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;qt-designer&#34;&gt;Qt Designer&lt;/h2&gt;
+
+&lt;p&gt;主要用来设计UI界面，设计好的界面如下
+   &lt;img src=&#34;/img/pyQT/pyqt_ui.png&#34; width=&#34;450px&#34; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;图片显示界面， 可以从剪切板里导入图片，或者是从应用外拖进图片&lt;/li&gt;
+&lt;li&gt;Convert, 触发调用命令，并将结果现在在下面&lt;/li&gt;
+&lt;li&gt;Qt Web, 一个网页显示界面，在 convert， 生成 LaTeX 代码之后，通过调用 MathJax Api， 显示生成后的 LaTeX 公式， 方便与原始图片进行比较&lt;/li&gt;
+&lt;li&gt;PasteBoard 从剪切板导入图片&lt;/li&gt;
+&lt;li&gt;生成后的 LaTeX 代码，通过 copy 将文字导入到剪切板， 三个copy 对应三种不同的格式&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;用到的对象如下&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;/img/pyQT/object.png&#34; width=&#34;450px&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里有一点需要注意的是，label 标签对应的类不是 QLabel, 因为如果 QLabel 要支持拖拽功能，需要  重新在 QLabel 下重新定义一个子类，并让子类重写&lt;code&gt;dragEnterEvent&lt;/code&gt; 和 &lt;code&gt;dropEvent&lt;/code&gt; 两个函数，这样，需要对 Qt Designer 的 QLabel 进行提升，这里我将提升的类其命名为 &lt;code&gt;ImageArea&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;代码&#34;&gt;代码&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;/img/pyQT/code.png&#34; width=&#34;650px&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;app_run.py&lt;/code&gt; 主程序，程序代码的入口，定义了整个对象，以及对象之间如何交互&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;customClass.py&lt;/code&gt; 定义了 &lt;code&gt;ImageArea&lt;/code&gt; 类， 让 &lt;code&gt;QLabel&lt;/code&gt; 支持拖拽&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dealWithApi.py&lt;/code&gt;  MathPix 的调用接口&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;qtDesigner.py&lt;/code&gt; 通过 &lt;code&gt;pyUIC&lt;/code&gt; 将 ui 文件转换为 py 文件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;showLaTeXImage.py&lt;/code&gt; 将生成的LaTeX 公式文本，用 MathJax 显示&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;演示&#34;&gt;演示&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;/img/pyQT/moive.gif&#34; width=&#34;650px&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For the source code, see at &lt;a href=&#34;https://github.com/zhanghaomiao/image_to_latex_app&#34;&gt;https://github.com/zhanghaomiao/image_to_latex_app&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>GDB 调试</title>
