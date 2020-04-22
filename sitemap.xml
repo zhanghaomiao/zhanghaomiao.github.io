@@ -33,6 +33,11 @@
   </url>
   
   <url>
+    <loc>/courses/deep_learning/cnn_example/</loc>
+    <lastmod>2020-01-04T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/courses/operating_system/memory_manage/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url>
@@ -40,6 +45,11 @@
   <url>
     <loc>/courses/computer_network/transport_layer/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/courses/deep_learning/object_detect/</loc>
+    <lastmod>2020-01-04T00:00:00+01:00</lastmod>
   </url>
   
   <url>
@@ -55,6 +65,11 @@
   <url>
     <loc>/courses/parallel_computing/</loc>
     <lastmod>2019-05-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/courses/deep_learning/transfer/</loc>
+    <lastmod>2020-01-04T00:00:00+01:00</lastmod>
   </url>
   
   <url>

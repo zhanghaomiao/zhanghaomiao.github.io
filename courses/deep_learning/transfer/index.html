@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Haomiao Zhang">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="人脸识别 人脸验证（Face Verification）和人脸识别（Face Recognition）的区别：
+ 人脸验证：一般指一个一对一问题，只需要验证输入的人脸图像是否与某个已知的身份信息对应； 人脸识别：一个更为复杂的一对多问题，需要验证输入的人脸图像是否与多个已知身份信息中的某一个匹配。  一般来说，由于需要匹配的身份信息更多导致错误率增加，人脸识别比人脸验证更难一些。
+One-Shot 学习 人脸识别所面临的一个挑战是要求系统只采集某人的一个面部样本，就能快速准确地识别出这个人，即只用一个训练样本来获得准确的预测结果。这被称为One-Shot 学习。
+有一种方法是假设数据库中存有 N 个人的身份信息，对于每张输入图像，用 Softmax 输出 N&#43;1 种标签，分别对应每个人以及都不是。然而这种方法的实际效果很差，因为过小的训练集不足以训练出一个稳健的神经网络；并且如果有新的身份信息入库，需要重新训练神经网络，不够灵活。
+因此，我们通过学习一个 Similarity 函数来实现 One-Shot 学习过程。Similarity 函数定义了输入的两幅图像的差异度，其公式如下：
+$$Similarity = d(img1, img2)$$">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/courses/deep_learning/transfer/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/courses/deep_learning/transfer/">
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Haomiao">
+  <meta property="og:url" content="/courses/deep_learning/transfer/">
+  <meta property="og:title" content="人脸识别和风格迁移 | Haomiao">
+  <meta property="og:description" content="人脸识别 人脸验证（Face Verification）和人脸识别（Face Recognition）的区别：
+ 人脸验证：一般指一个一对一问题，只需要验证输入的人脸图像是否与某个已知的身份信息对应； 人脸识别：一个更为复杂的一对多问题，需要验证输入的人脸图像是否与多个已知身份信息中的某一个匹配。  一般来说，由于需要匹配的身份信息更多导致错误率增加，人脸识别比人脸验证更难一些。
+One-Shot 学习 人脸识别所面临的一个挑战是要求系统只采集某人的一个面部样本，就能快速准确地识别出这个人，即只用一个训练样本来获得准确的预测结果。这被称为One-Shot 学习。
+有一种方法是假设数据库中存有 N 个人的身份信息，对于每张输入图像，用 Softmax 输出 N&#43;1 种标签，分别对应每个人以及都不是。然而这种方法的实际效果很差，因为过小的训练集不足以训练出一个稳健的神经网络；并且如果有新的身份信息入库，需要重新训练神经网络，不够灵活。
+因此，我们通过学习一个 Similarity 函数来实现 One-Shot 学习过程。Similarity 函数定义了输入的两幅图像的差异度，其公式如下：
+$$Similarity = d(img1, img2)$$"><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-01-04T00:00:00&#43;01:00">
+    
+    <meta property="article:modified_time" content="2020-01-04T00:00:00&#43;01:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>人脸识别和风格迁移 | Haomiao</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
+            
+              <a class="dropdown-item" href="/courses/deep_learning"><span>Deep Learning</span></a>
+            
+              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
+            
+              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <span><i class="fas fa-bars"></i></span>
+  </button>
+
+  
+  <input name="q" type="search" class="form-control" placeholder="Search..." autocomplete="off">
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+
+  
+  
+  
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/deep_learning/">Overview</a>
+
+  </div>
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/deep_learning/cnn/">Convolutional Neural Networks</a>
+    <ul class="nav docs-sidenav">
+      
+      <li >
+        <a href="/courses/deep_learning/cnn/">Foundations of Convolutional Neural Networks</a>
+      </li>
+      
+      <li >
+        <a href="/courses/deep_learning/cnn_example/">Examples of CNN</a>
+      </li>
+      
+      <li >
+        <a href="/courses/deep_learning/object_detect/">目标检测</a>
+      </li>
+      
+      <li class="active">
+        <a href="/courses/deep_learning/transfer/">人脸识别和风格迁移</a>
+      </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  
+</nav>
+
+    </div>
+
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#人脸识别">人脸识别</a>
+<ul>
+<li><a href="#one-shot-学习">One-Shot 学习</a></li>
+<li><a href="#siamese-网络">Siamese 网络</a></li>
+<li><a href="#triplet-损失">Triplet 损失</a></li>
+<li><a href="#二分类结构">二分类结构</a></li>
+</ul></li>
+<li><a href="#神经风格迁移">神经风格迁移</a>
+<ul>
+<li><a href="#深度卷积网络在学什么">深度卷积网络在学什么？</a></li>
+<li><a href="#代价函数">代价函数</a>
+<ul>
+<li><a href="#内容代价函数">内容代价函数</a></li>
+<li><a href="#风格代价函数">风格代价函数</a></li>
+</ul></li>
+<li><a href="#推广至一维和三维">推广至一维和三维</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          <h1>人脸识别和风格迁移</h1>
+
+          <div class="article-style">
+            
+
+<h2 id="人脸识别">人脸识别</h2>
+
+<p><strong>人脸验证（Face Verification）</strong>和<strong>人脸识别（Face Recognition）</strong>的区别：</p>
+
+<ul>
+<li>人脸验证：一般指一个一对一问题，只需要验证输入的人脸图像是否与某个已知的身份信息对应；</li>
+<li>人脸识别：一个更为复杂的一对多问题，需要验证输入的人脸图像是否与多个已知身份信息中的某一个匹配。</li>
+</ul>
+
+<p>一般来说，由于需要匹配的身份信息更多导致错误率增加，人脸识别比人脸验证更难一些。</p>
+
+<h3 id="one-shot-学习">One-Shot 学习</h3>
+
+<p>人脸识别所面临的一个挑战是要求系统只采集某人的一个面部样本，就能快速准确地识别出这个人，即只用一个训练样本来获得准确的预测结果。这被称为<strong>One-Shot 学习</strong>。</p>
+
+<p>有一种方法是假设数据库中存有 N 个人的身份信息，对于每张输入图像，用 Softmax 输出 N+1 种标签，分别对应每个人以及都不是。然而这种方法的实际效果很差，因为过小的训练集不足以训练出一个稳健的神经网络；并且如果有新的身份信息入库，需要重新训练神经网络，不够灵活。</p>
+
+<p>因此，我们通过学习一个 Similarity 函数来实现 One-Shot 学习过程。Similarity 函数定义了输入的两幅图像的差异度，其公式如下：</p>
+
+<p>$$Similarity  = d(img1, img2)$$</p>
+
+<p>可以设置一个超参数 $τ$ 作为阈值，作为判断两幅图片是否为同一个人的依据。</p>
+
+<h3 id="siamese-网络">Siamese 网络</h3>
+
+<p>实现 Similarity 函数的一种方式是使用<strong>Siamese 网络</strong>，它是一种对两个不同输入运行相同的卷积网络，然后对它们的结果进行比较的神经网络。</p>
+
+<p><img src="https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Siamese.png" alt="Siamese" /></p>
+
+<p>如上图示例，将图片 $x^{(1)}$、$x^{(2)}$ 分别输入两个相同的卷积网络中，经过全连接层后不再进行 Softmax，而是得到特征向量 $f(x^{(1)})$、$f(x^{(2)})$。这时，Similarity 函数就被定义为两个特征向量之差的 L2 范数：</p>
+
+<p>$$d(x^{(1)}, x^{(2)}) = ||f(x^{(1)}) - f(x^{(2)})||^2_2$$</p>
+
+<p>相关论文：<a href="http://www.cs.wayne.edu/~mdong/taigman_cvpr14.pdf">Taigman et al., 2014, DeepFace closing the gap to human level performance</a></p>
+
+<h3 id="triplet-损失">Triplet 损失</h3>
+
+<p><strong>Triplet 损失函数</strong>用于训练出合适的参数，以获得高质量的人脸图像编码。“Triplet”一词来源于训练这个神经网络需要大量包含 Anchor（靶目标）、Positive（正例）、Negative（反例）的图片组，其中 Anchor 和 Positive 需要是同一个人的人脸图像。</p>
+
+<p><img src="https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Training-set-using-triplet-loss.png" alt="Training-set-using-triplet-loss" /></p>
+
+<p>对于这三张图片，应该有：</p>
+
+<p>$$||f(A) - f(P)||^2_2 + \alpha \le ||f(A) - f(N)||^2_2$$</p>
+
+<p>其中，$\alpha$ 被称为<strong>间隔（margin）</strong>，用于确保 $f()$ 不会总是输出零向量（或者一个恒定的值）。</p>
+
+<p>Triplet 损失函数的定义：</p>
+
+<p>$$L(A, P, N) = max(||f(A) - f(P)||^2_2 - ||f(A) - f(N)||^2_2 + \alpha, 0)$$</p>
+
+<p>其中，因为 $||f(A) - f(P)||^2_2 - ||f(A) - f(N)||^2_2 + \alpha$ 的值需要小于等于 0，因此取它和 0 的更大值。</p>
+
+<p>对于大小为 $m$ 的训练集，代价函数为：</p>
+
+<p>$$J = \sum^m_{i=1}L(A^{(i)}, P^{(i)}, N^{(i)})$$</p>
+
+<p>通过梯度下降最小化代价函数。</p>
+
+<p>在选择训练样本时，随机选择容易使 Anchor 和 Positive 极为接近，而 Anchor 和 Negative 相差较大，以致训练出来的模型容易抓不到关键的区别。因此，最好的做法是人为增加 Anchor 和 Positive 的区别，缩小 Anchor 和 Negative 的区别，促使模型去学习不同人脸之间的关键差异。</p>
+
+<p>相关论文：<a href="https://arxiv.org/pdf/1503.03832.pdf">Schroff et al., 2015,  FaceNet: A unified embedding for face recognition and clustering</a></p>
+
+<h3 id="二分类结构">二分类结构</h3>
+
+<p>除了 Triplet 损失函数，二分类结构也可用于学习参数以解决人脸识别问题。其做法是输入一对图片，将两个 Siamese 网络产生的特征向量输入至同一个 Sigmoid 单元，输出 1 则表示是识别为同一人，输出 0 则表示识别为不同的人。</p>
+
+<p>Sigmoid 单元对应的表达式为：</p>
+
+<p>$$\hat y = \sigma (\sum^K_{k=1}w_k|f(x^{(i)})_{k} - x^{(j)})_{k}| + b)$$</p>
+
+<p>其中，$w_k$ 和 $b$ 都是通过梯度下降算法迭代训练得到的参数。上述计算表达式也可以用另一种表达式代替：</p>
+
+<p>$$\hat y = \sigma (\sum^K_{k=1}w_k
+\frac{(f(x^{(i)})_k - f(x^{(j)})_k)^2}{f(x^{(i)})_k + f(x^{(j)})_k} + b)$$</p>
+
+<p>其中，$\frac{(f(x^{(i)})_k - f(x^{(j)})_k)^2}{f(x^{(i)})_k + f(x^{(j)})_k}$ 被称为 $\chi$ 方相似度。</p>
+
+<p>无论是对于使用 Triplet 损失函数的网络，还是二分类结构，为了减少计算量，可以提前计算好编码输出 $f(x)$ 并保存。这样就不必存储原始图片，并且每次进行人脸识别时只需要计算测试图片的编码输出。</p>
+
+<h2 id="神经风格迁移">神经风格迁移</h2>
+
+<p><strong>神经风格迁移（Neural style transfer）</strong>将参考风格图像的风格“迁移”到另外一张内容图像中，生成具有其特色的图像。</p>
+
+<p><img src="https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Neural-style-transfer.png" alt="Neural-style-transfer" /></p>
+
+<h3 id="深度卷积网络在学什么">深度卷积网络在学什么？</h3>
+
+<p>想要理解如何实现神经风格转换，首先要理解在输入图像数据后，一个深度卷积网络从中都学到了些什么。我们借助可视化来做到这一点。</p>
+
+<p><img src="https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Visualizing-deep-layers.png" alt="Visualizing-deep-layers" /></p>
+
+<p>我们通过遍历所有的训练样本，找出使该层激活函数输出最大的 9 块图像区域。可以看出，浅层的隐藏层通常检测出的是原始图像的边缘、颜色、阴影等简单信息。随着层数的增加，隐藏单元能捕捉的区域更大，学习到的特征也由从边缘到纹理再到具体物体，变得更加复杂。</p>
+
+<p>相关论文：<a href="https://arxiv.org/pdf/1311.2901.pdf">Zeiler and Fergus., 2013, Visualizing and understanding convolutional networks</a></p>
+
+<h3 id="代价函数">代价函数</h3>
+
+<p>神经风格迁移生成图片 G 的代价函数如下：</p>
+
+<p>$$J(G) = \alpha \cdot J_{content}(C, G) + \beta \cdot J_{style}(S, G)$$</p>
+
+<p>其中，$\alpha$、$\beta$ 是用于控制相似度比重的超参数。</p>
+
+<p>神经风格迁移的算法步骤如下：</p>
+
+<ol>
+<li>随机生成图片 G 的所有像素点；</li>
+<li>使用梯度下降算法使代价函数最小化，以不断修正 G 的所有像素点。</li>
+</ol>
+
+<p>相关论文：<a href="https://arxiv.org/pdf/1508.06576v2.pdf">Gatys al., 2015. A neural algorithm of artistic style</a></p>
+
+<h4 id="内容代价函数">内容代价函数</h4>
+
+<p>上述代价函数包含一个内容代价部分和风格代价部分。我们先来讨论内容代价函数 $J_{content}(C, G)$，它表示内容图片 C 和生成图片 G 之间的相似度。</p>
+
+<p>$J_{content}(C, G)$ 的计算过程如下：</p>
+
+<ul>
+<li>使用一个预训练好的 CNN（例如 VGG）；</li>
+<li>选择一个隐藏层 $l$ 来计算内容代价。$l$ 太小则内容图片和生成图片像素级别相似，$l$ 太大则可能只有具体物体级别的相似。因此，$l$ 一般选一个中间层；</li>
+<li>设 $a^{&copy;[l]}$、$a^{(G)[l]}$ 为 C 和 G 在 $l$ 层的激活，则有：</li>
+</ul>
+
+<p>$$J_{content}(C, G) = \frac{1}{2}||(a^{&copy;[l]} - a^{(G)[l]})||^2$$</p>
+
+<p>$a^{&copy;[l]}$ 和 $a^{(G)[l]}$ 越相似，则 $J_{content}(C, G)$ 越小。</p>
+
+<h4 id="风格代价函数">风格代价函数</h4>
+
+<p><img src="https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Intuition-about-style-of-an-image.png" alt="Intuition-about-style-of-an-image" /></p>
+
+<p>每个通道提取图片的特征不同，比如标为红色的通道提取的是图片的垂直纹理特征，标为黄色的通道提取的是图片的橙色背景特征。那么计算这两个通道的相关性，相关性的大小，即表示原始图片既包含了垂直纹理也包含了该橙色背景的可能性大小。通过 CNN，“风格”被定义为同一个隐藏层不同通道之间激活值的相关系数，因其反映了原始图片特征间的相互关系。</p>
+
+<p>对于风格图像 S，选定网络中的第 $l$ 层，则相关系数以一个 gram 矩阵的形式表示：</p>
+
+<p>$$G^{[l](S)}_{kk&rsquo;} = \sum^{n^{[l]}_H}_{i=1} \sum^{n^{[l]}_W}_{j=1} a^{[l](S)}_{ijk} a^{[l](S)}_{ijk&rsquo;}$$</p>
+
+<p>其中，$i$ 和 $j$ 为第 $l$ 层的高度和宽度；$k$ 和 $k&rsquo;$ 为选定的通道，其范围为 $1$ 到 $n_C^{[l]}$；$a^{[l](S)}_{ijk}$ 为激活。</p>
+
+<p>同理，对于生成图像 G，有：</p>
+
+<p>$$G^{[l](G)}_{kk&rsquo;} = \sum^{n^{[l]}_H}_{i=1} \sum^{n^{[l]}_W}_{j=1} a^{[l](G)}_{ijk} a^{[l](G)}_{ijk&rsquo;}$$</p>
+
+<p>因此，第 $l$ 层的风格代价函数为：</p>
+
+<p>$$J^{[l]}_{style}(S, G) = \frac{1}{(2n^{[l]}_Hn^{[l]}_Wn^{[l]}_C)^2} \sum_k \sum_{k&rsquo;}(G^{[l](S)}_{kk&rsquo;} - G^{[l](G)}_{kk&rsquo;})^2$$</p>
+
+<p>如果对各层都使用风格代价函数，效果会更好。因此有：</p>
+
+<p>$$J_{style}(S, G) = \sum_l \lambda^{[l]} J^{[l]}_{style}(S, G)$$</p>
+
+<p>其中，$lambda$ 是用于设置不同层所占权重的超参数。</p>
+
+<h3 id="推广至一维和三维">推广至一维和三维</h3>
+
+<p>之前我们处理的都是二维图片，实际上卷积也可以延伸到一维和三维数据。我们举两个示例来说明。</p>
+
+<p><img src="https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/1D-3D-Convolution.png" alt="1D-3D-Convolution" /></p>
+
+<p>EKG 数据（心电图）是由时间序列对应的每个瞬间的电压组成，是一维数据。一般来说我们会用 RNN（循环神经网络）来处理，不过如果用卷积处理，则有：</p>
+
+<ul>
+<li>输入时间序列维度：14 x 1</li>
+<li>滤波器尺寸：5 x 1，滤波器个数：16</li>
+<li>输出时间序列维度：10 x 16</li>
+</ul>
+
+<p>而对于三维图片的示例，有</p>
+
+<ul>
+<li>输入 3D 图片维度：14 x 14 x 14 x 1</li>
+<li>滤波器尺寸：5 x 5 x 5 x 1，滤波器个数：16</li>
+<li>输出 3D 图片维度：10 x 10 x 10 x 16</li>
+</ul>
+
+          </div>
+
+          
+
+
+
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/courses/deep_learning/object_detect/" rel="next">目标检测</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/courses/deep_learning/cnn/" rel="prev">Foundations of Convolutional Neural Networks</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Jan 4, 2020</p>
+
+          
+
+
+
+
+
+  
+  
+
+<p class="edit-page">
+  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses/deep_learning/transfer.md">
+    <i class="fas fa-pen pr-2"></i>Edit this page
+  </a>
+</p>
+
+
+
+
+          
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js" integrity="sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck=" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

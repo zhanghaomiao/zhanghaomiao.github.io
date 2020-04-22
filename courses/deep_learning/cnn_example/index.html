@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Haomiao Zhang">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="主要包括下面几个
+ LeNet-5 AlexNet VGG ResNet Inception Neural Network  Classical CNN LeNet-5 特点：
+ LeNet-5 针对灰度图像而训练，因此输入图片的通道数为 1。 该模型总共包含了约 6 万个参数，远少于标准神经网络所需。 典型的 LeNet-5 结构包含卷积层（CONV layer），池化层（POOL layer）和全连接层（FC layer），排列顺序一般为 CONV layer-&gt;POOL layer-&gt;CONV layer-&gt;POOL layer-&gt;FC layer-&gt;FC layer-&gt;OUTPUT layer。一个或多个卷积层后面跟着一个池化层的模式至今仍十分常用。 当 LeNet-5模型被提出时，其池化层使用的是平均池化，而且各层激活函数一般选用 Sigmoid 和 tanh。现在，我们可以根据需要，做出改进，使用最大池化并选用 ReLU 作为激活函数  相关论文：LeCun et.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/courses/deep_learning/cnn_example/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/courses/deep_learning/cnn_example/">
+
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Haomiao">
+  <meta property="og:url" content="/courses/deep_learning/cnn_example/">
+  <meta property="og:title" content="Examples of CNN | Haomiao">
+  <meta property="og:description" content="主要包括下面几个
+ LeNet-5 AlexNet VGG ResNet Inception Neural Network  Classical CNN LeNet-5 特点：
+ LeNet-5 针对灰度图像而训练，因此输入图片的通道数为 1。 该模型总共包含了约 6 万个参数，远少于标准神经网络所需。 典型的 LeNet-5 结构包含卷积层（CONV layer），池化层（POOL layer）和全连接层（FC layer），排列顺序一般为 CONV layer-&gt;POOL layer-&gt;CONV layer-&gt;POOL layer-&gt;FC layer-&gt;FC layer-&gt;OUTPUT layer。一个或多个卷积层后面跟着一个池化层的模式至今仍十分常用。 当 LeNet-5模型被提出时，其池化层使用的是平均池化，而且各层激活函数一般选用 Sigmoid 和 tanh。现在，我们可以根据需要，做出改进，使用最大池化并选用 ReLU 作为激活函数  相关论文：LeCun et."><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-01-04T00:00:00&#43;01:00">
+    
+    <meta property="article:modified_time" content="2020-01-04T00:00:00&#43;01:00">
+  
+
+  
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Examples of CNN | Haomiao</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Haomiao</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
+          </a>
+          <div class="dropdown-menu">
+            
+              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
+            
+              <a class="dropdown-item" href="/courses/deep_learning"><span>Deep Learning</span></a>
+            
+              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
+            
+              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
+            
+          </div>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item">
+        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      
+
+
+
+
+
+  
+    
+  
+
+
+
+
+<form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <span><i class="fas fa-bars"></i></span>
+  </button>
+
+  
+  <input name="q" type="search" class="form-control" placeholder="Search..." autocomplete="off">
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+
+  
+  
+  
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/deep_learning/">Overview</a>
+
+  </div>
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/courses/deep_learning/cnn/">Convolutional Neural Networks</a>
+    <ul class="nav docs-sidenav">
+      
+      <li >
+        <a href="/courses/deep_learning/cnn/">Foundations of Convolutional Neural Networks</a>
+      </li>
+      
+      <li class="active">
+        <a href="/courses/deep_learning/cnn_example/">Examples of CNN</a>
+      </li>
+      
+      <li >
+        <a href="/courses/deep_learning/object_detect/">目标检测</a>
+      </li>
+      
+      <li >
+        <a href="/courses/deep_learning/transfer/">人脸识别和风格迁移</a>
+      </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  
+</nav>
+
+    </div>
+
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      <ul class="nav toc-top">
+        <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+      </ul>
+
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#classical-cnn">Classical CNN</a>
+<ul>
+<li><a href="#lenet-5">LeNet-5</a></li>
+<li><a href="#alexnet">AlexNet</a></li>
+<li><a href="#vgg">VGG</a></li>
+</ul></li>
+<li><a href="#resnet">ResNet</a>
+<ul>
+<li><a href="#残差网络有效的原因">残差网络有效的原因</a></li>
+</ul></li>
+<li><a href="#1x1-卷积">1x1 卷积</a></li>
+<li><a href="#inception-网络">Inception 网络</a>
+<ul>
+<li><a href="#计算成本问题">计算成本问题</a></li>
+<li><a href="#完整的-inception-网络">完整的 Inception 网络</a></li>
+</ul></li>
+<li><a href="#使用开源的实现方案">使用开源的实现方案</a></li>
+<li><a href="#迁移学习">迁移学习</a></li>
+<li><a href="#数据扩增">数据扩增</a></li>
+<li><a href="#计算机视觉现状">计算机视觉现状</a></li>
+</ul></li>
+</ul>
+</nav>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article">
+
+        <div class="docs-article-container">
+          <h1>Examples of CNN</h1>
+
+          <div class="article-style">
+            
+
+<p>主要包括下面几个</p>
+
+<ul>
+<li>LeNet-5</li>
+<li>AlexNet</li>
+<li>VGG</li>
+<li>ResNet</li>
+<li>Inception Neural Network</li>
+</ul>
+
+<h2 id="classical-cnn">Classical CNN</h2>
+
+<h3 id="lenet-5">LeNet-5</h3>
+
+<p><img src="/img/cnn/LeNet-5.png" width="700px"/></p>
+
+<p>特点：</p>
+
+<ul>
+<li>LeNet-5 针对灰度图像而训练，因此输入图片的通道数为 1。</li>
+<li>该模型总共包含了约 6 万个参数，远少于标准神经网络所需。</li>
+<li>典型的 LeNet-5 结构包含卷积层（CONV layer），池化层（POOL layer）和全连接层（FC layer），排列顺序一般为 CONV layer-&gt;POOL layer-&gt;CONV layer-&gt;POOL layer-&gt;FC layer-&gt;FC layer-&gt;OUTPUT layer。一个或多个卷积层后面跟着一个池化层的模式至今仍十分常用。</li>
+<li>当 LeNet-5模型被提出时，其池化层使用的是平均池化，而且各层激活函数一般选用 Sigmoid 和 tanh。现在，我们可以根据需要，做出改进，使用最大池化并选用 ReLU 作为激活函数</li>
+</ul>
+
+<p>相关论文：<a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=726791&amp;tag=1">LeCun et.al., 1998. Gradient-based learning applied to document recognition</a></p>
+
+<h3 id="alexnet">AlexNet</h3>
+
+<p><img src="/img/cnn/AlexNet.png" width="700px"/></p>
+
+<ul>
+<li>AlexNet 模型与 LeNet-5 模型类似，但是更复杂，包含约 6000 万个参数。另外，AlexNet 模型使用了 ReLU 函数。</li>
+<li>当用于训练图像和数据集时，AlexNet 能够处理非常相似的基本构造模块，这些模块往往包含大量的隐藏单元或数据。</li>
+</ul>
+
+<p>相关论文：<a href="http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf">Krizhevsky et al.,2012. ImageNet classification with deep convolutional neural networks</a></p>
+
+<h3 id="vgg">VGG</h3>
+
+<p><img src="/img/cnn/VGG.png" width="700px"/></p>
+
+<ul>
+<li>VGG 又称 VGG-16 网络，“16”指网络中包含 16 个卷积层和全连接层。</li>
+<li>超参数较少，只需要专注于构建卷积层。</li>
+<li>结构不复杂且规整，在每一组卷积层进行滤波器翻倍操作。</li>
+<li>VGG 需要训练的特征数量巨大，包含多达约 1.38 亿个参数。</li>
+</ul>
+
+<p>相关论文：<a href="https://arxiv.org/pdf/1409.1556.pdf">Simonvan &amp; Zisserman 2015. Very deep convolutional networks for large-scale image recognition</a>。</p>
+
+<h2 id="resnet">ResNet</h2>
+
+<p>网络越深，容易存在梯度消失问题，使得网络不好训练</p>
+
+<p><img src="/img/cnn/Residual-block.jpg" width="800px"/></p>
+
+<p>上图的结构被称为<strong>残差块（Residual block）</strong>。通过<strong>捷径（Short cut，或者称跳远连接，Skip connections）</strong>可以将 $a^{[l]}$添加到第二个 ReLU 过程中，直接建立 $a^{[l]}$与 $a^{[l+2]}$之间的隔层联系。表达式如下：</p>
+
+<p>$$z^{[l+1]} = W^{[l+1]}a^{[l]} + b^{[l+1]}$$</p>
+
+<p>$$a^{[l+1]} = g(z^{[l+1]})$$</p>
+
+<p>$$z^{[l+2]} = W^{[l+2]}a^{[l+1]} + b^{[l+2]}$$</p>
+
+<p>$$a^{[l+2]} = g(z^{[l+2]} + a^{[l]})$$</p>
+
+<p>构建一个残差网络就是将许多残差块堆积在一起，形成一个深度网络。</p>
+
+<p><img src="/img/cnn/Residual-Network.jpg" width="500px"/></p>
+
+<p>为了便于区分，在 ResNets 的论文<a href="https://arxiv.org/pdf/1512.03385.pdf">He et al., 2015. Deep residual networks for image recognition</a>中，非残差网络被称为<strong>普通网络（Plain Network）</strong>。将它变为残差网络的方法是加上所有的跳远连接。</p>
+
+<p>在理论上，随着网络深度的增加，性能应该越来越好。但实际上，对于一个普通网络，随着神经网络层数增加，训练错误会先减少，然后开始增多。但残差网络的训练效果显示，即使网络再深，其在训练集上的表现也会越来越好。</p>
+
+<p><img src="/img/cnn/ResNet-Training-Error.jpg" width="500px"/></p>
+
+<h3 id="残差网络有效的原因">残差网络有效的原因</h3>
+
+<p>假设有一个大型神经网络，其输入为 $X$，输出为 $a^{[l]}$。给这个神经网络额外增加两层，输出为 $a^{[l+2]}$。将这两层看作一个具有跳远连接的残差块。为了方便说明，假设整个网络中都选用 ReLU 作为激活函数，因此输出的所有激活值都大于等于 0。</p>
+
+<p><img src="/img/cnn/Why-do-residual-networks-work.jpg" alt="Why-do-residual-networks-work" /></p>
+
+<p>则有：</p>
+
+<p>$$
+\begin{equation}
+\begin{split}
+ a^{[l+2]} &amp;= g(z^{[l+2]}+a^{[l]})<br />
+     \\ &amp;= g(W^{[l+2]}a^{[l+1]}+b^{[l+2]}+a^{[l]})
+\end{split}
+\end{equation}
+$$</p>
+
+<p>当发生梯度消失时，$W^{[l+2]}\approx0$，$b^{[l+2]}\approx0$，则有：</p>
+
+<p>$$a^{[l+2]} = g(a^{[l]}) = ReLU(a^{[l]}) = a^{[l]}$$</p>
+
+<p>因此，这两层额外的残差块不会降低网络性能。而如果没有发生梯度消失时，训练得到的非线性关系会使得表现效果进一步提高。</p>
+
+<p>注意，如果 $a^{[l]}$与 $a^{[l+2]}$的维度不同，需要引入矩阵 $W_s$与 $a^{[l]}$相乘，使得二者的维度相匹配。参数矩阵 $W_s$既可以通过模型训练得到，也可以作为固定值，仅使 $a^{[l]}$截断或者补零。</p>
+
+<p><img src="/img/cnn/ResNet-Paper.png" alt="ResNet-Paper" /></p>
+
+<p>上图是论文提供的 CNN 中 ResNet 的一个典型结构。卷积层通常使用 Same 卷积以保持维度相同，而不同类型层之间的连接（例如卷积层和池化层），如果维度不同，则需要引入矩阵 $W_s$。</p>
+
+<h2 id="1x1-卷积">1x1 卷积</h2>
+
+<p>1x1 卷积（1x1 convolution，或称为 Network in Network）指滤波器的尺寸为 1。当通道数为 1 时，1x1 卷积意味着卷积操作等同于乘积操作。</p>
+
+<p><img src="/img/cnn/1x1-Conv-1.png" alt="1x1-Conv-1" /></p>
+
+<p>而当通道数更多时，1x1 卷积的作用实际上类似全连接层的神经网络结构，从而降低（或升高，取决于滤波器组数）数据的维度。</p>
+
+<p>池化能压缩数据的高度（$n_H$）及宽度（$n_W$），而 1×1 卷积能压缩数据的通道数（$n_C$）。在如下图所示的例子中，用 32 个大小为 1×1×192 的滤波器进行卷积，就能使原先数据包含的 192 个通道压缩为 32 个。</p>
+
+<p><img src="/img/cnn/1x1-Conv-2.png" alt="1x1-Conv-2" /></p>
+
+<p>虽然论文<a href="https://arxiv.org/pdf/1312.4400.pdf">Lin et al., 2013. Network in network</a>中关于架构的详细内容并没有得到广泛应用，但是 1x1 卷积的理念十分有影响力，许多神经网络架构（包括 Inception 网络）都受到它的影响。</p>
+
+<h2 id="inception-网络">Inception 网络</h2>
+
+<p>在之前的卷积网络中，我们只能选择单一尺寸和类型的滤波器。而 <strong>Inception 网络的作用</strong>即是代替人工来确定卷积层中的滤波器尺寸与类型，或者确定是否需要创建卷积层或池化层。</p>
+
+<p><img src="/img/cnn/Motivation-for-inception-network.jpg" alt="Motivation-for-inception-network" /></p>
+
+<p>如图，Inception 网络选用不同尺寸的滤波器进行 Same 卷积，并将卷积和池化得到的输出组合拼接起来，最终让网络自己去学习需要的参数和采用的滤波器组合。</p>
+
+<p>相关论文：<a href="https://arxiv.org/pdf/1409.4842.pdf">Szegedy et al., 2014, Going Deeper with Convolutions</a></p>
+
+<h3 id="计算成本问题">计算成本问题</h3>
+
+<p>在提升性能的同时，Inception 网络有着较大的计算成本。下图是一个例子：</p>
+
+<p><img src="/img/cnn/The-problem-of-computational-cost.png" alt="The-problem-of-computational-cost" /></p>
+
+<p>图中有 32 个滤波器，每个滤波器的大小为 5x5x192。输出大小为 28x28x32，所以需要计算 28x28x32 个数字，对于每个数，都要执行 5x5x192 次乘法运算。加法运算次数与乘法运算次数近似相等。因此，可以看作这一层的计算量为 28x28x32x5x5x192 = 1.2亿。</p>
+
+<p>为了解决计算量大的问题，可以引入 1x1 卷积来减少其计算量。</p>
+
+<p><img src="/img/cnn/Using-1x1-convolution.png" alt="Using-1x1-convolution" /></p>
+
+<p>对于同一个例子，我们使用 1x1 卷积把输入数据从 192 个通道减少到 16 个通道，然后对这个较小层运行 5x5 卷积，得到最终输出。这个 1x1 的卷积层通常被称作<strong>瓶颈层（Bottleneck layer）</strong>。</p>
+
+<p>改进后的计算量为 28x28x192x16 + 28x28x32x5x5x15 = 1.24 千万，减少了约 90%。</p>
+
+<p>只要合理构建瓶颈层，就可以既显著缩小计算规模，又不会降低网络性能。</p>
+
+<h3 id="完整的-inception-网络">完整的 Inception 网络</h3>
+
+<p><img src="/img/cnn/Inception-module.jpg" alt="Inception-module" /></p>
+
+<p>上图是引入 1x1 卷积后的 Inception 模块。值得注意的是，为了将所有的输出组合起来，红色的池化层使用 Same 类型的填充（padding）来池化使得输出的宽高不变，通道数也不变。</p>
+
+<p>多个 Inception 模块组成一个完整的 Inception 网络（被称为 GoogLeNet，以向 LeNet 致敬），如下图所示：</p>
+
+<p><img src="/img/cnn/Inception-network.jpg" alt="Inception-network" /></p>
+
+<p>注意黑色椭圆圈出的隐藏层，这些分支都是 Softmax 的输出层，可以用来参与特征的计算及结果预测，起到调整并防止发生过拟合的效果。</p>
+
+<p>经过研究者们的不断发展，Inception 模型的 V2、V3、V4 以及引入残差网络的版本被提出，这些变体都基于 Inception V1 版本的基础思想上。顺便一提，Inception 模型的名字来自电影《盗梦空间》。</p>
+
+<h2 id="使用开源的实现方案">使用开源的实现方案</h2>
+
+<p>很多神经网络复杂细致，并充斥着参数调节的细节问题，因而很难仅通过阅读论文来重现他人的成果。想要搭建一个同样的神经网络，查看开源的实现方案会快很多。</p>
+
+<h2 id="迁移学习">迁移学习</h2>
+
+<p>在“搭建机器学习项目”课程中，<a href="http://kyonhuang.top/Andrew-Ng-Deep-Learning-notes/#/Structuring_Machine_Learning_Projects/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88ML%EF%BC%89%E7%AD%96%E7%95%A5%EF%BC%882%EF%BC%89?id=%e8%bf%81%e7%a7%bb%e5%ad%a6%e4%b9%a0">迁移学习</a>已经被提到过。计算机视觉是一个经常用到迁移学习的领域。在搭建计算机视觉的应用时，相比于从头训练权重，下载别人已经训练好的网络结构的权重，用其做<strong>预训练</strong>，然后转换到自己感兴趣的任务上，有助于加速开发。</p>
+
+<p>对于已训练好的卷积神经网络，可以将所有层都看作是<strong>冻结的</strong>，只需要训练与你的 Softmax 层有关的参数即可。大多数深度学习框架都允许用户指定是否训练特定层的权重。</p>
+
+<p>而冻结的层由于不需要改变和训练，可以看作一个固定函数。可以将这个固定函数存入硬盘，以便后续使用，而不必每次再使用训练集进行训练了。</p>
+
+<p>上述的做法适用于你只有一个较小的数据集。如果你有一个更大的数据集，应该冻结更少的层，然后训练后面的层。越多的数据意味着冻结越少的层，训练更多的层。如果有一个极大的数据集，你可以将开源的网络和它的权重整个当作初始化（代替随机初始化），然后训练整个网络。</p>
+
+<h2 id="数据扩增">数据扩增</h2>
+
+<p>计算机视觉领域的应用都需要大量的数据。当数据不够时，<strong>数据扩增（Data Augmentation）</strong>就有帮助。常用的数据扩增包括镜像翻转、随机裁剪、色彩转换。</p>
+
+<p>其中，色彩转换是对图片的 RGB 通道数值进行随意增加或者减少，改变图片色调。另外，<strong>PCA 颜色增强</strong>指更有针对性地对图片的 RGB 通道进行主成分分析（Principles Components Analysis，PCA），对主要的通道颜色进行增加或减少，可以采用高斯扰动做法来增加有效的样本数量。具体的 PCA 颜色增强做法可以查阅 AlexNet 的相关论文或者开源代码。</p>
+
+<p>在构建大型神经网络的时候，数据扩增和模型训练可以由两个或多个不同的线程并行来实现。</p>
+
+<h2 id="计算机视觉现状">计算机视觉现状</h2>
+
+<p>通常，学习算法有两种知识来源：</p>
+
+<ul>
+<li>被标记的数据</li>
+<li>手工工程</li>
+</ul>
+
+<p><strong>手工工程（Hand-engineering，又称 hacks）</strong>指精心设计的特性、网络体系结构或是系统的其他组件。手工工程是一项非常重要也比较困难的工作。在数据量不多的情况下，手工工程是获得良好表现的最佳方式。正因为数据量不能满足需要，历史上计算机视觉领域更多地依赖于手工工程。近几年数据量急剧增加，因此手工工程量大幅减少。</p>
+
+<p>另外，在模型研究或者竞赛方面，有一些方法能够有助于提升神经网络模型的性能：</p>
+
+<ul>
+<li>集成（Ensembling）：独立地训练几个神经网络，并平均输出它们的输出</li>
+<li>Multi-crop at test time：将数据扩增应用到测试集，对结果进行平均</li>
+</ul>
+
+<p>但是由于这些方法计算和内存成本较大，一般不适用于构建实际的生产项目。</p>
+
+          </div>
+
+          
+
+
+
+          
+          <div class="article-widget">
+            
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/courses/deep_learning/object_detect/" rel="prev">目标检测</a>
+  </div>
+  
+</div>
+
+          </div>
+          
+        </div>
+
+        <div class="body-footer">
+          <p>Last updated on Jan 4, 2020</p>
+
+          
+
+
+
+
+
+  
+  
+
+<p class="edit-page">
+  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses/deep_learning/CNN_example.md">
+    <i class="fas fa-pen pr-2"></i>Edit this page
+  </a>
+</p>
+
+
+
+
+          
+
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js" integrity="sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck=" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
