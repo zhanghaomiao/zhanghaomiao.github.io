@@ -28,10 +28,12 @@
   
     
   
-  <meta name="description" content="Introduction  A set of blocked process each holding some resources and waiting to acquire a resource held by another process in the set Ex1: 2 processes and 2 tape dirves, each process holds a tape drive, each process requests another tape drive Ex2: 2 processes, and semaphores A &amp; B, P1(hold B, wait A): wait(A), signal(B), P2(hold A, wait B): wait(B), signal(A)  Necessary Conditions  Mutual exclustion (only 1 process at a time can use a resource) Hold &amp; Wait: a process holding some resources and is waiting for another resource No preemption: a resource can be only released by a process voluntarily Circular wait: there exist a set {$P_0, P_1, &hellip;, P_n$} of waiting process such that $P_0 \rightarrow P_1 \rightarrow P_2, &hellip; , P_0$ All four conditions must hold for possible deadlock   System Model  Resources type $R_1, R_2, &hellip; , R_m$ E.">
+  <meta name="description" content=" Overview 一般计算机视觉问题包含以下几类:
+ 图像分类(Image classification) 目标检测(Object Detection) 风格转换(Neural Style Transfer)  面临计算机视觉问题时，如何处理图像数据变得很重要，对于一般图片 $1000 \times 1000 \times 3$, 神经网络的输入层将有 $300,000,000$ 数据, 那么网络权重 $W$ 则很大，这会导致两个后果
+ 数据量很少，但是神经网络很复杂，容易出现过拟合 所需要的内存和计算量很大  卷积运算 ">
 
   
-  <link rel="alternate" hreflang="en-us" href="/courses/operating_system/deadlocks/">
+  <link rel="alternate" hreflang="en-us" href="/courses/deep_learning/cnn/">
 
   
 
@@ -216,7 +218,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/courses/operating_system/deadlocks/">
+  <link rel="canonical" href="/courses/deep_learning/cnn/">
 
   
   
@@ -230,15 +232,17 @@
   <meta property="twitter:card" content="summary">
   
   <meta property="og:site_name" content="Haomiao">
-  <meta property="og:url" content="/courses/operating_system/deadlocks/">
-  <meta property="og:title" content="DeadLocks | Haomiao">
-  <meta property="og:description" content="Introduction  A set of blocked process each holding some resources and waiting to acquire a resource held by another process in the set Ex1: 2 processes and 2 tape dirves, each process holds a tape drive, each process requests another tape drive Ex2: 2 processes, and semaphores A &amp; B, P1(hold B, wait A): wait(A), signal(B), P2(hold A, wait B): wait(B), signal(A)  Necessary Conditions  Mutual exclustion (only 1 process at a time can use a resource) Hold &amp; Wait: a process holding some resources and is waiting for another resource No preemption: a resource can be only released by a process voluntarily Circular wait: there exist a set {$P_0, P_1, &hellip;, P_n$} of waiting process such that $P_0 \rightarrow P_1 \rightarrow P_2, &hellip; , P_0$ All four conditions must hold for possible deadlock   System Model  Resources type $R_1, R_2, &hellip; , R_m$ E."><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
+  <meta property="og:url" content="/courses/deep_learning/cnn/">
+  <meta property="og:title" content="Foundations of Convolutional Neural Networks | Haomiao">
+  <meta property="og:description" content=" Overview 一般计算机视觉问题包含以下几类:
+ 图像分类(Image classification) 目标检测(Object Detection) 风格转换(Neural Style Transfer)  面临计算机视觉问题时，如何处理图像数据变得很重要，对于一般图片 $1000 \times 1000 \times 3$, 神经网络的输入层将有 $300,000,000$ 数据, 那么网络权重 $W$ 则很大，这会导致两个后果
+ 数据量很少，但是神经网络很复杂，容易出现过拟合 所需要的内存和计算量很大  卷积运算 "><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
   <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2019-05-05T00:00:00&#43;01:00">
+      <meta property="article:published_time" content="2020-01-04T00:00:00&#43;01:00">
     
-    <meta property="article:modified_time" content="2019-05-05T00:00:00&#43;01:00">
+    <meta property="article:modified_time" content="2020-01-04T00:00:00&#43;01:00">
   
 
   
@@ -257,7 +261,7 @@
 
 
 
-  <title>DeadLocks | Haomiao</title>
+  <title>Foundations of Convolutional Neural Networks | Haomiao</title>
 
 </head>
 
@@ -501,7 +505,7 @@
         <a href="/courses/operating_system/process_synchronization/">Process Synchronization</a>
       </li>
       
-      <li class="active">
+      <li >
         <a href="/courses/operating_system/deadlocks/">DeadLocks</a>
       </li>
       
@@ -530,7 +534,7 @@
     <a class="docs-toc-link" href="/courses/deep_learning/cnn/">Convolutional Neural Networks</a>
     <ul class="nav docs-sidenav">
       
-      <li >
+      <li class="active">
         <a href="/courses/deep_learning/cnn/">Foundations of Convolutional Neural Networks</a>
       </li>
       
@@ -554,25 +558,8 @@
 <ul>
 <li>
 <ul>
-<li><a href="#introduction">Introduction</a>
-<ul>
-<li><a href="#necessary-conditions">Necessary Conditions</a></li>
-</ul></li>
-<li><a href="#system-model">System Model</a>
-<ul>
-<li><a href="#resource-alocation-graph">Resource-Alocation Graph</a></li>
-</ul></li>
-<li><a href="#handing-deadlocks">Handing Deadlocks</a>
-<ul>
-<li><a href="#deadlock-prevention">Deadlock Prevention</a></li>
-<li><a href="#avoidance-algortihm">Avoidance Algortihm</a>
-<ul>
-<li><a href="#resource-allocation-graph-rag-algorithm">Resource-Allocation Graph (RAG) Algorithm</a></li>
-<li><a href="#banker-s-algorithm">Banker&rsquo;s algorithm</a></li>
-</ul></li>
-<li><a href="#deadlock-detection">Deadlock Detection</a></li>
-<li><a href="#deadlock-recovery">Deadlock Recovery</a></li>
-</ul></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#卷积运算">卷积运算</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -586,203 +573,29 @@
       <article class="article">
 
         <div class="docs-article-container">
-          <h1>DeadLocks</h1>
+          <h1>Foundations of Convolutional Neural Networks</h1>
 
           <div class="article-style">
             
 
-<h2 id="introduction">Introduction</h2>
+<h2 id="overview">Overview</h2>
 
-<ul>
-<li>A set of blocked process each holding some resources and waiting to acquire a resource held by another process in the set</li>
-<li>Ex1: 2 processes and 2 tape dirves, each process holds a tape drive, each process requests another tape drive</li>
-<li>Ex2: 2 processes, and semaphores A &amp; B, P1(hold B, wait A): wait(A), signal(B), P2(hold A, wait B): wait(B), signal(A)</li>
-</ul>
-
-<h3 id="necessary-conditions">Necessary Conditions</h3>
-
-<ul>
-<li>Mutual exclustion (only 1 process at a time can use a resource)</li>
-<li>Hold &amp; Wait: a process holding some resources and is waiting for another resource</li>
-<li>No preemption: a resource can be only released by a process voluntarily</li>
-<li>Circular wait: there exist a set {$P_0, P_1, &hellip;, P_n$} of waiting process such that $P_0 \rightarrow P_1 \rightarrow P_2, &hellip; , P_0$</li>
-<li>All four conditions must hold for possible deadlock
-<img src="https://i.loli.net/2019/03/20/5c9194d343ffc.png" width="400px"/></li>
-</ul>
-
-<h2 id="system-model">System Model</h2>
-
-<ul>
-<li>Resources type $R_1, R_2, &hellip; , R_m$ E.g. CPU, memory pages, I/O devices</li>
-<li>Each resource type $R_i$ has $W_i$ instances, E.g. a computer has 2 CPUs</li>
-<li>Each process utilizes a resouce as follows:
-Request $\rightarrow$ use $\rightarrow$ release</li>
-</ul>
-
-<h3 id="resource-alocation-graph">Resource-Alocation Graph</h3>
-
-<ul>
-<li>3 processes, P1-P3</li>
-<li>4 resources, R1-R4 (the black dot represent the number of instance)</li>
-<li>Request edges: P1$\rightarrow$ R1: P1 requests R1</li>
-<li>Assignment edges: R2$\rightarrow$ P1: one instance of R2 is allocated to P1</li>
-<li>P1 is hold on an instance of R2 and waiting for an instance of R1
-<img src="https://i.loli.net/2019/03/20/5c9196704420b.png" width="200px"/></li>
-<li>if the graph consists a cycle, a deadlock may  exist</li>
-<li>deadlock
-<img src="https://i.loli.net/2019/03/20/5c919780cc361.png" width="400px"/></li>
-<li>no deadlock
-<img src="https://i.loli.net/2019/03/20/5c9197d43b55e.png" width="400px"/></li>
-<li>If graph contains no cycle $\rightarrow$ no deadlock</li>
-<li>If graph contains a cype:
-
-<ul>
-<li>if one instance per resource type $\rightarrow$ deadlock</li>
-<li>if multiple instances per resource type $\rightarrow$ possibility of deadlock</li>
-</ul></li>
-</ul>
-
-<h2 id="handing-deadlocks">Handing Deadlocks</h2>
-
-<ul>
-<li>Ensure the system will never a deadlock state
-
-<ul>
-<li>deadlock preventation: ensure that at least one of the 4 necessary conditions cannot hold</li>
-<li>deadlock avoidance: dynamically examines the resource-allocation state before allocation</li>
-</ul></li>
-<li>Allow to enter a deadlock state and then recover
-
-<ul>
-<li>deadlock detection</li>
-<li>dedlock recovery</li>
-</ul></li>
-<li>Ignore the problem and pretend that deadlocks never occur in the system (used by most operating systems, including UNIX)</li>
-</ul>
-
-<h3 id="deadlock-prevention">Deadlock Prevention</h3>
-
-<ul>
-<li>Mutual Exclustion(ME): do not require ME on sharable resources
-
-<ul>
-<li>e.g. there is no needto ensure ME on read-only files</li>
-<li>Some resources are not shareable, however (e.g. printer)</li>
-</ul></li>
-<li>Hold &amp; Wait:
-
-<ul>
-<li>When a process requests a resource, it does not hold any resource</li>
-<li>Pre-allocate all resources before executing (resource utilization is low, starvation is possible)</li>
-</ul></li>
-<li>No preemption
-
-<ul>
-<li>When a process is waiting on a resource, all its holding resources are preempted (e.g. P1 request R1, which is allocated P2, which in turn is waiting on R2, R1 can be preempted and reallocated to P1)</li>
-<li>Applied to resources whose states can be easily saved and restored later (e.g. CPU registers &amp; memory)</li>
-<li>It cannot easily be applied to other resources(e.g. printers &amp; tape drives)</li>
-</ul></li>
-<li>Circular wait
-
-<ul>
-<li>impose a total ordering of all resources types</li>
-<li>A process requests resources in an increasing order</li>
-<li>Let $R = {R_0, R_1, &hellip; , R_N}$ be the set of resource types</li>
-<li>When request $R_k$, should release all $R_i$, $i \geq k$</li>
-</ul></li>
-</ul>
-
-<h3 id="avoidance-algortihm">Avoidance Algortihm</h3>
-
-<ul>
-<li>safe state: a system is in a safe state if there exists a sequence of allocations to satisfy requests by all processes (this sequence of allocations is called safe sequence)</li>
-</ul>
-
-<p><img src="https://i.loli.net/2019/03/20/5c91a399d222f.png" width="400px"/></p>
-
-<ul>
-<li>Single instance of resource type (resource-allocation graph (RAG) algorithm based on circle detection)</li>
-<li>Multiple instance of resource type
-banker&rsquo;s algorithm based on safe sequence detection</li>
-</ul>
-
-<h4 id="resource-allocation-graph-rag-algorithm">Resource-Allocation Graph (RAG) Algorithm</h4>
-
-<ul>
-<li>Request edge</li>
-<li>Assignment edge</li>
-<li>Claim  edge: $P_i \rightarrow R_j$, process $P_i$ may request $R_j$ in the future</li>
-<li>Clain edge converts to request edge (when a resource is requested by process)</li>
-<li>Assignment edge converts back to claim edge (when a resource is released by a process)</li>
-<li>Resources must be claimed a priori in the system</li>
-<li>Grant a request only if no cycle created</li>
-<li>Check for safety using a <strong>cycle-detection algorithm, $O(n^2)$</strong>
-<img src="https://i.loli.net/2019/03/22/5c94686f2a7e4.png" width="250px"/></li>
-<li>R2 cannot be allocated to P2</li>
-</ul>
-
-<h4 id="banker-s-algorithm">Banker&rsquo;s algorithm</h4>
-
-<ul>
-<li>Safe State with Safe Sequnce</li>
-<li>use for multiple instance of each resource type</li>
-<li>use a general safety algorithm to pre-determine if any safe sequence exists after allocation</li>
-<li>only proceed the allocation if safe sequence exists</li>
-<li>Procedures:
+<p>一般计算机视觉问题包含以下几类:</p>
 
 <ol>
-<li>Assume processes need maximum resources</li>
-<li>Find a process that can be satisfied by free resources</li>
-<li>Free the resource usage of the process</li>
-<li>repeat to step 2 until all processes are satisfied</li>
-</ol></li>
-<li>Example
-<img src="https://i.loli.net/2019/03/20/5c91a8e8527a0.png" width="200px"/>
-Safe sequence: $P_1, P_3, P_4, P_2, P_0$
+<li>图像分类(Image classification)</li>
+<li>目标检测(Object Detection)</li>
+<li>风格转换(Neural Style Transfer)</li>
+</ol>
 
-<ul>
-<li>if Request (P1) = (1,0,2): P1 allocation $\rightarrow$ 3, 0, 2 (Safe sequence: $P_1, P_3, P_4, P_0, P_2$)</li>
-<li>if request (P4) = (3,3,0): P4 allocation  $\rightarrow$ 3,3,2 (no safe sequence can be found)</li>
-</ul></li>
-</ul>
+<p>面临计算机视觉问题时，如何处理图像数据变得很重要，对于一般图片 $1000 \times 1000 \times 3$, 神经网络的输入层将有 $300,000,000$ 数据, 那么网络权重 $W$ 则很大，这会导致两个后果</p>
 
-<h3 id="deadlock-detection">Deadlock Detection</h3>
+<ol>
+<li>数据量很少，但是神经网络很复杂，容易出现过拟合</li>
+<li>所需要的内存和计算量很大</li>
+</ol>
 
-<ul>
-<li>Single instance of each resource type
-
-<ul>
-<li>convert request/assignment edges into wait-for graph</li>
-<li>deadlock exists if there is a cycle in the wait-for graph
-<img src="https://i.loli.net/2019/03/20/5c91aa599dca0.png" width="400px"/></li>
-</ul></li>
-<li>Multiple-Instance for each Resource type
-Total instances: A(7), B(2), C(6) (Request 表示已经发生)
-<img src="https://i.loli.net/2019/03/20/5c91aae734f68.png" width="400px"/>
-
-<ul>
-<li>The system is in a safe state $\rightarrow$ <P_0, P_2, P_3, P_1, P_4> (no deadlock)</li>
-<li>If P2 request = <0, 0, 1> $\rightarrow$ no safe sequence can be found $\rightarrow$ the system is deadlocked</li>
-</ul></li>
-</ul>
-
-<h3 id="deadlock-recovery">Deadlock Recovery</h3>
-
-<ul>
-<li>process termination
-
-<ul>
-<li>abort all deadlocked processes</li>
-<li>abort 1 process at a time until the deadlock cyle is eliminated (which process should we abort first)</li>
-</ul></li>
-<li>Resource preemption
-
-<ul>
-<li>select a victim: which one to preempt</li>
-<li>rollback: partial rollback or total rollback?</li>
-<li>starvation: can the same process be preempted always?</li>
-</ul></li>
-</ul>
+<h2 id="卷积运算">卷积运算</h2>
 
           </div>
 
@@ -796,19 +609,6 @@ Total instances: A(7), B(2), C(6) (Request 表示已经发生)
 <div class="post-nav">
   
   
-  
-  <div class="post-nav-item">
-    <div class="meta-nav">Previous</div>
-    <a href="/courses/operating_system/process_synchronization/" rel="next">Process Synchronization</a>
-  </div>
-  
-  
-  
-  <div class="post-nav-item">
-    <div class="meta-nav">Next</div>
-    <a href="/courses/operating_system/file_system_interface/" rel="prev">File System Interface</a>
-  </div>
-  
 </div>
 
           </div>
@@ -816,7 +616,7 @@ Total instances: A(7), B(2), C(6) (Request 表示已经发生)
         </div>
 
         <div class="body-footer">
-          <p>Last updated on May 5, 2019</p>
+          <p>Last updated on Jan 4, 2020</p>
 
           
 
@@ -828,7 +628,7 @@ Total instances: A(7), B(2), C(6) (Request 表示已经发生)
   
 
 <p class="edit-page">
-  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses/operating_system/deadlocks.md">
+  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses/deep_learning/CNN.md">
     <i class="fas fa-pen pr-2"></i>Edit this page
   </a>
 </p>

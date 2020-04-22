@@ -5,12 +5,40 @@
     <link>/courses/deep_learning/</link>
       <atom:link href="/courses/deep_learning/index.xml" rel="self" type="application/rss+xml" />
     <description>Overview</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 09 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
       <title>Overview</title>
       <link>/courses/deep_learning/</link>
     </image>
+    
+    <item>
+      <title>Foundations of Convolutional Neural Networks</title>
+      <link>/courses/deep_learning/cnn/</link>
+      <pubDate>Sat, 04 Jan 2020 00:00:00 +0100</pubDate>
+      <guid>/courses/deep_learning/cnn/</guid>
+      <description>
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;一般计算机视觉问题包含以下几类:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;图像分类(Image classification)&lt;/li&gt;
+&lt;li&gt;目标检测(Object Detection)&lt;/li&gt;
+&lt;li&gt;风格转换(Neural Style Transfer)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;面临计算机视觉问题时，如何处理图像数据变得很重要，对于一般图片 $1000 \times 1000 \times 3$, 神经网络的输入层将有 $300,000,000$ 数据, 那么网络权重 $W$ 则很大，这会导致两个后果&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;数据量很少，但是神经网络很复杂，容易出现过拟合&lt;/li&gt;
+&lt;li&gt;所需要的内存和计算量很大&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;卷积运算&#34;&gt;卷积运算&lt;/h2&gt;
+</description>
+    </item>
     
   </channel>
 </rss>
