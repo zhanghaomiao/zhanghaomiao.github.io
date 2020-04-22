@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Overview | Haomiao</title>
+    <link>/courses/parallel_computing/</link>
+      <atom:link href="/courses/parallel_computing/index.xml" rel="self" type="application/rss+xml" />
+    <description>Overview</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 09 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
+      <title>Overview</title>
+      <link>/courses/parallel_computing/</link>
+    </image>
+    
+    <item>
+      <title>Introduction</title>
+      <link>/courses/parallel_computing/introduction/</link>
+      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
+      <guid>/courses/parallel_computing/introduction/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

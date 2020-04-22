@@ -23,6 +23,11 @@
   </url>
   
   <url>
+    <loc>/courses/deep_learning/</loc>
+    <lastmod>2019-09-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/courses/operating_system/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
   </url>
@@ -45,6 +50,11 @@
   <url>
     <loc>/courses/operating_system/virtual_memory/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/courses/parallel_computing/</loc>
+    <lastmod>2019-05-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -79,6 +89,11 @@
   
   <url>
     <loc>/courses/operating_system/file_system_implementatin/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/courses/parallel_computing/introduction/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url>
   
@@ -129,6 +144,11 @@
   
   <url>
     <loc>/tags/math/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/ml/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2019-10-01T00:00:00+00:00</lastmod>
   </url>
   
