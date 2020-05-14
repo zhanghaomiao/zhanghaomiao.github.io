@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/courses/deep_learning/cnn/</loc>
+    <lastmod>2020-01-04T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/courses/deep_learning/</loc>
     <lastmod>2020-01-09T00:00:00+00:00</lastmod>
   </url>
@@ -123,27 +128,47 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2020-03-22T00:00:00+00:00</lastmod>
+    <loc>/tags/algorithm/</loc>
+    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/computer/</loc>
-    <lastmod>2020-03-22T00:00:00+00:00</lastmod>
+    <loc>/categories/</loc>
+    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/</loc>
-    <lastmod>2020-03-22T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/learn/</loc>
-    <lastmod>2020-03-22T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
+    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/sampling/</loc>
+    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/reservior_sampling/</loc>
+    <lastmod>2020-05-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/computer/</loc>
     <lastmod>2020-03-22T00:00:00+00:00</lastmod>
   </url>
   
@@ -158,18 +183,8 @@
   </url>
   
   <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-03-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/post/image_latex_app/</loc>
     <lastmod>2020-03-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/courses/deep_learning/cnn/</loc>
-    <lastmod>2020-01-04T00:00:00+01:00</lastmod>
   </url>
   
   <url>
