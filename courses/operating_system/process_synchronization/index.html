@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!DOCTYPE html><html lang="en-us" >
 
 <head>
 
@@ -12,6 +11,9 @@
 
   
   
+
+  
+  
   
   
   
@@ -21,7 +23,7 @@
   
   
 
-  <meta name="author" content="Haomiao Zhang">
+  
 
   
   
@@ -53,8 +55,8 @@
   
   
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
 
     
@@ -65,8 +67,8 @@
     
       
       
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
       
     
 
@@ -77,6 +79,13 @@
     
 
     
+    
+      
+
+      
+      
+
+      
     
       
 
@@ -193,7 +202,11 @@
   
   
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
   
 
   
@@ -211,6 +224,9 @@
 
 
   
+  
+
+  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
@@ -218,6 +234,8 @@
 
   <link rel="canonical" href="/courses/operating_system/process_synchronization/">
 
+  
+  
   
   
   
@@ -232,8 +250,8 @@
   <meta property="og:site_name" content="Haomiao">
   <meta property="og:url" content="/courses/operating_system/process_synchronization/">
   <meta property="og:title" content="Process Synchronization | Haomiao">
-  <meta property="og:description" content="Background  Concurrent access to shared data may result in data inconsistency Maintaining data consistency requires mechanism to ensure the orderly execution of cooperating processes Consumer &amp; Producer Problem Race condition: the situation where several processes access and manipulate shared data concurrenlty."><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
-  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  <meta property="og:description" content="Background  Concurrent access to shared data may result in data inconsistency Maintaining data consistency requires mechanism to ensure the orderly execution of cooperating processes Consumer &amp; Producer Problem Race condition: the situation where several processes access and manipulate shared data concurrenlty."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2019-05-05T00:00:00&#43;01:00">
@@ -261,7 +279,8 @@
 
 </head>
 
-<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class=" ">
 
   <aside class="search-results" id="search">
   <div class="container">
@@ -279,7 +298,7 @@
       <div id="search-box">
         
         <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
-        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
         
       </div>
 
@@ -296,6 +315,11 @@
 
 
   
+
+
+
+
+
 
 
 
@@ -413,13 +437,26 @@
     <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
       
       <li class="nav-item">
-        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
       </li>
       
 
       
-      <li class="nav-item">
-        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
       </li>
       
 
@@ -429,6 +466,7 @@
 
   </div>
 </nav>
+
 
 
   
@@ -540,53 +578,52 @@
       </ul>
 
       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#background">Background</a>
-<ul>
-<li><a href="#crtical-section">Crtical Section</a></li>
-</ul></li>
-<li><a href="#solution">Solution</a>
-<ul>
-<li><a href="#algorithm-for-two-processes">Algorithm for two Processes</a></li>
-<li><a href="#peterson-s-solution-for-two-processes">Peterson&rsquo;s solution for Two processes</a></li>
-<li><a href="#bakery-algorithm-n-processes">Bakery Algorithm (n processes)</a></li>
-<li><a href="#pthread-lock-mutex-routines">Pthread Lock/Mutex Routines</a></li>
-<li><a href="#condition-variables-cv">Condition Variables (CV)</a></li>
-<li><a href="#threadpool-implementation">ThreadPool Implementation</a></li>
-<li><a href="#hardware-support">Hardware Support</a>
-<ul>
-<li><a href="#atomic-testandset">Atomic TestAndSet()</a></li>
-<li><a href="#atomic-swap">Atomic Swap()</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#semaphores">Semaphores</a>
-<ul>
-<li><a href="#n-process-critical-section-problem">n-Process Critical Section Problem</a></li>
-<li><a href="#non-busy-waiting-implementation">Non-busy waiting Implementation</a></li>
-<li><a href="#semaphore-with-critical-section">Semaphore with Critical Section</a></li>
-</ul></li>
-<li><a href="#classical-synchronization-problems">Classical Synchronization Problems</a>
-<ul>
-<li><a href="#bounded-buffer-problem">Bounded-Buffer Problem</a></li>
-<li><a href="#readers-writers-problem">Readers-Writers Problem</a></li>
-<li><a href="#dining-philosopher-problem">Dining-Philosopher Problem</a></li>
-</ul></li>
-<li><a href="#monitors-a-high-level-language-construct">Monitors (A high-level language construct)</a>
-<ul>
-<li><a href="#motivation">Motivation</a></li>
-<li><a href="#monitor-introduction">Monitor introduction</a></li>
-<li><a href="#dining-philosophers-example">Dining-Philosophers Example</a></li>
-<li><a href="#synchronized-tools-in-java">Synchronized Tools in JAVA</a></li>
-</ul></li>
-<li><a href="#atomic-transactions">Atomic Transactions</a>
-<ul>
-<li><a href="#file-i-o-example">File I/O example</a></li>
-<li><a href="#log-based-recovery">Log-Based Recovery</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#background">Background</a>
+      <ul>
+        <li><a href="#crtical-section">Crtical Section</a></li>
+      </ul>
+    </li>
+    <li><a href="#solution">Solution</a>
+      <ul>
+        <li><a href="#algorithm-for-two-processes">Algorithm for two Processes</a></li>
+        <li><a href="#petersons-solution-for-two-processes">Peterson&rsquo;s solution for Two processes</a></li>
+        <li><a href="#bakery-algorithm-n-processes">Bakery Algorithm (n processes)</a></li>
+        <li><a href="#pthread-lockmutex-routines">Pthread Lock/Mutex Routines</a></li>
+        <li><a href="#condition-variables-cv">Condition Variables (CV)</a></li>
+        <li><a href="#threadpool-implementation">ThreadPool Implementation</a></li>
+        <li><a href="#hardware-support">Hardware Support</a></li>
+      </ul>
+    </li>
+    <li><a href="#semaphores">Semaphores</a>
+      <ul>
+        <li><a href="#n-process-critical-section-problem">n-Process Critical Section Problem</a></li>
+        <li><a href="#non-busy-waiting-implementation">Non-busy waiting Implementation</a></li>
+        <li><a href="#semaphore-with-critical-section">Semaphore with Critical Section</a></li>
+      </ul>
+    </li>
+    <li><a href="#classical-synchronization-problems">Classical Synchronization Problems</a>
+      <ul>
+        <li><a href="#bounded-buffer-problem">Bounded-Buffer Problem</a></li>
+        <li><a href="#readers-writers-problem">Readers-Writers Problem</a></li>
+        <li><a href="#dining-philosopher-problem">Dining-Philosopher Problem</a></li>
+      </ul>
+    </li>
+    <li><a href="#monitors-a-high-level-language-construct">Monitors (A high-level language construct)</a>
+      <ul>
+        <li><a href="#motivation">Motivation</a></li>
+        <li><a href="#monitor-introduction">Monitor introduction</a></li>
+        <li><a href="#dining-philosophers-example">Dining-Philosophers Example</a></li>
+        <li><a href="#synchronized-tools-in-java">Synchronized Tools in JAVA</a></li>
+      </ul>
+    </li>
+    <li><a href="#atomic-transactions">Atomic Transactions</a>
+      <ul>
+        <li><a href="#file-io-example">File I/O example</a></li>
+        <li><a href="#log-based-recovery">Log-Based Recovery</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
 
       
@@ -601,10 +638,7 @@
           <h1>Process Synchronization</h1>
 
           <div class="article-style">
-            
-
-<h2 id="background">Background</h2>
-
+            <h2 id="background">Background</h2>
 <ul>
 <li>Concurrent access to shared data may result in data inconsistency</li>
 <li>Maintaining data consistency requires mechanism to ensure the orderly execution of cooperating processes</li>
@@ -612,79 +646,76 @@
 <li>Race condition: the situation where several processes access and manipulate shared data concurrenlty. The final value of the shared data depends upon which process finishes last, commonly described as <strong>critical sectio</strong>n problem</li>
 <li>To prevent race condition, concurrent processes must be synchronized, on a single-process machine, we could disable interrupt or use non-preemptive CPU scheduling</li>
 </ul>
-
 <h3 id="crtical-section">Crtical Section</h3>
-
 <ul>
 <li>Purpose: a protocal for processes to cooperate</li>
 <li>Probelm description:
-
 <ul>
 <li>N process are competing use some shared data</li>
 <li>Each process has a code segment, called critical selection, in which the shared data is accessed</li>
 <li>Ensure that when one process is executing in its critical section, no other process is allowed to execute in its critical selection  $\rightarrow$ <strong>mutually exclusive</strong></li>
-</ul></li>
+</ul>
+</li>
 <li>Critical Section Requirements
-
 <ol>
 <li><strong>Mutual Exclusion:</strong> if process P in executing in its CS, no other processes can be executing in their CS</li>
 <li><strong>Progress</strong>: if no process is executing in its CS and there exist some processes that wish to enter their CS, these processes cannot be postponed indefinitely</li>
 <li><strong>Bounded Waiting</strong>: A bound must exist on the number of times that other processes are allowed to enter their CS after a process has made a request to enter its CS</li>
-</ol></li>
+</ol>
+</li>
 </ul>
-
 <h2 id="solution">Solution</h2>
-
 <h3 id="algorithm-for-two-processes">Algorithm for two Processes</h3>
-
 <ul>
 <li>only 2 processes, $P_0$ and $P_1$</li>
 <li>Shared variables
-
 <ul>
 <li>int turn; // initially turn = 0</li>
 <li>turn = i $\rightarrow$ $P_i$ can enter its critical section
 <img src="https://i.loli.net/2019/03/18/5c8f267ace3ce.png" width="400px"/></li>
 <li>Mutual exclustion (yes); Progress (No); Bounded-Wait(Yes)</li>
-</ul></li>
 </ul>
-
-<h3 id="peterson-s-solution-for-two-processes">Peterson&rsquo;s solution for Two processes</h3>
-
+</li>
+</ul>
+<h3 id="petersons-solution-for-two-processes">Peterson&rsquo;s solution for Two processes</h3>
 <ul>
-<li>shared variables
-
+<li>
+<p>shared variables</p>
 <ul>
 <li>int turn, initially turn =0</li>
 <li>turn = i $\rightarrow$ $P_i$ can enter its critical section</li>
 <li><code>boolean flag[2]</code> // initially flag[0] = flag[1] = false</li>
 <li><code>flag[I] = true</code> $\rightarrow$ $P_i$ ready to enter its critical section</li>
 <li>Mutual Selection, progress, bounded waiting proof</li>
-</ul></li>
-
-<li><p>Example</p>
-
-<pre><code class="language-C">do {
-  flag[i] = TRUE; // Pi 是否想要进去
-  turn = j; // 先把key交给对方
-  while (flag[j] &amp;&amp; turn == j);
-  // critical section
-  flag[i] = FALSE;
-  remainder section
-} while(1);
-</code></pre></li>
 </ul>
-
+</li>
+<li>
+<p>Example</p>
+<pre><code class="language-C">do {
+    flag[i] = TRUE; // Pi 是否想要进去
+    turn = j; // 先把key交给对方
+    while (flag[j] &amp;&amp; turn == j);
+    // critical section
+    flag[i] = FALSE;
+    remainder section
+} while(1);
+</code></pre>
+</li>
+</ul>
 <h3 id="bakery-algorithm-n-processes">Bakery Algorithm (n processes)</h3>
-
 <ul>
-<li>Before enter its CS, each process receives a number</li>
-<li>Holder of the smallest number enters CS</li>
-<li>The numbering scheme always generates number in non-decreasing order; i.e. 1,2,3,3,4,5,5,5</li>
-
-<li><p>if processes $P_i$ and $P_j$ receive the same numbe, if $i&lt;j$ then $P_i$ is served first
+<li>
+<p>Before enter its CS, each process receives a number</p>
+</li>
+<li>
+<p>Holder of the smallest number enters CS</p>
+</li>
+<li>
+<p>The numbering scheme always generates number in non-decreasing order; i.e. 1,2,3,3,4,5,5,5</p>
+</li>
+<li>
+<p>if processes $P_i$ and $P_j$ receive the same numbe, if $i&lt;j$ then $P_i$ is served first
 Bounded-waiting because processes enter CS on a First-come, First Served basis</p>
-
 <pre><code class="language-C">// process i:
 do {
   choosing[i] = TRUE;
@@ -698,75 +729,73 @@ do {
   num[i] = 0;
   // reminder section
 }while(1);
-</code></pre></li>
+</code></pre>
+</li>
 </ul>
-
-<h3 id="pthread-lock-mutex-routines">Pthread Lock/Mutex Routines</h3>
-
+<h3 id="pthread-lockmutex-routines">Pthread Lock/Mutex Routines</h3>
 <ul>
 <li>To use mutex, it must be declared as type <code>pthread_mutex_t</code> and initialized with <code>pthread()_mutex_init()</code></li>
 <li>A mutex is destoryed with <code>pthread_mutex_destory()</code></li>
 <li>A critical selection can then be protected using <code>pthread_mutex_lock()</code> and <code>pthread_mutex_unlock()</code></li>
 </ul>
-
 <h3 id="condition-variables-cv">Condition Variables (CV)</h3>
-
 <ul>
 <li>CV represent some condition that a thread can:
-
 <ul>
 <li>Wait on, until the condition occurs; or</li>
 <li>Notify other waiting threads that the condition has occured</li>
-</ul></li>
+</ul>
+</li>
 <li>Three operations on condition variables:
-
 <ul>
 <li><code>wait()</code> — Block until another thread calls <code>signal()</code> or <code>broadcast()</code> on the CV</li>
 <li><code>signal()</code> — Wake up one thread waiting on the CV</li>
 <li><code>broadcast()</code> — Wake up all threads waiting on the CV</li>
-</ul></li>
+</ul>
+</li>
 <li>All condition variable operation must be performed while a mutex is locked</li>
 <li>In Pthread, CV type is pthread_cond_t
-
 <ul>
 <li>Use <code>pthread_cond_init()</code> to initalize</li>
 <li><code>pthread_cond_wait(&amp;theCV, &amp;somelock)</code></li>
 <li><code>pthread_cond_signal(&amp;theCV)</code></li>
 <li><code>pthread_cond_broadcast(&amp;theCV)</code></li>
-</ul></li>
+</ul>
+</li>
 <li>Example:
-
 <ul>
 <li>A thread is designed to take action when x = 0</li>
 <li>Another thread is responsible for decrementing the counter</li>
 <li>All condition variable operation must be performed while a mutex is locked
 <img src="https://i.loli.net/2019/03/22/5c94451f9362f.png" width="400px"/></li>
-</ul></li>
+</ul>
+</li>
 <li>Procedure
-
 <ul>
-<li>left thread</li>
+<li>left thread
+<ol>
 <li>Lock mutex</li>
 <li>Wait()
-
 <ol>
 <li>Put the thread into sleep and releases the lock</li>
 <li>Waked up, but the thread is locked</li>
 <li>Re-acquire lock and resume execution</li>
-</ol></li>
+</ol>
+</li>
 <li>Release the lock</li>
+</ol>
+</li>
 <li>right thread
-
 <ol>
 <li>Lock mutex</li>
 <li>Signal()</li>
 <li>Release the lock()</li>
-</ol></li>
-</ul></li>
+</ol>
+</li>
 </ul>
-
+</li>
+</ul>
 <h3 id="threadpool-implementation">ThreadPool Implementation</h3>
-
 <pre><code class="language-C">  struct threadpool_t {
     pthread_mutex_t lock;
     pthread_cond_t notify;
@@ -814,54 +843,49 @@ static void *threadpool_thread(void *threadpool)
 }
 
 </code></pre>
-
 <h3 id="hardware-support">Hardware Support</h3>
-
 <ul>
 <li>The CS problem occurs because the modification of a shared variable may be interrupted</li>
 <li>If disable interrupts when in CS,  not feasible in multiprocessor machine, clock interrupts cannot fire in any machine</li>
 <li>HW support solution: atomic instruction
-
 <ul>
 <li>atomic: as one uninterruptible unit</li>
 <li>Examples: TestAndSet(var), Swap(a, b)</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h4 id="atomic-testandset">Atomic TestAndSet()</h4>
-
-<pre><code class="language-C">  booelean TestAndSet(bool &amp;lock) {
-    bool value = lock;
-    lock = TRUE; // return the value of &quot;lock&quot; and set &quot;lock&quot; to ture
-    return value;
-  }
+<pre><code class="language-C">booelean TestAndSet(bool &amp;lock) {
+  bool value = lock;
+  lock = TRUE; // return the value of &quot;lock&quot; and set &quot;lock&quot; to ture
+  return value;
+}
 </code></pre>
-
-<p><img src="https://i.loli.net/2019/03/18/5c8f386e68d10.png" width="400px"/>
- Mutual Exclusion (Yes), Progress(Yes), Bounded-Wait(No)</p>
-
+  <img src="https://i.loli.net/2019/03/18/5c8f386e68d10.png" width="400px"/>
+ Mutual Exclusion (Yes), Progress(Yes), Bounded-Wait(No)
 <h4 id="atomic-swap">Atomic Swap()</h4>
-
 <ul>
 <li>Idea: enter CS if <code>lock=false</code></li>
 <li>Shared data: boolean lock; //initially <code>lock=FALSE</code>
 <img src="https://i.loli.net/2019/03/18/5c8f398d3e9f6.png" width="400px"/></li>
 </ul>
-
 <h2 id="semaphores">Semaphores</h2>
-
 <ul>
-<li>A tool to generalize the synchronization problem (easier to solve, but no guarantee for correctness)</li>
-<li>A record of how many units of a particular resource are available
-
+<li>
+<p>A tool to generalize the synchronization problem (easier to solve, but no guarantee for correctness)</p>
+</li>
+<li>
+<p>A record of how many units of a particular resource are available</p>
 <ul>
 <li>if #record = 1 $\rightarrow$ binary semaphore, mutex lock</li>
 <li>if #record &gt; 1 $\rightarrow$ counting semaphore</li>
-</ul></li>
-<li>Accessed only through 2 <strong>atomic</strong> ops: <code>wait</code> &amp; <code>signal</code></li>
-
-<li><p><strong>Spinlock</strong> implementation (浪费CPU资源)</p>
-
+</ul>
+</li>
+<li>
+<p>Accessed only through 2 <strong>atomic</strong> ops: <code>wait</code> &amp; <code>signal</code></p>
+</li>
+<li>
+<p><strong>Spinlock</strong> implementation (浪费CPU资源)</p>
 <pre><code class="language-C">wait(S) {
   while (S&lt;=0);
   S--;
@@ -869,230 +893,211 @@ static void *threadpool_thread(void *threadpool)
 signal(S){
   S++;
 }
-</code></pre></li>
-
-<li><p>POSIX Semaphore (OS support)
-Semaphore is part of POSIX standard but it is not belong to Pthread, it can be used with or without thread</p></li>
-
-<li><p>POSIX Semaphore routines</p>
-
+</code></pre>
+</li>
+<li>
+<p>POSIX Semaphore (OS support)
+Semaphore is part of POSIX standard but it is not belong to Pthread, it can be used with or without thread</p>
+</li>
+<li>
+<p>POSIX Semaphore routines</p>
 <ul>
 <li><code>sem_init(sem_t *sem, int pshared, unsigned int value)</code></li>
 <li><code>sem_wait(sem_t *sem)</code></li>
 <li><code>sem_post(sem_t *sem)</code></li>
 <li><code>sem_getvalue(sem_t *sem, int *valptr)</code></li>
 <li><code>sem_destory(sem_t *sem)</code></li>
-</ul></li>
-
-<li><p>Example</p>
-
-<pre><code class="language-C">#include&lt;semaphore.h&gt;
-sem_t sem;
-sem_init(&amp;sem);
-sem_wait(&amp;sem);
-// critical section
-sem_post(&amp;sem);
-sem_destory(&amp;sem);
-</code></pre></li>
 </ul>
-
+</li>
+<li>
+<p>Example</p>
+</li>
+</ul>
+<pre><code class="language-C">  #include&lt;semaphore.h&gt;
+  sem_t sem;
+  sem_init(&amp;sem);
+  sem_wait(&amp;sem);
+// critical section
+  sem_post(&amp;sem);
+  sem_destory(&amp;sem);
+</code></pre>
 <h3 id="n-process-critical-section-problem">n-Process Critical Section Problem</h3>
-
 <ul>
 <li>shared data: semaphore mutex; // initially mutex = 1</li>
-
-<li><p>Process Pi</p>
-
-<pre><code class="language-C">do {
-wait(mutex); // pthread_mutex_lock(&amp;mutex)
-  critical section
-signal(mutex); // pthread_mutex_unlock(&amp;mutex)
-  remainder section
-} while(1);
-Progress? Yes
-Bounded waiting? Depends on the implementation of `wait()`
-</code></pre></li>
+<li>Process Pi</li>
 </ul>
-
+<pre><code class="language-C">  do {
+    wait(mutex); // pthread_mutex_lock(&amp;mutex)
+      critical section
+    signal(mutex); // pthread_mutex_unlock(&amp;mutex)
+      remainder section
+  } while(1);
+  Progress? Yes
+  Bounded waiting? Depends on the implementation of `wait()`
+</code></pre>
 <h3 id="non-busy-waiting-implementation">Non-busy waiting Implementation</h3>
-
 <ul>
-<li><p>Semaphore is data struct with a queue, may be any queuing strategy</p>
-
-<pre><code class="language-C">typedef struct {
-  int value; // init to 0
-  struct process *L // queue
-} semaphore
-</code></pre></li>
-
-<li><p>wait() and signal()</p>
-
+<li>
+<p>Semaphore is data struct with a queue, may be any queuing strategy</p>
+<pre><code class="language-C">  typedef struct {
+    int value; // init to 0
+    struct process *L // queue
+  } semaphore
+</code></pre>
+</li>
+<li>
+<p>wait() and signal()</p>
 <ul>
 <li>use system calls: <code>block()</code> and <code>wakeup()</code></li>
 <li>must be executed atomically</li>
-<li>Ensure atomic wait &amp; signal ops?</li>
-<li>Single-process: disable interrupts</li>
-
-<li><p>Multi-processor: 1. HW support 2. SW solution(Peterson&rsquo;s solution, Bakery algorithm)</p>
-
+<li>Ensure atomic wait &amp; signal ops?
+<ul>
+<li>
+<p>Single-process: disable interrupts</p>
+</li>
+<li>
+<p>Multi-processor: 1. HW support 2. SW solution(Peterson&rsquo;s solution, Bakery algorithm)</p>
 <pre><code class="language-C">void wait(semaphore S)
 {
-S.value--;
-if(S.value &lt; 0){
-  add this process to S.L
-  sleep();
-}
+  S.value--;
+  if(S.value &lt; 0){
+    add this process to S.L
+    sleep();
+  }
 }
 
 void signal(semaphore S) {
-S.value++;
-if(S.value&lt;=0){
-  remove a process P from S.L;
-  wakeup(P);
+  S.value++;
+  if(S.value&lt;=0){
+    remove a process P from S.L;
+    wakeup(P);
+  }
 }
-}
-</code></pre></li>
-</ul></li>
+</code></pre>
+</li>
 </ul>
-
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="semaphore-with-critical-section">Semaphore with Critical Section</h3>
-
-<p><img src="https://i.loli.net/2019/03/22/5c9460c709cdd.png" width="400px"/></p>
-
+<img src="https://i.loli.net/2019/03/22/5c9460c709cdd.png" width="400px"/>
 <h2 id="classical-synchronization-problems">Classical Synchronization Problems</h2>
-
 <ul>
 <li>Purpose: Used for testing newly proposed synchronization scheme</li>
 <li>Bounded-Buffer (Producer-Consumer)</li>
 <li>Reader-Writer Problem</li>
 <li>Dining-Philosopher Problem</li>
 </ul>
-
 <h3 id="bounded-buffer-problem">Bounded-Buffer Problem</h3>
-
 <p>A poof of n buffers, each capable of holding one item</p>
-
 <ul>
 <li>Producer:
-
 <ul>
 <li>Grad an empty buffer</li>
 <li>place an item into the buffer</li>
 <li>waits if no empty buffer is available</li>
-</ul></li>
+</ul>
+</li>
 <li>Consumer
-
 <ul>
 <li>grab a buffer and retracts the item</li>
 <li>place the buffer back to the free poll</li>
 <li>waits if all buffers are empty</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h3 id="readers-writers-problem">Readers-Writers Problem</h3>
-
 <ul>
 <li>A set of shared data objects</li>
 <li>A group of processes (reader processes, writer processes, a writer process has exclusive access to a shared object)</li>
 <li>Different variations involving priority
-
 <ul>
 <li><strong>first RW problem</strong>: no reader will be kept waiting unless a writer is updating a shared object (writer会starvation)</li>
 <li><strong>second RW problem</strong>: once a writer is ready, it performs the updates as soon as the shared object is released (writer has higher priority than reader; once a writer is ready, no new reader may start reading)</li>
-</ul></li>
-
-<li><p>First Reader-Writer Algorithm</p>
-
-<pre><code class="language-C">// mutual exclustion for write
-semaphore wrt = 1;
-semaphore mutex = 1;
-int readcount = 0;
-
-Writer() {
-while(TRUE) {
-  wait(wrt);
-  // Writer Code
-  signal(wrt);
-}
-}
-
-Reader() {
-while(TRUE) {
-  wait(mutex);
-    readcount++;
-    if(readcount==1) // 之后的 Reader 不需要拿lock
-      wait(wrt);
-  signal(mutex);
-  // Reader Code
-  wait(mutex);
-    readcount--;
-    if(readcount == 0)
-      signal(wrt);
-  signal(mutex);
-}
-}
-</code></pre></li>
 </ul>
+</li>
+<li>First Reader-Writer Algorithm</li>
+</ul>
+<pre><code class="language-C">  // mutual exclustion for write
+  semaphore wrt = 1;
+  semaphore mutex = 1;
+  int readcount = 0;
 
+  Writer() {
+    while(TRUE) {
+      wait(wrt);
+      // Writer Code
+      signal(wrt);
+    }
+  }
+
+  Reader() {
+    while(TRUE) {
+      wait(mutex);
+        readcount++;
+        if(readcount==1) // 之后的 Reader 不需要拿lock
+          wait(wrt);
+      signal(mutex);
+      // Reader Code
+      wait(mutex);
+        readcount--;
+        if(readcount == 0)
+          signal(wrt);
+      signal(mutex);
+    }
+  }
+</code></pre>
 <h3 id="dining-philosopher-problem">Dining-Philosopher Problem</h3>
-
 <ul>
 <li>5 person sitting on 5 chairs with 5 chopsticks</li>
 <li>A person is either thinking or eating
-
 <ul>
 <li>thinking: no interaction with the rest 4 persons</li>
 <li>eating: need 2 chopsticks at hand</li>
 <li>a person picks up 1 chopsticks at a time</li>
 <li>done eating: put down both chopsticks</li>
-</ul></li>
+</ul>
+</li>
 <li>deadlock problem
-
 <ul>
 <li>one chopstick as one semaphore</li>
-</ul></li>
+</ul>
+</li>
 <li>starvation problem</li>
 </ul>
-
 <h2 id="monitors-a-high-level-language-construct">Monitors (A high-level language construct)</h2>
-
 <h3 id="motivation">Motivation</h3>
-
 <p>Although semaphores provide a convenient and effective synchronization mechanism, its correctness is depending on the programmer</p>
-
 <ul>
 <li>All processes access a shared data object must execute <code>wait()</code> and <code>signal()</code> in the right order and right place</li>
 <li>This may not be true because honest programming error or uncooperative programmer</li>
 <li>The representation of a monitor type consists of declarations of variables whose values define the state of an instance of the type and the functions(procedures) that implement operations on the type</li>
 <li>The monitor type is similar to a class in O.O. language
-
 <ul>
 <li>A procedure within a monitor can access only local variables and the formal parameters</li>
 <li>The local variables of a monitor can be used only by the local procedures</li>
-</ul></li>
-<li>The monitor ensures that only one process at a time can be <strong>active</strong> within the monitor
-<div class="note info"><p> Similar idea is incorporated to many programming language (concurrent pascal, C#, and Java) </p></div></li>
 </ul>
-
+</li>
+<li>The monitor ensures that only one process at a time can be <strong>active</strong> within the monitor
+<div class="note info"><p> Similar idea is incorporated to many programming language (concurrent pascal, C#, and Java) </p></div>
+</li>
+</ul>
 <h3 id="monitor-introduction">Monitor introduction</h3>
-
 <p>High-level synchronization construct that allows the safe sharing of an abstract data type among concurrent processes
 <img src="https://i.loli.net/2019/03/19/5c90db44d3f69.png" width="400px"/></p>
-
 <ul>
 <li>Monitor Condition Variables
-
 <ul>
 <li>To allow a process to wait within the monitor, a condition variable must be declared as <code>condtion x, y;</code></li>
 <li>Condition variable can only be used with the operations <code>wait()</code> and <code>signal()</code></li>
 <li><code>wait()</code> means that the process invoking this operation is suspended until another process invokes</li>
 <li><code>signal()</code> resumes exactly one suspended process. If no process is suspended, the signal operation <strong>has no effect</strong> (in contrast, signal always change the state of semaphore)
 <img src="https://i.loli.net/2019/03/19/5c90dd71b3c01.png" width="400px"/></li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h3 id="dining-philosophers-example">Dining-Philosophers Example</h3>
-
 <pre><code class="language-C">monitor dp {
   enum {thinking, hungry, eating} state[5]; //current state
   condition self[5]; // delay eating if can't obtain chopsticks
@@ -1126,81 +1131,82 @@ void test(int i) {
   }
 }
 </code></pre>
-
 <h3 id="synchronized-tools-in-java">Synchronized Tools in JAVA</h3>
-
 <ul>
-<li><p>Synchronized Methods(Monitor)</p>
-
+<li>
+<p>Synchronized Methods(Monitor)</p>
 <ul>
-<li>Synchronized method uses the method receiver as a lock</li>
-<li>Two invocations of synchronized methods cannot interleave on the same object</li>
-
-<li><p>When one thread is executing a synchronized method for a object, all other threads that invoke synchronized methods the same object block until the first thread exist the object</p>
-
-<pre><code class="language-java">public class SynchronizedCounter {
-    private int c= 0;
-    public synchronized void increment() {c++;}
-    public synchronized void decrement() {c--;}
-    public synchronized int value() {return c;}
-}
-</code></pre></li>
-</ul></li>
-
-<li><p>Synchronized Statement (Mutex Lock)</p>
-
-<ul>
-<li>Synchronized blocks uses the expression as a lock</li>
-<li>A synchronized statement can be only be executed once the thread has obtained a lock for the object or the class that has been referred to in the statement</li>
-
-<li><p>useful for improving concurrency with fine-grained</p>
-
-<pre><code class="language-java">public void run(){
-synchronized(p1)
-{
-    int i = 10; // statement without locking requirement
-    p1.display(s1);
-}
-}
-</code></pre></li>
-</ul></li>
+<li>
+<p>Synchronized method uses the method receiver as a lock</p>
+</li>
+<li>
+<p>Two invocations of synchronized methods cannot interleave on the same object</p>
+</li>
+<li>
+<p>When one thread is executing a synchronized method for a object, all other threads that invoke synchronized methods the same object block until the first thread exist the object</p>
+<pre><code class="language-java">    public class SynchronizedCounter {
+        private int c= 0;
+        public synchronized void increment() {c++;}
+        public synchronized void decrement() {c--;}
+        public synchronized int value() {return c;}
+    }
+</code></pre>
+</li>
 </ul>
-
+</li>
+<li>
+<p>Synchronized Statement (Mutex Lock)</p>
+<ul>
+<li>
+<p>Synchronized blocks uses the expression as a lock</p>
+</li>
+<li>
+<p>A synchronized statement can be only be executed once the thread has obtained a lock for the object or the class that has been referred to in the statement</p>
+</li>
+<li>
+<p>useful for improving concurrency with fine-grained</p>
+<pre><code class="language-java">public void run(){
+    synchronized(p1)
+    {
+        int i = 10; // statement without locking requirement
+        p1.display(s1);
+    }
+}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="atomic-transactions">Atomic Transactions</h2>
-
 <ul>
 <li>Transactions: a collection of instructions (or instructions) that performs a single logic function</li>
 <li>Atomic Transactions: Operations happen as a single logical unit of work, in its entirely, or not at all</li>
 <li>Atomic translation is particular a concern for database system (Strong interest to use DB techniques in OS)</li>
 </ul>
-
-<h3 id="file-i-o-example">File I/O example</h3>
-
+<h3 id="file-io-example">File I/O example</h3>
 <ul>
 <li>Transaction is a series of read and write operations</li>
 <li>Terminated by commit (transaction successful) or abort (transaction failed) operation</li>
 <li>Aborted transaction must be rolled back to undo any changes it performed (it is part of )</li>
 </ul>
-
 <h3 id="log-based-recovery">Log-Based Recovery</h3>
-
 <ul>
 <li>Record to stable storage information about all modifications by a transaction</li>
 <li>Write-ahead logging: Each log record describes single transaction write operation
-
 <ul>
 <li>Transaction time</li>
 <li>Data item name</li>
 <li>Old &amp; new values</li>
 <li>Special Events: &lt;$T_i$, start&gt;, &lt;$T_i$, commmits&gt;</li>
-</ul></li>
+</ul>
+</li>
 <li>Log is used to reconstruct the state of the data items modified by the transactions</li>
 <li>Checkpoints
-
 <ul>
 <li>when faiulre occurs, must consult the log to determine which transactions must be re-done, searching process is time consuming and redone may not be necessary for all transactions</li>
 <li>use checkpoints to reduce the above overhead, output all log records, modified data, log record <checkpoint> to stable storage</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
           </div>
@@ -1243,11 +1249,12 @@ synchronized(p1)
 
 
 
+
   
   
 
 <p class="edit-page">
-  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses/operating_system/process_synchronization.md">
+  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses%5coperating_system%5cprocess_synchronization.md">
     <i class="fas fa-pen pr-2"></i>Edit this page
   </a>
 </p>
@@ -1256,6 +1263,10 @@ synchronized(p1)
 
 
           
+
+
+          
+
 
         </div>
 
@@ -1266,10 +1277,21 @@ synchronized(p1)
 
   <p class="powered-by">
     
+  </p>
 
-    Powered by the
-    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
-    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    Published with
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic Website Builder</a>
+    
 
     
   </p>
@@ -1286,24 +1308,25 @@ synchronized(p1)
     
     
     
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
 
       
 
       
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js" integrity="sha512-7t8APmYpzEsZP7CYoA7RfMPV9Bb+PJHa9x2WiUnDXZx3XHveuyWUtvNOexhkierl5flZ3tr92dP1mMS+SGlD+A==" crossorigin="anonymous"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/r.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/fortran.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/c.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/java.min.js"></script>
         
       
 
@@ -1337,7 +1360,8 @@ synchronized(p1)
         'post': "Posts",
         'project': "Projects",
         'publication' : "Publications",
-        'talk' : "Talks"
+        'talk' : "Talks",
+        'slides' : "Slides"
         };
     </script>
     
@@ -1379,6 +1403,9 @@ synchronized(p1)
 
     
     
+
+    
+    
     
     
     
@@ -1391,7 +1418,7 @@ synchronized(p1)
     
     
     
-    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+    <script src="/js/academic.min.3b2b658c61ebd725bd5fc606c89fe44c.js"></script>
 
     
 

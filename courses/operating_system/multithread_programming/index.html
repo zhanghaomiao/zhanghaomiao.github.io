@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!DOCTYPE html><html lang="en-us" >
 
 <head>
 
@@ -12,6 +11,9 @@
 
   
   
+
+  
+  
   
   
   
@@ -21,14 +23,14 @@
   
   
 
-  <meta name="author" content="Haomiao Zhang">
+  
 
   
   
   
     
   
-  <meta name="description" content="Threads  Threads is a light process, basic unit of CPU utilization All threads belonging to the same process share code section, data section, and OS resources (e.g. open files and signals) Each thread has its own (thread control block) thread ID, program counter, register set, and a stack  Example  web browser, once thread displays contents while the other thread receives data from network web server, one request(thread), better performance as code and resource sharing RPC server   Benefits of Multithreading  Responsiveness: allow a program to continue running even if part of it is blocked or is performing a lengthy operation Resource sharing: several different threads of activity all within the same address space Utilization of MP arch: Several thread may be running in parallel on different processors Economy: Allocating memory and resources for process creation is costly.">
+  <meta name="description" content="Threads  Threads is a light process, basic unit of CPU utilization All threads belonging to the same process share code section, data section, and OS resources (e.g. open files and signals) Each thread has its own (thread control block) thread ID, program counter, register set, and a stack  Example  web browser, once thread displays contents while the other thread receives data from network web server, one request(thread), better performance as code and resource sharing RPC server    Benefits of Multithreading  Responsiveness: allow a program to continue running even if part of it is blocked or is performing a lengthy operation Resource sharing: several different threads of activity all within the same address space Utilization of MP arch: Several thread may be running in parallel on different processors Economy: Allocating memory and resources for process creation is costly.">
 
   
   <link rel="alternate" hreflang="en-us" href="/courses/operating_system/multithread_programming/">
@@ -53,8 +55,8 @@
   
   
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
 
     
@@ -65,8 +67,8 @@
     
       
       
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
       
     
 
@@ -77,6 +79,13 @@
     
 
     
+    
+      
+
+      
+      
+
+      
     
       
 
@@ -193,7 +202,11 @@
   
   
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
   
 
   
@@ -211,6 +224,9 @@
 
 
   
+  
+
+  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
@@ -218,6 +234,8 @@
 
   <link rel="canonical" href="/courses/operating_system/multithread_programming/">
 
+  
+  
   
   
   
@@ -232,8 +250,8 @@
   <meta property="og:site_name" content="Haomiao">
   <meta property="og:url" content="/courses/operating_system/multithread_programming/">
   <meta property="og:title" content="Multithread Programming | Haomiao">
-  <meta property="og:description" content="Threads  Threads is a light process, basic unit of CPU utilization All threads belonging to the same process share code section, data section, and OS resources (e.g. open files and signals) Each thread has its own (thread control block) thread ID, program counter, register set, and a stack  Example  web browser, once thread displays contents while the other thread receives data from network web server, one request(thread), better performance as code and resource sharing RPC server   Benefits of Multithreading  Responsiveness: allow a program to continue running even if part of it is blocked or is performing a lengthy operation Resource sharing: several different threads of activity all within the same address space Utilization of MP arch: Several thread may be running in parallel on different processors Economy: Allocating memory and resources for process creation is costly."><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
-  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  <meta property="og:description" content="Threads  Threads is a light process, basic unit of CPU utilization All threads belonging to the same process share code section, data section, and OS resources (e.g. open files and signals) Each thread has its own (thread control block) thread ID, program counter, register set, and a stack  Example  web browser, once thread displays contents while the other thread receives data from network web server, one request(thread), better performance as code and resource sharing RPC server    Benefits of Multithreading  Responsiveness: allow a program to continue running even if part of it is blocked or is performing a lengthy operation Resource sharing: several different threads of activity all within the same address space Utilization of MP arch: Several thread may be running in parallel on different processors Economy: Allocating memory and resources for process creation is costly."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2019-05-05T00:00:00&#43;01:00">
@@ -261,7 +279,8 @@
 
 </head>
 
-<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class=" ">
 
   <aside class="search-results" id="search">
   <div class="container">
@@ -279,7 +298,7 @@
       <div id="search-box">
         
         <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
-        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
         
       </div>
 
@@ -296,6 +315,11 @@
 
 
   
+
+
+
+
+
 
 
 
@@ -413,13 +437,26 @@
     <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
       
       <li class="nav-item">
-        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
       </li>
       
 
       
-      <li class="nav-item">
-        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
       </li>
       
 
@@ -429,6 +466,7 @@
 
   </div>
 </nav>
+
 
 
   
@@ -540,23 +578,22 @@
       </ul>
 
       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#threads">Threads</a></li>
-<li><a href="#multicore-programming">Multicore Programming</a>
-<ul>
-<li><a href="#user-vs-kernel-threads">User vs. Kernel Threads</a></li>
-</ul></li>
-<li><a href="#shared-memory-programming">Shared-Memory Programming</a>
-<ul>
-<li><a href="#pthread">Pthread</a></li>
-<li><a href="#java-threads">Java Threads</a></li>
-<li><a href="#linux-threads">Linux threads</a></li>
-</ul></li>
-<li><a href="#threading-issues">Threading Issues</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#threads">Threads</a></li>
+    <li><a href="#multicore-programming">Multicore Programming</a>
+      <ul>
+        <li><a href="#user-vs-kernel-threads">User vs. Kernel Threads</a></li>
+      </ul>
+    </li>
+    <li><a href="#shared-memory-programming">Shared-Memory Programming</a>
+      <ul>
+        <li><a href="#pthread">Pthread</a></li>
+        <li><a href="#java-threads">Java Threads</a></li>
+        <li><a href="#linux-threads">Linux threads</a></li>
+      </ul>
+    </li>
+    <li><a href="#threading-issues">Threading Issues</a></li>
+  </ul>
 </nav>
 
       
@@ -571,109 +608,95 @@
           <h1>Multithread Programming</h1>
 
           <div class="article-style">
-            
-
-<h2 id="threads">Threads</h2>
-
+            <h2 id="threads">Threads</h2>
 <ul>
 <li>Threads is a light process, basic unit of CPU utilization</li>
 <li>All threads belonging to the same process share <strong>code section</strong>, <strong>data section</strong>, and <strong>OS resources</strong> (e.g. open files and signals)</li>
 <li>Each thread has its own (thread control block) <strong>thread ID, program counter, register set, and a stack</strong> <img src="https://i.loli.net/2019/03/17/5c8e26e6c2312.png" width="400px"/></li>
 <li>Example
-
 <ul>
 <li>web browser, once thread displays contents while the other thread receives data from network</li>
 <li>web server, one request(thread), better performance as code and resource sharing</li>
 <li>RPC server
 <img src="https://i.loli.net/2019/03/17/5c8e27ee06cfa.png" width="400px"/></li>
-</ul></li>
+</ul>
+</li>
 <li>Benefits of Multithreading
-
 <ul>
 <li><strong>Responsiveness</strong>: allow a program to continue running even if part of it is blocked or is performing a lengthy operation</li>
 <li><strong>Resource sharing</strong>: several different threads of activity all within the same address space</li>
 <li><strong>Utilization of MP arch</strong>: Several thread may be running in parallel on different processors</li>
 <li><strong>Economy</strong>: Allocating memory and resources for process creation is costly.</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="multicore-programming">Multicore Programming</h2>
-
 <ul>
 <li>multithread programming provides a mechanism for more efficient use of multiple cores and improved concurrency (threads can run in parallel)</li>
 <li>Multicore systems putting pressure on system designers and application program (scheduling algorithms use cores to allow the parallel execution</li>
 <li>challenges in Multicore Programming
-
 <ul>
 <li><strong>Dividing activities</strong>: divide program into concurrent tasks</li>
 <li><strong>Data splitting</strong>: divide data accessed and manipulated by the tasks</li>
 <li><strong>Data dependency</strong>: synchronize data access</li>
 <li><strong>Balance</strong>: evenly distribute tasks to cores</li>
 <li><strong>Testing and debugging</strong></li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h3 id="user-vs-kernel-threads">User vs. Kernel Threads</h3>
-
 <ul>
 <li>User thread &ndash; thread management done by user level threads library (Pthreads, Java threads, Win32 threads)</li>
 <li>Kernel threads &ndash; supported by the kernel(OS) directly (Windows 2000, Linux)</li>
 <li>User threads
-
 <ul>
 <li>thread library provides support for thread creation, scheduling and deletion</li>
 <li>Generally fast to create and manage</li>
 <li>If the kernel is single-threaded, a user-thread blocks $\rightarrow$ entire process blocks even if other threads are ready to run</li>
-</ul></li>
+</ul>
+</li>
 <li>Kernel threads
-
 <ul>
 <li>The kernel performs thread creation, scheduling, etc.</li>
 <li>Generally slower to create and manage</li>
 <li>If a thread is blocked, the kernel can schedule another thread for execution</li>
-</ul></li>
+</ul>
+</li>
 <li>Models (user threads to kernel threads)
 Many-to-one, one-to-one(kernel threads 有限制，大部分系统）, Many-to-Many</li>
 </ul>
-
 <h2 id="shared-memory-programming">Shared-Memory Programming</h2>
-
 <ul>
 <li>Definition: processes communicate or work together with each other through a shared memory space which can be accessed by all processes (Faster &amp; more efficient than message passing)</li>
 <li>Many issues as well, <strong>Synchronization</strong>, <strong>Deadlock</strong>, <strong>Cache coherence</strong></li>
 <li>Programming techniques (Parallelizing compiler, Unix processes, Threads(Pthread, Java))</li>
 </ul>
-
 <h3 id="pthread">Pthread</h3>
-
 <ul>
 <li>Pthread is the implementation of POSIX standard for thread</li>
 <li><code>pthread_create(thread, attr, routine, arg)</code>
-
 <ul>
 <li><code>thread</code>: An unique identifier (token) for the new thread</li>
 <li><code>attr</code>: it is used to set thread attributes. NULL for the default values</li>
 <li>routine: The routine that the thread will execute once it is created</li>
 <li>arg: A single argument that may be passed to routine <img src="https://i.loli.net/2019/03/17/5c8e3392a48d7.png" width="400px"/></li>
-</ul></li>
+</ul>
+</li>
 <li>pthread_join(threadId, status)
-
 <ul>
 <li>Blocks until the specified threadId thread terminates</li>
 <li>One way to accomplish synchronization between threads</li>
-</ul></li>
+</ul>
+</li>
 <li>pthread_detach(threadId)
-
 <ul>
 <li>Once a thread is detached, it can never be joined</li>
 <li>Detach a thread could free some system resources</li>
-</ul></li>
 </ul>
-
-<p><img src="https://i.loli.net/2019/03/21/5c933ded79175.png" width="400px"/></p>
-
+</li>
+</ul>
+<img src="https://i.loli.net/2019/03/21/5c933ded79175.png" width="400px"/>
 <p>Example</p>
-
 <pre><code class="language-C">  #include &lt;pthread.h&gt;
   #include &lt;stdio.h&gt; #define NUM_THREADS 5
   void *PrintHello(void *threadId) {
@@ -690,64 +713,64 @@ Many-to-one, one-to-one(kernel threads 有限制，大部分系统）, Many-to-M
     thread_exit(NULL);
   }
 </code></pre>
-
 <h3 id="java-threads">Java Threads</h3>
-
 <ul>
 <li>Thread is created by Extending Thread class, Implementing the Runnable interface</li>
 <li>Java threads are implemented using a thread library on the host System</li>
 <li>Thread mapping depends on the implementation of JVM</li>
 </ul>
-
 <h3 id="linux-threads">Linux threads</h3>
-
 <ul>
 <li>Linux does not support multithreading</li>
 <li>Various Pthreads implementation are available for user-level</li>
 <li>The <code>fork</code> system call &ndash; create a new process and a copy of the associated data of the parent process</li>
 <li>The <code>clone</code> system call &ndash; create a new process and a link that points to the associated data of the parent process</li>
 <li>A set of flags is used in the clone call for indication of the level of the sharing
-
 <ul>
 <li>None of the flag is set $\rightarrow$ clone = fork</li>
 <li>All flags are set $\rightarrow$ parent and child share everything
 <img src="https://i.loli.net/2019/03/17/5c8e3635b4594.png" width="400px"/></li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="threading-issues">Threading Issues</h2>
-
 <ul>
 <li>Does <code>fork()</code> duplicate only the calling thread or all threads? Some UNIX system support two versions of <code>fork()</code>
-
 <ul>
 <li><code>execlp()</code> works the same, replace the entire process, if <code>exec()</code> is called immediately after forking, then duplicating all threads is unnecessary
 <img src="https://i.loli.net/2019/03/17/5c8e37759091b.png" width="400px"/></li>
-</ul></li>
+</ul>
+</li>
 <li>Thread Cancellation
-
 <ul>
 <li>Asynchronous cancellation (one thread terminates the target thread immediately) 等 main thread 有空</li>
 <li>Deferred cancellation (default option) The target thread periodically checks whether it should be terminated, allowing it an opportunity to terminate itself in an orderly fashion (canceled safety)</li>
-</ul></li>
+</ul>
+</li>
 <li>Signal Handling
-
 <ul>
 <li>Signals (synchronous or asynchronous) are used in UNIX systems to notify a process that an event has occurred</li>
-<li>A signal handler is used to process signals</li>
+<li>A signal handler is used to process signals
+<ol>
 <li>Signal is generated by particular event</li>
 <li>Signal is delivered to a process</li>
 <li>Signal is handled</li>
-</ul></li>
+</ol>
+</li>
+</ul>
+</li>
 <li>Thread Pools
-
 <ul>
 <li>Create a number of threads in a pool where they await work</li>
-<li>Advantages</li>
+<li>Advantages
+<ul>
 <li>Usually slightly faster to service a request with an existing thread than create a new thread</li>
 <li>Allows the number of threads in the application(s) to be bound the size of the pool</li>
+</ul>
+</li>
 <li>#  Of threads: # of CPUs, expected # of requests, amount of physical memory</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
           </div>
@@ -790,11 +813,12 @@ Many-to-one, one-to-one(kernel threads 有限制，大部分系统）, Many-to-M
 
 
 
+
   
   
 
 <p class="edit-page">
-  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses/operating_system/multithread_programming.md">
+  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses%5coperating_system%5cmultithread_programming.md">
     <i class="fas fa-pen pr-2"></i>Edit this page
   </a>
 </p>
@@ -803,6 +827,10 @@ Many-to-one, one-to-one(kernel threads 有限制，大部分系统）, Many-to-M
 
 
           
+
+
+          
+
 
         </div>
 
@@ -813,10 +841,21 @@ Many-to-one, one-to-one(kernel threads 有限制，大部分系统）, Many-to-M
 
   <p class="powered-by">
     
+  </p>
 
-    Powered by the
-    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
-    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    Published with
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic Website Builder</a>
+    
 
     
   </p>
@@ -833,24 +872,25 @@ Many-to-one, one-to-one(kernel threads 有限制，大部分系统）, Many-to-M
     
     
     
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
 
       
 
       
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js" integrity="sha512-7t8APmYpzEsZP7CYoA7RfMPV9Bb+PJHa9x2WiUnDXZx3XHveuyWUtvNOexhkierl5flZ3tr92dP1mMS+SGlD+A==" crossorigin="anonymous"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/r.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/fortran.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/c.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/java.min.js"></script>
         
       
 
@@ -884,7 +924,8 @@ Many-to-one, one-to-one(kernel threads 有限制，大部分系统）, Many-to-M
         'post': "Posts",
         'project': "Projects",
         'publication' : "Publications",
-        'talk' : "Talks"
+        'talk' : "Talks",
+        'slides' : "Slides"
         };
     </script>
     
@@ -926,6 +967,9 @@ Many-to-one, one-to-one(kernel threads 有限制，大部分系统）, Many-to-M
 
     
     
+
+    
+    
     
     
     
@@ -938,7 +982,7 @@ Many-to-one, one-to-one(kernel threads 有限制，大部分系统）, Many-to-M
     
     
     
-    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+    <script src="/js/academic.min.3b2b658c61ebd725bd5fc606c89fe44c.js"></script>
 
     
 

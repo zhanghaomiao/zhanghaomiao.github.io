@@ -5,84 +5,12 @@
     <link>/tags/</link>
       <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <description>Tags</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 11 May 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 12 Aug 2020 11:36:48 +0800</lastBuildDate>
     <image>
-      <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>Tags</title>
       <link>/tags/</link>
     </image>
-    
-    <item>
-      <title>Algorithm</title>
-      <link>/tags/algorithm/</link>
-      <pubDate>Mon, 11 May 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/algorithm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Sampling</title>
-      <link>/tags/sampling/</link>
-      <pubDate>Mon, 11 May 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/sampling/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>computer</title>
-      <link>/tags/computer/</link>
-      <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/computer/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>python</title>
-      <link>/tags/python/</link>
-      <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/python/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>qt</title>
-      <link>/tags/qt/</link>
-      <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
-      <guid>/tags/qt/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>machine learning</title>
-      <link>/tags/machine-learning/</link>
-      <pubDate>Fri, 04 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/machine-learning/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>math</title>
-      <link>/tags/math/</link>
-      <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/math/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>C</title>
-      <link>/tags/c/</link>
-      <pubDate>Mon, 15 Apr 2019 16:59:45 +0000</pubDate>
-      <guid>/tags/c/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Fortran</title>
-      <link>/tags/fortran/</link>
-      <pubDate>Mon, 15 Apr 2019 16:59:45 +0000</pubDate>
-      <guid>/tags/fortran/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>

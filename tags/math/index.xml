@@ -7,7 +7,7 @@
     <description>math</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 01 Oct 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>math</title>
       <link>/tags/math/</link>
     </image>
@@ -17,118 +17,118 @@
       <link>/post/ml/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
       <guid>/post/ml/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/</guid>
-      <description>
-
-&lt;h2 id=&#34;讲一下随机森林-gbdt-xgboost&#34;&gt;讲一下随机森林，GBDT，XGBoost&lt;/h2&gt;
-
+      <description>&lt;h2 id=&#34;讲一下随机森林gbdtxgboost&#34;&gt;讲一下随机森林，GBDT，XGBoost&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;随机森林：&lt;/p&gt;
-
+&lt;li&gt;
+&lt;p&gt;随机森林：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;集成算法， 有放回的随机选择特征， 构建决策树&lt;/li&gt;
 &lt;li&gt;不同基学习器是独立的&lt;/li&gt;
 &lt;li&gt;特征随机和和样本随机&lt;/li&gt;
 &lt;li&gt;bagging 方法， 最后做投票&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;优点：&lt;/p&gt;
-
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;优点：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;集成学习，方差偏差都比较低， 泛化性能比较好&lt;/li&gt;
 &lt;li&gt;高维数据集处理能力很好，并确定最重要的变量&lt;/li&gt;
 &lt;li&gt;可以处理确缺失数据&lt;/li&gt;
 &lt;li&gt;可以并行&lt;/li&gt;
 &lt;li&gt;不需要归一化&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;缺点：&lt;/p&gt;
-
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;缺点：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;回归问题表现不好，不能连续输出&lt;/li&gt;
 &lt;li&gt;无法了解模型内部&lt;/li&gt;
 &lt;li&gt;忽略属性之间的相关性&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;参数调配&lt;/p&gt;
-
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;参数调配&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;网格搜索， GridSearchCV&lt;/li&gt;
 &lt;li&gt;贪心算法， 固定其他参数， 把这个参数选好&lt;/li&gt;
 &lt;li&gt;随机搜索&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;GBDT (Gradient Boosting Decsion Tree)&lt;/p&gt;
-
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;GBDT (Gradient Boosting Decsion Tree)&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;每一次计算减少上次出现的残差， 为了消除残差，训练一个新的模型， 训练好的弱分类器累加到现有模型中&lt;/li&gt;
 &lt;li&gt;回归树，不是分类树。&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;XGBoost&lt;/p&gt;
-
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;XGBoost&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;GBDT 是机器学习算法， XGBoost 是该算法的实现&lt;/li&gt;
 &lt;li&gt;GBDT 算法基于经验损失函数的负梯度构造新的决策树， 在构建完成之后进行剪枝， 而 XGBoost 在决策树构造阶段加入了正则项&lt;/li&gt;
 &lt;li&gt;GBDT 在模型只使用了一阶导数信息， XGBoost 对损失函数进行二阶泰勒展开。&lt;/li&gt;
 &lt;li&gt;根据百分位列举几个可能成为分隔点的候选者， 从中找最佳的分割点&lt;/li&gt;
 &lt;li&gt;传统 GBDT 采用 CART 作为基分类器， XGBoost 采用了与随机森林类似的策略， 支持对数据采样&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;梯度提升和梯度下降的区别&#34;&gt;梯度提升和梯度下降的区别&lt;/h2&gt;
-
 &lt;p&gt;利用损失函数相对于模型的负梯度信息来对模型进行更新， 梯度下降过程中， 模型以参数化形式表示，而梯度提升， 模型不是以参数化形式表示，直接定义在函数空间中， 大大提高了可以使用的模型种类。&lt;/p&gt;
-
 &lt;h2 id=&#34;随机森林如何处理缺失值&#34;&gt;随机森林如何处理缺失值&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;数值型变量：给缺失值一些估计值，例如众数和中位数 描述型变量：缺失部分用出现次数最多的数代替&lt;/li&gt;
 &lt;li&gt;利用中位数和出现次数做最多的数代替，引入权重， 需要替换的数据先和其他数据做相似度测量, 补全缺失的点是相似的点会具有较高的权重 (所有数据放进随机森林运行一遍，记录每一组数据在决策树中分类路径，判断哪组数据和缺失数据路径最相似， 引入相似度矩阵，记录数据之间的相似度)&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;adaboost-和-xgboost-区别&#34;&gt;AdaBoost 和 XGBoost 区别&lt;/h2&gt;
-
 &lt;h2 id=&#34;详细解释-auc&#34;&gt;详细解释 AUC&lt;/h2&gt;
-
 &lt;ul&gt;
-&lt;li&gt;TP: 实际这正类， 预测为正类&lt;/li&gt;
-&lt;li&gt;TN: 实际为负类，预测为负类&lt;/li&gt;
-&lt;li&gt;FN: 实际为正类， 预测为负类 漏报&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;FP: 实际为负类，预测为正类 误报&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;TPR = TP / (TP + FN) // 正实例被预测正确的比例 (RECALL)&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;FPR = FP / (FP + TN) // 负实例被误报的比例&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;选定不同的阈值， 判断是否为正例， 不同的阈值对应不同的指标， 把这些指标连接起来，即为 ROC 曲线&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;解释： 从所有为1的样本从随机选择一个样本， 从所有为0的样本中选择一个样本， 根据分类器对两个样本进行预测，样本1预测为1 的概率为 p1, 样本2预测的概率为 p2, p1 &amp;gt; p2 的概率为AUC&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;TP: 实际这正类， 预测为正类&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;TN: 实际为负类，预测为负类&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FN: 实际为正类， 预测为负类 漏报&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FP: 实际为负类，预测为正类 误报&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;TPR = TP / (TP + FN) // 正实例被预测正确的比例 (RECALL) precision 指的是分类正确的正样本个数占分类器判断为正样本的个数比例&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FPR = FP / (FP + TN) // 负实例被误报的比例&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;选定不同的阈值， 判断是否为正例， 不同的阈值对应不同的指标， 把这些指标连接起来，即为 ROC 曲线&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;解释： 从所有为1的样本从随机选择一个样本， 从所有为0的样本中选择一个样本， 根据分类器对两个样本进行预测，样本1预测为1 的概率为 p1, 样本2预测的概率为 p2, p1 &amp;gt; p2 的概率为AUC&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;随机森林如何评估特征的重要性-xgboost-如何寻找最优特征&#34;&gt;随机森林如何评估特征的重要性， Xgboost 如何寻找最优特征&lt;/h2&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;基于基尼指数
-看每个特征在随机森林中的每棵树做了多少共享， 取平均值，利用Gini指数, 算利用这个特征分离后的基尼指数之差，取上平均值即可判定&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;基于带外数据
-未被抽取样本的集合，使用袋外数据计算第 T_i 颗决策树的校验误差 e1，随机改变 OOB 中的第 J 列， 保持其他列不变， 对第j列进行随机上下置换， 得到误差e2, 利用 e1 - e2  来刻画特征 $j$ 的重要性. 这里可以选择不同的树来加权平均。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Xgboost
+&lt;li&gt;
+&lt;p&gt;基于基尼指数
+看每个特征在随机森林中的每棵树做了多少共享， 取平均值，利用Gini指数, 算利用这个特征分离后的基尼指数之差，取上平均值即可判定&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;基于带外数据
+未被抽取样本的集合，使用袋外数据计算第 T_i 颗决策树的校验误差 e1，随机改变 OOB 中的第 J 列， 保持其他列不变， 对第j列进行随机上下置换， 得到误差e2, 利用 e1 - e2  来刻画特征 $j$ 的重要性. 这里可以选择不同的树来加权平均。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Xgboost
 xgboost 在训练过程中可以给出各个特征的评分， 最大的增益会被选出作为依据， 从而记忆了每个特征在模型训练时的重要性
-xgboost 属于 boosting 集成方法， 样本不放回，每轮计算样本不重复。&lt;/p&gt;&lt;/li&gt;
+xgboost 属于 boosting 集成方法， 样本不放回，每轮计算样本不重复。&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;欧氏距离和其他距离的区别&#34;&gt;欧氏距离和其他距离的区别&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;欧氏距离样本不同属性之间的差别等同看待， 这有时候不满足条件, 当其他特征比较大是，很多特征接近于 0， 没有考虑维度之间的相关性&lt;/li&gt;
 &lt;li&gt;曼哈顿距离： 异常值的分类结果影响比欧式距离药效， 各维度的贡献基本一样。&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;logistic-regression-为什么需要对特征进行离散化&#34;&gt;Logistic Regression 为什么需要对特征进行离散化&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;LR属于广义线性模型， 表达能力受限， 离散化为 N 个后， 每个变量有单独的权重， 为模型引入了非线性， 提升了模型的表达能力&lt;/li&gt;
 &lt;li&gt;速度快，稀疏向量内积乘法运算速度较快， 计算结果更容易存储和扩展&lt;/li&gt;
@@ -136,19 +136,16 @@ xgboost 属于 boosting 集成方法， 样本不放回，每轮计算样本不�
 &lt;li&gt;离散后的特征可以进行交叉， 提升表达能力&lt;/li&gt;
 &lt;li&gt;特征离散化后，会更加稳定&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;lr-与-svm-区别和联系&#34;&gt;LR 与 SVM 区别和联系&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;相同点
-
 &lt;ul&gt;
 &lt;li&gt;都是分类算法， 本质上都是找超平面&lt;/li&gt;
 &lt;li&gt;监督学习算法&lt;/li&gt;
 &lt;li&gt;判别式模型， 不关心数据怎么生成， 只关心数据的差别， 然后利用数据的差别来进行分类&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;不同点
-
 &lt;ul&gt;
 &lt;li&gt;SVM 只考虑了 support vectors, 也就是和分类最相关的少数点去学习分类器。而逻辑回归通过非线性映射减小了离分类平面较远的点的权重，相对提升了与分类最相关的数据点的权重；&lt;/li&gt;
 &lt;li&gt;LR 的损失函数是交叉熵， SVM 的损失函数是 hinge loss, SVM 对样本数据的依赖减少， 提高了训练效率&lt;/li&gt;
@@ -156,13 +153,11 @@ xgboost 属于 boosting 集成方法， 样本不放回，每轮计算样本不�
 &lt;li&gt;LR 可以得到每一个类的概率， SVM 无法得到&lt;/li&gt;
 &lt;li&gt;LR 不依赖与样本之间的距离， SVM 基于样本之间的距离&lt;/li&gt;
 &lt;li&gt;解决非线性问题时， SVM 可以采用核函数机制， LR 通常不采样核函数计算&lt;/li&gt;
-&lt;li&gt;SVM 损失函数自带正则， 而 LR 需要在损失函数之外添加正则项
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;SVM 损失函数自带正则， 而 LR 需要在损失函数之外添加正则项&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;什么是熵-联合熵-条件熵-相对熵-互信息&#34;&gt;什么是熵， 联合熵， 条件熵， 相对熵， 互信息&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;熵
 衡量系统的有序成都， 熵越大，系统越混乱， 信息熵表示离散事件的出现概率， 一个系统越是有序，其信息熵则越低。&lt;/li&gt;
@@ -176,53 +171,36 @@ D(q||p)&lt;/li&gt;
 &lt;li&gt;互信息
 两个随机变量X，Y的联合分布和各自独立分布乘积的相对熵&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;牛顿法和梯度梯度下降法&#34;&gt;牛顿法和梯度梯度下降法&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;牛顿法是二阶收敛， 梯度法是一阶收敛， 两种都只是局部算法， 梯度法仅考虑了方向， 牛顿法不仅考虑了方向，还兼顾了步长&lt;/li&gt;
 &lt;li&gt;牛顿法需要没次计算 Hessian 矩阵， 计算比较复杂&lt;/li&gt;
 &lt;li&gt;拟牛顿法使用正定矩阵来近似 Hessian 矩阵， 从而简化了运算的复杂度。&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;kmeans-算法复杂度&#34;&gt;Kmeans 算法复杂度&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;O(tKmn): repeat t times, has K centroids, m data, n features;&lt;/li&gt;
 &lt;li&gt;O((m + k)n) : m data, n feautres, K centroids.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;协方差和相关性区别&#34;&gt;协方差和相关性区别&lt;/h2&gt;
-
 &lt;p&gt;相关性是协方差的标准化形式， 协方差本身很难作比较， 而相关性可以把数值scale 到 -1， 1 之间， 因此可以比较其相关性&lt;/p&gt;
-
 &lt;h2 id=&#34;navie-bayes&#34;&gt;Navie Bayes&lt;/h2&gt;
-
 &lt;p&gt;因为它假定所有的特征在数据集中的作用是同样重要和独立的。正如我们所知，这个假设在现实世界中是很不真实的.&lt;/p&gt;
-
 &lt;h2 id=&#34;详细说些-em-算法&#34;&gt;详细说些 EM 算法&lt;/h2&gt;
-
 &lt;p&gt;在概率模型中寻找参数的极大似然估计算法, 最大化后验概率，概率模型依赖于无法观测的隐变量&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;E步: 假设参数已知，计算隐变量的后验概率。&lt;/li&gt;
 &lt;li&gt;M步：带入隐变量的后验概率，最大化似然估计，计算参数值
 M 步得到的参数值用于 E 步计算中&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;似然函数意义： 通过观测的数据推测参数值, 假设参数已经知道，使得观测的数据概率最大。&lt;/p&gt;
-
-&lt;h2 id=&#34;knn-中-k-如何选择&#34;&gt;KNN 中 K  如何选择&lt;/h2&gt;
-
+&lt;h2 id=&#34;knn-中-k--如何选择&#34;&gt;KNN 中 K  如何选择&lt;/h2&gt;
 &lt;p&gt;选择较小的 K 值， 较小领域中的训练实例来预测，学习的近似误差变小， 学习的估计误差增大， 即模型容易发生过拟合。 选择较大的 K 值， 容易发生欠拟合， 增大意味着模型变得简单
-  KNN 为有监督学习的算法， 一般用交叉验证的方法选择最优的K值&lt;/p&gt;
-
+KNN 为有监督学习的算法， 一般用交叉验证的方法选择最优的K值&lt;/p&gt;
 &lt;h2 id=&#34;最大似然估计和贝叶斯估计的区别&#34;&gt;最大似然估计和贝叶斯估计的区别&lt;/h2&gt;
-
 &lt;p&gt;最大似然是对点估计， 贝叶斯推断是对分布的估计
 最大似然估计求出的是最有可能的参数值， 而贝叶斯推断求解的是参数的分布
 另外，贝叶斯推断加入了先验概率， 通过先验和似然来求解后验分布，最大似然直接使用似然函数&lt;/p&gt;
-
 &lt;h2 id=&#34;什么是最大熵模型&#34;&gt;什么是最大熵模型&lt;/h2&gt;
 </description>
     </item>
@@ -232,10 +210,7 @@ M 步得到的参数值用于 E 步计算中&lt;/li&gt;
       <link>/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
       <guid>/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/</guid>
-      <description>
-
-&lt;h2 id=&#34;定义&#34;&gt;定义&lt;/h2&gt;
-
+      <description>&lt;h2 id=&#34;定义&#34;&gt;定义&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;标量 $f$ 对矩阵 $\mathbf{X}$ 的导数， 定义为
 $$\frac{\partial f}{\partial \mathbf{X}} = \left[\frac{\partial f}{\partial X_{ij}}\right]$$
@@ -245,27 +220,20 @@ $$df = f&amp;rsquo;(x) dx$$&lt;/li&gt;
 &lt;li&gt;多元的导数与微分的关系
 $$df = \sum_{i=1}^{n}\frac{\partial f}{\partial x_i} dx_i = \frac{\partial f}{\partial \mathbf{x}}^{t} d\mathbf{x}$$&lt;/li&gt;
 &lt;li&gt;矩阵导数与微分建立联系：
-
- $$d f=\sum_{i=1}^{m} \sum_{j=1}^{n} \frac{\partial f}{\partial X_{i j}} d X_{i j}=\operatorname{tr}\left(\frac{\partial f^{T}}{\partial X} d X\right)$$
- 
-$tr$ 表示方阵对角元素之和
-&lt;br /&gt;&lt;/li&gt;
+$$d f=\sum_{i=1}^{m} \sum_{j=1}^{n} \frac{\partial f}{\partial X_{i j}} d X_{i j}=\operatorname{tr}\left(\frac{\partial f^{T}}{\partial X} d X\right)$$
+$tr$ 表示方阵对角元素之和&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;运算法则&#34;&gt;运算法则&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;加减法 $d(\mathbf{X}\pm \mathbf{Y}) = d\mathbf{X} \pm d\mathbf{Y}$&lt;/li&gt;
 &lt;li&gt;乘法 $d(\mathbf{XY}) = (d\mathbf{X})\mathbf{Y} + \mathbf{X}d\mathbf{Y}$&lt;/li&gt;
 &lt;li&gt;转置 $d(\mathbf{X}^T) = (d\mathbf{X})^T$&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf&#34;&gt;参考 matrix cookbook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;参考 matrix cookbook&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;计算&#34;&gt;计算&lt;/h2&gt;
-
 &lt;p&gt;建立矩阵与微分联系时， 在求出左侧的微分 $df$, 需要写出右侧形式的导数
-  $$df = tr\left(\frac{\partial f}{\partial \mathbf{X}}^T d\mathbf{X}\right)$$&lt;/p&gt;
-
+$$df = tr\left(\frac{\partial f}{\partial \mathbf{X}}^T d\mathbf{X}\right)$$&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;标量上迹 $a = tr(a)$&lt;/li&gt;
 &lt;li&gt;转置 $tr(A^T) = tr(A)$&lt;/li&gt;
@@ -273,17 +241,14 @@ $tr$ 表示方阵对角元素之和
 &lt;li&gt;矩阵乘法交换 $tr(AB) = tr(BA)$&lt;/li&gt;
 &lt;li&gt;矩阵乘法/逐元乘法交换 $\text{tr}(A^T(B \odot C))=\text{tr}((A\odot B)^TC)$, 其中 A, B, C 尺寸相同&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Linear Regression $l = || \mathbf{Xw - y}||^2$,  solve $\mathbf{w}, \mathbf{y}$ is a $m\times 1$ vector, $\mathbf X$ has the shape $m\times n$, and $w$&amp;rsquo;s shape is $n\times 1$, and the $l$ is a scalar&lt;/p&gt;
-
+&lt;li&gt;
+&lt;p&gt;Linear Regression $l = || \mathbf{Xw - y}||^2$,  solve $\mathbf{w}, \mathbf{y}$ is a $m\times 1$ vector, $\mathbf X$ has the shape $m\times n$, and $w$&#39;s shape is $n\times 1$, and the $l$ is a scalar&lt;/p&gt;
 &lt;p&gt;In this example, we need to solve a scalar&amp;rsquo;s derivate with respect to a vector. As the defintion, we can&amp;rsquo;t calcuate the derivate of a vector or a matrix directly. Instead, we need to calcuate the differential of a matrix.
-
-    $$\begin{aligned}l &amp;= \mathbf{(Xw - y)}^T(\mathbf{Xw - y}) \\s  
-        dl &amp;= (X d \boldsymbol{w})^{T}(X \boldsymbol{w}-\boldsymbol{y})+(X \boldsymbol{w}-\boldsymbol{y})^{T}(X d \boldsymbol{w}) \end{aligned}$$
-     
+$$\begin{aligned}l &amp;amp;= \mathbf{(Xw - y)}^T(\mathbf{Xw - y}) \&lt;br&gt;
+dl &amp;amp;= (X d \boldsymbol{w})^{T}(X \boldsymbol{w}-\boldsymbol{y})+(X \boldsymbol{w}-\boldsymbol{y})^{T}(X d \boldsymbol{w})\&lt;br&gt;
+\end{aligned}$$
 As the first and second form is a dot product between two vector, so we can get
 $$dl = 2(X \boldsymbol{w}-\boldsymbol{y})^{T} \boldsymbol{X} d \boldsymbol{w}$$
 The differential form of $dl$
@@ -293,14 +258,15 @@ $$\frac{\partial l}{\partial \boldsymbol{w}}=2 X^{T}(X \boldsymbol{w}-\boldsymbo
 Set the partial form to $0$, we could get
 $$\mathbf{X^TXw} = \mathbf{X^Ty}$$
 and the $w$ will be
-$$\mathbf{w = (X^TX)^{-1}X^Ty}$$&lt;/p&gt;&lt;/li&gt;
+$$\mathbf{w = (X^TX)^{-1}X^Ty}$$&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/24709748&#34;&gt;矩阵求导术（上）知乎&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf&#34;&gt;matrix cookbook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/24709748&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;矩阵求导术（上）知乎&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;matrix cookbook&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>

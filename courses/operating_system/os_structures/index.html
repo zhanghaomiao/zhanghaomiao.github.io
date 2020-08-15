@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!DOCTYPE html><html lang="en-us" >
 
 <head>
 
@@ -12,6 +11,9 @@
 
   
   
+
+  
+  
   
   
   
@@ -21,14 +23,14 @@
   
   
 
-  <meta name="author" content="Haomiao Zhang">
+  
 
   
   
   
     
   
-  <meta name="description" content="OS services  OS services: Communication, Error detection, User Interface, Resource allocation, Program Execution User Interface  CLI (Command Line Interface) Shell: Command-line interpreter (CSHELL, BASH) GUI (Graphic User Interface) Icons, Mouse  Communication Models  Message passing 例如， process A 与 process B 交换信息： 把 processA 的 信息 copy 到 os 的 memory, 再从 os 把 process A 的信息 copy 到 process B。(Protection 机制, 需要使用 system call)， 缺点是较慢 Shared memory 有一块公用的 memory, 两个 process 可以直接使用，需要先通过 system call 分配好。 (Multi-thread programming)， 缺点是有可能有 dead-lock problem   System Calls &amp; API Request OS services: Process control, File management, Device management, Information maintenance, Communication">
+  <meta name="description" content="OS services  OS services: Communication, Error detection, User Interface, Resource allocation, Program Execution User Interface  CLI (Command Line Interface) Shell: Command-line interpreter (CSHELL, BASH) GUI (Graphic User Interface) Icons, Mouse   Communication Models  Message passing 例如， process A 与 process B 交换信息： 把 processA 的 信息 copy 到 os 的 memory, 再从 os 把 process A 的信息 copy 到 process B。(Protection 机制, 需要使用 system call)， 缺点是较慢 Shared memory 有一块公用的 memory, 两个 process 可以直接使用，需要先通过 system call 分配好。 (Multi-thread programming)， 缺点是有可能有 dead-lock problem    System Calls &amp; API Request OS services: Process control, File management, Device management, Information maintenance, Communication">
 
   
   <link rel="alternate" hreflang="en-us" href="/courses/operating_system/os_structures/">
@@ -53,8 +55,8 @@
   
   
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
 
     
@@ -65,8 +67,8 @@
     
       
       
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
       
     
 
@@ -77,6 +79,13 @@
     
 
     
+    
+      
+
+      
+      
+
+      
     
       
 
@@ -193,7 +202,11 @@
   
   
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
   
 
   
@@ -211,6 +224,9 @@
 
 
   
+  
+
+  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
@@ -218,6 +234,8 @@
 
   <link rel="canonical" href="/courses/operating_system/os_structures/">
 
+  
+  
   
   
   
@@ -232,8 +250,8 @@
   <meta property="og:site_name" content="Haomiao">
   <meta property="og:url" content="/courses/operating_system/os_structures/">
   <meta property="og:title" content="OS structures | Haomiao">
-  <meta property="og:description" content="OS services  OS services: Communication, Error detection, User Interface, Resource allocation, Program Execution User Interface  CLI (Command Line Interface) Shell: Command-line interpreter (CSHELL, BASH) GUI (Graphic User Interface) Icons, Mouse  Communication Models  Message passing 例如， process A 与 process B 交换信息： 把 processA 的 信息 copy 到 os 的 memory, 再从 os 把 process A 的信息 copy 到 process B。(Protection 机制, 需要使用 system call)， 缺点是较慢 Shared memory 有一块公用的 memory, 两个 process 可以直接使用，需要先通过 system call 分配好。 (Multi-thread programming)， 缺点是有可能有 dead-lock problem   System Calls &amp; API Request OS services: Process control, File management, Device management, Information maintenance, Communication"><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
-  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  <meta property="og:description" content="OS services  OS services: Communication, Error detection, User Interface, Resource allocation, Program Execution User Interface  CLI (Command Line Interface) Shell: Command-line interpreter (CSHELL, BASH) GUI (Graphic User Interface) Icons, Mouse   Communication Models  Message passing 例如， process A 与 process B 交换信息： 把 processA 的 信息 copy 到 os 的 memory, 再从 os 把 process A 的信息 copy 到 process B。(Protection 机制, 需要使用 system call)， 缺点是较慢 Shared memory 有一块公用的 memory, 两个 process 可以直接使用，需要先通过 system call 分配好。 (Multi-thread programming)， 缺点是有可能有 dead-lock problem    System Calls &amp; API Request OS services: Process control, File management, Device management, Information maintenance, Communication"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2019-05-05T00:00:00&#43;01:00">
@@ -261,7 +279,8 @@
 
 </head>
 
-<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class=" ">
 
   <aside class="search-results" id="search">
   <div class="container">
@@ -279,7 +298,7 @@
       <div id="search-box">
         
         <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
-        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
         
       </div>
 
@@ -296,6 +315,11 @@
 
 
   
+
+
+
+
+
 
 
 
@@ -413,13 +437,26 @@
     <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
       
       <li class="nav-item">
-        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
       </li>
       
 
       
-      <li class="nav-item">
-        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
       </li>
       
 
@@ -429,6 +466,7 @@
 
   </div>
 </nav>
+
 
 
   
@@ -540,14 +578,11 @@
       </ul>
 
       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#os-services">OS services</a></li>
-<li><a href="#system-calls-api">System Calls &amp; API</a></li>
-<li><a href="#system-structure">System Structure</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#os-services">OS services</a></li>
+    <li><a href="#system-calls--api">System Calls &amp; API</a></li>
+    <li><a href="#system-structure">System Structure</a></li>
+  </ul>
 </nav>
 
       
@@ -562,99 +597,92 @@
           <h1>OS structures</h1>
 
           <div class="article-style">
-            
-
-<h2 id="os-services">OS services</h2>
-
+            <h2 id="os-services">OS services</h2>
 <ul>
 <li>OS services: Communication,  Error detection,  User Interface,  Resource allocation,  Program Execution</li>
 <li>User Interface
-
 <ul>
 <li>CLI (Command Line Interface)
 Shell: Command-line interpreter (CSHELL, BASH)</li>
 <li>GUI (Graphic User Interface)
 Icons,  Mouse</li>
-</ul></li>
+</ul>
+</li>
 <li>Communication Models
-
 <ul>
 <li>Message passing
 例如， process A 与 process B 交换信息： 把 processA 的 信息 copy 到 os 的 memory,  再从 os 把 process A 的信息 copy 到 process B。(Protection 机制, 需要使用 system call)， 缺点是较慢</li>
 <li>Shared memory
 有一块公用的 memory, 两个 process 可以直接使用，需要先通过 system call 分配好。 (Multi-thread programming)， 缺点是有可能有 dead-lock problem</li>
-</ul></li>
 </ul>
-
-<h2 id="system-calls-api">System Calls &amp; API</h2>
-
+</li>
+</ul>
+<h2 id="system-calls--api">System Calls &amp; API</h2>
 <p>Request OS services:  Process control, File management, Device management, Information maintenance, Communication</p>
-
 <ul>
 <li>System calls (简单， bug-free)
-
 <ul>
 <li><strong>OS interface</strong> to running program</li>
 <li>An explicit request to the kernel made via a <strong>software interrupt</strong></li>
 <li>Available as <strong>assembly-language</strong> instructions</li>
-</ul></li>
+</ul>
+</li>
 <li>API: Application Program Interface (方便使用者, simplicity, portability, efficiency)
-
 <ul>
 <li>Users mostly program against API instead of system call</li>
 <li>Commonly implemented by language libraries, e.g. C library</li>
-<li>An api call could involve zero or multiple system call</li>
+<li>An api call could involve zero or multiple system call
+<ul>
 <li><code>malloc()</code> and <code>free()</code> use system call <code>brk()</code></li>
 <li><code>abs()</code> don&rsquo;t need to involve system call</li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>不会直接产生 Interrupt, 由 system call 产生 interrupt</li>
 <li>Three most common APIs:
-
 <ul>
 <li>Win32API for windows</li>
 <li>POSIX API for POSIX-based systems (Portable Operating System Interface for Unix)  所有的 API 都一样， 但是实作(Library)不一样</li>
 <li>Java API for the java virtual machine</li>
-</ul></li>
+</ul>
+</li>
 <li>System calls: passing parameters
-
 <ul>
 <li>Pass parameters in registers</li>
 <li>Store the parameters in a table in memory, and the table address is passed as a parameter in a register</li>
 <li>Push the parameters onto the stack by the program, and pop off the stack by operating system</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="system-structure">System Structure</h2>
-
 <p>User goals and system goals is different
 User goals: easy to use and learn, as well as reliable, safe and fast
 System goals: easy to <em>design</em>, <em>implement</em> and <em>maintain</em> as well as reliable, error-free, and efficient</p>
-
 <ul>
 <li>Simple OS Architecture
-
 <ul>
 <li>unsafe, difficult to enhance
 <img style="margin: auto;" src=https://i.loli.net/2019/03/15/5c8b08039972e.png width="40%" /></li>
-</ul></li>
+</ul>
+</li>
 <li>Layered OS Architecture
-
 <ul>
 <li>lower levels independent of upper levels</li>
 <li>Easy to debugging and maintenance</li>
 <li>less efficient, difficult to define layers
 <img src="https://i.loli.net/2019/03/15/5c8b0e784d3f5.png" width="40%" /></li>
-</ul></li>
+</ul>
+</li>
 <li>Microkernel OS (有新的系统朝着这个方向做）
-
 <ul>
 <li>Moves as much from the kernel info &ldquo;user&rdquo; space</li>
 <li>Communications is provided by message passing, 避免 synchronization</li>
 <li>Easier for extending and porting
 <img src="https://i.loli.net/2019/03/15/5c8b0a3e2836d.png" width="40%"/></li>
-</ul></li>
+</ul>
+</li>
 <li>Modular OS Architecture
-
 <ul>
 <li>Modern OS implement kernel modules</li>
 <li>Object-oriented Approach</li>
@@ -662,27 +690,37 @@ System goals: easy to <em>design</em>, <em>implement</em> and <em>maintain</em> 
 <li>Each to talk each other over known interfaces</li>
 <li>Each is loadable as needed within the kernel
 <img src="https://i.loli.net/2019/03/15/5c8b0b7fbd37c.png" width="40%"/></li>
-</ul></li>
+</ul>
+</li>
 <li>Virtual Machine
 Hard: Critical Instruction，指的是一些指令在 User space 和 Kernel space 执行的结果不一样， 因此需要知道一些指令是否是 critical instruction.
 <img src="https://i.loli.net/2019/03/15/5c8b1c7b544c4.png" width="40%"/>
-
 <ul>
 <li>虚拟化指的是如何加 virtual-machine implementation layer。</li>
 <li>工作流程: 虚拟机的Kernel 在运行的时候是假设是在 kernel space, 因此才可以执行privileged instruction. 但从架构来说，虚拟机的 kernel 应该是存在于 user space 中。 Privileged instruction 在 虚拟机的 Kernel space 执行时，系统会产生 一个 signal (exception)， interrupt 会回到底层的OS， 因此系统会得知虚拟机想要执行privileged instruction， 底层的OS 会重复执行这个命令。</li>
 <li>缺点:  虚拟机执行效率比较低。</li>
 <li>现在很多 CPU 都支持虚拟机， 除了 User mode, kernel mode, 还有 VM mode。</li>
 <li>Usage: Protection, compatibility problems (系统兼容)， research and development， honeypot (A virtual honeypot is software that emulates a vulnerable system or network to attract intruders and study their behavior), cloud computing (不需要直接用虚拟机提供， container)</li>
-<li>Full Virtualization (VMware, 需要有 hardware support, 执行效率才会快)</li>
+<li>Full Virtualization (VMware, 需要有 hardware support, 执行效率才会快)
+<ul>
 <li>Run in user mode as an application on top of OS</li>
 <li>Virtual machine believe they are running on bare hardware but in fact are running inside a user-level application</li>
-<li>Para-virtualization: Xen (存在一个 global zone)</li>
+</ul>
+</li>
+<li>Para-virtualization: Xen (存在一个 global zone)
+<ul>
 <li>Presents guest with system similar but not identical to the guest&rsquo;s preferred systems (Guest must be modified)</li>
 <li>Hardware rather than OS and its devices are virtualized</li>
-<li>Java Virtual Machine</li>
+</ul>
+</li>
+<li>Java Virtual Machine
+<ul>
 <li>Code translation, compile 执行完成后, 会有自己的 binary code. 再进行一次translation, 在host os执行。</li>
 <li>Just-In-Time(JIT) compliers, 会记录执行的命令，然后 reuse.</li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
           </div>
@@ -718,11 +756,12 @@ Hard: Critical Instruction，指的是一些指令在 User space 和 Kernel spac
 
 
 
+
   
   
 
 <p class="edit-page">
-  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses/operating_system/os_structures.md">
+  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses%5coperating_system%5cos_structures.md">
     <i class="fas fa-pen pr-2"></i>Edit this page
   </a>
 </p>
@@ -731,6 +770,10 @@ Hard: Critical Instruction，指的是一些指令在 User space 和 Kernel spac
 
 
           
+
+
+          
+
 
         </div>
 
@@ -741,10 +784,21 @@ Hard: Critical Instruction，指的是一些指令在 User space 和 Kernel spac
 
   <p class="powered-by">
     
+  </p>
 
-    Powered by the
-    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
-    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    Published with
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic Website Builder</a>
+    
 
     
   </p>
@@ -761,24 +815,25 @@ Hard: Critical Instruction，指的是一些指令在 User space 和 Kernel spac
     
     
     
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
 
       
 
       
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js" integrity="sha512-7t8APmYpzEsZP7CYoA7RfMPV9Bb+PJHa9x2WiUnDXZx3XHveuyWUtvNOexhkierl5flZ3tr92dP1mMS+SGlD+A==" crossorigin="anonymous"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/r.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/fortran.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/c.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/java.min.js"></script>
         
       
 
@@ -812,7 +867,8 @@ Hard: Critical Instruction，指的是一些指令在 User space 和 Kernel spac
         'post': "Posts",
         'project': "Projects",
         'publication' : "Publications",
-        'talk' : "Talks"
+        'talk' : "Talks",
+        'slides' : "Slides"
         };
     </script>
     
@@ -854,6 +910,9 @@ Hard: Critical Instruction，指的是一些指令在 User space 和 Kernel spac
 
     
     
+
+    
+    
     
     
     
@@ -866,7 +925,7 @@ Hard: Critical Instruction，指的是一些指令在 User space 和 Kernel spac
     
     
     
-    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+    <script src="/js/academic.min.3b2b658c61ebd725bd5fc606c89fe44c.js"></script>
 
     
 

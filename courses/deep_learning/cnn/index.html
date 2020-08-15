@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!DOCTYPE html><html lang="en-us" >
 
 <head>
 
@@ -12,6 +11,9 @@
 
   
   
+
+  
+  
   
   
   
@@ -21,7 +23,7 @@
   
   
 
-  <meta name="author" content="Haomiao Zhang">
+  
 
   
   
@@ -55,8 +57,8 @@
   
   
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
 
     
@@ -67,8 +69,8 @@
     
       
       
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
       
     
 
@@ -79,6 +81,13 @@
     
 
     
+    
+      
+
+      
+      
+
+      
     
       
 
@@ -195,7 +204,11 @@
   
   
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
   
 
   
@@ -213,6 +226,9 @@
 
 
   
+  
+
+  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
@@ -220,6 +236,8 @@
 
   <link rel="canonical" href="/courses/deep_learning/cnn/">
 
+  
+  
   
   
   
@@ -236,8 +254,8 @@
   <meta property="og:title" content="Foundations of Convolutional Neural Networks | Haomiao">
   <meta property="og:description" content="Overview 一般计算机视觉问题包含以下几类:
  图像分类(Image classification) 目标检测(Object Detection) 风格转换(Neural Style Transfer)  面临计算机视觉问题时，如何处理图像数据变得很重要，对于一般图片 $1000 \times 1000 \times 3$, 神经网络的输入层将有 $300,000,000$ 数据, 那么网络权重 $W$ 则很大，这会导致两个后果:
- 数据量很少，但是神经网络很复杂，容易出现过拟合 所需要的内存和计算量很大  卷积运算 神经网络从浅层到深层，可以检测出图片的边缘特征，局部特征，最后一层则识别整体的面部轮廓， 这些都是通过卷积神经网络实现的"><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
-  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+ 数据量很少，但是神经网络很复杂，容易出现过拟合 所需要的内存和计算量很大  卷积运算 神经网络从浅层到深层，可以检测出图片的边缘特征，局部特征，最后一层则识别整体的面部轮廓， 这些都是通过卷积神经网络实现的"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2020-01-04T00:00:00&#43;01:00">
@@ -265,7 +283,8 @@
 
 </head>
 
-<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class=" ">
 
   <aside class="search-results" id="search">
   <div class="container">
@@ -283,7 +302,7 @@
       <div id="search-box">
         
         <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
-        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
         
       </div>
 
@@ -300,6 +319,11 @@
 
 
   
+
+
+
+
+
 
 
 
@@ -417,13 +441,26 @@
     <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
       
       <li class="nav-item">
-        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
       </li>
       
 
       
-      <li class="nav-item">
-        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
       </li>
       
 
@@ -433,6 +470,7 @@
 
   </div>
 </nav>
+
 
 
   
@@ -512,27 +550,26 @@
       </ul>
 
       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#卷积运算">卷积运算</a>
-<ul>
-<li><a href="#边缘检测">边缘检测</a></li>
-</ul></li>
-<li><a href="#padding">Padding</a></li>
-<li><a href="#stride">Stride</a></li>
-<li><a href="#高维卷积">高维卷积</a></li>
-<li><a href="#单层卷积神经网络">单层卷积神经网络</a>
-<ul>
-<li><a href="#符合表示">符合表示</a></li>
-</ul></li>
-<li><a href="#简单神经网络">简单神经网络</a></li>
-<li><a href="#pooling-layer">Pooling Layer</a></li>
-<li><a href="#example">Example</a></li>
-<li><a href="#为什么使用卷积">为什么使用卷积</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#卷积运算">卷积运算</a>
+      <ul>
+        <li><a href="#边缘检测">边缘检测</a></li>
+      </ul>
+    </li>
+    <li><a href="#padding">Padding</a></li>
+    <li><a href="#stride">Stride</a></li>
+    <li><a href="#高维卷积">高维卷积</a></li>
+    <li><a href="#单层卷积神经网络">单层卷积神经网络</a>
+      <ul>
+        <li><a href="#符合表示">符合表示</a></li>
+      </ul>
+    </li>
+    <li><a href="#简单神经网络">简单神经网络</a></li>
+    <li><a href="#pooling-layer">Pooling Layer</a></li>
+    <li><a href="#example">Example</a></li>
+    <li><a href="#为什么使用卷积">为什么使用卷积</a></li>
+  </ul>
 </nav>
 
       
@@ -547,174 +584,134 @@
           <h1>Foundations of Convolutional Neural Networks</h1>
 
           <div class="article-style">
-            
-
-<h2 id="overview">Overview</h2>
-
+            <h2 id="overview">Overview</h2>
 <p>一般计算机视觉问题包含以下几类:</p>
-
 <ol>
 <li>图像分类(Image classification)</li>
 <li>目标检测(Object Detection)</li>
 <li>风格转换(Neural Style Transfer)</li>
 </ol>
-
 <p>面临计算机视觉问题时，如何处理图像数据变得很重要，对于一般图片 $1000 \times 1000 \times 3$, 神经网络的输入层将有 $300,000,000$ 数据, 那么网络权重 $W$ 则很大，这会导致两个后果:</p>
-
 <ol>
 <li>数据量很少，但是神经网络很复杂，容易出现过拟合</li>
 <li>所需要的内存和计算量很大</li>
 </ol>
-
 <h2 id="卷积运算">卷积运算</h2>
-
 <p>神经网络从浅层到深层，可以检测出图片的边缘特征，局部特征，最后一层则识别整体的面部轮廓， 这些都是通过卷积神经网络实现的</p>
-
 <h3 id="边缘检测">边缘检测</h3>
-
 <p>垂直检测(Vertical Edges) and 水平检测(Horizontal Edges), 如下图所示:</p>
-
 <p><img src="/img/cnn/edge_example.png" width="350px" /></p>
-
 <p>边缘检测可以通过相应的 filter 实现，如下图所示</p>
-
 <p><img src="/img/cnn/Vertical-Edge-Detection.jpg" width="350px" />
 原始图片尺寸为 6x6, 通过中间的矩阵之后，尺寸为 4x4. 按照如图所示的方式进行计算，卷积运算的求解是在原始矩阵中选择与 filter 相同大小的区域，一一对应相乘后求和，将所得的结果构成一个矩阵</p>
-
 <ul>
-<li><p>下面是一个示例
+<li>
+<p>下面是一个示例
 <img src="/img/cnn/Convolutional-operation-example.jpg" width="350px" />
-将矩阵看做一个图像，最右边中间的亮的区域对应于最左边图像中间的黑白分界线<br />
+将矩阵看做一个图像，最右边中间的亮的区域对应于最左边图像中间的黑白分界线<br>
 下面一张图，表示的更加明显
-<img src="/img/cnn/Convolutional-operation.jpg" width="350px" /></p></li>
-
-<li><p>vertical filter and horizontal filter
-<img src="/img/cnn/Vertical-and-Horizontal-Filter.png" width="350px" /></p></li>
-
-<li><p>Sobel filter and Scharr filter, 增加了中间行的权重， 可以提高结果的稳定性
-<img src="/img/cnn/Sobel-Filter-and-Scharr-Filter.png" width="350px" /></p></li>
-
-<li><p>filter 中的值可以设置为参数，通过模型训练得到，神经网络通过反向传播学习到一些低级特性，使得可以对图像的边缘进行检测，不仅仅局限于水平和垂直方向</p></li>
+<img src="/img/cnn/Convolutional-operation.jpg" width="350px" /></p>
+</li>
+<li>
+<p>vertical filter and horizontal filter
+<img src="/img/cnn/Vertical-and-Horizontal-Filter.png" width="350px" /></p>
+</li>
+<li>
+<p>Sobel filter and Scharr filter, 增加了中间行的权重， 可以提高结果的稳定性
+<img src="/img/cnn/Sobel-Filter-and-Scharr-Filter.png" width="350px" /></p>
+</li>
+<li>
+<p>filter 中的值可以设置为参数，通过模型训练得到，神经网络通过反向传播学习到一些低级特性，使得可以对图像的边缘进行检测，不仅仅局限于水平和垂直方向</p>
+</li>
 </ul>
-
 <h2 id="padding">Padding</h2>
-
 <p>假设输入图像大小为 $n\times n$, filter 大小为 $f\times f$, 则输出图片大小为 $(n-f+1) \times (n-f+1)$</p>
-
 <p>因此，存在两个问题</p>
-
 <ol>
 <li>卷积运算后，图像的尺寸会减小</li>
 <li>原始图片的角落，边缘地区的输出采样很少，因此很多边缘地区的信息被丢失</li>
 </ol>
-
 <p>一般可以使用 padding 方式，对图像进行填充, 通常填充的值为0
-  <img src="/img/cnn/Padding.jpg" width="350px" />
+<img src="/img/cnn/Padding.jpg" width="350px" />
 如果对每个方向的padding 数为 p, 则padding后的图像大小 $(n+2p) \times (n+2p)$, 通过 $f\times f$的filter 之后， 大小则为 $(n+2p-f+1)\times (n+2p-f+1)$</p>
-
 <p>进行卷积操作时，有两种选择</p>
-
 <ul>
 <li>valid 卷积： 没有 padding, 直接卷积， $(n-f+1) \times (n-f+1)$</li>
 <li>same 卷积，进行 padding, 使得卷积后结果大小与输入大小一致，此时有 $p = \frac{f-1}{2}$</li>
 </ul>
-
 <p>f 通常为奇数， 原因包括 same 卷积 中可以得到整数，并且 filter 有一个可以表示其所在位置的中心点</p>
-
 <h2 id="stride">Stride</h2>
-
 <p>通过设置步长来压缩一些信息， 步长表示 filter 在原始图像的水平方向和垂直方向上每次移动的距离。步长设置为2的卷积过程表示为
-  <img src="/img/cnn/Stride.jpg" width="350px" /></p>
-
+<img src="/img/cnn/Stride.jpg" width="350px" /></p>
 <p>设步长为 $s$, 填充长度为 $p$, 输入图片大小为 $n\times n$, filter 大小为 $f\times f$, 则卷积后的图片大小为 $$\left\lfloor\frac{n+2 p-f}{s}+1\right\rfloor \times\left\lfloor\frac{n+2 p-f}{s}+1\right\rfloor$$
 向下取整表示原始矩阵的蓝框完全包含在图像内部时，才进行计算.</p>
-
 <p>目前为止我们学习的“卷积”实际上被称为互相关（cross-correlation），而非数学意义上的卷积。真正的卷积操作在做元素乘积求和之前，要将滤波器沿水平和垂直轴翻转（相当于旋转 180 度）</p>
-
 <h2 id="高维卷积">高维卷积</h2>
-
 <p>如果对三通道的RGB进行卷积运算，对应的 filter 也是三通道的，这有点类似我们的眼镜，是 see through 这三个维度，
 对每个通道 (R, G, B) 与对应的 filter 进行卷积运算求和，然后将三个通道的值相加，如下图所示，是对 27 个乘积和作为一个输出</p>
-
 <p><img src="/img/cnn/Convolutions-on-RGB-image.png" width="400px" /></p>
-
 <p>如果想进行更多的边缘检测，可以增加 filter 的数量，如下图所示</p>
-
 <p><img src="/img/cnn/More-Filters.jpg" width="400px" /></p>
-
-<p>设输入图片的尺寸 $n \times n \times n_c$ , filter 的尺寸为 $f\times f \times n_c$, 则卷积运算后的图片尺寸为 $(n-f+1) \times (n-f+1) \times n_c&rsquo;$,   $n_c&rsquo;$ 为 filter 的数目</p>
-
+<p>设输入图片的尺寸 $n \times n \times n_c$ , filter 的尺寸为 $f\times f \times n_c$, 则卷积运算后的图片尺寸为 $(n-f+1) \times (n-f+1) \times n_c'$,   $n_c'$ 为 filter 的数目</p>
 <h2 id="单层卷积神经网络">单层卷积神经网络</h2>
-
 <p><img src="/img/cnn/One-Layer-of-a-Convolutional-Network.jpg" width="400px" />
-  单层卷积神经网络多了激活函数和偏移量，filter 的数值对应 $W^{[l]}$, 卷积运算对应 $W^{[l]}$ 与 $A^{[l-1]}$的乘积
-  $$\begin{array}{c}Z^{[l]}=W^{[l]} A^{[l-1]}+b \\ A^{[l]}=g^{[l]}\left(Z^{[l]}\right)\end{array}$$</p>
-
+单层卷积神经网络多了激活函数和偏移量，filter 的数值对应 $W^{[l]}$, 卷积运算对应 $W^{[l]}$ 与 $A^{[l-1]}$的乘积
+$$\begin{array}{c}Z^{[l]}=W^{[l]} A^{[l-1]}+b \\ A^{[l]}=g^{[l]}\left(Z^{[l]}\right)\end{array}$$</p>
 <p>对于 $3 \times 3$的 filter, 总共有 28 各参数，不予图片尺寸相关，因此 CNN 的参数相较于标准神经网络要小很多</p>
-
 <h3 id="符合表示">符合表示</h3>
-
 <p>设 $l$ 层为卷积层：</p>
-
 <ul>
-<li>$f^{[l]}$：<strong>滤波器的高（或宽）</strong></li>
-<li>$p^{[l]}$：<strong>填充长度</strong></li>
-<li>$s^{[l]}$：<strong>步长</strong></li>
-
-<li><p>$n^{[l]}_c$：<strong>滤波器组的数量</strong></p></li>
-
-<li><p><strong>输入维度</strong>：$n^{[l-1]}_H \times n^{[l-1]}_W \times n^{[l-1]}_c$ 。其中 $n^{[l-1]}_H$表示输入图片的高，$n^{[l-1]}_W$表示输入图片的宽。之前的示例中输入图片的高和宽都相同，但是实际中也可能不同，因此加上下标予以区分。</p></li>
-
-<li><p><strong>输出维度</strong>：$n^{[l]}_H \times n^{[l]}_W \times n^{[l]}_c$ 。其中</p></li>
+<li>
+<p>$f^{[l]}$：<strong>滤波器的高（或宽）</strong></p>
+</li>
+<li>
+<p>$p^{[l]}$：<strong>填充长度</strong></p>
+</li>
+<li>
+<p>$s^{[l]}$：<strong>步长</strong></p>
+</li>
+<li>
+<p>$n^{[l]}_c$：<strong>滤波器组的数量</strong></p>
+</li>
+<li>
+<p><strong>输入维度</strong>：$n^{[l-1]}_H \times n^{[l-1]}_W \times n^{[l-1]}_c$ 。其中 $n^{[l-1]}_H$表示输入图片的高，$n^{[l-1]}_W$表示输入图片的宽。之前的示例中输入图片的高和宽都相同，但是实际中也可能不同，因此加上下标予以区分。</p>
+</li>
+<li>
+<p><strong>输出维度</strong>：$n^{[l]}_H \times n^{[l]}_W \times n^{[l]}_c$ 。其中</p>
+</li>
 </ul>
-
 <p>$$n^{[l]}_H = \biggl\lfloor \frac{n^{[l-1]}_H+2p^{[l]}-f^{[l]}}{s^{[l]}}+1   \biggr\rfloor$$</p>
-
 <p>$$n^{[l]}_W = \biggl\lfloor \frac{n^{[l-1]}_W+2p^{[l]}-f^{[l]}}{s^{[l]}}+1   \biggr\rfloor$$</p>
-
 <ul>
 <li><strong>每个滤波器组的维度</strong>：$f^{[l]} \times f^{[l]} \times n^{[l-1]}_c$ 。其中$n^{[l-1]}_c$ 为输入图片通道数（也称深度）。</li>
 <li><strong>权重维度</strong>：$f^{[l]} \times f^{[l]} \times n^{[l-1]}_c \times n^{[l]}_c$</li>
 <li><strong>偏置维度</strong>：$1 \times 1 \times 1 \times n^{[l]}_c$</li>
 </ul>
-
 <p>由于深度学习的相关文献并未对卷积标示法达成一致，因此不同的资料关于高度、宽度和通道数的顺序可能不同。有些作者会将通道数放在首位，需要根据标示自行分辨。</p>
-
 <h2 id="简单神经网络">简单神经网络</h2>
-
 <p><img src="/img/cnn/Simple-Convolutional-Network-Example.jpg" width="400px" />
-  典型的神经网络包含三层， Convolution layer, Pooling layer and Fully Connected Layer.</p>
-
+典型的神经网络包含三层， Convolution layer, Pooling layer and Fully Connected Layer.</p>
 <h2 id="pooling-layer">Pooling Layer</h2>
-
 <p>作用是减小模型大小，提高计算速度， 以及减小噪声，提高提取特征的稳健性。  采用最多的一种 Pooling 方式是 Max Pooling, 如下图所示
-  <img src="/img/cnn/Max-Pooling.png" width="400px" />
-  另外一种是 Average Pooling, 求区域的平均值
-  <img src="/img/cnn/Average-Pooling.png" width="400px" />
-  Pooling 设有一组超参数，即 filter 大小，步长 s, 选用 MaxPooling 或者 AveragePooling 但并没有参数需要学习，</p>
-
+<img src="/img/cnn/Max-Pooling.png" width="400px" />
+另外一种是 Average Pooling, 求区域的平均值
+<img src="/img/cnn/Average-Pooling.png" width="400px" />
+Pooling 设有一组超参数，即 filter 大小，步长 s, 选用 MaxPooling 或者 AveragePooling 但并没有参数需要学习，</p>
 <p>设 Pooling 之前输入的维度为 $n_H \times n_W \times n_c$
-  则输出为</p>
-
-
-  $$\left\lfloor\frac{n_{H}-f}{s}+1\right\rfloor \times\left\lfloor\frac{n_{W}-f}{s}+1\right\rfloor \times n_{c}$$
-   
-
+则输出为</p>
+<p>$$\left\lfloor\frac{n_{H}-f}{s}+1\right\rfloor \times\left\lfloor\frac{n_{W}-f}{s}+1\right\rfloor \times n_{c}$$</p>
 <h2 id="example">Example</h2>
-
 <p><img src="/img/cnn/CNN-Example.jpg" width="700px" />
-  各个层的参数表示为</p>
-
+各个层的参数表示为</p>
 <table>
 <thead>
 <tr>
-<th align="center"></th>
 <th align="center">Activation shape</th>
 <th align="center">Activation Size</th>
 <th align="center">#parameters</th>
+<th></th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="center"><strong>Input:</strong></td>
@@ -722,49 +719,42 @@
 <td align="center">3072</td>
 <td align="center">0</td>
 </tr>
-
 <tr>
 <td align="center"><strong>CONV1(f=5, s=1)</strong></td>
 <td align="center">(28, 28, 6)</td>
 <td align="center">4704</td>
 <td align="center">158</td>
 </tr>
-
 <tr>
 <td align="center"><strong>POOL1</strong></td>
 <td align="center">(14, 14, 6)</td>
 <td align="center">1176</td>
 <td align="center">0</td>
 </tr>
-
 <tr>
 <td align="center"><strong>CONV2(f=5, s=1)</strong></td>
 <td align="center">(10, 10, 16)</td>
 <td align="center">1600</td>
 <td align="center">416</td>
 </tr>
-
 <tr>
 <td align="center"><strong>POOL2</strong></td>
 <td align="center">(5, 5, 16)</td>
 <td align="center">400</td>
 <td align="center">0</td>
 </tr>
-
 <tr>
 <td align="center"><strong>FC3</strong></td>
 <td align="center">(120, 1)</td>
 <td align="center">120</td>
 <td align="center">48120</td>
 </tr>
-
 <tr>
 <td align="center"><strong>FC4</strong></td>
 <td align="center">(84, 1)</td>
 <td align="center">84</td>
 <td align="center">10164</td>
 </tr>
-
 <tr>
 <td align="center"><strong>Softmax</strong></td>
 <td align="center">(10, 1)</td>
@@ -773,11 +763,8 @@
 </tr>
 </tbody>
 </table>
-
 <h2 id="为什么使用卷积">为什么使用卷积</h2>
-
 <p>卷积过程有效的减小了CNN 参数数量，主要通过两种方式</p>
-
 <ul>
 <li><strong>参数共享（Parameter sharing）</strong>：特征检测如果适用于图片的某个区域，那么它也可能适用于图片的其他区域。即在卷积过程中，不管输入有多大，一个特征探测器（滤波器）就能对整个输入的某一特征进行探测。</li>
 <li><strong>稀疏连接（Sparsity of connections）</strong>：在每一层中，由于滤波器的尺寸限制，输入和输出之间的连接是稀疏的，每个输出值只取决于输入在局部的一小部分值
@@ -817,11 +804,12 @@
 
 
 
+
   
   
 
 <p class="edit-page">
-  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses/deep_learning/CNN.md">
+  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses%5cdeep_learning%5cCNN.md">
     <i class="fas fa-pen pr-2"></i>Edit this page
   </a>
 </p>
@@ -830,6 +818,10 @@
 
 
           
+
+
+          
+
 
         </div>
 
@@ -840,10 +832,21 @@
 
   <p class="powered-by">
     
+  </p>
 
-    Powered by the
-    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
-    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    Published with
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic Website Builder</a>
+    
 
     
   </p>
@@ -860,24 +863,25 @@
     
     
     
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
 
       
 
       
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js" integrity="sha512-7t8APmYpzEsZP7CYoA7RfMPV9Bb+PJHa9x2WiUnDXZx3XHveuyWUtvNOexhkierl5flZ3tr92dP1mMS+SGlD+A==" crossorigin="anonymous"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/r.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/fortran.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/c.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/java.min.js"></script>
         
       
 
@@ -911,7 +915,8 @@
         'post': "Posts",
         'project': "Projects",
         'publication' : "Publications",
-        'talk' : "Talks"
+        'talk' : "Talks",
+        'slides' : "Slides"
         };
     </script>
     
@@ -953,6 +958,9 @@
 
     
     
+
+    
+    
     
     
     
@@ -965,7 +973,7 @@
     
     
     
-    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+    <script src="/js/academic.min.3b2b658c61ebd725bd5fc606c89fe44c.js"></script>
 
     
 

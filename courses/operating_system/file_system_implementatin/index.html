@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!DOCTYPE html><html lang="en-us" >
 
 <head>
 
@@ -12,6 +11,9 @@
 
   
   
+
+  
+  
   
   
   
@@ -21,14 +23,14 @@
   
   
 
-  <meta name="author" content="Haomiao Zhang">
+  
 
   
   
   
     
   
-  <meta name="description" content="File-System Structure  I/O transfer between memory and disk are performed in units of blocks  one block is one or more sectors one sector is usually 512 bytes  One OS can support more than 1 FS types (NTFS, FAT32) Two design problems in FS  interface to user programs interface to physical storage (disk)  Layered File System   Data Structure On-Disk Structure  Boot control block (per partition): information needed to boot an OS from that partition  typical the first block of the partition (empty means no OS) UFS (Unix File Sys): boot block, NTFS: partition boot sector  Partition Control Block (per partion): partion details  details: # of blocks, block size, free-block-size, free FCB pointers USF: superblock, NTFS: Master File Table  File control block (per file): details regrading a file  details: permission, size, location of data blocks UFS: inode, NTFS: stored in MFT(relational database)  Directory structure (pef file system): organize files   In-Memory Structure  in-memory partition table: information about each mounted parition in-memory directory structure: information of recently accessed directories system-wide open-file table: contain a copy of each opened file&rsquo;s FCB (file control block) per-process open-file table: pointer (file handler / descriptor) to the corresponding entry in the above table  Example  create  OS allocates a new FCB update directory structure  OS reads in the corresponding directory Updates the dir structure with the new file name and the FCB (After file being closed), OS writes back the directory structure back to disk  the file appears in user&rsquo;s dir command   Virtual File System  VFS provides an object-oriented way of implementing file systems VFS allows the same system call interface to be used for different types of FS VFS calls the appropriate FS routines based on the partition info  Four main object types defined by Linux VFS:  inode (an individual file, file control block) file object (an open file) superblock object (an entire file system) dentry object (an individual directory entry)  VSF defines a set of operations that must be implemented (e.">
+  <meta name="description" content="File-System Structure  I/O transfer between memory and disk are performed in units of blocks  one block is one or more sectors one sector is usually 512 bytes   One OS can support more than 1 FS types (NTFS, FAT32) Two design problems in FS  interface to user programs interface to physical storage (disk)   Layered File System   Data Structure On-Disk Structure  Boot control block (per partition): information needed to boot an OS from that partition  typical the first block of the partition (empty means no OS) UFS (Unix File Sys): boot block, NTFS: partition boot sector   Partition Control Block (per partion): partion details  details: # of blocks, block size, free-block-size, free FCB pointers USF: superblock, NTFS: Master File Table   File control block (per file): details regrading a file  details: permission, size, location of data blocks UFS: inode, NTFS: stored in MFT(relational database)   Directory structure (pef file system): organize files   In-Memory Structure  in-memory partition table: information about each mounted parition in-memory directory structure: information of recently accessed directories system-wide open-file table: contain a copy of each opened file&rsquo;s FCB (file control block) per-process open-file table: pointer (file handler / descriptor) to the corresponding entry in the above table  Example  create  OS allocates a new FCB update directory structure  OS reads in the corresponding directory Updates the dir structure with the new file name and the FCB (After file being closed), OS writes back the directory structure back to disk   the file appears in user&rsquo;s dir command    Virtual File System  VFS provides an object-oriented way of implementing file systems VFS allows the same system call interface to be used for different types of FS VFS calls the appropriate FS routines based on the partition info  Four main object types defined by Linux VFS:  inode (an individual file, file control block) file object (an open file) superblock object (an entire file system) dentry object (an individual directory entry)   VSF defines a set of operations that must be implemented (e.">
 
   
   <link rel="alternate" hreflang="en-us" href="/courses/operating_system/file_system_implementatin/">
@@ -53,8 +55,8 @@
   
   
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
 
     
@@ -65,8 +67,8 @@
     
       
       
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-light.min.css" crossorigin="anonymous" title="hl-dark" disabled>
       
     
 
@@ -77,6 +79,13 @@
     
 
     
+    
+      
+
+      
+      
+
+      
     
       
 
@@ -193,7 +202,11 @@
   
   
   
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
   
 
   
@@ -211,6 +224,9 @@
 
 
   
+  
+
+  
 
   <link rel="manifest" href="/index.webmanifest">
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
@@ -218,6 +234,8 @@
 
   <link rel="canonical" href="/courses/operating_system/file_system_implementatin/">
 
+  
+  
   
   
   
@@ -232,8 +250,8 @@
   <meta property="og:site_name" content="Haomiao">
   <meta property="og:url" content="/courses/operating_system/file_system_implementatin/">
   <meta property="og:title" content="File System Implementation | Haomiao">
-  <meta property="og:description" content="File-System Structure  I/O transfer between memory and disk are performed in units of blocks  one block is one or more sectors one sector is usually 512 bytes  One OS can support more than 1 FS types (NTFS, FAT32) Two design problems in FS  interface to user programs interface to physical storage (disk)  Layered File System   Data Structure On-Disk Structure  Boot control block (per partition): information needed to boot an OS from that partition  typical the first block of the partition (empty means no OS) UFS (Unix File Sys): boot block, NTFS: partition boot sector  Partition Control Block (per partion): partion details  details: # of blocks, block size, free-block-size, free FCB pointers USF: superblock, NTFS: Master File Table  File control block (per file): details regrading a file  details: permission, size, location of data blocks UFS: inode, NTFS: stored in MFT(relational database)  Directory structure (pef file system): organize files   In-Memory Structure  in-memory partition table: information about each mounted parition in-memory directory structure: information of recently accessed directories system-wide open-file table: contain a copy of each opened file&rsquo;s FCB (file control block) per-process open-file table: pointer (file handler / descriptor) to the corresponding entry in the above table  Example  create  OS allocates a new FCB update directory structure  OS reads in the corresponding directory Updates the dir structure with the new file name and the FCB (After file being closed), OS writes back the directory structure back to disk  the file appears in user&rsquo;s dir command   Virtual File System  VFS provides an object-oriented way of implementing file systems VFS allows the same system call interface to be used for different types of FS VFS calls the appropriate FS routines based on the partition info  Four main object types defined by Linux VFS:  inode (an individual file, file control block) file object (an open file) superblock object (an entire file system) dentry object (an individual directory entry)  VSF defines a set of operations that must be implemented (e."><meta property="og:image" content="img/map[gravatar:%!s(bool=true) shape:circle]">
-  <meta property="twitter:image" content="img/map[gravatar:%!s(bool=true) shape:circle]"><meta property="og:locale" content="en-us">
+  <meta property="og:description" content="File-System Structure  I/O transfer between memory and disk are performed in units of blocks  one block is one or more sectors one sector is usually 512 bytes   One OS can support more than 1 FS types (NTFS, FAT32) Two design problems in FS  interface to user programs interface to physical storage (disk)   Layered File System   Data Structure On-Disk Structure  Boot control block (per partition): information needed to boot an OS from that partition  typical the first block of the partition (empty means no OS) UFS (Unix File Sys): boot block, NTFS: partition boot sector   Partition Control Block (per partion): partion details  details: # of blocks, block size, free-block-size, free FCB pointers USF: superblock, NTFS: Master File Table   File control block (per file): details regrading a file  details: permission, size, location of data blocks UFS: inode, NTFS: stored in MFT(relational database)   Directory structure (pef file system): organize files   In-Memory Structure  in-memory partition table: information about each mounted parition in-memory directory structure: information of recently accessed directories system-wide open-file table: contain a copy of each opened file&rsquo;s FCB (file control block) per-process open-file table: pointer (file handler / descriptor) to the corresponding entry in the above table  Example  create  OS allocates a new FCB update directory structure  OS reads in the corresponding directory Updates the dir structure with the new file name and the FCB (After file being closed), OS writes back the directory structure back to disk   the file appears in user&rsquo;s dir command    Virtual File System  VFS provides an object-oriented way of implementing file systems VFS allows the same system call interface to be used for different types of FS VFS calls the appropriate FS routines based on the partition info  Four main object types defined by Linux VFS:  inode (an individual file, file control block) file object (an open file) superblock object (an entire file system) dentry object (an individual directory entry)   VSF defines a set of operations that must be implemented (e."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2019-05-05T00:00:00&#43;01:00">
@@ -261,7 +279,8 @@
 
 </head>
 
-<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class=" ">
 
   <aside class="search-results" id="search">
   <div class="container">
@@ -279,7 +298,7 @@
       <div id="search-box">
         
         <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
-        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
         
       </div>
 
@@ -296,6 +315,11 @@
 
 
   
+
+
+
+
+
 
 
 
@@ -413,13 +437,26 @@
     <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
       
       <li class="nav-item">
-        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
       </li>
       
 
       
-      <li class="nav-item">
-        <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
       </li>
       
 
@@ -429,6 +466,7 @@
 
   </div>
 </nav>
+
 
 
   
@@ -540,40 +578,29 @@
       </ul>
 
       <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#file-system-structure">File-System Structure</a></li>
-<li><a href="#data-structure">Data Structure</a>
-<ul>
-<li><a href="#on-disk-structure">On-Disk Structure</a></li>
-<li><a href="#in-memory-structure">In-Memory Structure</a></li>
-<li><a href="#example">Example</a></li>
-</ul></li>
-<li><a href="#virtual-file-system">Virtual File System</a></li>
-<li><a href="#allocation-methods">Allocation Methods</a>
-<ul>
-<li><a href="#contiguous-allocation">Contiguous Allocation</a>
-<ul>
-<li><a href="#extent-based-file-system">Extent-Based File System</a></li>
-</ul></li>
-<li><a href="#linked-allocation">Linked Allocation</a>
-<ul>
-<li><a href="#fat-file-allocation-table-file-system">FAT (File Allocation Table) file system</a></li>
-</ul></li>
-<li><a href="#index-allocation-example">Index Allocation Example</a>
-<ul>
-<li><a href="#linked-indexed-scheme">Linked Indexed Scheme</a></li>
-<li><a href="#multilevel-scheme-two-level">Multilevel Scheme (two-level)</a></li>
-<li><a href="#combined-scheme-unix-inode">combined scheme: unix inode</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#free-space">Free space</a>
-<ul>
-<li><a href="#bit-vector">Bit vector</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#file-system-structure">File-System Structure</a></li>
+    <li><a href="#data-structure">Data Structure</a>
+      <ul>
+        <li><a href="#on-disk-structure">On-Disk Structure</a></li>
+        <li><a href="#in-memory-structure">In-Memory Structure</a></li>
+        <li><a href="#example">Example</a></li>
+      </ul>
+    </li>
+    <li><a href="#virtual-file-system">Virtual File System</a></li>
+    <li><a href="#allocation-methods">Allocation Methods</a>
+      <ul>
+        <li><a href="#contiguous-allocation">Contiguous Allocation</a></li>
+        <li><a href="#linked-allocation">Linked Allocation</a></li>
+        <li><a href="#index-allocation-example">Index Allocation Example</a></li>
+      </ul>
+    </li>
+    <li><a href="#free-space">Free space</a>
+      <ul>
+        <li><a href="#bit-vector">Bit vector</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
 
       
@@ -588,183 +615,157 @@
           <h1>File System Implementation</h1>
 
           <div class="article-style">
-            
-
-<h2 id="file-system-structure">File-System Structure</h2>
-
+            <h2 id="file-system-structure">File-System Structure</h2>
 <ul>
 <li>I/O transfer between memory and disk are performed in units of blocks
-
 <ul>
 <li>one block is one or more sectors</li>
 <li>one sector is usually 512 bytes</li>
-</ul></li>
+</ul>
+</li>
 <li>One OS can support more than 1 FS types (NTFS, FAT32)</li>
 <li>Two design problems in FS
-
 <ul>
 <li>interface to user programs</li>
 <li>interface to physical storage (disk)</li>
-</ul></li>
+</ul>
+</li>
 <li>Layered File System
 <img src="https://i.loli.net/2019/03/20/5c91d9f708bcb.png" width="400px"/></li>
 </ul>
-
 <h2 id="data-structure">Data Structure</h2>
-
 <h3 id="on-disk-structure">On-Disk Structure</h3>
-
 <ul>
 <li>Boot control block (<strong>per partition</strong>): information needed to boot an OS from that partition
-
 <ul>
 <li>typical the first block of the partition (empty means no OS)</li>
 <li>UFS (Unix File Sys): boot block, NTFS: partition boot sector</li>
-</ul></li>
+</ul>
+</li>
 <li>Partition Control Block (<strong>per partion</strong>): partion details
-
 <ul>
 <li>details: # of blocks, block size, free-block-size, free FCB pointers</li>
 <li>USF: superblock, NTFS: Master File Table</li>
-</ul></li>
+</ul>
+</li>
 <li>File control block (<strong>per file</strong>): details regrading a file
-
 <ul>
 <li>details: permission, size, location of data blocks</li>
 <li>UFS: inode, NTFS: stored in MFT(relational database)</li>
-</ul></li>
+</ul>
+</li>
 <li>Directory structure (<strong>pef file system</strong>): organize files
 <img src="https://i.loli.net/2019/03/20/5c91e69eb521e.png" width="400px"/></li>
 </ul>
-
 <h3 id="in-memory-structure">In-Memory Structure</h3>
-
 <ul>
 <li>in-memory partition table: information about each <strong>mounted parition</strong></li>
 <li>in-memory directory structure: information of <strong>recently accessed directories</strong></li>
 <li>system-wide open-file table: contain a copy of each <strong>opened file&rsquo;s FCB (file control block)</strong></li>
 <li>per-process open-file table: <strong>pointer (file handler / descriptor)</strong> to the corresponding entry in the above table</li>
 </ul>
-
 <h3 id="example">Example</h3>
-
-<p><img src="https://i.loli.net/2019/03/20/5c91e9048c086.png" width="400px"/></p>
-
-<p><img src="https://i.loli.net/2019/03/20/5c91e976881de.png" width="400px"/></p>
-
+<img src="https://i.loli.net/2019/03/20/5c91e9048c086.png" width="400px"/>
+<img src="https://i.loli.net/2019/03/20/5c91e976881de.png" width="400px"/>
 <ul>
 <li>create
-
 <ol>
 <li>OS allocates a new FCB</li>
 <li>update directory structure
-
 <ol>
 <li>OS reads in the corresponding directory</li>
 <li>Updates the dir structure with the new file name and the FCB</li>
 <li>(After file being closed), OS writes back the directory structure back to disk</li>
-</ol></li>
+</ol>
+</li>
 <li>the file appears in user&rsquo;s dir command</li>
-</ol></li>
+</ol>
+</li>
 </ul>
-
 <h2 id="virtual-file-system">Virtual File System</h2>
-
 <ul>
 <li>VFS provides an object-oriented way of implementing file systems</li>
 <li>VFS allows the same system call interface to be used for different types of FS</li>
 <li>VFS calls the appropriate FS routines based on the partition info
 <img src="https://i.loli.net/2019/03/20/5c91eadf85fd1.png" width="400px"/></li>
 <li>Four main object types defined by Linux VFS:
-
 <ul>
 <li>inode (an individual file, file control block)</li>
 <li>file object (an open file)</li>
 <li>superblock object (an entire file system)</li>
 <li>dentry object (an individual directory entry)</li>
-</ul></li>
+</ul>
+</li>
 <li>VSF defines a set of operations that must be implemented (e.g. for file object)
-
 <ul>
 <li>int open(&hellip;) (open a file)</li>
 <li>ssize_t read() (read from a file)</li>
-</ul></li>
+</ul>
+</li>
 <li>Directory implementation
-
 <ul>
 <li>Linear Lists (list of names with pointers to data blocks, easy to program but poor performance)</li>
 <li>Hash table &ndash; linear list w/hash data structure, constant time for searching, linked list for collosions on a hash entry, hash table usually has fixed number of entires</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h2 id="allocation-methods">Allocation Methods</h2>
-
 <ul>
 <li>An allocation method refers to how disk blocks are allocated for files</li>
 <li>Allocation strategy: Contiguous allocation, Linked allocation, Indexed allocation</li>
 </ul>
-
 <h3 id="contiguous-allocation">Contiguous Allocation</h3>
-
-<p><img src="https://i.loli.net/2019/03/20/5c921846bbb60.png" width="400px"/>
+<img src="https://i.loli.net/2019/03/20/5c921846bbb60.png" width="400px"/>
 - Each file occupies a set of contiguous blocks
   - num of disk seeks is minimized
   - The dir entry for each file = (starting num, size)
-- Both sequential &amp; random access can be implemented efficiently
+- Both sequential & random access can be implemented efficiently
 - Problems
   - External fragmentation $\rightarrow$ compaction
-  - file cannot grow $\rightarrow$ extend-based FS</p>
-
+  - file cannot grow $\rightarrow$ extend-based FS
 <h4 id="extent-based-file-system">Extent-Based File System</h4>
-
 <ul>
 <li>Many newer file system use a modified contiguous allocation scheme</li>
 <li>Extent-based file system allocate disk blocks in extents</li>
 <li>An extent is a contiguous blocks of disks
-
 <ul>
 <li>A file contains one or more extents</li>
 <li>An extent: (starting block num, length, pointer to next extent)</li>
-</ul></li>
+</ul>
+</li>
 <li>Random access become more costly</li>
 <li>Both internal &amp; external fragmentation are possible</li>
 </ul>
-
 <h3 id="linked-allocation">Linked Allocation</h3>
-
 <ul>
 <li>each file is a linked list of blocks
-
 <ul>
 <li>each block contains a pointer to the next block</li>
 <li>data portion: block size &ndash; pointer size</li>
-</ul></li>
+</ul>
+</li>
 <li>file read: following through the list
 <img src="https://i.loli.net/2019/03/20/5c921a6e40243.png" width="400px"/></li>
 <li>Problems
-
 <ul>
 <li>only good for sequential-access files</li>
 <li>random access requires traversing through the link list</li>
 <li>each access to link listis a disk I/O (link pointer is stored inside the data block)</li>
-<li>space required for pointer (<sup>4</sup>&frasl;<sub>512</sub> = 0.78%) (solution: cluster of blocks)</li>
+<li>space required for pointer (4/512 = 0.78%) (solution: cluster of blocks)</li>
 <li>Reliability (one missing link breaks the whole file)</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h4 id="fat-file-allocation-table-file-system">FAT (File Allocation Table) file system</h4>
-
-<p><img src="https://i.loli.net/2019/03/20/5c921c3220923.png" width="400px"/>
+<img src="https://i.loli.net/2019/03/20/5c921c3220923.png" width="400px"/>
 - FAT32
   - store all links in a table
   - 32 bits per table entry
   - located in a section of disk at the beginning of each partition
 - FAT(table) is often cached in memory
   - Random access is improved
-  - Disk head find the location of any block by reading FAT</p>
-
+  - Disk head find the location of any block by reading FAT
 <h3 id="index-allocation-example">Index Allocation Example</h3>
-
 <ul>
 <li>The directory contains the address of the file index block</li>
 <li>each file has its own index block</li>
@@ -775,61 +776,51 @@
 <li>No external fragmentation</li>
 <li>Easy to create file (no allocation problem)</li>
 <li>Disadvantages
-
 <ol>
 <li>space for index blocks</li>
 <li>how large the index block should be:
-
 <ul>
 <li>linked scheme</li>
 <li>multilevel index</li>
 <li>combined scheme (inode in BSD UNIX)</li>
-</ul></li>
-</ol></li>
 </ul>
-
+</li>
+</ol>
+</li>
+</ul>
 <h4 id="linked-indexed-scheme">Linked Indexed Scheme</h4>
-
-<p><img src="https://i.loli.net/2019/03/20/5c9220756eea4.png" width="400px"/></p>
-
+<img src="https://i.loli.net/2019/03/20/5c9220756eea4.png" width="400px"/>
 <h4 id="multilevel-scheme-two-level">Multilevel Scheme (two-level)</h4>
-
-<p><img src="https://i.loli.net/2019/03/20/5c92213d6c2a5.png" width="400px"/></p>
-
+<img src="https://i.loli.net/2019/03/20/5c92213d6c2a5.png" width="400px"/>
 <h4 id="combined-scheme-unix-inode">combined scheme: unix inode</h4>
-
 <ul>
 <li>File pointer: 4B (32 bits)</li>
 <li>Let each data/index block be 4KB
 <img src="https://i.loli.net/2019/03/20/5c92220210861.png" width="400px"/></li>
 </ul>
-
 <h2 id="free-space">Free space</h2>
-
 <ul>
 <li>Free-space list: records all free disk blocks</li>
 <li>Scheme
-
 <ul>
 <li>Bit vector</li>
 <li>Linked List (same as linked allocation)</li>
 <li>Grouping (same as linked index allocation)</li>
 <li>Counting (same as contiguous allocation)</li>
-</ul></li>
+</ul>
+</li>
 <li>file system usually manage free space in the same way as a file</li>
 </ul>
-
 <h3 id="bit-vector">Bit vector</h3>
-
 <ul>
 <li>Bit vector(bitmap): one bit foreach block</li>
 <li>simplicity, efficient (HW support bit-manipulation instruction)</li>
 <li>bitmap must be cached for gooe performance
-
 <ul>
 <li>A 1-TB(4KB block) disk needs 32MB bitmap
 <img src="https://i.loli.net/2019/03/20/5c9223f4ac1e5.png" width="250px"/></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
           </div>
@@ -872,11 +863,12 @@
 
 
 
+
   
   
 
 <p class="edit-page">
-  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses/operating_system/file_system_implementatin.md">
+  <a href="https://github.com/zhanghaomiao/academic-kickstart/edit/master/content/courses%5coperating_system%5cfile_system_implementatin.md">
     <i class="fas fa-pen pr-2"></i>Edit this page
   </a>
 </p>
@@ -885,6 +877,10 @@
 
 
           
+
+
+          
+
 
         </div>
 
@@ -895,10 +891,21 @@
 
   <p class="powered-by">
     
+  </p>
 
-    Powered by the
-    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
-    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    Published with
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic Website Builder</a>
+    
 
     
   </p>
@@ -915,24 +922,25 @@
     
     
     
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
 
       
 
       
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js" integrity="sha512-7t8APmYpzEsZP7CYoA7RfMPV9Bb+PJHa9x2WiUnDXZx3XHveuyWUtvNOexhkierl5flZ3tr92dP1mMS+SGlD+A==" crossorigin="anonymous"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/r.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/fortran.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/fortran.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/c.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/c.min.js"></script>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/java.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/java.min.js"></script>
         
       
 
@@ -966,7 +974,8 @@
         'post': "Posts",
         'project': "Projects",
         'publication' : "Publications",
-        'talk' : "Talks"
+        'talk' : "Talks",
+        'slides' : "Slides"
         };
     </script>
     
@@ -1008,6 +1017,9 @@
 
     
     
+
+    
+    
     
     
     
@@ -1020,7 +1032,7 @@
     
     
     
-    <script src="/js/academic.min.c816d323c3a55093dae0829b44ea1ca8.js"></script>
+    <script src="/js/academic.min.3b2b658c61ebd725bd5fc606c89fe44c.js"></script>
 
     
 

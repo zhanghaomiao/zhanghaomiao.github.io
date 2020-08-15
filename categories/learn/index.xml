@@ -7,7 +7,7 @@
     <description>Learn</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 11 May 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>Learn</title>
       <link>/categories/learn/</link>
     </image>
@@ -17,39 +17,30 @@
       <link>/post/reservior_sampling/</link>
       <pubDate>Mon, 11 May 2020 00:00:00 +0000</pubDate>
       <guid>/post/reservior_sampling/</guid>
-      <description>
-
-&lt;h2 id=&#34;问题&#34;&gt;问题&lt;/h2&gt;
-
+      <description>&lt;h2 id=&#34;问题&#34;&gt;问题&lt;/h2&gt;
 &lt;p&gt;给定一个数据流，数据流长度N很大，且N直到处理完所有数据之前都不可知，请问如何在只遍历一遍数据（O(N)）的情况下，能够随机选取出m个不重复的数据。&lt;/p&gt;
-
 &lt;h2 id=&#34;解法&#34;&gt;解法&lt;/h2&gt;
-
 &lt;ol&gt;
 &lt;li&gt;如果接收的数据量小于m，则依次放入蓄水池。&lt;/li&gt;
 &lt;li&gt;当接收到第i个数据时，i &amp;gt;= m，在[0, i]范围内取以随机数d，若d的落在[0, m-1]范围内，则用接收到的第i个数据替换蓄水池中的第d个数据。&lt;/li&gt;
 &lt;li&gt;重复步骤2。&lt;/li&gt;
 &lt;/ol&gt;
-
 &lt;h2 id=&#34;解释&#34;&gt;解释&lt;/h2&gt;
-
 &lt;ol&gt;
 &lt;li&gt;这里需要证明处理完这整个数据流之后，所以数被选择的概率都能有 m / N&lt;/li&gt;
 &lt;li&gt;i&amp;lt;=m 时， 第 i 个数据进入 reservior 的概率是 1&lt;/li&gt;
 &lt;li&gt;i&amp;gt;m 时， 从 [1, i] 选择随机数 d, 如果 d &amp;lt;= m , 则使用第 i 个数据替换 第 d 个数据， 第 i 个数据进入 reservoir概率是   m / i&lt;/li&gt;
 &lt;li&gt;i&amp;lt;=m时， 第(m+1) 次会替换掉池中数据的概率  m/(m+1), 替换第 i 个数据概率 1/m, 则 m+1 次替换掉 i个数据概率 为  1/(m+1), 不被替换概率为 m/(m+1), 第 (m+2) 次处理不替换第 i 个数据概率 (m+1) / (m+2)， 依次计算可得第 i 个数据不被替换的概率为 m / N&lt;/li&gt;
 &lt;li&gt;i &amp;gt; m 时， 接收 i+1 个数据可能替换第 i 个数据， 第 i 个数据不被替换概率 i / N&lt;/li&gt;
-&lt;li&gt;i&amp;lt;=m 时 ，第 i 个数据留在 reservoir 概率是 $1*m/N$,  i&amp;gt;m 时， 第 i 个数据留在 reservoir 概率为 $m /i * i/ N = m / N$&lt;/li&gt;
+&lt;li&gt;i&amp;lt;=m 时 ，第 i 个数据留在 reservoir 概率是 $1*m/N$, i&amp;gt;m 时， 第 i 个数据留在 reservoir 概率为 $m /i * i/ N = m / N$&lt;/li&gt;
 &lt;/ol&gt;
-
 &lt;h2 id=&#34;练习&#34;&gt;练习&lt;/h2&gt;
-
 &lt;p&gt;reservior 深度为 1&lt;/p&gt;
-
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/random-pick-index/&#34;&gt;https://leetcode-cn.com/problems/random-pick-index/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/linked-list-random-node/&#34;&gt;https://leetcode-cn.com/problems/linked-list-random-node/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://leetcode-cn.com/problems/linked-list-random-node&#34;&gt;https://leetcode-cn.com/problems/linked-list-random-node&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
+&lt;iframe allow=&#34;autoplay *; encrypted-media *;&#34; frameborder=&#34;0&#34; height=&#34;150&#34; style=&#34;width:100%;max-width:660px;overflow:hidden;background:transparent;&#34; sandbox=&#34;allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation&#34; src=&#34;https://embed.music.apple.com/cn/album/%E8%B6%85%E4%BA%BA%E4%B8%8D%E4%BC%9A%E9%A3%9E/536247746?i=536248204&#34;&gt;&lt;/iframe&gt;
 </description>
     </item>
     
@@ -58,28 +49,19 @@
       <link>/post/image_latex_app/</link>
       <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
       <guid>/post/image_latex_app/</guid>
-      <description>
-
-&lt;p&gt;在科研论文中，经常需要输入LaTeX公式，这是一件很令人头疼的事，因为公式输入很复杂且容易出错。MathPix这个软件简化了这个过程，可以直接通过图片识别出 LaTeX 公式。以前这个软件是免费的, 后来开始收费且价格不菲. 不过推出了 API 调用方式，一个月3000条免费，后面超出的价格也不贵。&lt;/p&gt;
-
+      <description>&lt;p&gt;在科研论文中，经常需要输入LaTeX公式，这是一件很令人头疼的事，因为公式输入很复杂且容易出错。MathPix这个软件简化了这个过程，可以直接通过图片识别出 LaTeX 公式。以前这个软件是免费的, 后来开始收费且价格不菲. 不过推出了 API 调用方式，一个月3000条免费，后面超出的价格也不贵。&lt;/p&gt;
 &lt;p&gt;为了更好的使用这个API，一键操作，仿照以前的 MathPix界面，用 pyqt 写了一个简略的界面，不过也可以实现基本功能。&lt;/p&gt;
-
 &lt;h2 id=&#34;ide&#34;&gt;IDE&lt;/h2&gt;
-
 &lt;p&gt;用的是 PyCharm, 不像 Qt 有 QtCreater, python 版本的 pyqt 没找到官方的 IDE, 因此用的是PyCharm. 在 PyCharm 上加了两个 External Tools:&lt;/p&gt;
-
 &lt;ol&gt;
 &lt;li&gt;qt designer, 设计 UI 界面
 &lt;img src=&#34;/img/pyQT/pyqt_tool.png&#34; width=&#34;450px&#34; /&gt;&lt;/li&gt;
 &lt;li&gt;pyUIC5, 将 UI file 转为 .py file
 &lt;img src=&#34;/img/pyQT/pyuic_tool.png&#34; width=&#34;450px&#34; /&gt;&lt;/li&gt;
 &lt;/ol&gt;
-
 &lt;h2 id=&#34;qt-designer&#34;&gt;Qt Designer&lt;/h2&gt;
-
 &lt;p&gt;主要用来设计UI界面，设计好的界面如下
-   &lt;img src=&#34;/img/pyQT/pyqt_ui.png&#34; width=&#34;450px&#34; /&gt;&lt;/p&gt;
-
+&lt;img src=&#34;/img/pyQT/pyqt_ui.png&#34; width=&#34;450px&#34; /&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;图片显示界面， 可以从剪切板里导入图片，或者是从应用外拖进图片&lt;/li&gt;
 &lt;li&gt;Convert, 触发调用API命令，并将结果显示&lt;/li&gt;
@@ -87,17 +69,11 @@
 &lt;li&gt;PasteBoard 从剪切板导入图片&lt;/li&gt;
 &lt;li&gt;生成后的 LaTeX 代码，通过 copy 将文字导入到剪切板， 三个copy 对应三种不同返回格式&lt;/li&gt;
 &lt;/ol&gt;
-
 &lt;p&gt;用到的对象如下&lt;/p&gt;
-
 &lt;p&gt;&lt;img src=&#34;/img/pyQT/object.png&#34; width=&#34;450px&#34; /&gt;&lt;/p&gt;
-
 &lt;p&gt;这里有一点需要注意的是，label 标签对应的类不是 QLabel, 因为如果 QLabel 要支持拖拽功能，需要在 QLabel 下重新定义一个子类，并让子类重写&lt;code&gt;dragEnterEvent&lt;/code&gt; 和 &lt;code&gt;dropEvent&lt;/code&gt; 两个函数，这样，需要对 Qt Designer 的 QLabel 进行提升，这里我将提升的类命名为 &lt;code&gt;ImageArea&lt;/code&gt;.&lt;/p&gt;
-
 &lt;h2 id=&#34;代码&#34;&gt;代码&lt;/h2&gt;
-
 &lt;p&gt;&lt;img src=&#34;/img/pyQT/code.png&#34; width=&#34;650px&#34; /&gt;&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;app_run.py&lt;/code&gt; 主程序，程序代码的入口，定义了整个对象，以及对象之间如何交互&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;customClass.py&lt;/code&gt; 定义了 &lt;code&gt;ImageArea&lt;/code&gt; 类， 让 &lt;code&gt;QLabel&lt;/code&gt; 支持拖拽&lt;/li&gt;
@@ -105,11 +81,8 @@
 &lt;li&gt;&lt;code&gt;qtDesigner.py&lt;/code&gt; 通过 &lt;code&gt;pyUIC&lt;/code&gt; 将 ui 文件转换为 py 文件&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;showLaTeXImage.py&lt;/code&gt; 将生成的LaTeX 公式文本，用 MathJax 显示&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;演示&#34;&gt;演示&lt;/h2&gt;
-
 &lt;p&gt;&lt;img src=&#34;/img/pyQT/moive.gif&#34; width=&#34;650px&#34; /&gt;&lt;/p&gt;
-
 &lt;p&gt;For the source code, see at &lt;a href=&#34;https://github.com/zhanghaomiao/image_to_latex_app&#34;&gt;https://github.com/zhanghaomiao/image_to_latex_app&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
@@ -119,124 +92,106 @@
       <link>/post/ml/t-sne/</link>
       <pubDate>Fri, 04 Oct 2019 00:00:00 +0000</pubDate>
       <guid>/post/ml/t-sne/</guid>
-      <description>
-
-&lt;h2 id=&#34;prepare&#34;&gt;Prepare&lt;/h2&gt;
-
+      <description>&lt;h2 id=&#34;prepare&#34;&gt;Prepare&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Perplexity
 Measurement of how well a probability model predicts a sample.
-
 &lt;ul&gt;
-&lt;li&gt;Definition
+&lt;li&gt;Definition 
 $$H(P) = -\sum_x p(x) \log_2 p(x)$$
 $$\text{Perplexity} = 2^{H(p)}$$&lt;/li&gt;
-&lt;li&gt;Understanding&lt;/li&gt;
+&lt;li&gt;Understanding
+&lt;ul&gt;
 &lt;li&gt;$H(p)$ be the average of bits to decode the information&lt;/li&gt;
 &lt;li&gt;$\text{Perplexity}$ is the total amount of all possible information&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;Usage
 In the NLP, the best language model is one that predicts an unseen test set gives the highest P
 $$ PP(w) = p (w_1w_2\dots w_N )^{-1/N}$$
 Minmizing perplexity is the same as maximizing probability&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;Gaussian Distriubtion and T Distribution
-
 &lt;ul&gt;
 &lt;li&gt;T distribution is used when the samples is small&lt;/li&gt;
 &lt;li&gt;T distribution is heavy tail
-&lt;img src=&#34;https://upload.wikimedia.org/wikipedia/commons/4/41/Student_t_pdf.svg&#34; alt=&#34;Student_t_pdf.svg&#34; /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;img src=&#34;https://upload.wikimedia.org/wikipedia/commons/4/41/Student_t_pdf.svg&#34; alt=&#34;Student_t_pdf.svg&#34;&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;t-sne-method&#34;&gt;T-SNE method&lt;/h2&gt;
-
 &lt;h3 id=&#34;sne-method-stochastic-neighbor-embedding&#34;&gt;SNE method (Stochastic Neighbor Embedding)&lt;/h3&gt;
-
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;High Dimension Space
-
-    $$p_{j | i}=\frac{\exp \left(-\left\|x_{i}-x_{j}\right\|^{2} / 2 \sigma_{i}^{2}\right)}{\sum_{k \neq i} \exp \left(-\left\|x_{i}-x_{k}\right\|^{2} / 2 \sigma_{i}^{2}\right)}$$
-     &lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Low dimension space&lt;/p&gt;
-
-
-    $$q_{j | i}=\frac{\exp \left(-\left\|y_{i}-y_{j}\right\|^{2}\right)}{\sum_{k \neq i} \exp \left(-\left\|y_{i}-y_{k}\right\|^{2}\right)}$$
-     &lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Cost function
-
-    $$C=\sum_{i} K L\left(P_{i} \| Q_{i}\right)=\sum_{i} \sum_{j} p_{j | i} \log \frac{p_{j | i}}{q_{j | i}}$$
-     &lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;How to choose $\sigma$ for different points&lt;/p&gt;
-
-&lt;p&gt;Different region have different density, so the $\sigma$ determines how many effective neighbors needs to be considered. As the $\sigma$ increase, the entropy of the distribution is increased. And the entroy has an expontential form with &lt;strong&gt;perplexity&lt;/strong&gt;. Using the &lt;strong&gt;perplexity&lt;/strong&gt; to determine the $\sigma$ with every point has a fixed &lt;strong&gt;perplexity&lt;/strong&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;High Dimension Space
+$$p_{j | i}=\frac{\exp \left(-\left|x_{i}-x_{j}\right|^{2} / 2 \sigma_{i}^{2}\right)}{\sum_{k \neq i} \exp \left(-\left|x_{i}-x_{k}\right|^{2} / 2 \sigma_{i}^{2}\right)}$$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Low dimension space&lt;/p&gt;
+&lt;p&gt;$$q_{j | i}=\frac{\exp \left(-\left|y_{i}-y_{j}\right|^{2}\right)}{\sum_{k \neq i} \exp \left(-\left|y_{i}-y_{k}\right|^{2}\right)}$$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Cost function
+$$C=\sum_{i} K L\left(P_{i} | Q_{i}\right)=\sum_{i} \sum_{j} p_{j | i} \log \frac{p_{j | i}}{q_{j | i}}$$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;How to choose $\sigma$ for different points&lt;/p&gt;
+&lt;p&gt;Different region have different density, so the $\sigma$ determines how many effective neighbors needs to be considered. As the $\sigma$ increase, the entropy of the distribution is increased. And the entroy has an expontential form with &lt;strong&gt;perplexity&lt;/strong&gt;. Using the &lt;strong&gt;perplexity&lt;/strong&gt; to determine the $\sigma$ with every point has a fixed &lt;strong&gt;perplexity&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
-
 &lt;ul&gt;
 &lt;li&gt;Problem
-
 &lt;ul&gt;
 &lt;li&gt;The cost function is not symmetric, it focus on retaining the local structure of the data&lt;/li&gt;
 &lt;li&gt;Dealing with outlier&lt;/li&gt;
-&lt;li&gt;Crowding problem : The area of the two-dimensional map that is available to accommodate distant datapoints will not be large enough compared with the area available to accommodate nearby datapoints
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Crowding problem : The area of the two-dimensional map that is available to accommodate distant datapoints will not be large enough compared with the area available to accommodate nearby datapoints&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;t-sne-advantages&#34;&gt;T-SNE advantages&lt;/h3&gt;
-
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Symmetric SNE&lt;/p&gt;
-
+&lt;li&gt;Symmetric SNE&lt;/li&gt;
+&lt;/ol&gt;
 &lt;ul&gt;
 &lt;li&gt;Pairwise similarities in the low dimensional map $q_{ij}$
-
-    $$q_{i j}=\frac{\exp \left(-\left\|y_{i}-y_{j}\right\|^{2}\right)}{\sum_{k \neq l} \exp \left(-\left\|y_{k}-y_{l}\right\|^{2}\right)}$$
-     &lt;/li&gt;
+$$q_{i j}=\frac{\exp \left(-\left|y_{i}-y_{j}\right|^{2}\right)}{\sum_{k \neq l} \exp \left(-\left|y_{k}-y_{l}\right|^{2}\right)}$$&lt;/li&gt;
 &lt;li&gt;High dimensional $p_{ij}$
-
-    $$P_{ij} = \frac {p_{j|i} + p_{i|j}}{2n}$$
-     &lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Crowding problem
+$$P_{ij} = \frac {p_{j|i} + p_{i|j}}{2n}$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Crowding problem
 &lt;img src=&#34;/img/tsne_01.png&#34;/&gt;
-The gradient could be negative, so the low dimensional space could be expanded, and the heavy tail T-Distribution is preferred.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Easy to compute the gradient&lt;/p&gt;
-
-
-    $$\frac{\delta C}{\delta y_{i}}=4 \sum_{j}\left(p_{i j}-q_{i j}\right)\left(y_{i}-y_{j}\right)\left(1+\left\|y_{i}-y_{j}\right\|^{2}\right)^{-1}$$
-     &lt;/li&gt;
+The gradient could be negative, so the low dimensional space could be expanded, and the heavy tail T-Distribution is preferred.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Easy to compute the gradient&lt;/p&gt;
+&lt;p&gt;$$\frac{\delta C}{\delta y_{i}}=4 \sum_{j}\left(p_{i j}-q_{i j}\right)\left(y_{i}-y_{j}\right)\left(1+\left|y_{i}-y_{j}\right|^{2}\right)^{-1}$$&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
-
 &lt;h2 id=&#34;algorithm&#34;&gt;Algorithm&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;Data : data Set $\mathcal{X} = {x_1, x_2, \dots, x_n}$&lt;/li&gt;
 &lt;li&gt;cost function parameters: perplexity $Perp$&lt;/li&gt;
 &lt;li&gt;optimzation paraemters: number of iterations $T$, learning rate $\eta$, momentum $\alpha(t)$&lt;/li&gt;
 &lt;li&gt;Output: low-dimensional data representation $\mathcal{Y}^{T} = {y_1, y_2, \dots, y_n}$&lt;/li&gt;
 &lt;li&gt;Steps
-
 &lt;ol&gt;
 &lt;li&gt;compute pairwise affinities $p_{j|i}$ with perplexity $Perp$&lt;/li&gt;
 &lt;li&gt;Set $p_{ij} = (p_{j|i} + p_{i|j}) / 2n$, sample initial solution $\mathcal{Y}^{(0)} = {y_1, y_2, \dots, y_n}$ from $\mathcal{N}(0, 10^{-4}I)$&lt;/li&gt;
 &lt;li&gt;for $t = 1$ to $T$ do
-
 &lt;ul&gt;
 &lt;li&gt;compute low-dimensional affinities $q_ij$&lt;/li&gt;
 &lt;li&gt;compute gradient $\partial C / \partial \mathcal{Y}$&lt;/li&gt;
 &lt;li&gt;set
 $$\mathcal{Y}^{(t)}=\mathcal{Y}^{(t-1)}+\eta \frac{\delta C}{\delta \gamma}+\alpha(t)\left(\mathcal{Y}^{(t-1)}-\mathcal{Y}^{(t-2)}\right)$$&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;code-with-python&#34;&gt;Code with python&lt;/h2&gt;
-
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import numpy as np
 import pylab
 
@@ -415,17 +370,16 @@ if __name__ == &amp;quot;__main__&amp;quot;:
     pylab.scatter(Y[:, 0], Y[:, 1], 20, labels)
     pylab.show()
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;h2 id=&#34;outcome-for-mnist-dataset&#34;&gt;Outcome for mnist dataset&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&#34;/img/tsne_02.png&#34;&gt;&lt;/p&gt;
-
+&lt;img src=&#34;/img/tsne_02.png&#34;&gt;
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://towardsdatascience.com/perplexity-intuition-and-derivation-105dd481c8f3&#34;&gt;Perplexity Intuition (and its derivation) - Towards Data Science&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/lvdmaaten/bhtsne&#34;&gt;GitHub - lvdmaaten/bhtsne: Barnes-Hut t-SNE&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://lvdmaaten.github.io/tsne/&#34;&gt;t-SNE – Laurens van der Maaten&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://towardsdatascience.com/perplexity-intuition-and-derivation-105dd481c8f3&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Perplexity Intuition (and its derivation) - Towards Data Science&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/lvdmaaten/bhtsne&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub - lvdmaaten/bhtsne: Barnes-Hut t-SNE&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;http://lvdmaaten.github.io/tsne/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;t-SNE – Laurens van der Maaten&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </description>
     </item>
@@ -435,118 +389,118 @@ if __name__ == &amp;quot;__main__&amp;quot;:
       <link>/post/ml/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
       <guid>/post/ml/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/</guid>
-      <description>
-
-&lt;h2 id=&#34;讲一下随机森林-gbdt-xgboost&#34;&gt;讲一下随机森林，GBDT，XGBoost&lt;/h2&gt;
-
+      <description>&lt;h2 id=&#34;讲一下随机森林gbdtxgboost&#34;&gt;讲一下随机森林，GBDT，XGBoost&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;随机森林：&lt;/p&gt;
-
+&lt;li&gt;
+&lt;p&gt;随机森林：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;集成算法， 有放回的随机选择特征， 构建决策树&lt;/li&gt;
 &lt;li&gt;不同基学习器是独立的&lt;/li&gt;
 &lt;li&gt;特征随机和和样本随机&lt;/li&gt;
 &lt;li&gt;bagging 方法， 最后做投票&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;优点：&lt;/p&gt;
-
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;优点：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;集成学习，方差偏差都比较低， 泛化性能比较好&lt;/li&gt;
 &lt;li&gt;高维数据集处理能力很好，并确定最重要的变量&lt;/li&gt;
 &lt;li&gt;可以处理确缺失数据&lt;/li&gt;
 &lt;li&gt;可以并行&lt;/li&gt;
 &lt;li&gt;不需要归一化&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;缺点：&lt;/p&gt;
-
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;缺点：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;回归问题表现不好，不能连续输出&lt;/li&gt;
 &lt;li&gt;无法了解模型内部&lt;/li&gt;
 &lt;li&gt;忽略属性之间的相关性&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;参数调配&lt;/p&gt;
-
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;参数调配&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;网格搜索， GridSearchCV&lt;/li&gt;
 &lt;li&gt;贪心算法， 固定其他参数， 把这个参数选好&lt;/li&gt;
 &lt;li&gt;随机搜索&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;GBDT (Gradient Boosting Decsion Tree)&lt;/p&gt;
-
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;GBDT (Gradient Boosting Decsion Tree)&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;每一次计算减少上次出现的残差， 为了消除残差，训练一个新的模型， 训练好的弱分类器累加到现有模型中&lt;/li&gt;
 &lt;li&gt;回归树，不是分类树。&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;XGBoost&lt;/p&gt;
-
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;XGBoost&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;GBDT 是机器学习算法， XGBoost 是该算法的实现&lt;/li&gt;
 &lt;li&gt;GBDT 算法基于经验损失函数的负梯度构造新的决策树， 在构建完成之后进行剪枝， 而 XGBoost 在决策树构造阶段加入了正则项&lt;/li&gt;
 &lt;li&gt;GBDT 在模型只使用了一阶导数信息， XGBoost 对损失函数进行二阶泰勒展开。&lt;/li&gt;
 &lt;li&gt;根据百分位列举几个可能成为分隔点的候选者， 从中找最佳的分割点&lt;/li&gt;
 &lt;li&gt;传统 GBDT 采用 CART 作为基分类器， XGBoost 采用了与随机森林类似的策略， 支持对数据采样&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;梯度提升和梯度下降的区别&#34;&gt;梯度提升和梯度下降的区别&lt;/h2&gt;
-
 &lt;p&gt;利用损失函数相对于模型的负梯度信息来对模型进行更新， 梯度下降过程中， 模型以参数化形式表示，而梯度提升， 模型不是以参数化形式表示，直接定义在函数空间中， 大大提高了可以使用的模型种类。&lt;/p&gt;
-
 &lt;h2 id=&#34;随机森林如何处理缺失值&#34;&gt;随机森林如何处理缺失值&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;数值型变量：给缺失值一些估计值，例如众数和中位数 描述型变量：缺失部分用出现次数最多的数代替&lt;/li&gt;
 &lt;li&gt;利用中位数和出现次数做最多的数代替，引入权重， 需要替换的数据先和其他数据做相似度测量, 补全缺失的点是相似的点会具有较高的权重 (所有数据放进随机森林运行一遍，记录每一组数据在决策树中分类路径，判断哪组数据和缺失数据路径最相似， 引入相似度矩阵，记录数据之间的相似度)&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;adaboost-和-xgboost-区别&#34;&gt;AdaBoost 和 XGBoost 区别&lt;/h2&gt;
-
 &lt;h2 id=&#34;详细解释-auc&#34;&gt;详细解释 AUC&lt;/h2&gt;
-
 &lt;ul&gt;
-&lt;li&gt;TP: 实际这正类， 预测为正类&lt;/li&gt;
-&lt;li&gt;TN: 实际为负类，预测为负类&lt;/li&gt;
-&lt;li&gt;FN: 实际为正类， 预测为负类 漏报&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;FP: 实际为负类，预测为正类 误报&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;TPR = TP / (TP + FN) // 正实例被预测正确的比例 (RECALL)&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;FPR = FP / (FP + TN) // 负实例被误报的比例&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;选定不同的阈值， 判断是否为正例， 不同的阈值对应不同的指标， 把这些指标连接起来，即为 ROC 曲线&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;解释： 从所有为1的样本从随机选择一个样本， 从所有为0的样本中选择一个样本， 根据分类器对两个样本进行预测，样本1预测为1 的概率为 p1, 样本2预测的概率为 p2, p1 &amp;gt; p2 的概率为AUC&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;TP: 实际这正类， 预测为正类&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;TN: 实际为负类，预测为负类&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FN: 实际为正类， 预测为负类 漏报&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FP: 实际为负类，预测为正类 误报&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;TPR = TP / (TP + FN) // 正实例被预测正确的比例 (RECALL) precision 指的是分类正确的正样本个数占分类器判断为正样本的个数比例&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FPR = FP / (FP + TN) // 负实例被误报的比例&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;选定不同的阈值， 判断是否为正例， 不同的阈值对应不同的指标， 把这些指标连接起来，即为 ROC 曲线&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;解释： 从所有为1的样本从随机选择一个样本， 从所有为0的样本中选择一个样本， 根据分类器对两个样本进行预测，样本1预测为1 的概率为 p1, 样本2预测的概率为 p2, p1 &amp;gt; p2 的概率为AUC&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;随机森林如何评估特征的重要性-xgboost-如何寻找最优特征&#34;&gt;随机森林如何评估特征的重要性， Xgboost 如何寻找最优特征&lt;/h2&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;基于基尼指数
-看每个特征在随机森林中的每棵树做了多少共享， 取平均值，利用Gini指数, 算利用这个特征分离后的基尼指数之差，取上平均值即可判定&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;基于带外数据
-未被抽取样本的集合，使用袋外数据计算第 T_i 颗决策树的校验误差 e1，随机改变 OOB 中的第 J 列， 保持其他列不变， 对第j列进行随机上下置换， 得到误差e2, 利用 e1 - e2  来刻画特征 $j$ 的重要性. 这里可以选择不同的树来加权平均。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Xgboost
+&lt;li&gt;
+&lt;p&gt;基于基尼指数
+看每个特征在随机森林中的每棵树做了多少共享， 取平均值，利用Gini指数, 算利用这个特征分离后的基尼指数之差，取上平均值即可判定&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;基于带外数据
+未被抽取样本的集合，使用袋外数据计算第 T_i 颗决策树的校验误差 e1，随机改变 OOB 中的第 J 列， 保持其他列不变， 对第j列进行随机上下置换， 得到误差e2, 利用 e1 - e2  来刻画特征 $j$ 的重要性. 这里可以选择不同的树来加权平均。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Xgboost
 xgboost 在训练过程中可以给出各个特征的评分， 最大的增益会被选出作为依据， 从而记忆了每个特征在模型训练时的重要性
-xgboost 属于 boosting 集成方法， 样本不放回，每轮计算样本不重复。&lt;/p&gt;&lt;/li&gt;
+xgboost 属于 boosting 集成方法， 样本不放回，每轮计算样本不重复。&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;欧氏距离和其他距离的区别&#34;&gt;欧氏距离和其他距离的区别&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;欧氏距离样本不同属性之间的差别等同看待， 这有时候不满足条件, 当其他特征比较大是，很多特征接近于 0， 没有考虑维度之间的相关性&lt;/li&gt;
 &lt;li&gt;曼哈顿距离： 异常值的分类结果影响比欧式距离药效， 各维度的贡献基本一样。&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;logistic-regression-为什么需要对特征进行离散化&#34;&gt;Logistic Regression 为什么需要对特征进行离散化&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;LR属于广义线性模型， 表达能力受限， 离散化为 N 个后， 每个变量有单独的权重， 为模型引入了非线性， 提升了模型的表达能力&lt;/li&gt;
 &lt;li&gt;速度快，稀疏向量内积乘法运算速度较快， 计算结果更容易存储和扩展&lt;/li&gt;
@@ -554,19 +508,16 @@ xgboost 属于 boosting 集成方法， 样本不放回，每轮计算样本不�
 &lt;li&gt;离散后的特征可以进行交叉， 提升表达能力&lt;/li&gt;
 &lt;li&gt;特征离散化后，会更加稳定&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;lr-与-svm-区别和联系&#34;&gt;LR 与 SVM 区别和联系&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;相同点
-
 &lt;ul&gt;
 &lt;li&gt;都是分类算法， 本质上都是找超平面&lt;/li&gt;
 &lt;li&gt;监督学习算法&lt;/li&gt;
 &lt;li&gt;判别式模型， 不关心数据怎么生成， 只关心数据的差别， 然后利用数据的差别来进行分类&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;不同点
-
 &lt;ul&gt;
 &lt;li&gt;SVM 只考虑了 support vectors, 也就是和分类最相关的少数点去学习分类器。而逻辑回归通过非线性映射减小了离分类平面较远的点的权重，相对提升了与分类最相关的数据点的权重；&lt;/li&gt;
 &lt;li&gt;LR 的损失函数是交叉熵， SVM 的损失函数是 hinge loss, SVM 对样本数据的依赖减少， 提高了训练效率&lt;/li&gt;
@@ -574,13 +525,11 @@ xgboost 属于 boosting 集成方法， 样本不放回，每轮计算样本不�
 &lt;li&gt;LR 可以得到每一个类的概率， SVM 无法得到&lt;/li&gt;
 &lt;li&gt;LR 不依赖与样本之间的距离， SVM 基于样本之间的距离&lt;/li&gt;
 &lt;li&gt;解决非线性问题时， SVM 可以采用核函数机制， LR 通常不采样核函数计算&lt;/li&gt;
-&lt;li&gt;SVM 损失函数自带正则， 而 LR 需要在损失函数之外添加正则项
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;SVM 损失函数自带正则， 而 LR 需要在损失函数之外添加正则项&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;什么是熵-联合熵-条件熵-相对熵-互信息&#34;&gt;什么是熵， 联合熵， 条件熵， 相对熵， 互信息&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;熵
 衡量系统的有序成都， 熵越大，系统越混乱， 信息熵表示离散事件的出现概率， 一个系统越是有序，其信息熵则越低。&lt;/li&gt;
@@ -594,53 +543,36 @@ D(q||p)&lt;/li&gt;
 &lt;li&gt;互信息
 两个随机变量X，Y的联合分布和各自独立分布乘积的相对熵&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;牛顿法和梯度梯度下降法&#34;&gt;牛顿法和梯度梯度下降法&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;牛顿法是二阶收敛， 梯度法是一阶收敛， 两种都只是局部算法， 梯度法仅考虑了方向， 牛顿法不仅考虑了方向，还兼顾了步长&lt;/li&gt;
 &lt;li&gt;牛顿法需要没次计算 Hessian 矩阵， 计算比较复杂&lt;/li&gt;
 &lt;li&gt;拟牛顿法使用正定矩阵来近似 Hessian 矩阵， 从而简化了运算的复杂度。&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;kmeans-算法复杂度&#34;&gt;Kmeans 算法复杂度&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;O(tKmn): repeat t times, has K centroids, m data, n features;&lt;/li&gt;
 &lt;li&gt;O((m + k)n) : m data, n feautres, K centroids.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;协方差和相关性区别&#34;&gt;协方差和相关性区别&lt;/h2&gt;
-
 &lt;p&gt;相关性是协方差的标准化形式， 协方差本身很难作比较， 而相关性可以把数值scale 到 -1， 1 之间， 因此可以比较其相关性&lt;/p&gt;
-
 &lt;h2 id=&#34;navie-bayes&#34;&gt;Navie Bayes&lt;/h2&gt;
-
 &lt;p&gt;因为它假定所有的特征在数据集中的作用是同样重要和独立的。正如我们所知，这个假设在现实世界中是很不真实的.&lt;/p&gt;
-
 &lt;h2 id=&#34;详细说些-em-算法&#34;&gt;详细说些 EM 算法&lt;/h2&gt;
-
 &lt;p&gt;在概率模型中寻找参数的极大似然估计算法, 最大化后验概率，概率模型依赖于无法观测的隐变量&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;E步: 假设参数已知，计算隐变量的后验概率。&lt;/li&gt;
 &lt;li&gt;M步：带入隐变量的后验概率，最大化似然估计，计算参数值
 M 步得到的参数值用于 E 步计算中&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;似然函数意义： 通过观测的数据推测参数值, 假设参数已经知道，使得观测的数据概率最大。&lt;/p&gt;
-
-&lt;h2 id=&#34;knn-中-k-如何选择&#34;&gt;KNN 中 K  如何选择&lt;/h2&gt;
-
+&lt;h2 id=&#34;knn-中-k--如何选择&#34;&gt;KNN 中 K  如何选择&lt;/h2&gt;
 &lt;p&gt;选择较小的 K 值， 较小领域中的训练实例来预测，学习的近似误差变小， 学习的估计误差增大， 即模型容易发生过拟合。 选择较大的 K 值， 容易发生欠拟合， 增大意味着模型变得简单
-  KNN 为有监督学习的算法， 一般用交叉验证的方法选择最优的K值&lt;/p&gt;
-
+KNN 为有监督学习的算法， 一般用交叉验证的方法选择最优的K值&lt;/p&gt;
 &lt;h2 id=&#34;最大似然估计和贝叶斯估计的区别&#34;&gt;最大似然估计和贝叶斯估计的区别&lt;/h2&gt;
-
 &lt;p&gt;最大似然是对点估计， 贝叶斯推断是对分布的估计
 最大似然估计求出的是最有可能的参数值， 而贝叶斯推断求解的是参数的分布
 另外，贝叶斯推断加入了先验概率， 通过先验和似然来求解后验分布，最大似然直接使用似然函数&lt;/p&gt;
-
 &lt;h2 id=&#34;什么是最大熵模型&#34;&gt;什么是最大熵模型&lt;/h2&gt;
 </description>
     </item>
@@ -650,10 +582,7 @@ M 步得到的参数值用于 E 步计算中&lt;/li&gt;
       <link>/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/</link>
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
       <guid>/post/ml/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/</guid>
-      <description>
-
-&lt;h2 id=&#34;定义&#34;&gt;定义&lt;/h2&gt;
-
+      <description>&lt;h2 id=&#34;定义&#34;&gt;定义&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;标量 $f$ 对矩阵 $\mathbf{X}$ 的导数， 定义为
 $$\frac{\partial f}{\partial \mathbf{X}} = \left[\frac{\partial f}{\partial X_{ij}}\right]$$
@@ -663,27 +592,20 @@ $$df = f&amp;rsquo;(x) dx$$&lt;/li&gt;
 &lt;li&gt;多元的导数与微分的关系
 $$df = \sum_{i=1}^{n}\frac{\partial f}{\partial x_i} dx_i = \frac{\partial f}{\partial \mathbf{x}}^{t} d\mathbf{x}$$&lt;/li&gt;
 &lt;li&gt;矩阵导数与微分建立联系：
-
- $$d f=\sum_{i=1}^{m} \sum_{j=1}^{n} \frac{\partial f}{\partial X_{i j}} d X_{i j}=\operatorname{tr}\left(\frac{\partial f^{T}}{\partial X} d X\right)$$
- 
-$tr$ 表示方阵对角元素之和
-&lt;br /&gt;&lt;/li&gt;
+$$d f=\sum_{i=1}^{m} \sum_{j=1}^{n} \frac{\partial f}{\partial X_{i j}} d X_{i j}=\operatorname{tr}\left(\frac{\partial f^{T}}{\partial X} d X\right)$$
+$tr$ 表示方阵对角元素之和&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;运算法则&#34;&gt;运算法则&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;加减法 $d(\mathbf{X}\pm \mathbf{Y}) = d\mathbf{X} \pm d\mathbf{Y}$&lt;/li&gt;
 &lt;li&gt;乘法 $d(\mathbf{XY}) = (d\mathbf{X})\mathbf{Y} + \mathbf{X}d\mathbf{Y}$&lt;/li&gt;
 &lt;li&gt;转置 $d(\mathbf{X}^T) = (d\mathbf{X})^T$&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf&#34;&gt;参考 matrix cookbook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;参考 matrix cookbook&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;计算&#34;&gt;计算&lt;/h2&gt;
-
 &lt;p&gt;建立矩阵与微分联系时， 在求出左侧的微分 $df$, 需要写出右侧形式的导数
-  $$df = tr\left(\frac{\partial f}{\partial \mathbf{X}}^T d\mathbf{X}\right)$$&lt;/p&gt;
-
+$$df = tr\left(\frac{\partial f}{\partial \mathbf{X}}^T d\mathbf{X}\right)$$&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;标量上迹 $a = tr(a)$&lt;/li&gt;
 &lt;li&gt;转置 $tr(A^T) = tr(A)$&lt;/li&gt;
@@ -691,17 +613,14 @@ $tr$ 表示方阵对角元素之和
 &lt;li&gt;矩阵乘法交换 $tr(AB) = tr(BA)$&lt;/li&gt;
 &lt;li&gt;矩阵乘法/逐元乘法交换 $\text{tr}(A^T(B \odot C))=\text{tr}((A\odot B)^TC)$, 其中 A, B, C 尺寸相同&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Linear Regression $l = || \mathbf{Xw - y}||^2$,  solve $\mathbf{w}, \mathbf{y}$ is a $m\times 1$ vector, $\mathbf X$ has the shape $m\times n$, and $w$&amp;rsquo;s shape is $n\times 1$, and the $l$ is a scalar&lt;/p&gt;
-
+&lt;li&gt;
+&lt;p&gt;Linear Regression $l = || \mathbf{Xw - y}||^2$,  solve $\mathbf{w}, \mathbf{y}$ is a $m\times 1$ vector, $\mathbf X$ has the shape $m\times n$, and $w$&#39;s shape is $n\times 1$, and the $l$ is a scalar&lt;/p&gt;
 &lt;p&gt;In this example, we need to solve a scalar&amp;rsquo;s derivate with respect to a vector. As the defintion, we can&amp;rsquo;t calcuate the derivate of a vector or a matrix directly. Instead, we need to calcuate the differential of a matrix.
-
-    $$\begin{aligned}l &amp;= \mathbf{(Xw - y)}^T(\mathbf{Xw - y}) \\s  
-        dl &amp;= (X d \boldsymbol{w})^{T}(X \boldsymbol{w}-\boldsymbol{y})+(X \boldsymbol{w}-\boldsymbol{y})^{T}(X d \boldsymbol{w}) \end{aligned}$$
-     
+$$\begin{aligned}l &amp;amp;= \mathbf{(Xw - y)}^T(\mathbf{Xw - y}) \&lt;br&gt;
+dl &amp;amp;= (X d \boldsymbol{w})^{T}(X \boldsymbol{w}-\boldsymbol{y})+(X \boldsymbol{w}-\boldsymbol{y})^{T}(X d \boldsymbol{w})\&lt;br&gt;
+\end{aligned}$$
 As the first and second form is a dot product between two vector, so we can get
 $$dl = 2(X \boldsymbol{w}-\boldsymbol{y})^{T} \boldsymbol{X} d \boldsymbol{w}$$
 The differential form of $dl$
@@ -711,14 +630,15 @@ $$\frac{\partial l}{\partial \boldsymbol{w}}=2 X^{T}(X \boldsymbol{w}-\boldsymbo
 Set the partial form to $0$, we could get
 $$\mathbf{X^TXw} = \mathbf{X^Ty}$$
 and the $w$ will be
-$$\mathbf{w = (X^TX)^{-1}X^Ty}$$&lt;/p&gt;&lt;/li&gt;
+$$\mathbf{w = (X^TX)^{-1}X^Ty}$$&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;reference&#34;&gt;Reference&lt;/h2&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/24709748&#34;&gt;矩阵求导术（上）知乎&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf&#34;&gt;matrix cookbook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://zhuanlan.zhihu.com/p/24709748&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;矩阵求导术（上）知乎&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;matrix cookbook&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
@@ -728,19 +648,18 @@ $$\mathbf{w = (X^TX)^{-1}X^Ty}$$&lt;/p&gt;&lt;/li&gt;
       <link>/post/ml/ensemble/</link>
       <pubDate>Fri, 27 Sep 2019 00:00:00 +0000</pubDate>
       <guid>/post/ml/ensemble/</guid>
-      <description>
-
-&lt;p&gt;Combine multiple base-learners to imporve applicability across different domains or generalization performance in a specific task&lt;/p&gt;
-
+      <description>&lt;p&gt;Combine multiple base-learners to imporve applicability across different domains or generalization performance in a specific task&lt;/p&gt;
 &lt;h2 id=&#34;ensemble-strategy&#34;&gt;Ensemble Strategy&lt;/h2&gt;
-
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;将多个学习器结合可以带来三个方面的好处&lt;/p&gt;
-
+&lt;li&gt;
+&lt;p&gt;将多个学习器结合可以带来三个方面的好处&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;增强泛化性能&lt;/li&gt;
 &lt;li&gt;计算有可能陷入局部最小， 降低局部最小的风险&lt;/li&gt;
 &lt;li&gt;扩大假设空间
+
+
+
 
 
 
@@ -775,44 +694,38 @@ $$\mathbf{w = (X^TX)^{-1}X^Ty}$$&lt;/p&gt;&lt;/li&gt;
 
 &lt;/figure&gt;
 &lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Average&lt;/p&gt;
-
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Average&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Simple averaging
-
-    $$H(X) = \frac1T \sum_{i=1}^{T} h_i(x)$$
-   &lt;/li&gt;
+$$H(X) = \frac1T \sum_{i=1}^{T} h_i(x)$$&lt;/li&gt;
 &lt;li&gt;Weighted averaging
 $$H(x) = \sum_{i=1}^{T} \omega_i h_i(x)$$&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Voting&lt;/p&gt;
-
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Voting&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;learner $h_i$ predicte a label from the collection of class ${c_1, c_2, \dots, c_N}$. The learner $h_i$ generate a vector $(h_i^1(x); h_i^2(x); \dots; h_i^N(x))$ from the sample $x$.&lt;/li&gt;
 &lt;li&gt;Marority voting&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-
-  $$H(\boldsymbol{x})=\left\{\begin{array}{ll}{c_{j},} &amp; {\text { if } \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})&gt;0.5 \sum_{k=1}^{N} \sum_{i=1}^{T} h_{i}^{k}(\boldsymbol{x})} \\ {\text { reject, }} &amp; {\text { otherwise. }}\end{array}\right.$$
-   
-
-&lt;p&gt;可以拒绝， 即保证要提供可靠的结果
-  - Plurality voting (预测为票数最多的标记)
-    
-    $$H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})}$$
-     
-  - Weighted Voting (加权平均)
-    
-      $$H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} \omega_i h_{i}^{j}(\boldsymbol{x})}$$
-     &lt;/p&gt;
-
+&lt;p&gt;$$H(\boldsymbol{x})=\left{\begin{array}{ll}{c_{j},} &amp;amp; {\text { if } \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})&amp;gt;0.5 \sum_{k=1}^{N} \sum_{i=1}^{T} h_{i}^{k}(\boldsymbol{x})} \ {\text { reject, }} &amp;amp; {\text { otherwise. }}\end{array}\right.$$&lt;/p&gt;
+&lt;p&gt;可以拒绝， 即保证要提供可靠的结果&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;学习法(stacking)
+&lt;li&gt;Plurality voting (预测为票数最多的标记)
+$$H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} h_{i}^{j}(\boldsymbol{x})}$$&lt;/li&gt;
+&lt;li&gt;Weighted Voting (加权平均)
+$$H(\boldsymbol{x})=c_{\arg \max_j  \sum_{i=1}^{T} \omega_i h_{i}^{j}(\boldsymbol{x})}$$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;学习法(stacking)
 Stacking 从初始数据集训练出初级学习器， 然后生成一个新数据集用于训练次级学习器。 在新数据集中， 初级学习器的输出被当做样例输入特征， 而初始样本的标记被当做样例标记
+
+
+
 
 
 
@@ -846,57 +759,58 @@ Stacking 从初始数据集训练出初级学习器， 然后生成一个新数�
 
 
 &lt;/figure&gt;
-
-
+&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;若直接使用初级学习器的训练集产生次级训练集， 则过拟合的风险较大&lt;/li&gt;
-&lt;li&gt;K-Fold： 初始训练集被划为$k$ 个大小相似的集合 $D_1, D_2, \dots D_k$, 令 $\overline{D}_j = D \backslash D_j$&lt;/li&gt;
+&lt;li&gt;K-Fold： 初始训练集被划为$k$ 个大小相似的集合 $D_1, D_2, \dots D_k$, 令 $\overline{D}_j = D \backslash D_j$
+&lt;ul&gt;
 &lt;li&gt;给定 T 个 base learner, 初级学习器 $h_t^j$ 通过在 $\overline{D_j}$ 上使用 第$t$ 个学习算法&lt;/li&gt;
 &lt;li&gt;对 $D_j$ 中每个样本 $x_i$, 令$z_{it} = h_t^j(x_i)$, 则由 $x_i$ 产生的次级训练样例的示例部分为 $z_i = (z_{i1}; z_{i2}; \dots z_{iT})$, 标记部分为 $y_i$&lt;/li&gt;
-&lt;li&gt;交叉验证过程结束后， 从T个初级学习器产生的次级训练集为 $D&amp;rsquo;=(Z_i, y_i)_{i=1}^m$&lt;/li&gt;
-&lt;li&gt;将 $D&amp;rsquo;$ 用于训练次级学习器
-&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;交叉验证过程结束后， 从T个初级学习器产生的次级训练集为 $D&#39;=(Z_i, y_i)_{i=1}^m$&lt;/li&gt;
+&lt;li&gt;将 $D&#39;$ 用于训练次级学习器&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;bagging&#34;&gt;Bagging&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;Bagging is a voting method, but base-learners are made different deliberately
-
 &lt;ul&gt;
 &lt;li&gt;Train them using slightly different training sets&lt;/li&gt;
 &lt;li&gt;Generate $L$ slightly different samples from a given sample is done by &lt;strong&gt;bootstrap&lt;/strong&gt;: given $X$ of size N, we draw N points randomly from $X$ with replacement to get $X^{(j)}$&lt;/li&gt;
 &lt;li&gt;Train a base-learner for ecah $X^{(j)}$&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;boosting&#34;&gt;Boosting&lt;/h2&gt;
-
 &lt;ul&gt;
 &lt;li&gt;In bagging, generate &amp;ldquo;uncorrelated&amp;rdquo; base-learners is left to chance and unstability of the learning method. (让下面的 learner train 前几个learner错误的地方)&lt;/li&gt;
 &lt;li&gt;考虑 binary classification: $d^{(j)}(x) \in {1, -1}$&lt;/li&gt;
 &lt;li&gt;Cominber three &lt;code&gt;weak learners&lt;/code&gt; to generate a &lt;code&gt;strong learner&lt;/code&gt;
-
 &lt;ul&gt;
-&lt;li&gt;A week learner has error probability less than &lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;2&lt;/sub&gt;&lt;/li&gt;
+&lt;li&gt;A week learner has error probability less than 1/2&lt;/li&gt;
 &lt;li&gt;A strong learner has arbitrarily small error probability&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;Traning Algorithm
-
 &lt;ol&gt;
 &lt;li&gt;Given a large traning set, randomly divide in into three&lt;/li&gt;
-&lt;li&gt;Use $X^{(1)}$ to train the first learner $d^{(1)}$ and feed $X^{(2)}$ to $d^{(1)}$&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Use $X^{(1)}$ to train the first learner $d^{(1)}$ and feed $X^{(2)}$ to $d^{(1)}$&lt;/li&gt;
 &lt;li&gt;Use all points misclassified by $d^{d(1)}$ and $X^{(2)}$ to train $d^{(2)}$. Then feed $X^{(3)}$ to $d^{(1)}$ and $d^{(2)}$&lt;/li&gt;
 &lt;li&gt;Use the points on which $d^{(1)}$ and $d^{(2)}$ disgree to train $d^{(3)}$&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
 &lt;li&gt;Tesing Algorithm
-
 &lt;ol&gt;
 &lt;li&gt;Feed a point it to $d^{(1)}$ and $d^{(2)}$ first. If outpus agree, use them as final predction&lt;/li&gt;
 &lt;li&gt;Otherwise the output of $d^{(3)}$ is taken&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
 &lt;li&gt;Example
+
+
+
 
 
 
@@ -932,57 +846,63 @@ Stacking 从初始数据集训练出初级学习器， 然后生成一个新数�
 &lt;/figure&gt;
 &lt;/li&gt;
 &lt;li&gt;Disadvantages
-Requires a large traning set to afford the three-way split
-&lt;br /&gt;&lt;/li&gt;
+Requires a large traning set to afford the three-way split&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;h2 id=&#34;adaboost&#34;&gt;AdaBoost&lt;/h2&gt;
-
 &lt;ul&gt;
-&lt;li&gt;Use the same training set over and over again, but how to make points &amp;ldquo;larger&amp;rdquo;.&lt;/li&gt;
-&lt;li&gt;Modify the probabilities of drawing the instances as a function of error&lt;/li&gt;
-&lt;li&gt;Notation:
-
+&lt;li&gt;
+&lt;p&gt;Use the same training set over and over again, but how to make points &amp;ldquo;larger&amp;rdquo;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Modify the probabilities of drawing the instances as a function of error&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Notation:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;$\text{Pr}^{(i,j)}$: probability that an example $x^{(i)}, y^{(i)}$ is drawn to train the $j$th base-learner $d^{(j)}$&lt;/li&gt;
 &lt;li&gt;$\varepsilon^{(j)} = \sum_i \text{Pr}^{(i,j)} 1(y^{(i)} \neq d^{(j)}x^{(i)})$  error rate of $d^{(j)}$ on its training set.&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Algorithm
-
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Algorithm&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Initalize $\text{Pr}^{(i,j)} = \frac1N$ for all i&lt;/li&gt;
 &lt;li&gt;start from $j = 1$:
-
 &lt;ol&gt;
 &lt;li&gt;Randomly draw $N$ examples for $X$ with probabilities $\text{Pr}^{(i,j)}$ and use them to train $d^{(j)}$&lt;/li&gt;
 &lt;li&gt;Stop adding new base-learners if $\varepsilon^{(j)} \geq \frac12$&lt;/li&gt;
 &lt;li&gt;Define $\alpha_j=\frac12 \log \left( \frac{1-\varepsilon^{(j)}}{\varepsilon^{(j)}}\right)&amp;gt;0$ and set $\text{Pr}^{(i,j+1)}  = \text{Pr}^{(i,j)} \exp(-\alpha_j y^{(i)} d^{(j)} (x^{(i)}))$ for all $i$&lt;/li&gt;
 &lt;li&gt;Normalize $\Pr^{(i, j+1)}$&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;li&gt;Testing
-
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Testing&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Given $x$, calcualte $\hat{y}^{(j)}$ for all $j$&lt;/li&gt;
 &lt;li&gt;Make final prediction $\hat{y}$ by voting $\hat{y} = \sum_j \alpha_j d^{(j)}(x)$&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Example
-&lt;img src=&#34;/img/ensem_04.jpg&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Why AdaBoost Works&lt;/p&gt;
-
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Example
+&lt;img src=&#34;/img/ensem_04.jpg&#34; width=&#34;400px&#34;/&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Why AdaBoost Works&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Empirical study: AdaBoost reduces overfitting as $L$ grows, even when there is no training error
 &lt;img src=&#34;/img/ensem_05.jpg&#34; width=&#34;400px&#34;/&gt;&lt;/li&gt;
-&lt;li&gt;AdaBoost &lt;strong&gt;increases margin&lt;/strong&gt; (Same as SVM)&lt;/li&gt;
+&lt;li&gt;AdaBoost &lt;strong&gt;increases margin&lt;/strong&gt; (Same as SVM)
+&lt;ul&gt;
 &lt;li&gt;A large margin imporves generalizability&lt;/li&gt;
 &lt;li&gt;Define margin of prediction of an example $(x^{(i)}, y^{(i)}) \in X$ as:
-
-      $$margin(x^{(i)}, y^{(i)}) = y^{(i)}f(x^{(i)}) = \sum_{j:y^{(i)} = d^{(j)}(x^{(i)})} \alpha_j - \sum_{j:y^{(i)} \neq d^{(j)}(x^{(i)})} \alpha_j$$
-     
+$$margin(x^{(i)}, y^{(i)}) = y^{(i)}f(x^{(i)}) = \sum_{j:y^{(i)} = d^{(j)}(x^{(i)})} \alpha_j - \sum_{j:y^{(i)} \neq d^{(j)}(x^{(i)})} \alpha_j$$
 &lt;img src=&#34;/img/ensem_06.png&#34; width=&#34;600px&#34;/&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
@@ -993,15 +913,15 @@ Requires a large traning set to afford the three-way split
       <pubDate>Tue, 12 Mar 2019 00:00:00 +0000</pubDate>
       <guid>/post/gdb%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4%E8%AE%B0%E5%BD%95/</guid>
       <description>&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;要求&lt;/p&gt;
-
+&lt;li&gt;
+&lt;p&gt;要求&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;所有的程序编译时需要使用 &lt;code&gt;-g&lt;/code&gt; 参数， 这样gdb程序可以识别&lt;/li&gt;
 &lt;li&gt;编译时不要使用优化，使用优化时一些变量的值无法跟踪， 即优化等级设置为 &lt;code&gt;O0&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;命令&lt;/p&gt;
-
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;命令&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;b&lt;/code&gt; 后加行数， 设置断点&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;li&lt;/code&gt;(start, [end]) 显示在start 和 end 之间的代码， end 为可选参数， 如果没有 end, 则显示以start 为中心前后5句代码&lt;/li&gt;
@@ -1011,15 +931,16 @@ Requires a large traning set to afford the three-way split
 &lt;li&gt;&lt;code&gt;n&lt;/code&gt; 可后接参数 N ， 表示next n 次， 与 &lt;code&gt;step over&lt;/code&gt; 功能类似&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;fin&lt;/code&gt; 从子程序跳出， 与 &lt;code&gt;step out&lt;/code&gt; 功能类似&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;p&lt;/code&gt; 打印变量值
-
 &lt;ul&gt;
 &lt;li&gt;对于一维数组， 使用 p &lt;code&gt;temp(n)&lt;/code&gt; 会显示temp第&lt;code&gt;n&lt;/code&gt;个元素&lt;/li&gt;
 &lt;li&gt;对于二维数组， 使用 p &lt;code&gt;temp(i:j)&lt;/code&gt; 会显示第 &lt;code&gt;i&lt;/code&gt; 和 第 &lt;code&gt;j&lt;/code&gt; 行的元素&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;where&lt;/code&gt; 显示当前程序所处位置&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;info&lt;/code&gt; b 显示所设置的断点&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;del&lt;/code&gt; breakpoints  删除断点&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
 </description>
     </item>

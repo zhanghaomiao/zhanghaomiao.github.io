@@ -7,29 +7,10 @@
     <description>Authors</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 01 Sep 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>img/map[gravatar:%!s(bool=true) shape:circle]</url>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>Authors</title>
       <link>/authors/</link>
     </image>
-    
-    <item>
-      <title></title>
-      <link>/authors/admin/</link>
-      <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/authors/admin/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;m a PhD in biophysics from the Huazhong University of Science and Technoly. By combing the machine learning and molecuar dynamics, my subject focus on the conformation change of protein . For the sampling protein is diffcult, I develop a method which could accerlate the configuraiton sampling and apply it to study the configuration change of RNA or protein by using machine-realted method.&lt;/p&gt;
-
-&lt;p&gt;In my spare time, I learn a lot about computer, such as the algorithm, operating system and computer network, parallel computing. I&amp;rsquo;m interested in programming and had developed the software for my projects.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Changjun Chen*</title>
-      <link>/authors/changjun-chen/</link>
-      <pubDate>Sun, 01 Sep 2019 00:00:00 +0000</pubDate>
-      <guid>/authors/changjun-chen/</guid>
-      <description></description>
-    </item>
     
   </channel>
 </rss>
