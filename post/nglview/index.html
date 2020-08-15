@@ -556,7 +556,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    2 min read
+    3 min read
   </span>
   
 
@@ -594,89 +594,183 @@
     <div class="article-style">
       <h2 id="nglview-show-pdb-structure">NGLVIEW Show PDB Structure</h2>
 <ul>
-<li>
-<p>show raw pdb structure with different representation</p>
-<p></style></p>
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-<script src="/js/ngl.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var stage = new NGL.Stage("viewport", {backgroundColor: "black"});
-    stage.loadFile("rcsb://1cfd").then(function(component) {
-      // component.addRepresentation("cartoon", {colorScheme: "sstruc"});
-      component.addRepresentation("cartoon", {color: "gray", opacity: 0.7});
-      component.addRepresentation("ball+stick", {sele: "12-13"});
-      component.autoView("12-13");
-      })
-    stage.mouseControls.remove("scroll", NGL.MouseActions.zoomScroll)
-    <!-- stage.keyControls.add("r", NGL.KeyActions.autoView); -->
-  });
-</script>
-<div id="viewport" style="width:100%; height:400px; margin: 0 auto; overflow:hidden;"> </div>
-</li>
-<li>
-<p>show two structures and align</p>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var stage = new NGL.Stage("viewport2", {backgroundColor: "black"});
-    stage.mouseControls.remove("scroll", NGL.MouseActions.zoomScroll)
-    Promise.all([
-      stage.loadFile('rcsb://1cll').then(function(o) {
-        o.addRepresentation('cartoon', {color: 'lightgreen'})
-        o.autoView()
-        return o;
-      }),
-      stage.loadFile('rcsb://1cfd').then(function(o) {
-        o.addRepresentation('cartoon', {color: 'tomato'})
-        o.autoView()
-        return o;
-      })
-    ]).then(function (ol) {
-      var s1 = ol[0].structure
-      var s2 = ol[1].structure
-      NGL.superpose(s1, s2, true, "1-63.CA", "1-63.CA")
-      ol[ 0 ].updateRepresentations({ position: true })
-    })
-  });
-</script>
-<div id="viewport2" style="width:100%; height:400px; margin: 0 auto; overflow:hidden;"> </div>
-</li>
-<li>
-<p>add a pdb INPUT for showing the structure and double click for a full screen</p>
-<script>
-  var stage;
-  document.addEventListener("DOMContentLoaded", function () {
-    stage = new NGL.Stage("viewport3");
-    stage.mouseControls.remove("scroll", NGL.MouseActions.zoomScroll)
-    stage.viewer.container.addEventListener("dblclick", function () {
-        stage.toggleFullscreen();
-    });
-    function handleResize () {
-      stage.handleResize();
-    }
-    document.getElementById("pdbidInput").addEventListener("keydown", function (e) {
-      if (e.keyCode === 13) {
-        stage.removeAllComponents();
-        var url = "rcsb://" + e.target.value + ".mmtf";
-        stage.loadFile(url, {defaultRepresentation: true});
-        e.target.value = "";
-        e.target.blur();
-      }
-    });
-  });
-</script>
-<div id="viewport3" style="width:100%; height:400px;"></div>
-<div style="text-align:center; position:relative; bottom:3em;">
-  <div style="display:inline-block;">
-    <input id="pdbidInput" style="opacity:0.7; width:4em;"/>
-  </div>
-</div>
-</li>
+<li>show raw pdb structure with different representation</li>
 </ul>
+<pre><code class="language-html">  &lt;/style&gt;
+  &lt;script src=&quot;/js/ngl.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    document.addEventListener(&quot;DOMContentLoaded&quot;, function () {
+      var stage = new NGL.Stage(&quot;viewport&quot;, {backgroundColor: &quot;black&quot;});
+      stage.loadFile(&quot;rcsb://1cfd&quot;).then(function(component) {
+        // component.addRepresentation(&quot;cartoon&quot;, {colorScheme: &quot;sstruc&quot;});
+        component.addRepresentation(&quot;cartoon&quot;, {color: &quot;gray&quot;, opacity: 0.7});
+        component.addRepresentation(&quot;ball+stick&quot;, {sele: &quot;12-13&quot;});
+        component.autoView(&quot;12-13&quot;);
+        })
+      stage.mouseControls.remove(&quot;scroll&quot;, NGL.MouseActions.zoomScroll)
+      &lt;!-- stage.keyControls.add(&quot;r&quot;, NGL.KeyActions.autoView); --&gt;
+    });
+  &lt;/script&gt;
+
+  &lt;div id=&quot;viewport&quot; style=&quot;width:100%; height:400px; margin: 0 auto; overflow:hidden;&quot;&gt; &lt;/div&gt;
+</code></pre>
+<p></style></p>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <script src="/js/ngl.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var stage = new NGL.Stage("viewport", {backgroundColor: "black"});
+      stage.loadFile("rcsb://1cfd").then(function(component) {
+        // component.addRepresentation("cartoon", {colorScheme: "sstruc"});
+        component.addRepresentation("cartoon", {color: "gray", opacity: 0.7});
+        component.addRepresentation("ball+stick", {sele: "12-13"});
+        component.autoView("12-13");
+        })
+      stage.mouseControls.remove("scroll", NGL.MouseActions.zoomScroll)
+      <!-- stage.keyControls.add("r", NGL.KeyActions.autoView); -->
+    });
+  </script>
+  <div id="viewport" style="width:100%; height:400px; margin: 0 auto; overflow:hidden;"> </div>
+<ul>
+<li>show two structures and align</li>
+</ul>
+<pre><code class="language-html">  &lt;script&gt;
+    document.addEventListener(&quot;DOMContentLoaded&quot;, function () {
+      var stage = new NGL.Stage(&quot;viewport2&quot;, {backgroundColor: &quot;black&quot;});
+      stage.mouseControls.remove(&quot;scroll&quot;, NGL.MouseActions.zoomScroll)
+      Promise.all([
+        stage.loadFile('rcsb://1cll').then(function(o) {
+          o.addRepresentation('cartoon', {color: 'lightgreen'})
+          o.autoView()
+          return o;
+        }),
+        stage.loadFile('rcsb://1cfd').then(function(o) {
+          o.addRepresentation('cartoon', {color: 'tomato'})
+          o.autoView()
+          return o;
+        })
+      ]).then(function (ol) {
+        var s1 = ol[0].structure
+        var s2 = ol[1].structure
+        NGL.superpose(s1, s2, true, &quot;1-63.CA&quot;, &quot;1-63.CA&quot;)
+        ol[ 0 ].updateRepresentations({ position: true })
+      })
+    });
+  &lt;/script&gt;
+  &lt;div id=&quot;viewport2&quot; style=&quot;width:100%; height:400px; margin: 0 auto; overflow:hidden;&quot;&gt; &lt;/div&gt;
+</code></pre>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var stage = new NGL.Stage("viewport2", {backgroundColor: "black"});
+      stage.mouseControls.remove("scroll", NGL.MouseActions.zoomScroll)
+      Promise.all([
+        stage.loadFile('rcsb://1cll').then(function(o) {
+          o.addRepresentation('cartoon', {color: 'lightgreen'})
+          o.autoView()
+          return o;
+        }),
+        stage.loadFile('rcsb://1cfd').then(function(o) {
+          o.addRepresentation('cartoon', {color: 'tomato'})
+          o.autoView()
+          return o;
+        })
+      ]).then(function (ol) {
+        var s1 = ol[0].structure
+        var s2 = ol[1].structure
+        NGL.superpose(s1, s2, true, "1-63.CA", "1-63.CA")
+        ol[ 0 ].updateRepresentations({ position: true })
+      })
+    });
+  </script>
+  <div id="viewport2" style="width:100%; height:400px; margin: 0 auto; overflow:hidden;"> </div>
+<ul>
+<li>add a pdb INPUT for showing the structure and double click for a full screen</li>
+</ul>
+<pre><code class="language-html">  &lt;script&gt;
+    var stage;
+    document.addEventListener(&quot;DOMContentLoaded&quot;, function () {
+      stage = new NGL.Stage(&quot;viewport3&quot;);
+      stage.mouseControls.remove(&quot;scroll&quot;, NGL.MouseActions.zoomScroll)
+      stage.viewer.container.addEventListener(&quot;dblclick&quot;, function () {
+          stage.toggleFullscreen();
+      });
+      function handleResize () {
+        stage.handleResize();
+      }
+      document.getElementById(&quot;pdbidInput&quot;).addEventListener(&quot;keydown&quot;, function (e) {
+        if (e.keyCode === 13) {
+          stage.removeAllComponents();
+          var url = &quot;rcsb://&quot; + e.target.value + &quot;.mmtf&quot;;
+          stage.loadFile(url, {defaultRepresentation: true});
+          e.target.value = &quot;&quot;;
+          e.target.blur();
+        }
+      });
+    });
+  &lt;/script&gt;
+  &lt;div id=&quot;viewport3&quot; style=&quot;width:100%; height:400px;&quot;&gt;&lt;/div&gt;
+  &lt;div style=&quot;text-align:center; position:relative; bottom:3em;&quot;&gt;
+    &lt;div style=&quot;display:inline-block;&quot;&gt;
+      &lt;input id=&quot;pdbidInput&quot; style=&quot;opacity:0.7; width:4em;&quot;/&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+</code></pre>
+  <script>
+    var stage;
+    document.addEventListener("DOMContentLoaded", function () {
+      stage = new NGL.Stage("viewport3");
+      stage.mouseControls.remove("scroll", NGL.MouseActions.zoomScroll)
+      stage.viewer.container.addEventListener("dblclick", function () {
+          stage.toggleFullscreen();
+      });
+      function handleResize () {
+        stage.handleResize();
+      }
+      document.getElementById("pdbidInput").addEventListener("keydown", function (e) {
+        if (e.keyCode === 13) {
+          stage.removeAllComponents();
+          var url = "rcsb://" + e.target.value + ".mmtf";
+          stage.loadFile(url, {defaultRepresentation: true});
+          e.target.value = "";
+          e.target.blur();
+        }
+      });
+    });
+  </script>
+  <div id="viewport3" style="width:100%; height:400px;"></div>
+  <div style="text-align:center; position:relative; bottom:3em;">
+    <div style="display:inline-block;">
+      <input id="pdbidInput" style="opacity:0.7; width:4em;"/>
+    </div>
+  </div>
 <h2 id="draw-custom-shape">Draw custom shape</h2>
 <ul>
 <li>show arrow beteen two atoms and zoom</li>
 </ul>
+<pre><code class="language-html">  &lt;script&gt;
+    document.addEventListener(&quot;DOMContentLoaded&quot;, function () {
+    var stage = new NGL.Stage(&quot;viewport4&quot;, {backgroundColor: &quot;white&quot;});
+    stage.mouseControls.remove(&quot;scroll&quot;, NGL.MouseActions.zoomScroll)
+    stage.loadFile(&quot;rcsb://1crn.mmtf&quot;).then(function (o){
+      o.addRepresentation(&quot;cartoon&quot;, {opacity: 0.3, depthWrite: false, flatShaded: false, side: &quot;double&quot;})
+      const ap1 = o.structure.getAtomProxy();
+      const ap2 = o.structure.getAtomProxy();
+      var idx = o.structure.getAtomIndices(new NGL.Selection(&quot;(10.CA) or (11.CA)&quot;))
+      ap1.index = idx[0];
+      ap2.index = idx[1];
+      var shape = new NGL.Shape('shape', { dashedCylinder: true });
+      shape.addArrow(ap1.positionToVector3(), ap2.positionToVector3(), [ 0, 1, 1 ], 0.3)
+      var shapeComp = stage.addComponentFromObject( shape );
+      o.addRepresentation('ball+stick', {sele:&quot;10, 11&quot;})
+      shapeComp.addRepresentation( &quot;buffer&quot; );
+      var center = o.getCenter(&quot;10, 11&quot;)
+      var zoom = o.getZoom(&quot;10, 11&quot;)
+      stage.animationControls.zoomMove(center, zoom, 0);
+      });
+    });
+  &lt;/script&gt;
+  &lt;div id=&quot;viewport4&quot; style=&quot;width:100%; height:400px; margin: 0 auto; overflow:hidden;&quot;&gt; &lt;/div&gt;
+</code></pre>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
     var stage = new NGL.Stage("viewport4", {backgroundColor: "white"});
