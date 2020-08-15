@@ -125,7 +125,8 @@
     });
   &lt;/script&gt;
   &lt;div id=&#34;viewport4&#34; style=&#34;width:100%; height:400px; margin: 0 auto; overflow:hidden;&#34;&gt; &lt;/div&gt;
-&lt;h2 id=&#34;load-a-trajectory&#34;&gt;Load A trajectory&lt;/h2&gt;
+&lt;!-- ## Load A trajectory
+
 &lt;script&gt;
   document.addEventListener(&#34;DOMContentLoaded&#34;, function () {
   var stage = new NGL.Stage(&#34;viewport5&#34;, {backgroundColor: &#34;white&#34;});
@@ -143,7 +144,8 @@
     })
   })
 &lt;/script&gt;
-&lt;div id=&#34;viewport5&#34; style=&#34;width:100%; height:400px; margin: 0 auto; overflow:hidden;&#34;&gt; &lt;/div&gt;
+&lt;div id=&#34;viewport5&#34; style=&#34;width:100%; height:400px; margin: 0 auto; overflow:hidden;&#34;&gt; &lt;/div&gt; --&gt;&lt;blockquote&gt;
+&lt;/blockquote&gt;
 </description>
     </item>
     
