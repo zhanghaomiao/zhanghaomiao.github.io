@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Haomiao</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 15 Aug 2020 09:25:09 +0800</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 19 Aug 2020 09:43:23 +0800</lastBuildDate>
     <image>
       <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>Haomiao</title>
@@ -6142,6 +6142,24 @@ number of bytes transferred / (complete of last req - start of first req)
     </item>
     
     <item>
+      <title>Chapter1</title>
+      <link>/books/book1/chapter1/</link>
+      <pubDate>Wed, 19 Aug 2020 09:43:23 +0800</pubDate>
+      <guid>/books/book1/chapter1/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Chapter2</title>
+      <link>/books/book1/chapter2/</link>
+      <pubDate>Wed, 19 Aug 2020 09:43:23 +0800</pubDate>
+      <guid>/books/book1/chapter2/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
       <title>NGLVIEW</title>
       <link>/post/nglview/</link>
       <pubDate>Sat, 15 Aug 2020 09:25:09 +0800</pubDate>
@@ -6377,9 +6395,10 @@ number of bytes transferred / (complete of last req - start of first req)
       <link>/post/pymolcheatsheet/</link>
       <pubDate>Wed, 12 Aug 2020 11:36:48 +0800</pubDate>
       <guid>/post/pymolcheatsheet/</guid>
-      <description>&lt;ul&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;Select around&lt;/p&gt;
+&lt;p&gt;Select around:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;select active, byres all with 5 of ligands&lt;/li&gt;
 &lt;li&gt;select ligand_water, ((ligands)around 3.2) and (resn HOH)&lt;/li&gt;
@@ -6413,8 +6432,10 @@ number of bytes transferred / (complete of last req - start of first req)
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Create from an object
-create name, (selection), [, source_state [, target_state]]&lt;/p&gt;
+&lt;p&gt;Create from an object&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;create name, (selection), [, source_state [, target_state]]&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;remove solvent and ions&lt;/p&gt;
@@ -6424,17 +6445,23 @@ create name, (selection), [, source_state [, target_state]]&lt;/p&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Hydrogen bond
-distance test, interface, nucleic, mode=2&lt;/p&gt;
+&lt;p&gt;Hydrogen bond&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;distance test, interface, nucleic, mode=2&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;align with specified residue
-align 1cfd_unbound///1-68/, 1cll_bound///1-68/&lt;/p&gt;
+&lt;p&gt;align with specified residue&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;align 1cfd_unbound///1-68/, 1cll_bound///1-68/&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Draw RNA dssr block
-set ambient, 0.6
-dssr_block block_file=face+edge   block_color=C yellow&lt;/p&gt;
+&lt;p&gt;Draw RNA dssr block&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;set ambient, 0.6&lt;/li&gt;
+&lt;li&gt;dssr_block block_file=face+edge   block_color=C yellow&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Rename an object
@@ -6463,8 +6490,10 @@ cmd.iterate(&amp;quot;bca. all&amp;quot;, &amp;quot;resname.append(resn)&amp;quo
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Calcualte helix angle between 
-&lt;code&gt;angle_between_helices 1cll///71-76/, 1cll///86-92/, visualize=1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Calcualte helix angle between&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;angle_between_helices 1cll///71-76/, 1cll///86-92/, visualize=1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Calcualte helix every frame&lt;/p&gt;

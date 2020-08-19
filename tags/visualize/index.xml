@@ -5,7 +5,7 @@
     <link>/tags/visualize/</link>
       <atom:link href="/tags/visualize/index.xml" rel="self" type="application/rss+xml" />
     <description>visualize</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 12 Aug 2020 11:36:48 +0800</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 15 Aug 2020 09:25:09 +0800</lastBuildDate>
     <image>
       <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>visualize</title>
@@ -13,13 +13,245 @@
     </image>
     
     <item>
+      <title>NGLVIEW</title>
+      <link>/post/nglview/</link>
+      <pubDate>Sat, 15 Aug 2020 09:25:09 +0800</pubDate>
+      <guid>/post/nglview/</guid>
+      <description>&lt;h2 id=&#34;nglview-show-pdb-structure&#34;&gt;NGLVIEW Show PDB Structure&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;show raw pdb structure with different representation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;  &amp;lt;/style&amp;gt;
+  &amp;lt;script src=&amp;quot;/js/ngl.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+  &amp;lt;script&amp;gt;
+    document.addEventListener(&amp;quot;DOMContentLoaded&amp;quot;, function () {
+      var stage = new NGL.Stage(&amp;quot;viewport&amp;quot;, {backgroundColor: &amp;quot;black&amp;quot;});
+      stage.loadFile(&amp;quot;rcsb://1cfd&amp;quot;).then(function(component) {
+        // component.addRepresentation(&amp;quot;cartoon&amp;quot;, {colorScheme: &amp;quot;sstruc&amp;quot;});
+        component.addRepresentation(&amp;quot;cartoon&amp;quot;, {color: &amp;quot;gray&amp;quot;, opacity: 0.7});
+        component.addRepresentation(&amp;quot;ball+stick&amp;quot;, {sele: &amp;quot;12-13&amp;quot;});
+        component.autoView(&amp;quot;12-13&amp;quot;);
+        })
+      stage.mouseControls.remove(&amp;quot;scroll&amp;quot;, NGL.MouseActions.zoomScroll)
+      &amp;lt;!-- stage.keyControls.add(&amp;quot;r&amp;quot;, NGL.KeyActions.autoView); --&amp;gt;
+    });
+  &amp;lt;/script&amp;gt;
+
+  &amp;lt;div id=&amp;quot;viewport&amp;quot; style=&amp;quot;width:100%; height:400px; margin: 0 auto; overflow:hidden;&amp;quot;&amp;gt; &amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;/style&gt;&lt;/p&gt;
+  &lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0&#34;&gt;
+  &lt;script src=&#34;/js/ngl.js&#34;&gt;&lt;/script&gt;
+  &lt;script&gt;
+    document.addEventListener(&#34;DOMContentLoaded&#34;, function () {
+      var stage = new NGL.Stage(&#34;viewport&#34;, {backgroundColor: &#34;black&#34;});
+      stage.loadFile(&#34;rcsb://1cfd&#34;).then(function(component) {
+        // component.addRepresentation(&#34;cartoon&#34;, {colorScheme: &#34;sstruc&#34;});
+        component.addRepresentation(&#34;cartoon&#34;, {color: &#34;gray&#34;, opacity: 0.7});
+        component.addRepresentation(&#34;ball+stick&#34;, {sele: &#34;12-13&#34;});
+        component.autoView(&#34;12-13&#34;);
+        })
+      stage.mouseControls.remove(&#34;scroll&#34;, NGL.MouseActions.zoomScroll)
+      &lt;!-- stage.keyControls.add(&#34;r&#34;, NGL.KeyActions.autoView); --&gt;
+    });
+  &lt;/script&gt;
+  &lt;div id=&#34;viewport&#34; style=&#34;width:100%; height:400px; margin: 0 auto; overflow:hidden;&#34;&gt; &lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;show two structures and align&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;  &amp;lt;script&amp;gt;
+    document.addEventListener(&amp;quot;DOMContentLoaded&amp;quot;, function () {
+      var stage = new NGL.Stage(&amp;quot;viewport2&amp;quot;, {backgroundColor: &amp;quot;black&amp;quot;});
+      stage.mouseControls.remove(&amp;quot;scroll&amp;quot;, NGL.MouseActions.zoomScroll)
+      Promise.all([
+        stage.loadFile(&#39;rcsb://1cll&#39;).then(function(o) {
+          o.addRepresentation(&#39;cartoon&#39;, {color: &#39;lightgreen&#39;})
+          o.autoView()
+          return o;
+        }),
+        stage.loadFile(&#39;rcsb://1cfd&#39;).then(function(o) {
+          o.addRepresentation(&#39;cartoon&#39;, {color: &#39;tomato&#39;})
+          o.autoView()
+          return o;
+        })
+      ]).then(function (ol) {
+        var s1 = ol[0].structure
+        var s2 = ol[1].structure
+        NGL.superpose(s1, s2, true, &amp;quot;1-63.CA&amp;quot;, &amp;quot;1-63.CA&amp;quot;)
+        ol[ 0 ].updateRepresentations({ position: true })
+      })
+    });
+  &amp;lt;/script&amp;gt;
+  &amp;lt;div id=&amp;quot;viewport2&amp;quot; style=&amp;quot;width:100%; height:400px; margin: 0 auto; overflow:hidden;&amp;quot;&amp;gt; &amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;script&gt;
+    document.addEventListener(&#34;DOMContentLoaded&#34;, function () {
+      var stage = new NGL.Stage(&#34;viewport2&#34;, {backgroundColor: &#34;black&#34;});
+      stage.mouseControls.remove(&#34;scroll&#34;, NGL.MouseActions.zoomScroll)
+      Promise.all([
+        stage.loadFile(&#39;rcsb://1cll&#39;).then(function(o) {
+          o.addRepresentation(&#39;cartoon&#39;, {color: &#39;lightgreen&#39;})
+          o.autoView()
+          return o;
+        }),
+        stage.loadFile(&#39;rcsb://1cfd&#39;).then(function(o) {
+          o.addRepresentation(&#39;cartoon&#39;, {color: &#39;tomato&#39;})
+          o.autoView()
+          return o;
+        })
+      ]).then(function (ol) {
+        var s1 = ol[0].structure
+        var s2 = ol[1].structure
+        NGL.superpose(s1, s2, true, &#34;1-63.CA&#34;, &#34;1-63.CA&#34;)
+        ol[ 0 ].updateRepresentations({ position: true })
+      })
+    });
+  &lt;/script&gt;
+  &lt;div id=&#34;viewport2&#34; style=&#34;width:100%; height:400px; margin: 0 auto; overflow:hidden;&#34;&gt; &lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;add a pdb INPUT for showing the structure and double click for a full screen&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;  &amp;lt;script&amp;gt;
+    var stage;
+    document.addEventListener(&amp;quot;DOMContentLoaded&amp;quot;, function () {
+      stage = new NGL.Stage(&amp;quot;viewport3&amp;quot;);
+      stage.mouseControls.remove(&amp;quot;scroll&amp;quot;, NGL.MouseActions.zoomScroll)
+      stage.viewer.container.addEventListener(&amp;quot;dblclick&amp;quot;, function () {
+          stage.toggleFullscreen();
+      });
+      function handleResize () {
+        stage.handleResize();
+      }
+      document.getElementById(&amp;quot;pdbidInput&amp;quot;).addEventListener(&amp;quot;keydown&amp;quot;, function (e) {
+        if (e.keyCode === 13) {
+          stage.removeAllComponents();
+          var url = &amp;quot;rcsb://&amp;quot; + e.target.value + &amp;quot;.mmtf&amp;quot;;
+          stage.loadFile(url, {defaultRepresentation: true});
+          e.target.value = &amp;quot;&amp;quot;;
+          e.target.blur();
+        }
+      });
+    });
+  &amp;lt;/script&amp;gt;
+  &amp;lt;div id=&amp;quot;viewport3&amp;quot; style=&amp;quot;width:100%; height:400px;&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+  &amp;lt;div style=&amp;quot;text-align:center; position:relative; bottom:3em;&amp;quot;&amp;gt;
+    &amp;lt;div style=&amp;quot;display:inline-block;&amp;quot;&amp;gt;
+      &amp;lt;input id=&amp;quot;pdbidInput&amp;quot; style=&amp;quot;opacity:0.7; width:4em;&amp;quot;/&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;script&gt;
+    var stage;
+    document.addEventListener(&#34;DOMContentLoaded&#34;, function () {
+      stage = new NGL.Stage(&#34;viewport3&#34;);
+      stage.mouseControls.remove(&#34;scroll&#34;, NGL.MouseActions.zoomScroll)
+      stage.viewer.container.addEventListener(&#34;dblclick&#34;, function () {
+          stage.toggleFullscreen();
+      });
+      function handleResize () {
+        stage.handleResize();
+      }
+      document.getElementById(&#34;pdbidInput&#34;).addEventListener(&#34;keydown&#34;, function (e) {
+        if (e.keyCode === 13) {
+          stage.removeAllComponents();
+          var url = &#34;rcsb://&#34; + e.target.value + &#34;.mmtf&#34;;
+          stage.loadFile(url, {defaultRepresentation: true});
+          e.target.value = &#34;&#34;;
+          e.target.blur();
+        }
+      });
+    });
+  &lt;/script&gt;
+  &lt;div id=&#34;viewport3&#34; style=&#34;width:100%; height:400px;&#34;&gt;&lt;/div&gt;
+  &lt;div style=&#34;text-align:center; position:relative; bottom:3em;&#34;&gt;
+    &lt;div style=&#34;display:inline-block;&#34;&gt;
+      &lt;input id=&#34;pdbidInput&#34; style=&#34;opacity:0.7; width:4em;&#34;/&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;h2 id=&#34;draw-custom-shape&#34;&gt;Draw custom shape&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;show arrow beteen two atoms and zoom&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;  &amp;lt;script&amp;gt;
+    document.addEventListener(&amp;quot;DOMContentLoaded&amp;quot;, function () {
+    var stage = new NGL.Stage(&amp;quot;viewport4&amp;quot;, {backgroundColor: &amp;quot;white&amp;quot;});
+    stage.mouseControls.remove(&amp;quot;scroll&amp;quot;, NGL.MouseActions.zoomScroll)
+    stage.loadFile(&amp;quot;rcsb://1crn.mmtf&amp;quot;).then(function (o){
+      o.addRepresentation(&amp;quot;cartoon&amp;quot;, {opacity: 0.3, depthWrite: false, flatShaded: false, side: &amp;quot;double&amp;quot;})
+      const ap1 = o.structure.getAtomProxy();
+      const ap2 = o.structure.getAtomProxy();
+      var idx = o.structure.getAtomIndices(new NGL.Selection(&amp;quot;(10.CA) or (11.CA)&amp;quot;))
+      ap1.index = idx[0];
+      ap2.index = idx[1];
+      var shape = new NGL.Shape(&#39;shape&#39;, { dashedCylinder: true });
+      shape.addArrow(ap1.positionToVector3(), ap2.positionToVector3(), [ 0, 1, 1 ], 0.3)
+      var shapeComp = stage.addComponentFromObject( shape );
+      o.addRepresentation(&#39;ball+stick&#39;, {sele:&amp;quot;10, 11&amp;quot;})
+      shapeComp.addRepresentation( &amp;quot;buffer&amp;quot; );
+      var center = o.getCenter(&amp;quot;10, 11&amp;quot;)
+      var zoom = o.getZoom(&amp;quot;10, 11&amp;quot;)
+      stage.animationControls.zoomMove(center, zoom, 0);
+      });
+    });
+  &amp;lt;/script&amp;gt;
+  &amp;lt;div id=&amp;quot;viewport4&amp;quot; style=&amp;quot;width:100%; height:400px; margin: 0 auto; overflow:hidden;&amp;quot;&amp;gt; &amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;script&gt;
+    document.addEventListener(&#34;DOMContentLoaded&#34;, function () {
+    var stage = new NGL.Stage(&#34;viewport4&#34;, {backgroundColor: &#34;white&#34;});
+    stage.mouseControls.remove(&#34;scroll&#34;, NGL.MouseActions.zoomScroll)
+    stage.loadFile(&#34;rcsb://1crn.mmtf&#34;).then(function (o){
+      o.addRepresentation(&#34;cartoon&#34;, {opacity: 0.3, depthWrite: false, flatShaded: false, side: &#34;double&#34;})
+      const ap1 = o.structure.getAtomProxy();
+      const ap2 = o.structure.getAtomProxy();
+      var idx = o.structure.getAtomIndices(new NGL.Selection(&#34;(10.CA) or (11.CA)&#34;))
+      ap1.index = idx[0];
+      ap2.index = idx[1];
+      var shape = new NGL.Shape(&#39;shape&#39;, { dashedCylinder: true });
+      shape.addArrow(ap1.positionToVector3(), ap2.positionToVector3(), [ 0, 1, 1 ], 0.3)
+      var shapeComp = stage.addComponentFromObject( shape );
+      o.addRepresentation(&#39;ball+stick&#39;, {sele:&#34;10, 11&#34;})
+      shapeComp.addRepresentation( &#34;buffer&#34; );
+      var center = o.getCenter(&#34;10, 11&#34;)
+      var zoom = o.getZoom(&#34;10, 11&#34;)
+      stage.animationControls.zoomMove(center, zoom, 0);
+      });
+    });
+  &lt;/script&gt;
+  &lt;div id=&#34;viewport4&#34; style=&#34;width:100%; height:400px; margin: 0 auto; overflow:hidden;&#34;&gt; &lt;/div&gt;
+&lt;!-- ## Load A trajectory
+
+&lt;script&gt;
+  document.addEventListener(&#34;DOMContentLoaded&#34;, function () {
+  var stage = new NGL.Stage(&#34;viewport5&#34;, {backgroundColor: &#34;white&#34;});
+  stage.loadFile(&#39;rcsb://2MI7.pdb&#39;).then(function (o) {
+    NGL.autoLoad(&#39;rcsb://2MI7.pdb&#39;).then(function (frames) {
+      o.addTrajectory(frames, {
+        initialFrame: 0,
+        deltaTime: 200
+      })
+      o.addRepresentation(&#39;licorice&#39;, {scale: 0.5})
+      o.addRepresentation(&#39;spacefill&#39;, {sele: &#39;not :B&#39;})
+      o.addRepresentation(&#39;cartoon&#39;)
+      o.addRepresentation(&#39;backbone&#39;)
+      stage.autoView()})
+    })
+  })
+&lt;/script&gt;
+&lt;div id=&#34;viewport5&#34; style=&#34;width:100%; height:400px; margin: 0 auto; overflow:hidden;&#34;&gt; &lt;/div&gt; --&gt;&lt;blockquote&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
       <title>PymolCheatsheet</title>
       <link>/post/pymolcheatsheet/</link>
       <pubDate>Wed, 12 Aug 2020 11:36:48 +0800</pubDate>
       <guid>/post/pymolcheatsheet/</guid>
-      <description>&lt;ul&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;Select around&lt;/p&gt;
+&lt;p&gt;Select around:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;select active, byres all with 5 of ligands&lt;/li&gt;
 &lt;li&gt;select ligand_water, ((ligands)around 3.2) and (resn HOH)&lt;/li&gt;
@@ -53,8 +285,10 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Create from an object
-create name, (selection), [, source_state [, target_state]]&lt;/p&gt;
+&lt;p&gt;Create from an object&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;create name, (selection), [, source_state [, target_state]]&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;remove solvent and ions&lt;/p&gt;
@@ -64,17 +298,23 @@ create name, (selection), [, source_state [, target_state]]&lt;/p&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Hydrogen bond
-distance test, interface, nucleic, mode=2&lt;/p&gt;
+&lt;p&gt;Hydrogen bond&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;distance test, interface, nucleic, mode=2&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;align with specified residue
-align 1cfd_unbound///1-68/, 1cll_bound///1-68/&lt;/p&gt;
+&lt;p&gt;align with specified residue&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;align 1cfd_unbound///1-68/, 1cll_bound///1-68/&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Draw RNA dssr block
-set ambient, 0.6
-dssr_block block_file=face+edge   block_color=C yellow&lt;/p&gt;
+&lt;p&gt;Draw RNA dssr block&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;set ambient, 0.6&lt;/li&gt;
+&lt;li&gt;dssr_block block_file=face+edge   block_color=C yellow&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Rename an object
@@ -103,8 +343,10 @@ cmd.iterate(&amp;quot;bca. all&amp;quot;, &amp;quot;resname.append(resn)&amp;quo
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Calcualte helix angle between 
-&lt;code&gt;angle_between_helices 1cll///71-76/, 1cll///86-92/, visualize=1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Calcualte helix angle between&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;angle_between_helices 1cll///71-76/, 1cll///86-92/, visualize=1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Calcualte helix every frame&lt;/p&gt;

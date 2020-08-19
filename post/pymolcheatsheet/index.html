@@ -418,6 +418,28 @@
         
 
         
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/books/"><span>Books</span></a>
+        </li>
+
+        
+        
+
+        
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
           </a>
@@ -592,9 +614,10 @@
   <div class="article-container">
 
     <div class="article-style">
-      <ul>
+      <h2 id="introduction">Introduction</h2>
+<ul>
 <li>
-<p>Select around</p>
+<p>Select around:</p>
 <ul>
 <li>select active, byres all with 5 of ligands</li>
 <li>select ligand_water, ((ligands)around 3.2) and (resn HOH)</li>
@@ -628,8 +651,10 @@
 </ul>
 </li>
 <li>
-<p>Create from an object
-create name, (selection), [, source_state [, target_state]]</p>
+<p>Create from an object</p>
+<ul>
+<li>create name, (selection), [, source_state [, target_state]]</li>
+</ul>
 </li>
 <li>
 <p>remove solvent and ions</p>
@@ -639,17 +664,23 @@ create name, (selection), [, source_state [, target_state]]</p>
 </ul>
 </li>
 <li>
-<p>Hydrogen bond
-distance test, interface, nucleic, mode=2</p>
+<p>Hydrogen bond</p>
+<ul>
+<li>distance test, interface, nucleic, mode=2</li>
+</ul>
 </li>
 <li>
-<p>align with specified residue
-align 1cfd_unbound///1-68/, 1cll_bound///1-68/</p>
+<p>align with specified residue</p>
+<ul>
+<li>align 1cfd_unbound///1-68/, 1cll_bound///1-68/</li>
+</ul>
 </li>
 <li>
-<p>Draw RNA dssr block
-set ambient, 0.6
-dssr_block block_file=face+edge   block_color=C yellow</p>
+<p>Draw RNA dssr block</p>
+<ul>
+<li>set ambient, 0.6</li>
+<li>dssr_block block_file=face+edge   block_color=C yellow</li>
+</ul>
 </li>
 <li>
 <p>Rename an object
@@ -678,8 +709,10 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
 </ul>
 </li>
 <li>
-<p>Calcualte helix angle between 
-<code>angle_between_helices 1cll///71-76/, 1cll///86-92/, visualize=1</code></p>
+<p>Calcualte helix angle between</p>
+<ul>
+<li><code>angle_between_helices 1cll///71-76/, 1cll///86-92/, visualize=1</code></li>
+</ul>
 </li>
 <li>
 <p>Calcualte helix every frame</p>
