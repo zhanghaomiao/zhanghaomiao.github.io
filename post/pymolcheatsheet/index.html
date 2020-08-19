@@ -254,9 +254,7 @@
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2020-08-12T11:36:48&#43;08:00">
-    
-    <meta property="article:modified_time" content="2020-08-12T11:36:48&#43;08:00">
+    <meta property="article:modified_time" content="2020-08-19T11:31:11&#43;08:00">
   
 
   
@@ -284,8 +282,8 @@
   },
   "headline": "PymolCheatsheet",
   
-  "datePublished": "2020-08-12T11:36:48+08:00",
-  "dateModified": "2020-08-12T11:36:48+08:00",
+  "datePublished": "0001-01-01T00:00:00Z",
+  "dateModified": "2020-08-19T11:31:11+08:00",
   
   "publisher": {
     "@type": "Organization",
@@ -568,8 +566,10 @@
     
     
       
+          Last updated on
+      
     
-    Aug 12, 2020
+    Aug 19, 2020
   </span>
   
 
@@ -616,22 +616,19 @@
     <div class="article-style">
       <h2 id="introduction">Introduction</h2>
 <ul>
-<li>
-<p>Select around:</p>
+<li>Select around:
 <ul>
 <li>select active, byres all with 5 of ligands</li>
 <li>select ligand_water, ((ligands)around 3.2) and (resn HOH)</li>
 </ul>
 </li>
-<li>
-<p>Change radius</p>
+<li>Change radius
 <ul>
 <li>alter active_water, vdw=0.5</li>
 <li>rebuild</li>
 </ul>
 </li>
-<li>
-<p>color and cartoon setting</p>
+<li>color and cartoon setting
 <ul>
 <li>set cartoon_color, slate</li>
 <li>set transparency 0.4</li>
@@ -641,8 +638,7 @@
 <li>set antialias, 1</li>
 </ul>
 </li>
-<li>
-<p>load netcdf</p>
+<li>load netcdf
 <ul>
 <li>load rna.prmtop</li>
 <li>load_traj min2.rst, rna, 0, nc</li>
@@ -650,75 +646,63 @@
 <li>load_traj prod_2us.nc, traj, 0, nc, start=8215, stop=8215</li>
 </ul>
 </li>
-<li>
-<p>Create from an object</p>
+<li>Create from an object
 <ul>
 <li>create name, (selection), [, source_state [, target_state]]</li>
 </ul>
 </li>
-<li>
-<p>remove solvent and ions</p>
+<li>remove solvent and ions
 <ul>
 <li>remove solvent</li>
 <li>remove inorganic</li>
 </ul>
 </li>
-<li>
-<p>Hydrogen bond</p>
+<li>Hydrogen bond
 <ul>
 <li>distance test, interface, nucleic, mode=2</li>
 </ul>
 </li>
-<li>
-<p>align with specified residue</p>
+<li>align with specified residue
 <ul>
-<li>align 1cfd_unbound///1-68/, 1cll_bound///1-68/</li>
+<li>align 1cfd_unbound///1<em>68/, 1cll_bound///1</em>68/</li>
 </ul>
 </li>
-<li>
-<p>Draw RNA dssr block</p>
+<li>Draw RNA dssr block
 <ul>
 <li>set ambient, 0.6</li>
 <li>dssr_block block_file=face+edge   block_color=C yellow</li>
 </ul>
 </li>
-<li>
-<p>Rename an object
-set_name rna rna01</p>
-</li>
-<li>
-<p>Print resName of an object</p>
+<li>Rename an object
 <ul>
-<li>
-<p>
-<a href="https://pymolwiki.org/index.php/Iterate" target="_blank" rel="noopener">Iterate - PyMOLWiki</a>
-iterate bca. all , print (resn)</p>
+<li>set_name rna rna01</li>
+</ul>
 </li>
-<li>
-<p>Python API save to a name</p>
+<li>Print resName of an object
+<ul>
+<li>iterate bca. all , print (resn) 
+<a href="https://pymolwiki.org/index.php/Iterate" target="_blank" rel="noopener">Iterate * PyMOLWiki</a></li>
+<li>Python API save to a name
 <pre><code class="language-python">myspace = {&quot;resname&quot;: []}
 cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspace)
 </code></pre>
 </li>
 </ul>
 </li>
-<li>
-<p>Get XYZ of a atom</p>
+<li>Get XYZ of a atom
 <ul>
 <li><code>cmd.get_coords(&quot;/1cll///20/CA&quot;)</code></li>
 </ul>
 </li>
-<li>
-<p>Calcualte helix angle between</p>
+<li>Calcualte helix angle between
 <ul>
-<li><code>angle_between_helices 1cll///71-76/, 1cll///86-92/, visualize=1</code></li>
+<li><code>angle_between_helices 1cll///71*76/, 1cll///86*92/, visualize=1</code></li>
 </ul>
 </li>
-<li>
-<p>Calcualte helix every frame</p>
+<li>Calcualte helix every frame
 <pre><code class="language-python">for i in range(30):
   pymol.cmd.set(&quot;state&quot;, i+1)
-  angle.append(anglebetweenhelices.angle_between_helices(&quot;1dmo///71-76/&quot;, &quot;1dmo///86-92/&quot;))
+  angle.append(anglebetweenhelices.angle_between_helices(&quot;1dmo///71*76/&quot;, &quot;1dmo///86*92/&quot;))
 </code></pre>
 </li>
 </ul>

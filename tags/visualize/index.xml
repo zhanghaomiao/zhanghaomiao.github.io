@@ -246,26 +246,23 @@
     <item>
       <title>PymolCheatsheet</title>
       <link>/post/pymolcheatsheet/</link>
-      <pubDate>Wed, 12 Aug 2020 11:36:48 +0800</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>/post/pymolcheatsheet/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Select around:&lt;/p&gt;
+&lt;li&gt;Select around:
 &lt;ul&gt;
 &lt;li&gt;select active, byres all with 5 of ligands&lt;/li&gt;
 &lt;li&gt;select ligand_water, ((ligands)around 3.2) and (resn HOH)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Change radius&lt;/p&gt;
+&lt;li&gt;Change radius
 &lt;ul&gt;
 &lt;li&gt;alter active_water, vdw=0.5&lt;/li&gt;
 &lt;li&gt;rebuild&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;color and cartoon setting&lt;/p&gt;
+&lt;li&gt;color and cartoon setting
 &lt;ul&gt;
 &lt;li&gt;set cartoon_color, slate&lt;/li&gt;
 &lt;li&gt;set transparency 0.4&lt;/li&gt;
@@ -275,8 +272,7 @@
 &lt;li&gt;set antialias, 1&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;load netcdf&lt;/p&gt;
+&lt;li&gt;load netcdf
 &lt;ul&gt;
 &lt;li&gt;load rna.prmtop&lt;/li&gt;
 &lt;li&gt;load_traj min2.rst, rna, 0, nc&lt;/li&gt;
@@ -284,75 +280,63 @@
 &lt;li&gt;load_traj prod_2us.nc, traj, 0, nc, start=8215, stop=8215&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Create from an object&lt;/p&gt;
+&lt;li&gt;Create from an object
 &lt;ul&gt;
 &lt;li&gt;create name, (selection), [, source_state [, target_state]]&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;remove solvent and ions&lt;/p&gt;
+&lt;li&gt;remove solvent and ions
 &lt;ul&gt;
 &lt;li&gt;remove solvent&lt;/li&gt;
 &lt;li&gt;remove inorganic&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Hydrogen bond&lt;/p&gt;
+&lt;li&gt;Hydrogen bond
 &lt;ul&gt;
 &lt;li&gt;distance test, interface, nucleic, mode=2&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;align with specified residue&lt;/p&gt;
+&lt;li&gt;align with specified residue
 &lt;ul&gt;
-&lt;li&gt;align 1cfd_unbound///1-68/, 1cll_bound///1-68/&lt;/li&gt;
+&lt;li&gt;align 1cfd_unbound///1&lt;em&gt;68/, 1cll_bound///1&lt;/em&gt;68/&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Draw RNA dssr block&lt;/p&gt;
+&lt;li&gt;Draw RNA dssr block
 &lt;ul&gt;
 &lt;li&gt;set ambient, 0.6&lt;/li&gt;
 &lt;li&gt;dssr_block block_file=face+edge   block_color=C yellow&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Rename an object
-set_name rna rna01&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Print resName of an object&lt;/p&gt;
+&lt;li&gt;Rename an object
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;
-&lt;a href=&#34;https://pymolwiki.org/index.php/Iterate&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Iterate - PyMOLWiki&lt;/a&gt;
-iterate bca. all , print (resn)&lt;/p&gt;
+&lt;li&gt;set_name rna rna01&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Python API save to a name&lt;/p&gt;
+&lt;li&gt;Print resName of an object
+&lt;ul&gt;
+&lt;li&gt;iterate bca. all , print (resn) 
+&lt;a href=&#34;https://pymolwiki.org/index.php/Iterate&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Iterate * PyMOLWiki&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Python API save to a name
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;myspace = {&amp;quot;resname&amp;quot;: []}
 cmd.iterate(&amp;quot;bca. all&amp;quot;, &amp;quot;resname.append(resn)&amp;quot;, space=myspace)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Get XYZ of a atom&lt;/p&gt;
+&lt;li&gt;Get XYZ of a atom
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;cmd.get_coords(&amp;quot;/1cll///20/CA&amp;quot;)&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Calcualte helix angle between&lt;/p&gt;
+&lt;li&gt;Calcualte helix angle between
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;angle_between_helices 1cll///71-76/, 1cll///86-92/, visualize=1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;angle_between_helices 1cll///71*76/, 1cll///86*92/, visualize=1&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Calcualte helix every frame&lt;/p&gt;
+&lt;li&gt;Calcualte helix every frame
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;for i in range(30):
   pymol.cmd.set(&amp;quot;state&amp;quot;, i+1)
-  angle.append(anglebetweenhelices.angle_between_helices(&amp;quot;1dmo///71-76/&amp;quot;, &amp;quot;1dmo///86-92/&amp;quot;))
+  angle.append(anglebetweenhelices.angle_between_helices(&amp;quot;1dmo///71*76/&amp;quot;, &amp;quot;1dmo///86*92/&amp;quot;))
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
