@@ -30,13 +30,7 @@
   
     
   
-  <meta name="description" content="目标检测是计算机视觉领域中一个新兴的应用方向，其任务是对输入图像进行分类的同时，检测图像中是否包含某些目标，并对他们准确定位并标识。
-目标定位 定位分类问题不仅要求判断出图片中物体的种类，还要在图片中标记出它的具体位置，用**边框（Bounding Box，或者称包围盒）**把物体圈起来。一般来说，定位分类问题通常只有一个较大的对象位于图片中间位置；而在目标检测问题中，图片可以含有多个对象，甚至单张图片中会有多个不同分类的对象。
-为了定位图片中汽车的位置，可以让神经网络多输出 4 个数字，标记为 $b_x$、$b_y$、$b_h$、$b_w$。将图片左上角标记为 (0, 0)，右下角标记为 (1, 1)，则有：
- 红色方框的中心点：($b_x$，$b_y$) 边界框的高度：$b_h$ 边界框的宽度：$b_w$  因此，训练集不仅包含对象分类标签，还包含表示边界框的四个数字。定义目标标签 Y 如下：
-$$\left[\begin{matrix}P_c\\ b_x\\ b_y\\ b_h\\ b_w\\ c_1\\ c_2\\ c_3\end{matrix}\right]$$
-则有：
-$$P_c=1, Y = \left[\begin{matrix}1\\ b_x\\ b_y\\ b_h\\ b_w\\ c_1\\ c_2\\ c_3\end{matrix}\right] $$">
+  <meta name="description" content="目标检测是计算机视觉领域中一个新兴的应用方向，其任务是对输入">
 
   
   <link rel="alternate" hreflang="en-us" href="/courses/deep_learning/object_detect/">
@@ -61,6 +55,8 @@ $$P_c=1, Y = \left[\begin{matrix}1\\ b_x\\ b_y\\ b_h\\ b_w\\ c_1\\ c_2\\ c_3\end
   
   
     
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
@@ -256,13 +252,7 @@ $$P_c=1, Y = \left[\begin{matrix}1\\ b_x\\ b_y\\ b_h\\ b_w\\ c_1\\ c_2\\ c_3\end
   <meta property="og:site_name" content="Haomiao">
   <meta property="og:url" content="/courses/deep_learning/object_detect/">
   <meta property="og:title" content="目标检测 | Haomiao">
-  <meta property="og:description" content="目标检测是计算机视觉领域中一个新兴的应用方向，其任务是对输入图像进行分类的同时，检测图像中是否包含某些目标，并对他们准确定位并标识。
-目标定位 定位分类问题不仅要求判断出图片中物体的种类，还要在图片中标记出它的具体位置，用**边框（Bounding Box，或者称包围盒）**把物体圈起来。一般来说，定位分类问题通常只有一个较大的对象位于图片中间位置；而在目标检测问题中，图片可以含有多个对象，甚至单张图片中会有多个不同分类的对象。
-为了定位图片中汽车的位置，可以让神经网络多输出 4 个数字，标记为 $b_x$、$b_y$、$b_h$、$b_w$。将图片左上角标记为 (0, 0)，右下角标记为 (1, 1)，则有：
- 红色方框的中心点：($b_x$，$b_y$) 边界框的高度：$b_h$ 边界框的宽度：$b_w$  因此，训练集不仅包含对象分类标签，还包含表示边界框的四个数字。定义目标标签 Y 如下：
-$$\left[\begin{matrix}P_c\\ b_x\\ b_y\\ b_h\\ b_w\\ c_1\\ c_2\\ c_3\end{matrix}\right]$$
-则有：
-$$P_c=1, Y = \left[\begin{matrix}1\\ b_x\\ b_y\\ b_h\\ b_w\\ c_1\\ c_2\\ c_3\end{matrix}\right] $$"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="og:description" content="目标检测是计算机视觉领域中一个新兴的应用方向，其任务是对输入"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
@@ -414,20 +404,22 @@ $$P_c=1, Y = \left[\begin{matrix}1\\ b_x\\ b_y\\ b_h\\ b_w\\ c_1\\ c_2\\ c_3\end
         
 
         
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
-          </a>
-          <div class="dropdown-menu">
-            
-              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
-            
-              <a class="dropdown-item" href="/courses/deep_learning"><span>Deep Learning</span></a>
-            
-              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
-            
-              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
-            
-          </div>
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/courses/"><span>Courses</span></a>
         </li>
 
         

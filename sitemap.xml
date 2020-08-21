@@ -168,8 +168,13 @@
   </url>
   
   <url>
-    <loc>/post/openmp/</loc>
+    <loc>/post/pymolcheatsheet/</loc>
     <lastmod>2020-08-19T11:31:11+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/openmp/openmp_introduction_1/</loc>
+    <lastmod>2020-08-12T10:59:55+08:00</lastmod>
   </url>
   
   <url>
@@ -254,7 +259,7 @@
   
   <url>
     <loc>/authors/</loc>
-    <lastmod>2020-08-12T09:37:39+08:00</lastmod>
+    <lastmod>2020-03-11T16:31:46+08:00</lastmod>
   </url>
   
   <url>
@@ -269,6 +274,11 @@
   
   <url>
     <loc>/publication/fsatool/</loc>
+    <lastmod>2020-03-11T16:31:46+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/authors/haomiao-zhang/</loc>
     <lastmod>2020-03-11T16:31:46+08:00</lastmod>
   </url>
   
@@ -303,13 +313,22 @@
   </url>
   
   <url>
+    <loc>/slides/</loc>
+    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/slides/example/</loc>
+    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tag/</loc>
     <lastmod>2020-03-11T00:47:45+08:00</lastmod>
   </url>
   
   <url>
-    <loc>/authors/admin/</loc>
-    <lastmod>2020-08-12T09:37:39+08:00</lastmod>
+    <loc>/authors/haomiao/</loc>
   </url>
   
   <url>
@@ -330,11 +349,6 @@
   <url>
     <loc>/publication/</loc>
     <lastmod>2019-05-06T17:54:11+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/pymolcheatsheet/</loc>
-    <lastmod>2020-08-19T11:31:11+08:00</lastmod>
   </url>
   
   <url>

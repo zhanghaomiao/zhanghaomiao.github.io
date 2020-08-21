@@ -244,11 +244,216 @@
     </item>
     
     <item>
-      <title>OPENMP</title>
-      <link>/post/openmp/</link>
+      <title>PymolCheatsheet</title>
+      <link>/post/pymolcheatsheet/</link>
+      <pubDate>Fri, 14 Aug 2020 11:36:48 +0800</pubDate>
+      <guid>/post/pymolcheatsheet/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Select around:
+&lt;ul&gt;
+&lt;li&gt;select active, byres all with 5 of ligands&lt;/li&gt;
+&lt;li&gt;select ligand_water, ((ligands)around 3.2) and (resn HOH)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Change radius
+&lt;ul&gt;
+&lt;li&gt;alter active_water, vdw=0.5&lt;/li&gt;
+&lt;li&gt;rebuild&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;color and cartoon setting
+&lt;ul&gt;
+&lt;li&gt;set cartoon_color, slate&lt;/li&gt;
+&lt;li&gt;set transparency 0.4&lt;/li&gt;
+&lt;li&gt;set cartoon_fancy_helices, 1&lt;/li&gt;
+&lt;li&gt;set cartoon_highlight_color, grey50&lt;/li&gt;
+&lt;li&gt;bg_color, white&lt;/li&gt;
+&lt;li&gt;set antialias, 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;load netcdf
+&lt;ul&gt;
+&lt;li&gt;load rna.prmtop&lt;/li&gt;
+&lt;li&gt;load_traj min2.rst, rna, 0, nc&lt;/li&gt;
+&lt;li&gt;load rna.prmtop, traj&lt;/li&gt;
+&lt;li&gt;load_traj prod_2us.nc, traj, 0, nc, start=8215, stop=8215&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Create from an object
+&lt;ul&gt;
+&lt;li&gt;create name, (selection), [, source_state [, target_state]]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;remove solvent and ions
+&lt;ul&gt;
+&lt;li&gt;remove solvent&lt;/li&gt;
+&lt;li&gt;remove inorganic&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Hydrogen bond
+&lt;ul&gt;
+&lt;li&gt;distance test, interface, nucleic, mode=2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;align with specified residue
+&lt;ul&gt;
+&lt;li&gt;align 1cfd_unbound///1&lt;em&gt;68/, 1cll_bound///1&lt;/em&gt;68/&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Draw RNA dssr block
+&lt;ul&gt;
+&lt;li&gt;set ambient, 0.6&lt;/li&gt;
+&lt;li&gt;dssr_block block_file=face+edge   block_color=C yellow&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Rename an object
+&lt;ul&gt;
+&lt;li&gt;set_name rna rna01&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Print resName of an object
+&lt;ul&gt;
+&lt;li&gt;iterate bca. all , print (resn) 
+&lt;a href=&#34;https://pymolwiki.org/index.php/Iterate&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Iterate * PyMOLWiki&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Python API save to a name
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;myspace = {&amp;quot;resname&amp;quot;: []}
+cmd.iterate(&amp;quot;bca. all&amp;quot;, &amp;quot;resname.append(resn)&amp;quot;, space=myspace)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Get XYZ of a atom
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;cmd.get_coords(&amp;quot;/1cll///20/CA&amp;quot;)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Calcualte helix angle between
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;angle_between_helices 1cll///71*76/, 1cll///86*92/, visualize=1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Calcualte helix every frame
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;for i in range(30):
+  pymol.cmd.set(&amp;quot;state&amp;quot;, i+1)
+  angle.append(anglebetweenhelices.angle_between_helices(&amp;quot;1dmo///71*76/&amp;quot;, &amp;quot;1dmo///86*92/&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OPENMP Overview</title>
+      <link>/post/openmp/openmp_introduction_1/</link>
       <pubDate>Wed, 12 Aug 2020 10:59:55 +0800</pubDate>
-      <guid>/post/openmp/</guid>
-      <description></description>
+      <guid>/post/openmp/openmp_introduction_1/</guid>
+      <description>&lt;h2 id=&#34;reference-books&#34;&gt;Reference Books&lt;/h2&gt;
+
+
+
+
+
+
+
+
+  
+  
+
+
+&lt;div class=&#34;gallery&#34;&gt;
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+    
+  
+  
+  &lt;a data-fancybox=&#34;gallery-gallery&#34;  href=&#34;https://raw.githubusercontent.com/zhanghaomiao/putImage/master/post/20200821190253.png&#34;&gt;
+    &lt;img src=&#34;https://raw.githubusercontent.com/zhanghaomiao/putImage/master/post/20200821190253.png&#34; alt=&#34;&#34;&gt;
+  &lt;/a&gt;
+  
+  
+  
+  
+    
+  
+  
+  &lt;a data-fancybox=&#34;gallery-gallery&#34;  href=&#34;https://raw.githubusercontent.com/zhanghaomiao/putImage/master/post/20200821190819.png&#34;&gt;
+    &lt;img src=&#34;https://raw.githubusercontent.com/zhanghaomiao/putImage/master/post/20200821190819.png&#34; alt=&#34;&#34;&gt;
+  &lt;/a&gt;
+  
+  
+  
+&lt;/div&gt;
+&lt;h2 id=&#34;idea-of-openmp&#34;&gt;Idea of OpenMP&lt;/h2&gt;
+&lt;p&gt;Distribured and shared-memory computers
+&lt;img src=&#34;https://raw.githubusercontent.com/zhanghaomiao/putImage/master/post/20200821211114.png&#34; alt=&#34;distrubted-shared-memory&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Fork jon programming model, program starts as a single thread of execution, and a team of threads is forked at the begining of parallel region and joined at the end
+&lt;img src=&#34;https://raw.githubusercontent.com/zhanghaomiao/putImage/master/post/20200821203712.png&#34; alt=&#34;Fork-join-mp&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;feature-set&#34;&gt;Feature Set&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Creating Teams of Threads
+&lt;ul&gt;
+&lt;li&gt;Specifiy the parallel region by inserting a &lt;code&gt;parallel&lt;/code&gt; directive before the code that is to be executed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Sharing Work among Threads
+&lt;ul&gt;
+&lt;li&gt;Work sharing and loops&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;while&lt;/code&gt; construct cannot be shared, work should be independent&lt;/li&gt;
+&lt;li&gt;Giving distinct pieces of work to individual threads&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;OpenMP Memory Model
+&lt;ul&gt;
+&lt;li&gt;Shared-memory model, by default, data is shared among the threads and is visble to all of them.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flush&lt;/code&gt; operation makes sure that the thread calling it has same values for shared data objects.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Thread Synchronization
+&lt;ul&gt;
+&lt;li&gt;By default, OpenMP gets threads to wait at the end of a &lt;strong&gt;work-sharing construct or parallel region&lt;/strong&gt; until all threads in the team executing it have finished their portion of work. (&lt;strong&gt;Barrier&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Synchronization Point&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;explicit and implicit barriers&lt;/li&gt;
+&lt;li&gt;start and end of critical regions&lt;/li&gt;
+&lt;li&gt;points where locks are required or released&lt;/li&gt;
+&lt;li&gt;anywhere the progarmmer has inserted a flush directive&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;performance-considerations&#34;&gt;Performance Considerations&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Amdahl&amp;rsquo;s law&lt;/strong&gt;
+$$S=\frac{1}{\left(f_{\text {par}} / P+\left(1-f_{\text {par}}\right)\right)}$$
+&lt;ul&gt;
+&lt;li&gt;$f_{\text par}$ parallel fraction of the code, idel case is 1&lt;/li&gt;
+&lt;li&gt;$p$ number of processors&lt;/li&gt;
+&lt;li&gt;If only $80%$ percent of code runs is parallel
+&lt;ul&gt;
+&lt;li&gt;maximal speedup on 16 processors is 4&lt;/li&gt;
+&lt;li&gt;maximal speedup on 32 processors is 4.4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Other Considerations
+&lt;ul&gt;
+&lt;li&gt;overheads by forking and joining threads, thread synchronization and memeory accessed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
     </item>
     
     <item>
@@ -1614,106 +1819,6 @@ end
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>PymolCheatsheet</title>
-      <link>/post/pymolcheatsheet/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/post/pymolcheatsheet/</guid>
-      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Select around:
-&lt;ul&gt;
-&lt;li&gt;select active, byres all with 5 of ligands&lt;/li&gt;
-&lt;li&gt;select ligand_water, ((ligands)around 3.2) and (resn HOH)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Change radius
-&lt;ul&gt;
-&lt;li&gt;alter active_water, vdw=0.5&lt;/li&gt;
-&lt;li&gt;rebuild&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;color and cartoon setting
-&lt;ul&gt;
-&lt;li&gt;set cartoon_color, slate&lt;/li&gt;
-&lt;li&gt;set transparency 0.4&lt;/li&gt;
-&lt;li&gt;set cartoon_fancy_helices, 1&lt;/li&gt;
-&lt;li&gt;set cartoon_highlight_color, grey50&lt;/li&gt;
-&lt;li&gt;bg_color, white&lt;/li&gt;
-&lt;li&gt;set antialias, 1&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;load netcdf
-&lt;ul&gt;
-&lt;li&gt;load rna.prmtop&lt;/li&gt;
-&lt;li&gt;load_traj min2.rst, rna, 0, nc&lt;/li&gt;
-&lt;li&gt;load rna.prmtop, traj&lt;/li&gt;
-&lt;li&gt;load_traj prod_2us.nc, traj, 0, nc, start=8215, stop=8215&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Create from an object
-&lt;ul&gt;
-&lt;li&gt;create name, (selection), [, source_state [, target_state]]&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;remove solvent and ions
-&lt;ul&gt;
-&lt;li&gt;remove solvent&lt;/li&gt;
-&lt;li&gt;remove inorganic&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Hydrogen bond
-&lt;ul&gt;
-&lt;li&gt;distance test, interface, nucleic, mode=2&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;align with specified residue
-&lt;ul&gt;
-&lt;li&gt;align 1cfd_unbound///1&lt;em&gt;68/, 1cll_bound///1&lt;/em&gt;68/&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Draw RNA dssr block
-&lt;ul&gt;
-&lt;li&gt;set ambient, 0.6&lt;/li&gt;
-&lt;li&gt;dssr_block block_file=face+edge   block_color=C yellow&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Rename an object
-&lt;ul&gt;
-&lt;li&gt;set_name rna rna01&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Print resName of an object
-&lt;ul&gt;
-&lt;li&gt;iterate bca. all , print (resn) 
-&lt;a href=&#34;https://pymolwiki.org/index.php/Iterate&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Iterate * PyMOLWiki&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Python API save to a name
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;myspace = {&amp;quot;resname&amp;quot;: []}
-cmd.iterate(&amp;quot;bca. all&amp;quot;, &amp;quot;resname.append(resn)&amp;quot;, space=myspace)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Get XYZ of a atom
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;cmd.get_coords(&amp;quot;/1cll///20/CA&amp;quot;)&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Calcualte helix angle between
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;angle_between_helices 1cll///71*76/, 1cll///86*92/, visualize=1&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Calcualte helix every frame
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;for i in range(30):
-  pymol.cmd.set(&amp;quot;state&amp;quot;, i+1)
-  angle.append(anglebetweenhelices.angle_between_helices(&amp;quot;1dmo///71*76/&amp;quot;, &amp;quot;1dmo///86*92/&amp;quot;))
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     

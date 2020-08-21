@@ -30,7 +30,7 @@
   
     
   
-  <meta name="description" content="understand principles behind data link layer services:  error detection, correction sharing a broadcast channel, multiple access (无线网络) link layer addressing (48 bit) reliable data transfer, flow control   instantiation and implementation of various link layer technologies  Introduction  hosts and routers are nodes communication channels that connect adjacent nodes along communication path are links (wired links, wireless links, LANs) layer-2 packet is a frame, encapsulates datagram data-link layer has a responsibility of transferring datagram from one node to adjacent node over a link datagram transferred by different link protocols over different links each link protocol provides different services (may or may not provide rdt(reliable data service) over link)  Services  Framing, link access  encapsulate datagram into frame, adding header, trailer channel access if shared mediums &ldquo;MAC&rdquo; (media access control protocol) addresses used in frame headers to identify source, destination   reliable delivery between adjacent nodes  TCP seldom used on low bit-error link(fiber, some twisted pair) wireless links high error rates   flow control: pacing between adjacent sending and receiving nodes error detections:  error caused by noise receiver detects presence of errors   error correction: receiver identifies and corrects bit error(s) without resorting to retransmission half-duplex and full-duplex with half duplex, nodes at both ends of link can transmit, but not at same time  Where is link layer implemented  in each and every host link layer implemented in &ldquo;adaptor&rdquo; (network interface card)  ethernet card, PCMCI card, 802.">
+  <meta name="description" content="understand principles behind data link layer services: error detection, correction sharing a broadcast channel, multiple access (无线网络) link layer addressing (48 bit) reliable data transfer,">
 
   
   <link rel="alternate" hreflang="en-us" href="/courses/computer_network/link_layer/">
@@ -55,6 +55,8 @@
   
   
     
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
@@ -250,7 +252,7 @@
   <meta property="og:site_name" content="Haomiao">
   <meta property="og:url" content="/courses/computer_network/link_layer/">
   <meta property="og:title" content="Link Layer | Haomiao">
-  <meta property="og:description" content="understand principles behind data link layer services:  error detection, correction sharing a broadcast channel, multiple access (无线网络) link layer addressing (48 bit) reliable data transfer, flow control   instantiation and implementation of various link layer technologies  Introduction  hosts and routers are nodes communication channels that connect adjacent nodes along communication path are links (wired links, wireless links, LANs) layer-2 packet is a frame, encapsulates datagram data-link layer has a responsibility of transferring datagram from one node to adjacent node over a link datagram transferred by different link protocols over different links each link protocol provides different services (may or may not provide rdt(reliable data service) over link)  Services  Framing, link access  encapsulate datagram into frame, adding header, trailer channel access if shared mediums &ldquo;MAC&rdquo; (media access control protocol) addresses used in frame headers to identify source, destination   reliable delivery between adjacent nodes  TCP seldom used on low bit-error link(fiber, some twisted pair) wireless links high error rates   flow control: pacing between adjacent sending and receiving nodes error detections:  error caused by noise receiver detects presence of errors   error correction: receiver identifies and corrects bit error(s) without resorting to retransmission half-duplex and full-duplex with half duplex, nodes at both ends of link can transmit, but not at same time  Where is link layer implemented  in each and every host link layer implemented in &ldquo;adaptor&rdquo; (network interface card)  ethernet card, PCMCI card, 802."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="og:description" content="understand principles behind data link layer services: error detection, correction sharing a broadcast channel, multiple access (无线网络) link layer addressing (48 bit) reliable data transfer,"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
@@ -402,20 +404,22 @@
         
 
         
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
-          </a>
-          <div class="dropdown-menu">
-            
-              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
-            
-              <a class="dropdown-item" href="/courses/deep_learning"><span>Deep Learning</span></a>
-            
-              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
-            
-              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
-            
-          </div>
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/courses/"><span>Courses</span></a>
         </li>
 
         

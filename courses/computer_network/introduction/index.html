@@ -30,7 +30,7 @@
   
     
   
-  <meta name="description" content="Computing devices  Hosts (= end systems) (PC workstations, servers, Phones) running network apps Communication Links (fiber, copper, radio, satellite) physical link  Transmission rate = bandwidth   routers: forward packets (chunks of data) protocols: control sending, receiving of messages (TCP, IP, HTTP, FTP, PPP) Internet: network of networks, loosely hierarchical, public Internet(有限的) versus private Intranet Internet standards (定标准的组织)  RFC request for comments IETF: Internet Engineering Task Force   communication infrastructure enables distributed applications (Web, email, games) communication services provided to applications(connectionless, connection-oriented) Protocol  all communication activity in Internet governed by protocols format and order of messages sent and received among network entities as well as actions taken on the transmission/receipt of a message   network edge : applications and hosts network core: routers, network of networks access networks(连接 edge 和 core, 连接 physical media, communication links)  The network edge  end systems(hosts) run application programs client/server model: client host requests, receives service from always-on server peer-peer model : minimal(no) use of dedicated server TCP services (Transmission Control protocol)  reliable, in-order byte-stream data transfer(loss: 掉的做法是 acknowledgements and retransmissions) Flow control, sender won&rsquo;t overwhelm receiver 流量控制 (sender 可以送多快是由 receiver 决定的) congestion control, senders slow down sending rate when networks congested (connection太多时， 网络发生拥挤， 会放慢速度, 逐渐增大封包量， 如果封包掉了，认为网络拥挤) E.">
+  <meta name="description" content="Computing devices Hosts (= end systems) (PC workstations, servers, Phones) running network apps Communication Links (fiber, copper, radio, satellite) physical link Transmission rate = bandwidth routers: forward packets (chunks of">
 
   
   <link rel="alternate" hreflang="en-us" href="/courses/computer_network/introduction/">
@@ -55,6 +55,8 @@
   
   
     
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
@@ -250,7 +252,7 @@
   <meta property="og:site_name" content="Haomiao">
   <meta property="og:url" content="/courses/computer_network/introduction/">
   <meta property="og:title" content="Introduction | Haomiao">
-  <meta property="og:description" content="Computing devices  Hosts (= end systems) (PC workstations, servers, Phones) running network apps Communication Links (fiber, copper, radio, satellite) physical link  Transmission rate = bandwidth   routers: forward packets (chunks of data) protocols: control sending, receiving of messages (TCP, IP, HTTP, FTP, PPP) Internet: network of networks, loosely hierarchical, public Internet(有限的) versus private Intranet Internet standards (定标准的组织)  RFC request for comments IETF: Internet Engineering Task Force   communication infrastructure enables distributed applications (Web, email, games) communication services provided to applications(connectionless, connection-oriented) Protocol  all communication activity in Internet governed by protocols format and order of messages sent and received among network entities as well as actions taken on the transmission/receipt of a message   network edge : applications and hosts network core: routers, network of networks access networks(连接 edge 和 core, 连接 physical media, communication links)  The network edge  end systems(hosts) run application programs client/server model: client host requests, receives service from always-on server peer-peer model : minimal(no) use of dedicated server TCP services (Transmission Control protocol)  reliable, in-order byte-stream data transfer(loss: 掉的做法是 acknowledgements and retransmissions) Flow control, sender won&rsquo;t overwhelm receiver 流量控制 (sender 可以送多快是由 receiver 决定的) congestion control, senders slow down sending rate when networks congested (connection太多时， 网络发生拥挤， 会放慢速度, 逐渐增大封包量， 如果封包掉了，认为网络拥挤) E."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="og:description" content="Computing devices Hosts (= end systems) (PC workstations, servers, Phones) running network apps Communication Links (fiber, copper, radio, satellite) physical link Transmission rate = bandwidth routers: forward packets (chunks of"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
@@ -402,20 +404,22 @@
         
 
         
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>Courses</span><span class="caret"></span>
-          </a>
-          <div class="dropdown-menu">
-            
-              <a class="dropdown-item" href="/courses/"><span>All Courses</span></a>
-            
-              <a class="dropdown-item" href="/courses/deep_learning"><span>Deep Learning</span></a>
-            
-              <a class="dropdown-item" href="/courses/operating_system"><span>Operating system</span></a>
-            
-              <a class="dropdown-item" href="/courses/computer_network"><span>Computer network</span></a>
-            
-          </div>
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/courses/"><span>Courses</span></a>
         </li>
 
         
