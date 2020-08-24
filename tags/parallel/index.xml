@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>parallel | Haomiao</title>
+    <link>/tags/parallel/</link>
+      <atom:link href="/tags/parallel/index.xml" rel="self" type="application/rss+xml" />
+    <description>parallel</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 22 Aug 2020 09:01:24 +0800</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>parallel</title>
+      <link>/tags/parallel/</link>
+    </image>
+    
+    <item>
+      <title>Parallel_construct_2</title>
+      <link>/post/openmp/parallel_construct_2/</link>
+      <pubDate>Sat, 22 Aug 2020 09:01:24 +0800</pubDate>
+      <guid>/post/openmp/parallel_construct_2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OPENMP Overview</title>
+      <link>/post/openmp/openmp_introduction_1/</link>
+      <pubDate>Wed, 12 Aug 2020 10:59:55 +0800</pubDate>
+      <guid>/post/openmp/openmp_introduction_1/</guid>
+      <description>&lt;h2 id=&#34;reference-books&#34;&gt;Reference Books&lt;/h2&gt;
+
+
+
+
+
+
+
+
+  
+  
+
+
+&lt;div class=&#34;gallery&#34;&gt;
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+    
+  
+  
+  &lt;a data-fancybox=&#34;gallery-gallery&#34;  href=&#34;https://raw.githubusercontent.com/zhanghaomiao/putImage/master/post/20200821190253.png&#34;&gt;
+    &lt;img src=&#34;https://raw.githubusercontent.com/zhanghaomiao/putImage/master/post/20200821190253.png&#34; alt=&#34;&#34;&gt;
+  &lt;/a&gt;
+  
+  
+  
+  
+    
+  
+  
+  &lt;a data-fancybox=&#34;gallery-gallery&#34;  href=&#34;https://raw.githubusercontent.com/zhanghaomiao/putImage/master/post/20200821190819.png&#34;&gt;
+    &lt;img src=&#34;https://raw.githubusercontent.com/zhanghaomiao/putImage/master/post/20200821190819.png&#34; alt=&#34;&#34;&gt;
+  &lt;/a&gt;
+  
+  
+  
+&lt;/div&gt;
+&lt;h2 id=&#34;idea-of-openmp&#34;&gt;Idea of OpenMP&lt;/h2&gt;
+&lt;p&gt;Distribured and shared-memory computers
+&lt;img src=&#34;https://raw.githubusercontent.com/zhanghaomiao/putImage/master/post/20200821211114.png&#34; alt=&#34;distrubted-shared-memory&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Fork jon programming model, program starts as a single thread of execution, and a team of threads is forked at the begining of parallel region and joined at the end
+&lt;img src=&#34;https://raw.githubusercontent.com/zhanghaomiao/putImage/master/post/20200821203712.png&#34; alt=&#34;Fork-join-mp&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;feature-set&#34;&gt;Feature Set&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Creating Teams of Threads
+&lt;ul&gt;
+&lt;li&gt;Specifiy the parallel region by inserting a &lt;code&gt;parallel&lt;/code&gt; directive before the code that is to be executed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Sharing Work among Threads
+&lt;ul&gt;
+&lt;li&gt;Work sharing and loops&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;while&lt;/code&gt; construct cannot be shared, work should be independent&lt;/li&gt;
+&lt;li&gt;Giving distinct pieces of work to individual threads&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;OpenMP Memory Model
+&lt;ul&gt;
+&lt;li&gt;Shared-memory model, by default, data is shared among the threads and is visble to all of them.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;flush&lt;/code&gt; operation makes sure that the thread calling it has same values for shared data objects.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Thread Synchronization
+&lt;ul&gt;
+&lt;li&gt;By default, OpenMP gets threads to wait at the end of a &lt;strong&gt;work-sharing construct or parallel region&lt;/strong&gt; until all threads in the team executing it have finished their portion of work. (&lt;strong&gt;Barrier&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Synchronization Point&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;explicit and implicit barriers&lt;/li&gt;
+&lt;li&gt;start and end of critical regions&lt;/li&gt;
+&lt;li&gt;points where locks are required or released&lt;/li&gt;
+&lt;li&gt;anywhere the progarmmer has inserted a flush directive&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;performance-considerations&#34;&gt;Performance Considerations&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Amdahl&amp;rsquo;s law&lt;/strong&gt;
+$$S=\frac{1}{\left(f_{\text {par}} / P+\left(1-f_{\text {par}}\right)\right)}$$
+&lt;ul&gt;
+&lt;li&gt;$f_{\text par}$ parallel fraction of the code, idel case is 1&lt;/li&gt;
+&lt;li&gt;$p$ number of processors&lt;/li&gt;
+&lt;li&gt;If only $80%$ percent of code runs is parallel
+&lt;ul&gt;
+&lt;li&gt;maximal speedup on 16 processors is 4&lt;/li&gt;
+&lt;li&gt;maximal speedup on 32 processors is 4.4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Other Considerations
+&lt;ul&gt;
+&lt;li&gt;overheads by forking and joining threads, thread synchronization and memeory accessed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

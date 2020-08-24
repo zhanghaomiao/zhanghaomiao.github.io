@@ -13,6 +13,14 @@
     </image>
     
     <item>
+      <title>Parallel_construct_2</title>
+      <link>/post/openmp/parallel_construct_2/</link>
+      <pubDate>Sat, 22 Aug 2020 09:01:24 +0800</pubDate>
+      <guid>/post/openmp/parallel_construct_2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>NGLVIEW</title>
       <link>/post/nglview/</link>
       <pubDate>Sat, 15 Aug 2020 09:25:09 +0800</pubDate>
