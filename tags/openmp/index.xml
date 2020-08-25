@@ -5,20 +5,12 @@
     <link>/tags/openmp/</link>
       <atom:link href="/tags/openmp/index.xml" rel="self" type="application/rss+xml" />
     <description>openmp</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 22 Aug 2020 09:01:24 +0800</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 12 Aug 2020 10:59:55 +0800</lastBuildDate>
     <image>
       <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>openmp</title>
       <link>/tags/openmp/</link>
     </image>
-    
-    <item>
-      <title>Parallel_construct_2</title>
-      <link>/post/openmp/parallel_construct_2/</link>
-      <pubDate>Sat, 22 Aug 2020 09:01:24 +0800</pubDate>
-      <guid>/post/openmp/parallel_construct_2/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>OPENMP Overview</title>

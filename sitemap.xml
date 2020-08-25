@@ -133,31 +133,6 @@
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2020-08-22T09:01:24+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/openmp/</loc>
-    <lastmod>2020-08-22T09:01:24+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/parallel/</loc>
-    <lastmod>2020-08-22T09:01:24+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/openmp/parallel_construct_2/</loc>
-    <lastmod>2020-08-22T09:01:24+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-08-22T09:01:24+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/books/book1/chapter1/</loc>
     <lastmod>2020-08-19T11:31:11+08:00</lastmod>
   </url>
@@ -168,7 +143,17 @@
   </url>
   
   <url>
+    <loc>/</loc>
+    <lastmod>2020-08-19T11:31:11+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/statistical/</loc>
+    <lastmod>2020-08-19T11:31:11+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
     <lastmod>2020-08-19T11:31:11+08:00</lastmod>
   </url>
   
@@ -188,7 +173,17 @@
   </url>
   
   <url>
+    <loc>/tags/openmp/</loc>
+    <lastmod>2020-08-12T10:59:55+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/openmp/openmp_introduction_1/</loc>
+    <lastmod>2020-08-12T10:59:55+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/parallel/</loc>
     <lastmod>2020-08-12T10:59:55+08:00</lastmod>
   </url>
   
