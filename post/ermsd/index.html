@@ -30,10 +30,10 @@
   
     
   
-  <meta name="description" content="PYMOL Cheatsheet for visulize the structure of biomolecule">
+  <meta name="description" content="Cacluate ERMSD of Nucleic acid base">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/pymolcheatsheet/">
+  <link rel="alternate" hreflang="en-us" href="/post/ermsd/">
 
   
 
@@ -234,7 +234,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/post/pymolcheatsheet/">
+  <link rel="canonical" href="/post/ermsd/">
 
   
   
@@ -250,15 +250,15 @@
   <meta property="twitter:card" content="summary">
   
   <meta property="og:site_name" content="Haomiao">
-  <meta property="og:url" content="/post/pymolcheatsheet/">
-  <meta property="og:title" content="PymolCheatsheet | Haomiao">
-  <meta property="og:description" content="PYMOL Cheatsheet for visulize the structure of biomolecule"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="og:url" content="/post/ermsd/">
+  <meta property="og:title" content="ERMSD | Haomiao">
+  <meta property="og:description" content="Cacluate ERMSD of Nucleic acid base"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2020-08-14T11:36:48&#43;08:00">
+      <meta property="article:published_time" content="2020-09-01T11:17:50&#43;08:00">
     
-    <meta property="article:modified_time" content="2020-08-25T14:18:42&#43;08:00">
+    <meta property="article:modified_time" content="2020-09-01T11:17:50&#43;08:00">
   
 
   
@@ -282,12 +282,12 @@
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "/post/pymolcheatsheet/"
+    "@id": "/post/ermsd/"
   },
-  "headline": "PymolCheatsheet",
+  "headline": "ERMSD",
   
-  "datePublished": "2020-08-14T11:36:48+08:00",
-  "dateModified": "2020-08-25T14:18:42+08:00",
+  "datePublished": "2020-09-01T11:17:50+08:00",
+  "dateModified": "2020-09-01T11:17:50+08:00",
   
   "publisher": {
     "@type": "Organization",
@@ -297,7 +297,7 @@
       "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "PYMOL Cheatsheet for visulize the structure of biomolecule"
+  "description": "Cacluate ERMSD of Nucleic acid base"
 }
 </script>
 
@@ -315,7 +315,7 @@
 
 
 
-  <title>PymolCheatsheet | Haomiao</title>
+  <title>ERMSD | Haomiao</title>
 
 </head>
 
@@ -554,7 +554,7 @@
   
   
 <div class="article-container pt-3">
-  <h1>PymolCheatsheet</h1>
+  <h1>ERMSD</h1>
 
   
 
@@ -572,10 +572,8 @@
     
     
       
-          Last updated on
-      
     
-    Aug 25, 2020
+    Sep 1, 2020
   </span>
   
 
@@ -584,7 +582,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    1 min read
+    6 min read
   </span>
   
 
@@ -620,98 +618,313 @@
   <div class="article-container">
 
     <div class="article-style">
-      <h2 id="introduction">Introduction</h2>
-<ul>
-<li>Select around:
-<ul>
-<li>select active, byres all with 5 of ligands</li>
-<li>select ligand_water, ((ligands)around 3.2) and (resn HOH)</li>
-</ul>
-</li>
-<li>Change radius
-<ul>
-<li>alter active_water, vdw=0.5</li>
-<li>rebuild</li>
-</ul>
-</li>
-<li>color and cartoon setting
-<ul>
-<li>set cartoon_color, slate</li>
-<li>set transparency 0.4</li>
-<li>set cartoon_fancy_helices, 1</li>
-<li>set cartoon_highlight_color, grey50</li>
-<li>bg_color, white</li>
-<li>set antialias, 1</li>
-</ul>
-</li>
-<li>load netcdf
-<ul>
-<li>load rna.prmtop</li>
-<li>load_traj min2.rst, rna, 0, nc</li>
-<li>load rna.prmtop, traj</li>
-<li>load_traj prod_2us.nc, traj, 0, nc, start=8215, stop=8215</li>
-</ul>
-</li>
-<li>Create from an object
-<ul>
-<li>create name, (selection), [, source_state [, target_state]]</li>
-</ul>
-</li>
-<li>remove solvent and ions
-<ul>
-<li>remove solvent</li>
-<li>remove inorganic</li>
-</ul>
-</li>
-<li>Hydrogen bond
-<ul>
-<li>distance test, interface, nucleic, mode=2</li>
-</ul>
-</li>
-<li>align with specified residue
-<ul>
-<li>align 1cfd_unbound///1<em>68/, 1cll_bound///1</em>68/</li>
-</ul>
-</li>
-<li>Draw RNA dssr block
-<ul>
-<li>set ambient, 0.6</li>
-<li>dssr_block block_file=face+edge   block_color=C yellow</li>
-</ul>
-</li>
-<li>Rename an object
-<ul>
-<li>set_name rna rna01</li>
-</ul>
-</li>
-<li>Print resName of an object
-<ul>
-<li>iterate bca. all , print (resn) 
-<a href="https://pymolwiki.org/index.php/Iterate" target="_blank" rel="noopener">Iterate * PyMOLWiki</a></li>
-<li>Python API save to a name
-<pre><code class="language-python">myspace = {&quot;resname&quot;: []}
-cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspace)
+      <h2 id="code">Code</h2>
+<pre><code class="language-cpp">//
+// Created by miao on 2020/8/30.
+//
+
+#ifndef CPPTRAJ_ACTION_ERMSD_H
+#define CPPTRAJ_ACTION_ERMSD_H
+
+#include &lt;vector&gt;
+#include &quot;Action.h&quot;
+#include &quot;ReferenceAction.h&quot;
+#include &quot;DataSet_MatrixDbl.h&quot;
+
+class Action_Ermsd : public Action {
+public:
+    Action_Ermsd();
+    DispatchObject* Alloc() const override {return (DispatchObject*) new Action_Ermsd();}
+    void Help() const override;
+private:
+    Action::RetType Init(ArgList&amp;, ActionInit&amp;, int) override;
+    Action::RetType Setup(ActionSetup&amp;) override;
+    Action::RetType DoAction(int, ActionFrame&amp;) override;
+    void Print() override{};
+
+    Range resRange_;                              ///&lt; Residue range to calculate eRMSD
+    DataSet* ermsd_;                              ///&lt; hold ermsd Data
+    double cutoff_;                               ///&lt; CUTOFF, default is 2.4 A ,Larger values of cutoff can be useful
+                                                   ///&lt; when analyzing unstructured/flexible molecules.
+    int debug_;                                   ///&lt; debug level
+    int nres_;                                    ///&lt; number of residue (base)
+    bool first_;                                  ///&lt; if true, use the first structure as reference
+    ReferenceFrame REF_;                          ///&lt; Reference frame to calcuate GRefMat
+    typedef std::vector&lt;std::vector&lt;std::vector&lt;double&gt;&gt;&gt; vvv;
+    vvv GRefMat_, GActionMat_;                    ///&lt; G matrix for Reference and Action, has shape nres_ * nres_ * 4
+    Vec3 F_factors{5, 5, 3};           ///&lt; anisotropic position vector
+
+    class BaseInfo {
+    public:
+        enum BaseType {None = 0, Purine, Pyrimidine};
+        BaseInfo(): C2_(-1), C4_(-1), C6_(-1), idx_(-1), type_(None){}
+        BaseInfo(int idx1, int idx2, int idx3, int idx4, BaseType ba):
+            C2_(idx1),
+            C4_(idx2),
+            C6_(idx3),
+            idx_(idx4),
+            type_(ba){}
+
+        bool checkComplete() const {
+            return (C2_ != -1) &amp;&amp; (C4_ != -1) &amp;&amp; (C6_ != -1) &amp;&amp; (idx_ != -1);
+        }
+
+        bool operator==(const BaseInfo&amp; rhs) const {
+            return type_ == rhs.type_ &amp;&amp; checkComplete() &amp;&amp; rhs.checkComplete();
+        }
+
+        void SetC2(int C2){C2_=C2;}
+        void SetC4(int C4){C4_=C4;}
+        void SetC6(int C6){C6_=C6;}
+        void SetResIdx(int idx){idx_=idx;}
+        void SetType(BaseType ba){type_=ba;}
+        int C2()           const {return C2_;}
+        int C4()           const {return C4_;}
+        int C6()           const {return C6_;}
+        int ResIdx()       const {return idx_;}
+        BaseType type()    const {return type_;}
+    private:
+        int C2_;
+        int C4_;
+        int C6_;
+        int idx_{};
+        BaseType type_;
+    };
+    std::vector&lt;BaseInfo&gt; vecRefBase_;                  ///&lt; contain baseinfo for reference
+    std::vector&lt;BaseInfo&gt; vecCalcBase_;                 ///&lt; contain baseinfo for action frame
+
+    int SetupReference(const Topology&amp;, std::vector&lt;BaseInfo&gt;&amp; );
+    void calcGMat(const Frame&amp;, vvv&amp;);
+};
+
+#endif
 </code></pre>
-</li>
-</ul>
-</li>
-<li>Get XYZ of a atom
-<ul>
-<li><code>cmd.get_coords(&quot;/1cll///20/CA&quot;)</code></li>
-</ul>
-</li>
-<li>Calcualte helix angle between
-<ul>
-<li><code>angle_between_helices 1cll///71*76/, 1cll///86*92/, visualize=1</code></li>
-</ul>
-</li>
-<li>Calcualte helix every frame
-<pre><code class="language-python">for i in range(30):
-  pymol.cmd.set(&quot;state&quot;, i+1)
-  angle.append(anglebetweenhelices.angle_between_helices(&quot;1dmo///71*76/&quot;, &quot;1dmo///86*92/&quot;))
+<pre><code class="language-cpp">//
+// Created by miao on 2020/8/30.
+// Reference The role of nucleobase interactions in RNA structure and dynamics, Nucleic Acids Research,
+// 2014, Vol. 42, No. 21, doi: 10.1093/nar/gku972
+//
+#include &lt;cmath&gt;
+#include &quot;Action_Ermsd.h&quot;
+#include &quot;CpptrajStdio.h&quot;
+
+Action_Ermsd::Action_Ermsd():ermsd_(nullptr),cutoff_(0),debug_(0),nres_(0),first_(false){
+}
+
+void Action_Ermsd::Help() const {
+    mprintf(&quot;\t[&lt;name&gt;] [resrange &lt;range&gt;] [out &lt;filename&gt;]\n&quot;
+            &quot;\t[cutoff &lt;cutoff&gt;]\n%s&quot;,
+            ReferenceAction::Help());
+    mprintf(&quot;   Calculate nucleic acid root-mean-squared deviation of atoms in &lt;mask&gt;\n&quot;);
+}
+
+Action::RetType Action_Ermsd::Init(ArgList &amp; actionArgs, ActionInit &amp;init, int debugIn) {
+    // Initialize keyword
+    debug_ = debugIn;
+    cutoff_ = actionArgs.getKeyDouble(&quot;cutoff&quot;, 2.4);
+    DataFile* outfile = init.DFL() .AddDataFile(actionArgs.GetStringKey(&quot;out&quot;), actionArgs);
+    first_ = actionArgs.hasKey(&quot;first&quot;);
+
+    // Initialize Range
+    resRange_.SetRange(actionArgs.GetStringKey(&quot;resrange&quot;));
+    if(!resRange_.Empty())
+        resRange_.ShiftBy(-1);
+
+    // Initialize REF
+    REF_ = init.DSL().GetReferenceFrame(actionArgs);
+    if(!first_) {
+        if (REF_.error()) return Action::ERR;
+        if (REF_.empty()) {
+            mprintf(&quot;Warinng: No reference structure specified. Defaulting to first.\n&quot;);
+            first_ = true;
+        }
+    } else {
+        if(!REF_.empty())         {
+            mprinterr(&quot;Error: Must only specify 'first' or a reference structure, not both.\n&quot;);
+            return Action::ERR;
+        }
+    }
+
+    ermsd_ = init.DSL().AddSet(DataSet::DOUBLE, MetaData(actionArgs.GetStringNext(),MetaData::M_DISTANCE),
+                               &quot;ermsd&quot;);
+    if(!ermsd_) return Action::ERR;
+    if(outfile) outfile -&gt; AddDataSet(ermsd_);
+
+    // Output message
+    if(outfile)
+        mprintf(&quot;\tOutput to '%s'\n&quot;,outfile-&gt;DataFilename().full());
+    mprintf(&quot;\tCutoff is set to %g Angstroms\n&quot;, cutoff_);
+    mprintf(&quot;# Citations: Sandro Bottaro, Francesco Di Palma and Giovanni Bussi\n&quot;
+            &quot;#            The role of nucleobase interactions in RNA structure and dynamics\n&quot;
+            &quot;#            Nucleic Acid Research, 2014, 42, 21, doi: 10.1093/nar/gku972\n&quot;);
+    return Action::OK;
+}
+
+Action::RetType Action_Ermsd::Setup(ActionSetup &amp;setup) {
+    // setup Reference Range
+    //TODO: if resRange_ is not specified, then choose all the nucleic acid residues
+    // as cpptraj dose not have function to decide this, I use the soluteResidues(),
+    // this may cause problem. Most of time, please specificy correct resRange_.
+    if(resRange_.Empty())
+        resRange_ = setup.Top().SoluteResidues();
+    if(resRange_.Empty()) {
+        mprintf(&quot;Waring: No residues specified for %s \n&quot;, setup.Top().c_str());
+        return Action::SKIP;
+    }
+    resRange_.PrintRange(&quot;\tBase Range&quot;, 1);
+    mprintf(&quot;\n&quot;);
+    if(SetupReference(setup.Top(), vecCalcBase_)) return Action::ERR;
+    if(first_) {
+        if (SetupReference(setup.Top(), vecRefBase_))
+            return Action::ERR;
+    }
+    else {
+        if (SetupReference(REF_.Parm(), vecRefBase_))
+            return Action::ERR;
+    }
+    if(vecRefBase_.empty() || vecCalcBase_.empty()) {
+        mprinterr(&quot;Reference or Current Parm contains no base\n&quot;);
+    }
+    if(vecCalcBase_ != vecRefBase_) {
+        mprinterr(&quot;Reference and Setup Parm does not have same base type&quot;);
+        return Action::ERR;
+    }
+    nres_ = vecRefBase_.size();
+    mprintf(&quot;\n\tERMSD will be calculated on %d bases\n&quot;, nres_);
+    GRefMat_.resize(nres_, std::vector&lt;std::vector&lt;double&gt;&gt;(nres_, std::vector&lt;double&gt;(4, 0)));
+    GActionMat_.resize(nres_, std::vector&lt;std::vector&lt;double&gt;&gt;(nres_, std::vector&lt;double&gt;(4, 0)));
+    if(!first_)
+        calcGMat(REF_.Coord(), GRefMat_);
+    return Action::OK;
+}
+
+Action::RetType Action_Ermsd::DoAction(int frameNum, ActionFrame &amp;frm) {
+    double res = 0;
+    if(first_) {
+        mprintf(&quot;\tUsing First Frame as a reference structure\n&quot;);
+        calcGMat(frm.Frm(), GRefMat_);
+        first_ = false;
+        ermsd_-&gt;Add(frameNum, &amp;res);
+        return Action::OK;
+    }
+    calcGMat(frm.Frm(), GActionMat_);
+    for(int i = 0; i &lt; nres_; ++i) {
+        for(int j = 0; j &lt; nres_; ++j) {
+            for(int k = 0; k &lt; 4; ++k) {
+                res += (GRefMat_[i][j][k] - GActionMat_[i][j][k])* (GRefMat_[i][j][k] - GActionMat_[i][j][k]);
+            }
+        }
+    }
+//     debug GActionMat_;
+//    for(int i = 0; i &lt; 10; ++i) {
+//        for (int j = 0; j &lt; 10; ++j) {
+//            std::cout &lt;&lt; GActionMat_[i][j][0] &lt;&lt; &quot; &quot;;
+//            std::cout &lt;&lt; GActionMat_[i][j][1] &lt;&lt; &quot; &quot;;
+//            std::cout &lt;&lt; GActionMat_[i][j][2] &lt;&lt; &quot; &quot;;
+//            std::cout &lt;&lt; GActionMat_[i][j][3] &lt;&lt; &quot; &quot;;
+//        }
+//        std::cout &lt;&lt; &quot;\n&quot;;
+//    }
+    res = sqrt(res / nres_);
+    ermsd_-&gt;Add(frameNum, &amp;res);
+    return Action::OK;
+}
+
+int Action_Ermsd::SetupReference(const Topology &amp; parmIn, std::vector&lt;BaseInfo&gt;&amp; vecBase) {
+    for (auto resnum : resRange_){
+        BaseInfo::BaseType basetype_;
+        BaseInfo baseinfo;
+        //TODO: decide a residue is protein or nucleic acid or ions
+        const auto&amp; res = parmIn.Res(resnum);
+        const auto c = res.SingleCharName();
+        switch(c) {
+            case 'A': case 'G':
+                basetype_ = BaseInfo::BaseType::Purine;
+                break;
+            case 'C': case 'T': case 'U':
+                basetype_ = BaseInfo::BaseType::Pyrimidine;
+                break;
+            default:
+                basetype_=BaseInfo::BaseType::None;
+                mprintf(&quot;Warning: not a valid nucleic acid base&quot;);
+                break;
+        }
+        if(basetype_) {
+            baseinfo.SetType(basetype_);
+            for (int i = res.FirstAtom(); i != res.LastAtom(); ++i) {
+                auto atomType = parmIn[i].Name();
+                if (atomType.Match(&quot;C2&quot;)) {
+                    baseinfo.SetC2(i);
+                } else if (atomType.Match(&quot;C4&quot;)) {
+                    baseinfo.SetC4(i);
+                } else if (atomType.Match(&quot;C6&quot;)) {
+                    baseinfo.SetC6(i);
+                }
+            }
+            baseinfo.SetResIdx(resnum);
+            if(!baseinfo.checkComplete()) {
+                mprintf(&quot;BaseInfo is not completed, please make sure the nucleic base is correct&quot;);
+                return 1;
+            }
+            vecBase.push_back(baseinfo);
+        }
+    }
+    return 0;
+}
+
+void Action_Ermsd::calcGMat(const Frame&amp; fIn, vvv&amp; GMat) {
+    for(int i=0; i &lt;nres_; ++i)
+        for(int j=0; j&lt;nres_; ++j)
+            for(int k=0; k&lt;4; ++k)
+                GMat[i][j][k] = 0;
+    std::vector&lt;Vec3&gt; VecCom;
+    std::vector&lt;std::vector&lt;Vec3&gt;&gt; VecDir;
+    for(const auto&amp; base: vecRefBase_)  {
+        Vec3 C2XYZ{fIn.XYZ(base.C2())};
+        Vec3 C4XYZ{fIn.XYZ(base.C4())};
+        Vec3 C6XYZ{fIn.XYZ(base.C6())};
+        Vec3 COM{(C2XYZ + C4XYZ + C6XYZ) / 3.0};
+        Vec3 XDir{C2XYZ-COM};
+        XDir.Normalize();
+        Vec3 ZDir(0.0);
+        if(base.type() == BaseInfo::BaseType::Pyrimidine)
+            ZDir = (C4XYZ - COM).Cross(XDir);
+        else if(base.type() == BaseInfo::BaseType::Purine)
+            ZDir = (C6XYZ - COM).Cross(XDir);
+        ZDir.Normalize();
+        Vec3 YDir{XDir.Cross(ZDir)};
+        YDir.Normalize();
+        std::vector&lt;Vec3&gt; Dir = std::vector&lt;Vec3&gt;{XDir, YDir, ZDir};
+        VecCom.push_back(COM);
+        VecDir.push_back(Dir);
+    }
+
+    double firstCutOff = cutoff_ * F_factors[0];
+    for(int i = 0; i &lt; nres_; ++i) {
+        for(int j = 0; j &lt; nres_; ++j) {
+            if (i == j) continue;
+            double dist = sqrt((VecCom[i]-VecCom[j]).Magnitude2());
+            // check first cutoff
+            if(dist &gt; 0.01 &amp;&amp; dist &lt; firstCutOff) {
+                Vec3 diff = VecCom[j] - VecCom[i];
+                Vec3 projection{diff*VecDir[i][0], diff*VecDir[i][1], diff*VecDir[i][2]};
+                projection /= F_factors;
+                double dist2 = sqrt(projection.Magnitude2());
+                double gamma = Constants::PI / cutoff_;
+                // second check cutoff
+                double sin_gamma_r = sin(gamma * dist2);
+                double cos_gamma_r = cos(gamma * dist2);
+                if(dist2 &lt;= cutoff_) {
+                    GMat[i][j][0] = projection[0] / dist2 * sin_gamma_r / gamma;
+                    GMat[i][j][1] = projection[1] / dist2 * sin_gamma_r / gamma;
+                    GMat[i][j][2] = projection[2] / dist2 * sin_gamma_r / gamma;
+                    GMat[i][j][3] = (1 + cos_gamma_r) / gamma;
+                }
+            }
+        }
+    }
+}
 </code></pre>
-</li>
-</ul>
 
     </div>
 
@@ -724,7 +937,9 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
 
 <div class="article-tags">
   
-  <a class="badge badge-light" href="/tags/visualize/">visualize</a>
+  <a class="badge badge-light" href="/tags/trajectory/">Trajectory</a>
+  
+  <a class="badge badge-light" href="/tags/cpptraj/">CPPTRAJ</a>
   
 </div>
 
@@ -741,7 +956,7 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/post/pymolcheatsheet/&amp;text=PymolCheatsheet" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=/post/ermsd/&amp;text=ERMSD" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -754,7 +969,7 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/post/pymolcheatsheet/&amp;t=PymolCheatsheet" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=/post/ermsd/&amp;t=ERMSD" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -767,7 +982,7 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
       
       
       <li>
-        <a href="mailto:?subject=PymolCheatsheet&amp;body=/post/pymolcheatsheet/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=ERMSD&amp;body=/post/ermsd/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -780,7 +995,7 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/post/pymolcheatsheet/&amp;title=PymolCheatsheet" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=/post/ermsd/&amp;title=ERMSD" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -793,7 +1008,7 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=PymolCheatsheet%20/post/pymolcheatsheet/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=ERMSD%20/post/ermsd/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -806,7 +1021,7 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/post/pymolcheatsheet/&amp;title=PymolCheatsheet" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=/post/ermsd/&amp;title=ERMSD" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>

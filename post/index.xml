@@ -13,6 +13,823 @@
     </image>
     
     <item>
+      <title>Fraction of native Contact</title>
+      <link>/post/fraction_nativecontact/</link>
+      <pubDate>Tue, 01 Sep 2020 11:25:00 +0800</pubDate>
+      <guid>/post/fraction_nativecontact/</guid>
+      <description>&lt;h2 id=&#34;code&#34;&gt;Code&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;//
+// Created by miao on 2020/7/18.
+//
+
+#ifndef CPPTRAJ_ACTION_FRACTIONNATIVECONTACTS_H
+#define CPPTRAJ_ACTION_FRACTIONNATIVECONTACTS_H
+
+#include &amp;lt;map&amp;gt;
+#include &amp;quot;Action.h&amp;quot;
+#include &amp;quot;ImagedAction.h&amp;quot;
+
+class Action_FractionNativeContacts : public Action {
+public:
+    Action_FractionNativeContacts(): debug_(0), first_(false){};
+    DispatchObject* Alloc() const override{return (DispatchObject*) new Action_FractionNativeContacts();}
+    void Help() const override;
+
+private:
+    typedef std::vector&amp;lt;int&amp;gt; Iarray;
+    typedef std::map&amp;lt;std::pair&amp;lt;int, int&amp;gt;, double&amp;gt; DistInfo;
+    Action::RetType Init(ArgList&amp;amp;, ActionInit&amp;amp;, int) override;
+    Action::RetType Setup(ActionSetup&amp;amp;) override;
+    Action::RetType DoAction(int, ActionFrame&amp;amp;) override;
+    int SetupContactLists(Topology const&amp;amp;, Frame const&amp;amp; );
+    int DetermineNativeContacts(Topology const&amp;amp;, Frame const&amp;amp;);
+    bool ValidContact (int a1, int a2, Topology const&amp;amp; parmIn) const{
+        return abs(parmIn[a1].ResNum() - parmIn[a2].ResNum()) &amp;gt;= resoffset_;
+    }
+    void Print(){}
+
+    DistInfo nativeContact_;           ///&amp;lt; hold nativeContact information
+    DataSet* qfrac_;                   ///&amp;lt; hold qfract value
+    int resoffset_;                    ///&amp;lt; only calculate the fraction of native contact spaced this far apart
+    double distCutoff_;                ///&amp;lt; cutoff in the formula, default value is 4.5 A
+    double lambda_;                    ///&amp;lt; lambda in the formula, default value is 1.8
+    double beta_;                      ///&amp;lt; beta in the formula, default value is 5
+    unsigned int nframes_;             ///&amp;lt; Number of frames
+    unsigned int nNativeContacts_;     ///&amp;lt; Number of native contacts
+    int debug_;                        ///&amp;lt; action debug level
+    bool first_;                       ///&amp;lt; using first frame as reference frame or not
+    ImagedAction image_;               ///&amp;lt; Holding imaging-related info/routines
+    AtomMask Mask_;                    ///&amp;lt; Only calculate the residue in the mask;
+    Iarray contactIdx1_;               ///&amp;lt; Hold atom/residue indicies for Mask
+    Topology* CurrentParm_;
+    Matrix_3x3 ucell_, recip_;
+};
+
+
+#endif //CPPTRAJ_ACTION_FRACTIONNATIVECONTACTS_H
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;//
+// Created by miao on 2020/7/18.
+//
+
+#include &amp;quot;Action_FractionNativeContacts.h&amp;quot;
+#include &amp;quot;CpptrajStdio.h&amp;quot;
+
+void Action_FractionNativeContacts::Help() const {
+    mprintf(&amp;quot;\t[&amp;lt;mask1&amp;gt;][out &amp;lt;filename&amp;gt;][cutoff &amp;lt;cut&amp;gt;][noimage]\n&amp;quot;
+            &amp;quot;\t[ first | %s ]\n&amp;quot;
+            &amp;quot;\t[resoffset &amp;lt;n&amp;gt;] [name &amp;lt;dsname&amp;gt;] [beta &amp;lt;beta&amp;gt;] [lambda &amp;lt;lambda&amp;gt;]\n&amp;quot;
+            &amp;quot;  Calculate Fraction of native contact (Q) in &amp;lt;mask1&amp;gt; \n&amp;quot;
+            &amp;quot;  distance cutoff (4.5 Ang. default), only calculate residue index larger than \n&amp;quot;
+            &amp;quot;  offset, default beta is 5 Ang-1, and lambda is 1.8 for all-atom simulation \n&amp;quot;
+            &amp;quot;  Equation: Q(X) = 1 / |S| \\sum_{i, j \\in S} \\frac {1}{1+exp(\\beta(r_ij(X) - \\lambda r_{ij}^0)}\n&amp;quot;,
+            DataSetList::RefArgs);
+}
+
+Action::RetType Action_FractionNativeContacts::Init(ArgList&amp;amp; actionArgs, ActionInit&amp;amp; init, int debugIn) {
+    debug_ = debugIn;
+    double dist_ = actionArgs.getKeyDouble(&amp;quot;cutoff&amp;quot;, 4.5);
+    resoffset_ = actionArgs.getKeyInt(&amp;quot;resoffset&amp;quot;, 4);  // greater or equal than 4
+    beta_ = actionArgs.getKeyDouble(&amp;quot;beta&amp;quot;, 5);
+    lambda_ = actionArgs.getKeyDouble(&amp;quot;lambda&amp;quot;, 1.8);
+
+    image_.InitImaging(!(actionArgs.hasKey(&amp;quot;noimage&amp;quot;)));
+
+    if(resoffset_ &amp;lt; 1) {
+        mprinterr(&amp;quot;Error: Residue offset must be &amp;gt;=0 \n&amp;quot;);
+        return Action::ERR;
+    }
+
+    distCutoff_ = dist_ * dist_ ; // square cutoff
+    DataFile* outfile = init.DFL().AddDataFile(actionArgs.GetStringKey(&amp;quot;out&amp;quot;), actionArgs);
+
+    ReferenceFrame REF = init.DSL().GetReferenceFrame(actionArgs);
+    if(!first_) {
+        if (REF.error()) return Action::ERR;
+        if (REF.empty()) {
+            mprintf(&amp;quot;Warinng: No reference structure specified. Defaulting to first.\n&amp;quot;);
+            first_ = true;
+        }
+    } else {
+        if(!REF.empty())         {
+            mprinterr(&amp;quot;Error: Must only specify &#39;first&#39; or a reference structure, not both.\n&amp;quot;);
+            return Action::ERR;
+        }
+    }
+
+    std::string name = actionArgs.GetStringKey(&amp;quot;name&amp;quot;);
+    if(name.empty())
+        name = init.DSL().GenerateDefaultName(&amp;quot;FractionNativeContact&amp;quot;);
+    qfrac_ = init.DSL().AddSet(DataSet::DOUBLE, MetaData(name, &amp;quot;QFraction&amp;quot;));
+
+    if(outfile != nullptr) {
+        outfile -&amp;gt; AddDataSet(qfrac_);
+    }
+
+    if(Mask_.SetMaskString(actionArgs.GetMaskNext())) return Action::ERR;
+    mprintf(&amp;quot;   FractionOfNativeContactS: Mask = &#39;%s&#39;\n&amp;quot;, Mask_.MaskString());
+
+    if(!image_.UseImage())
+        mprintf(&amp;quot;  imaging is off.\n&amp;quot;);
+    else
+        mprintf(&amp;quot;  imaging is on. \n&amp;quot;);
+
+    if(outfile != nullptr)
+        mprintf(&amp;quot;\tOutput to &#39;%s&#39;\n&amp;quot;, outfile-&amp;gt;DataFilename().full());
+    mprintf(&amp;quot;\tNative Contacts will be ignored for residue spaced &amp;lt; %i apart. \n&amp;quot;, resoffset_);
+    mprintf(&amp;quot;\tNative Contacts will be ignored when distance &amp;lt; %g Angstroms\n&amp;quot;, dist_);
+    mprintf(&amp;quot;\tBeta is set to %g,  and Lambda is set to %g\n&amp;quot;, beta_, lambda_);
+
+    if(!first_) {
+        image_.SetupImaging(REF.CoordsInfo().TrajBox().Type());
+        if(image_.ImageType()==NONORTHO)
+            REF.Coord().BoxCrd().ToRecip(ucell_, recip_);
+        if(DetermineNativeContacts( REF.Parm(), REF.Coord() )) return Action::ERR;
+    }
+    return Action::OK;
+}
+
+Action::RetType Action_FractionNativeContacts::Setup(ActionSetup &amp;amp; setup) {
+    if(SetupContactLists(setup.Top(), Frame()))
+        return Action::SKIP;
+    mprintf(&amp;quot;\t%i potential contact sites for &#39;%s&#39;\n&amp;quot;, Mask_.Nselected(), Mask_.MaskString());
+    image_.SetupImaging(setup.CoordInfo().TrajBox().Type());
+    if(image_.ImagingEnabled())
+        mprintf(&amp;quot;\tImaging enabled.\n&amp;quot;);
+    else
+        mprintf(&amp;quot;\tImaging disabled.\n&amp;quot;);
+    CurrentParm_ = setup.TopAddress();
+    return Action::OK;
+}
+
+Action::RetType Action_FractionNativeContacts::DoAction(int frameNum, ActionFrame &amp;amp; frm) {
+    if(image_.ImageType() == NONORTHO)     frm.Frm().BoxCrd().ToRecip(ucell_, recip_);
+    if(first_) {
+        mprintf(&amp;quot;\tUsing first frame to determine native contacts.\n&amp;quot;);
+        if(DetermineNativeContacts(*CurrentParm_, frm.Frm())) return Action::ERR;
+        first_ = false;
+    }
+    nframes_++;
+    double sumDist = 0;
+    for(int c1 = 0; c1 != Mask_.Nselected(); ++c1){
+        for(int c2 = c1 + 1; c2 != Mask_.Nselected(); ++c2)  {
+            if(nativeContact_.find({Mask_[c1], Mask_[c2]}) != nativeContact_.end())  {
+                double Dist2 = DIST2(frm.Frm().XYZ(Mask_[c1]), frm.Frm().XYZ(Mask_[c2]),
+                               image_.ImageType(), frm.Frm().BoxCrd(), ucell_, recip_);
+                sumDist += 1.0 / (1 + exp(beta_ * (sqrt(Dist2) - lambda_ *
+                        nativeContact_[{Mask_[c1], Mask_[c2]}]) ) );
+            }
+        }
+    }
+    sumDist /= nNativeContacts_;
+    qfrac_-&amp;gt;Add(frameNum, &amp;amp;sumDist);
+    return Action::OK;
+}
+
+int Action_FractionNativeContacts::SetupContactLists(const Topology &amp;amp;parmIn, const Frame &amp;amp;frameIn) {
+    if(parmIn.SetupIntegerMask(Mask_, frameIn)) return 1;
+    Mask_.MaskInfo();
+    if(Mask_.None()) {
+        mprinterr(&amp;quot;Warning: Noting selected for &#39;%s&#39; \n&amp;quot;, Mask_.MaskString())        ;
+        return 1;
+    }
+    for(int atom : Mask_)
+        contactIdx1_.push_back(atom);
+    return 0;
+}
+
+
+int Action_FractionNativeContacts::DetermineNativeContacts(const Topology &amp;amp; parmIn, const Frame &amp;amp; fIn) {
+    if(SetupContactLists(parmIn, fIn)) return 1;
+    for(auto c1 = Mask_.begin(); c1 != Mask_.end(); ++c1)
+        for(auto c2 = c1+1; c2!=Mask_.end(); ++c2) {
+            if(ValidContact(*c1, *c2, parmIn)) {
+                double Dist2 = DIST2(fIn.XYZ(*c1), fIn.XYZ(*c2), image_.ImageType(), fIn.BoxCrd(), ucell_, recip_);
+                if(Dist2 &amp;lt; distCutoff_) {
+                    nativeContact_.insert({{*c1, *c2}, sqrt(Dist2)});
+                }
+            }
+        }
+
+    nNativeContacts_ = nativeContact_.size();
+    mprintf(&amp;quot;\tSetup %zu native contacts:\n&amp;quot;, nNativeContacts_);
+    if(debug_ &amp;gt; 0)
+        for (auto &amp;amp; contact : nativeContact_)
+        {
+            int a1 = contact.first.first;
+            int a2 = contact.first.second;
+            mprintf(&amp;quot;\t\tAtom &#39;%s&#39; to &#39;%s&#39; and dist %g\n&amp;quot;, parmIn.AtomMaskName(a1).c_str(),
+                    parmIn.AtomMaskName(a2).c_str(), contact.second);
+        }
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Angle between two helixes</title>
+      <link>/post/helixangle/</link>
+      <pubDate>Tue, 01 Sep 2020 11:22:29 +0800</pubDate>
+      <guid>/post/helixangle/</guid>
+      <description>&lt;h2 id=&#34;code&#34;&gt;Code&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;//
+// Created by miao on 2020/8/7.
+//
+
+#ifndef CPPTRAJ_ACTION_HELIXANGLE_H
+#define CPPTRAJ_ACTION_HELIXANGLE_H
+
+#include &amp;lt;vector&amp;gt;
+#include &amp;quot;Action.h&amp;quot;
+
+class Action_HelixAngle : public Action{
+public:
+    Action_HelixAngle(): HelixAngle_(nullptr), BB_C_(&amp;quot;C&amp;quot;), BB_O_(&amp;quot;O&amp;quot;), BB_CA_(&amp;quot;CA&amp;quot;),  BB_N_(&amp;quot;N&amp;quot;),
+    cutOff_{1.5}, debug_(0),  method_{ORIENTATION}{};
+    DispatchObject* Alloc() const override {return (DispatchObject* )new Action_HelixAngle();}
+    void Help() const override;
+private:
+    Action::RetType Init(ArgList&amp;amp;, ActionInit&amp;amp;, int) override;
+    Action::RetType Setup(ActionSetup&amp;amp;) override;
+    Action::RetType DoAction(int, ActionFrame&amp;amp;) override;
+    void Print() override {};
+
+    enum MethodType {ORIENTATION=0, ORIENTATION_HBOND, LOOP_ORIENTATION, CAFIT_ORIENTATION};
+
+    class ResidueInfo{
+    public:
+        ResidueInfo(): C_(-1), CA_(-1), N_(-1), O_(-1), num_(-1){};
+        int C()        const {return C_;}
+        int CA()       const {return CA_;}
+        int N()        const {return N_;}
+        int O()        const {return O_;}
+        int Num()      const {return num_;}
+
+        void SetC(int i)        {C_  = i;}
+        void SetCA(int i)       {CA_ = i;}
+        void SetN(int i)        {N_  = i;}
+        void SetO(int i)        {O_  = i;}
+
+        bool hasCO() const {return C_ !=-1 &amp;amp;&amp;amp; O_ != -1;}
+        bool hasNO() const {return N_ !=-1 &amp;amp;&amp;amp; O_ != -1;}
+        bool hasCN() const {return C_ !=-1 &amp;amp;&amp;amp; N_ != -1;}
+
+    private:
+        int C_;
+        int CA_;
+        int N_;
+        int O_;
+        int num_;
+    };
+
+    typedef std::vector&amp;lt;ResidueInfo&amp;gt; ResidueInfoVector;
+
+    ResidueInfoVector MaskToResArray(Topology const&amp;amp;, AtomMask const&amp;amp;) ;
+    Vec3 HelixComputeDirection(ActionFrame const&amp;amp;, ResidueInfoVector const&amp;amp;);
+    Vec3 calculateDirectionWithCutOff(std::vector&amp;lt;Vec3&amp;gt;&amp;amp; vec3Vector) const;
+
+    AtomMask Mask1_;                         ///&amp;lt;  Mask 1 of helix residue
+    AtomMask Mask2_;                         ///&amp;lt;  Mask 2 of helix residue
+    DataSet* HelixAngle_;                    ///&amp;lt;  Dataset Hold Helix Angle;
+    std::vector&amp;lt;ResidueInfo&amp;gt; Residue1_;      ///&amp;lt;  Residue index which Mask1 contains
+    std::vector&amp;lt;ResidueInfo&amp;gt; Residue2_;      ///&amp;lt;  Residue index which Mask2 contains
+    NameType BB_C_;                          ///&amp;lt;  Protein N Atom Name (&#39;C&#39;)
+    NameType BB_O_;                          ///&amp;lt;  Protein N Atom Name (&#39;O&#39;)
+    NameType BB_CA_;                         ///&amp;lt;  Protein CA Atom Name (&#39;CA&#39;)
+    NameType BB_N_;                          ///&amp;lt;  Protein N  Atom Name (&#39;N&#39;)
+    double cutOff_;                          ///&amp;lt;  Drop outliers that is greater than standard deviation * cutOff
+    int debug_;                              ///&amp;lt;  Action Debug level
+    MethodType method_;                      ///&amp;lt;  Choose which method to calculate Orientation
+};
+
+#endif //CPPTRAJ_ACTION_HELIXANGLE_H
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;//
+// Created by miao on 2020/8/7.
+//
+
+#include &amp;quot;Action_HelixAngle.h&amp;quot;
+#include &amp;quot;CpptrajStdio.h&amp;quot;
+#include &amp;quot;VectorMath.h&amp;quot;
+#include &amp;quot;DistRoutines.h&amp;quot;
+#include &amp;quot;DataSet_Vector.h&amp;quot;
+
+
+void Action_HelixAngle::Help() const {
+    mprintf(&amp;quot;\t[&amp;lt;name&amp;gt;] &amp;lt;mask1&amp;gt; &amp;lt;mask2&amp;gt; [out &amp;lt;filename&amp;gt;] [method &amp;lt;method&amp;gt;]\n&amp;quot;
+            &amp;quot;  Calculate the helix angle between mask1 and mask2 \n&amp;quot;
+            &amp;quot;  reference to PyMOl anglebetweenhelices script\n&amp;quot;
+            &amp;quot;  mask1 and mask2 must contain more than 4 residues\n&amp;quot;
+            &amp;quot;  there are four methods could be used:  \n&amp;quot;
+            &amp;quot;  Method: 0, Average direction C(i) -&amp;gt; O(i) pseudo bonds; \n&amp;quot;
+            &amp;quot;          1, Average direction O(i) -&amp;gt; N(i+4) hydrogen bonds; \n&amp;quot;
+            &amp;quot;          2, Average direction N(i) -&amp;gt; C(i) pseudo bonds; \n&amp;quot;
+            &amp;quot;          3, least square linear fit on CA atoms\n&amp;quot;);
+
+}
+
+Action::RetType Action_HelixAngle::Init(ArgList&amp;amp; actionArgs, ActionInit &amp;amp;init, int debugIn) {
+
+    debug_ = debugIn;
+    DataFile* outfile = init.DFL() .AddDataFile(actionArgs.GetStringKey(&amp;quot;out&amp;quot;), actionArgs);
+    method_ = static_cast&amp;lt;MethodType&amp;gt;(actionArgs.getKeyInt(&amp;quot;method&amp;quot;, 0));
+
+    std::string mask1 = actionArgs.GetMaskNext();
+    std::string mask2 = actionArgs.GetMaskNext();
+    if (mask1.empty() || mask2.empty())  {
+        mprinterr(&amp;quot;Error: helixAngle: Require 2 masks \n&amp;quot;);
+        return Action::ERR;
+    }
+    if(Mask1_.SetMaskString(mask1)) return Action::ERR;
+    if(Mask2_.SetMaskString(mask2)) return Action::ERR;
+
+    mprintf(&amp;quot;ANGLE: between helix %s - helix %s \n&amp;quot;, Mask1_.MaskString(), Mask2_.MaskString());
+
+    HelixAngle_ =  init.DSL().AddSet(DataSet::DOUBLE,
+                                     MetaData(actionArgs.GetStringNext(), MetaData::M_ANGLE), &amp;quot;Ang&amp;quot;);
+    if(!HelixAngle_) return Action::ERR;
+    if(outfile) outfile-&amp;gt;AddDataSet(HelixAngle_);
+    return Action::OK;
+}
+
+Action::RetType Action_HelixAngle::Setup(ActionSetup &amp;amp; setup) {
+    if(setup.Top().SetupIntegerMask(Mask1_)) return Action::ERR;
+    if(setup.Top().SetupIntegerMask(Mask2_)) return Action::ERR;
+    Residue1_ = MaskToResArray(setup.Top(), Mask1_);
+    Residue2_ = MaskToResArray(setup.Top(), Mask2_);
+
+    if(method_ == ORIENTATION) cutOff_=1.5;
+    else if(method_ == ORIENTATION_HBOND) cutOff_=3.5;
+    else cutOff_ = 0;
+
+    mprintf(&amp;quot;\t&amp;quot;);
+    Mask1_.BriefMaskInfo();
+    Mask2_.BriefMaskInfo();
+    mprintf(&amp;quot;\t\n&amp;quot;);
+    if (Residue1_.size() &amp;lt; 4) mprinterr(&amp;quot;Error: Mask1: Must contain at least four residues&amp;quot;);
+    if (Residue2_.size() &amp;lt; 4) mprinterr(&amp;quot;Error: Mask2: Must contain at least four residues&amp;quot;);
+    return Action::OK;
+}
+
+Action::RetType Action_HelixAngle::DoAction(int frameNum, ActionFrame &amp;amp; frm) {
+    Vec3 dir1 = HelixComputeDirection(frm, Residue1_) ;
+    Vec3 dir2 = HelixComputeDirection(frm, Residue2_) ;
+    if((dir1[0] == 0 &amp;amp;&amp;amp; dir2[1] == 0 &amp;amp;&amp;amp; dir1[2] == 0) || (dir2[0] == 0 &amp;amp;&amp;amp; dir2[1] == 0 &amp;amp;&amp;amp; dir2[2] == 0)) {
+        mprintf(&amp;quot;\t Can&#39;t calculate the orientation for %i as contacts is zero \n&amp;quot;, frameNum);
+        return Action::SKIP;
+    }
+    double ang = dir1.Angle(dir2);
+    ang *= Constants::RADDEG;
+    if (debug_ &amp;gt; 0) {
+        dir1.Print(&amp;quot;dir1&amp;quot;);
+        dir2.Print(&amp;quot;dir2&amp;quot;);
+        mprintf(&amp;quot;Angle: %g\n&amp;quot;, ang);
+    }
+    HelixAngle_-&amp;gt;Add(frameNum, &amp;amp;ang);
+    return Action::OK;
+}
+
+std::vector&amp;lt;Action_HelixAngle::ResidueInfo&amp;gt;
+Action_HelixAngle::MaskToResArray(const Topology &amp;amp; currentParm,
+                                  const AtomMask &amp;amp; mask)
+{
+    int currentResNum = -1;
+    std::vector&amp;lt;ResidueInfo&amp;gt; residueInfoVector;
+    for(const auto&amp;amp; atom: mask){
+        int resNum = currentParm[atom].ResNum();
+        if (resNum != currentResNum) {
+            Residue const&amp;amp; thisRes = currentParm.Res(resNum);
+            ResidueInfo resInfo;
+            if(method_ == ORIENTATION)  // only save C and O atom;
+            {
+                for(int at = thisRes.FirstAtom(); at != thisRes.LastAtom(); at++) {
+                    if(currentParm[at].Name() == BB_C_) resInfo.SetC(at);
+                    if(currentParm[at].Name() == BB_O_) resInfo.SetO(at);
+                }
+            }
+            else if(method_ == ORIENTATION_HBOND) { // save O and N atom
+                for(int at = thisRes.FirstAtom(); at != thisRes.LastAtom(); at++) {
+                    if(currentParm[at].Name() == BB_O_) resInfo.SetO(at);
+                    if(currentParm[at].Name() == BB_N_) resInfo.SetN(at);
+                }
+            }
+
+            else if(method_ == LOOP_ORIENTATION) { // Save C and N atom
+                for(int at = thisRes.FirstAtom(); at != thisRes.LastAtom(); at++) {
+                    if(currentParm[at].Name() == BB_C_) resInfo.SetC(at);
+                    if(currentParm[at].Name() == BB_N_) resInfo.SetN(at);
+                }
+            }
+
+            else if(method_ == CAFIT_ORIENTATION) { // Save CA atom
+                for(int at = thisRes.FirstAtom(); at != thisRes.LastAtom(); at++) {
+                    if (currentParm[at].Name() == BB_CA_) resInfo.SetCA(at);
+                }
+            }
+            currentResNum = resNum;
+            residueInfoVector.push_back(resInfo);
+        }
+    }
+    return residueInfoVector;
+}
+
+Vec3 Action_HelixAngle::HelixComputeDirection(const ActionFrame&amp;amp; frm, const ResidueInfoVector&amp;amp;  Residue) {
+    int residueNum = Residue.size();
+    DataSet_Vector CaData;
+    if(method_ == CAFIT_ORIENTATION) {
+        for(auto&amp;amp; residueInfo: Residue)  {
+            if(residueInfo.CA() != -1) {
+                CaData.AddVxyz(frm.Frm().XYZ(residueInfo.CA()));
+            }
+        }
+        Vec3 fit = CaData.LinearFit();
+        if(fit * (*(CaData.end()-1) - *CaData.begin()) &amp;lt; 0)
+           fit.Neg();
+        return fit;
+    }
+
+    std::vector&amp;lt;Vec3&amp;gt; vec3Vector;
+    if (method_ == ORIENTATION) {
+        for (auto &amp;amp;residueInfo: Residue) {
+            if (residueInfo.hasCO()) {
+                Vec3 v1(frm.Frm().XYZ(residueInfo.C()));
+                Vec3 v2(frm.Frm().XYZ(residueInfo.O()));
+                vec3Vector.push_back(v1 - v2);
+            }
+        }
+    } else if (method_ == ORIENTATION_HBOND) {
+        for (int i = 0; i &amp;lt; residueNum - 4; i++) {
+            if (Residue[i].O() != -1 &amp;amp;&amp;amp; Residue[i + 4].N() != -1) {
+                Vec3 v1(frm.Frm().XYZ(Residue[i].O()));
+                Vec3 v2(frm.Frm().XYZ(Residue[i + 4].N()));
+                if (DIST2_NoImage(v1, v2) &amp;lt; cutOff_ * cutOff_)
+                    vec3Vector.push_back(v1 - v2);
+            }
+        }
+    } else if (method_ == LOOP_ORIENTATION) {
+        for (auto &amp;amp;residueInfo: Residue) {
+            if (residueInfo.hasCN()) {
+                Vec3 v1(frm.Frm().XYZ(residueInfo.C()));
+                Vec3 v2(frm.Frm().XYZ(residueInfo.N()));
+                vec3Vector.push_back(v1 - v2);
+            }
+        }
+    }
+    return calculateDirectionWithCutOff(vec3Vector);
+}
+
+Vec3 Action_HelixAngle::calculateDirectionWithCutOff(std::vector&amp;lt;Vec3&amp;gt;&amp;amp; vec3Vector) const {
+    Vec3 vec3Sum;
+    std::vector&amp;lt;double&amp;gt; angles;
+    int residueNum = vec3Vector.size();
+    if(residueNum == 0) return {0,0,0};
+
+    for (auto &amp;amp;vec3: vec3Vector) {
+        vec3Sum += vec3;
+    }
+
+    if (method_ == ORIENTATION) {
+        for (auto &amp;amp;vec3: vec3Vector) {
+            double angle = vec3Sum.NoNormAngle(vec3);
+            angles.push_back(angle);
+        }
+
+        auto meanStd = MeanAndStd(angles);
+        vec3Sum.Zero();
+
+        for (int i = 0; i &amp;lt; residueNum; ++i) {
+            if (std::abs(angles[i] - meanStd.first) &amp;lt; cutOff_ * meanStd.second) {
+                vec3Sum += vec3Vector[i];
+            } else {
+                if(debug_ &amp;gt; 0)
+                    mprintf(&amp;quot;remove angle %g for it&#39;s a outlier. \n&amp;quot;, angles[i]);
+            }
+        }
+    }
+    vec3Sum.Normalize();
+    return vec3Sum;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ERMSD</title>
+      <link>/post/ermsd/</link>
+      <pubDate>Tue, 01 Sep 2020 11:17:50 +0800</pubDate>
+      <guid>/post/ermsd/</guid>
+      <description>&lt;h2 id=&#34;code&#34;&gt;Code&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;//
+// Created by miao on 2020/8/30.
+//
+
+#ifndef CPPTRAJ_ACTION_ERMSD_H
+#define CPPTRAJ_ACTION_ERMSD_H
+
+#include &amp;lt;vector&amp;gt;
+#include &amp;quot;Action.h&amp;quot;
+#include &amp;quot;ReferenceAction.h&amp;quot;
+#include &amp;quot;DataSet_MatrixDbl.h&amp;quot;
+
+class Action_Ermsd : public Action {
+public:
+    Action_Ermsd();
+    DispatchObject* Alloc() const override {return (DispatchObject*) new Action_Ermsd();}
+    void Help() const override;
+private:
+    Action::RetType Init(ArgList&amp;amp;, ActionInit&amp;amp;, int) override;
+    Action::RetType Setup(ActionSetup&amp;amp;) override;
+    Action::RetType DoAction(int, ActionFrame&amp;amp;) override;
+    void Print() override{};
+
+    Range resRange_;                              ///&amp;lt; Residue range to calculate eRMSD
+    DataSet* ermsd_;                              ///&amp;lt; hold ermsd Data
+    double cutoff_;                               ///&amp;lt; CUTOFF, default is 2.4 A ,Larger values of cutoff can be useful
+                                                   ///&amp;lt; when analyzing unstructured/flexible molecules.
+    int debug_;                                   ///&amp;lt; debug level
+    int nres_;                                    ///&amp;lt; number of residue (base)
+    bool first_;                                  ///&amp;lt; if true, use the first structure as reference
+    ReferenceFrame REF_;                          ///&amp;lt; Reference frame to calcuate GRefMat
+    typedef std::vector&amp;lt;std::vector&amp;lt;std::vector&amp;lt;double&amp;gt;&amp;gt;&amp;gt; vvv;
+    vvv GRefMat_, GActionMat_;                    ///&amp;lt; G matrix for Reference and Action, has shape nres_ * nres_ * 4
+    Vec3 F_factors{5, 5, 3};           ///&amp;lt; anisotropic position vector
+
+    class BaseInfo {
+    public:
+        enum BaseType {None = 0, Purine, Pyrimidine};
+        BaseInfo(): C2_(-1), C4_(-1), C6_(-1), idx_(-1), type_(None){}
+        BaseInfo(int idx1, int idx2, int idx3, int idx4, BaseType ba):
+            C2_(idx1),
+            C4_(idx2),
+            C6_(idx3),
+            idx_(idx4),
+            type_(ba){}
+
+        bool checkComplete() const {
+            return (C2_ != -1) &amp;amp;&amp;amp; (C4_ != -1) &amp;amp;&amp;amp; (C6_ != -1) &amp;amp;&amp;amp; (idx_ != -1);
+        }
+
+        bool operator==(const BaseInfo&amp;amp; rhs) const {
+            return type_ == rhs.type_ &amp;amp;&amp;amp; checkComplete() &amp;amp;&amp;amp; rhs.checkComplete();
+        }
+
+        void SetC2(int C2){C2_=C2;}
+        void SetC4(int C4){C4_=C4;}
+        void SetC6(int C6){C6_=C6;}
+        void SetResIdx(int idx){idx_=idx;}
+        void SetType(BaseType ba){type_=ba;}
+        int C2()           const {return C2_;}
+        int C4()           const {return C4_;}
+        int C6()           const {return C6_;}
+        int ResIdx()       const {return idx_;}
+        BaseType type()    const {return type_;}
+    private:
+        int C2_;
+        int C4_;
+        int C6_;
+        int idx_{};
+        BaseType type_;
+    };
+    std::vector&amp;lt;BaseInfo&amp;gt; vecRefBase_;                  ///&amp;lt; contain baseinfo for reference
+    std::vector&amp;lt;BaseInfo&amp;gt; vecCalcBase_;                 ///&amp;lt; contain baseinfo for action frame
+
+    int SetupReference(const Topology&amp;amp;, std::vector&amp;lt;BaseInfo&amp;gt;&amp;amp; );
+    void calcGMat(const Frame&amp;amp;, vvv&amp;amp;);
+};
+
+#endif
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;//
+// Created by miao on 2020/8/30.
+// Reference The role of nucleobase interactions in RNA structure and dynamics, Nucleic Acids Research,
+// 2014, Vol. 42, No. 21, doi: 10.1093/nar/gku972
+//
+#include &amp;lt;cmath&amp;gt;
+#include &amp;quot;Action_Ermsd.h&amp;quot;
+#include &amp;quot;CpptrajStdio.h&amp;quot;
+
+Action_Ermsd::Action_Ermsd():ermsd_(nullptr),cutoff_(0),debug_(0),nres_(0),first_(false){
+}
+
+void Action_Ermsd::Help() const {
+    mprintf(&amp;quot;\t[&amp;lt;name&amp;gt;] [resrange &amp;lt;range&amp;gt;] [out &amp;lt;filename&amp;gt;]\n&amp;quot;
+            &amp;quot;\t[cutoff &amp;lt;cutoff&amp;gt;]\n%s&amp;quot;,
+            ReferenceAction::Help());
+    mprintf(&amp;quot;   Calculate nucleic acid root-mean-squared deviation of atoms in &amp;lt;mask&amp;gt;\n&amp;quot;);
+}
+
+Action::RetType Action_Ermsd::Init(ArgList &amp;amp; actionArgs, ActionInit &amp;amp;init, int debugIn) {
+    // Initialize keyword
+    debug_ = debugIn;
+    cutoff_ = actionArgs.getKeyDouble(&amp;quot;cutoff&amp;quot;, 2.4);
+    DataFile* outfile = init.DFL() .AddDataFile(actionArgs.GetStringKey(&amp;quot;out&amp;quot;), actionArgs);
+    first_ = actionArgs.hasKey(&amp;quot;first&amp;quot;);
+
+    // Initialize Range
+    resRange_.SetRange(actionArgs.GetStringKey(&amp;quot;resrange&amp;quot;));
+    if(!resRange_.Empty())
+        resRange_.ShiftBy(-1);
+
+    // Initialize REF
+    REF_ = init.DSL().GetReferenceFrame(actionArgs);
+    if(!first_) {
+        if (REF_.error()) return Action::ERR;
+        if (REF_.empty()) {
+            mprintf(&amp;quot;Warinng: No reference structure specified. Defaulting to first.\n&amp;quot;);
+            first_ = true;
+        }
+    } else {
+        if(!REF_.empty())         {
+            mprinterr(&amp;quot;Error: Must only specify &#39;first&#39; or a reference structure, not both.\n&amp;quot;);
+            return Action::ERR;
+        }
+    }
+
+    ermsd_ = init.DSL().AddSet(DataSet::DOUBLE, MetaData(actionArgs.GetStringNext(),MetaData::M_DISTANCE),
+                               &amp;quot;ermsd&amp;quot;);
+    if(!ermsd_) return Action::ERR;
+    if(outfile) outfile -&amp;gt; AddDataSet(ermsd_);
+
+    // Output message
+    if(outfile)
+        mprintf(&amp;quot;\tOutput to &#39;%s&#39;\n&amp;quot;,outfile-&amp;gt;DataFilename().full());
+    mprintf(&amp;quot;\tCutoff is set to %g Angstroms\n&amp;quot;, cutoff_);
+    mprintf(&amp;quot;# Citations: Sandro Bottaro, Francesco Di Palma and Giovanni Bussi\n&amp;quot;
+            &amp;quot;#            The role of nucleobase interactions in RNA structure and dynamics\n&amp;quot;
+            &amp;quot;#            Nucleic Acid Research, 2014, 42, 21, doi: 10.1093/nar/gku972\n&amp;quot;);
+    return Action::OK;
+}
+
+Action::RetType Action_Ermsd::Setup(ActionSetup &amp;amp;setup) {
+    // setup Reference Range
+    //TODO: if resRange_ is not specified, then choose all the nucleic acid residues
+    // as cpptraj dose not have function to decide this, I use the soluteResidues(),
+    // this may cause problem. Most of time, please specificy correct resRange_.
+    if(resRange_.Empty())
+        resRange_ = setup.Top().SoluteResidues();
+    if(resRange_.Empty()) {
+        mprintf(&amp;quot;Waring: No residues specified for %s \n&amp;quot;, setup.Top().c_str());
+        return Action::SKIP;
+    }
+    resRange_.PrintRange(&amp;quot;\tBase Range&amp;quot;, 1);
+    mprintf(&amp;quot;\n&amp;quot;);
+    if(SetupReference(setup.Top(), vecCalcBase_)) return Action::ERR;
+    if(first_) {
+        if (SetupReference(setup.Top(), vecRefBase_))
+            return Action::ERR;
+    }
+    else {
+        if (SetupReference(REF_.Parm(), vecRefBase_))
+            return Action::ERR;
+    }
+    if(vecRefBase_.empty() || vecCalcBase_.empty()) {
+        mprinterr(&amp;quot;Reference or Current Parm contains no base\n&amp;quot;);
+    }
+    if(vecCalcBase_ != vecRefBase_) {
+        mprinterr(&amp;quot;Reference and Setup Parm does not have same base type&amp;quot;);
+        return Action::ERR;
+    }
+    nres_ = vecRefBase_.size();
+    mprintf(&amp;quot;\n\tERMSD will be calculated on %d bases\n&amp;quot;, nres_);
+    GRefMat_.resize(nres_, std::vector&amp;lt;std::vector&amp;lt;double&amp;gt;&amp;gt;(nres_, std::vector&amp;lt;double&amp;gt;(4, 0)));
+    GActionMat_.resize(nres_, std::vector&amp;lt;std::vector&amp;lt;double&amp;gt;&amp;gt;(nres_, std::vector&amp;lt;double&amp;gt;(4, 0)));
+    if(!first_)
+        calcGMat(REF_.Coord(), GRefMat_);
+    return Action::OK;
+}
+
+Action::RetType Action_Ermsd::DoAction(int frameNum, ActionFrame &amp;amp;frm) {
+    double res = 0;
+    if(first_) {
+        mprintf(&amp;quot;\tUsing First Frame as a reference structure\n&amp;quot;);
+        calcGMat(frm.Frm(), GRefMat_);
+        first_ = false;
+        ermsd_-&amp;gt;Add(frameNum, &amp;amp;res);
+        return Action::OK;
+    }
+    calcGMat(frm.Frm(), GActionMat_);
+    for(int i = 0; i &amp;lt; nres_; ++i) {
+        for(int j = 0; j &amp;lt; nres_; ++j) {
+            for(int k = 0; k &amp;lt; 4; ++k) {
+                res += (GRefMat_[i][j][k] - GActionMat_[i][j][k])* (GRefMat_[i][j][k] - GActionMat_[i][j][k]);
+            }
+        }
+    }
+//     debug GActionMat_;
+//    for(int i = 0; i &amp;lt; 10; ++i) {
+//        for (int j = 0; j &amp;lt; 10; ++j) {
+//            std::cout &amp;lt;&amp;lt; GActionMat_[i][j][0] &amp;lt;&amp;lt; &amp;quot; &amp;quot;;
+//            std::cout &amp;lt;&amp;lt; GActionMat_[i][j][1] &amp;lt;&amp;lt; &amp;quot; &amp;quot;;
+//            std::cout &amp;lt;&amp;lt; GActionMat_[i][j][2] &amp;lt;&amp;lt; &amp;quot; &amp;quot;;
+//            std::cout &amp;lt;&amp;lt; GActionMat_[i][j][3] &amp;lt;&amp;lt; &amp;quot; &amp;quot;;
+//        }
+//        std::cout &amp;lt;&amp;lt; &amp;quot;\n&amp;quot;;
+//    }
+    res = sqrt(res / nres_);
+    ermsd_-&amp;gt;Add(frameNum, &amp;amp;res);
+    return Action::OK;
+}
+
+int Action_Ermsd::SetupReference(const Topology &amp;amp; parmIn, std::vector&amp;lt;BaseInfo&amp;gt;&amp;amp; vecBase) {
+    for (auto resnum : resRange_){
+        BaseInfo::BaseType basetype_;
+        BaseInfo baseinfo;
+        //TODO: decide a residue is protein or nucleic acid or ions
+        const auto&amp;amp; res = parmIn.Res(resnum);
+        const auto c = res.SingleCharName();
+        switch(c) {
+            case &#39;A&#39;: case &#39;G&#39;:
+                basetype_ = BaseInfo::BaseType::Purine;
+                break;
+            case &#39;C&#39;: case &#39;T&#39;: case &#39;U&#39;:
+                basetype_ = BaseInfo::BaseType::Pyrimidine;
+                break;
+            default:
+                basetype_=BaseInfo::BaseType::None;
+                mprintf(&amp;quot;Warning: not a valid nucleic acid base&amp;quot;);
+                break;
+        }
+        if(basetype_) {
+            baseinfo.SetType(basetype_);
+            for (int i = res.FirstAtom(); i != res.LastAtom(); ++i) {
+                auto atomType = parmIn[i].Name();
+                if (atomType.Match(&amp;quot;C2&amp;quot;)) {
+                    baseinfo.SetC2(i);
+                } else if (atomType.Match(&amp;quot;C4&amp;quot;)) {
+                    baseinfo.SetC4(i);
+                } else if (atomType.Match(&amp;quot;C6&amp;quot;)) {
+                    baseinfo.SetC6(i);
+                }
+            }
+            baseinfo.SetResIdx(resnum);
+            if(!baseinfo.checkComplete()) {
+                mprintf(&amp;quot;BaseInfo is not completed, please make sure the nucleic base is correct&amp;quot;);
+                return 1;
+            }
+            vecBase.push_back(baseinfo);
+        }
+    }
+    return 0;
+}
+
+void Action_Ermsd::calcGMat(const Frame&amp;amp; fIn, vvv&amp;amp; GMat) {
+    for(int i=0; i &amp;lt;nres_; ++i)
+        for(int j=0; j&amp;lt;nres_; ++j)
+            for(int k=0; k&amp;lt;4; ++k)
+                GMat[i][j][k] = 0;
+    std::vector&amp;lt;Vec3&amp;gt; VecCom;
+    std::vector&amp;lt;std::vector&amp;lt;Vec3&amp;gt;&amp;gt; VecDir;
+    for(const auto&amp;amp; base: vecRefBase_)  {
+        Vec3 C2XYZ{fIn.XYZ(base.C2())};
+        Vec3 C4XYZ{fIn.XYZ(base.C4())};
+        Vec3 C6XYZ{fIn.XYZ(base.C6())};
+        Vec3 COM{(C2XYZ + C4XYZ + C6XYZ) / 3.0};
+        Vec3 XDir{C2XYZ-COM};
+        XDir.Normalize();
+        Vec3 ZDir(0.0);
+        if(base.type() == BaseInfo::BaseType::Pyrimidine)
+            ZDir = (C4XYZ - COM).Cross(XDir);
+        else if(base.type() == BaseInfo::BaseType::Purine)
+            ZDir = (C6XYZ - COM).Cross(XDir);
+        ZDir.Normalize();
+        Vec3 YDir{XDir.Cross(ZDir)};
+        YDir.Normalize();
+        std::vector&amp;lt;Vec3&amp;gt; Dir = std::vector&amp;lt;Vec3&amp;gt;{XDir, YDir, ZDir};
+        VecCom.push_back(COM);
+        VecDir.push_back(Dir);
+    }
+
+    double firstCutOff = cutoff_ * F_factors[0];
+    for(int i = 0; i &amp;lt; nres_; ++i) {
+        for(int j = 0; j &amp;lt; nres_; ++j) {
+            if (i == j) continue;
+            double dist = sqrt((VecCom[i]-VecCom[j]).Magnitude2());
+            // check first cutoff
+            if(dist &amp;gt; 0.01 &amp;amp;&amp;amp; dist &amp;lt; firstCutOff) {
+                Vec3 diff = VecCom[j] - VecCom[i];
+                Vec3 projection{diff*VecDir[i][0], diff*VecDir[i][1], diff*VecDir[i][2]};
+                projection /= F_factors;
+                double dist2 = sqrt(projection.Magnitude2());
+                double gamma = Constants::PI / cutoff_;
+                // second check cutoff
+                double sin_gamma_r = sin(gamma * dist2);
+                double cos_gamma_r = cos(gamma * dist2);
+                if(dist2 &amp;lt;= cutoff_) {
+                    GMat[i][j][0] = projection[0] / dist2 * sin_gamma_r / gamma;
+                    GMat[i][j][1] = projection[1] / dist2 * sin_gamma_r / gamma;
+                    GMat[i][j][2] = projection[2] / dist2 * sin_gamma_r / gamma;
+                    GMat[i][j][3] = (1 + cos_gamma_r) / gamma;
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>NGLVIEW</title>
       <link>/post/nglview/</link>
       <pubDate>Sat, 15 Aug 2020 09:25:09 +0800</pubDate>

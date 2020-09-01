@@ -30,10 +30,10 @@
   
     
   
-  <meta name="description" content="PYMOL Cheatsheet for visulize the structure of biomolecule">
+  <meta name="description" content="Calcualte Anlge between two helixes">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/pymolcheatsheet/">
+  <link rel="alternate" hreflang="en-us" href="/post/helixangle/">
 
   
 
@@ -234,7 +234,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/post/pymolcheatsheet/">
+  <link rel="canonical" href="/post/helixangle/">
 
   
   
@@ -250,15 +250,15 @@
   <meta property="twitter:card" content="summary">
   
   <meta property="og:site_name" content="Haomiao">
-  <meta property="og:url" content="/post/pymolcheatsheet/">
-  <meta property="og:title" content="PymolCheatsheet | Haomiao">
-  <meta property="og:description" content="PYMOL Cheatsheet for visulize the structure of biomolecule"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="og:url" content="/post/helixangle/">
+  <meta property="og:title" content="Angle between two helixes | Haomiao">
+  <meta property="og:description" content="Calcualte Anlge between two helixes"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2020-08-14T11:36:48&#43;08:00">
+      <meta property="article:published_time" content="2020-09-01T11:22:29&#43;08:00">
     
-    <meta property="article:modified_time" content="2020-08-25T14:18:42&#43;08:00">
+    <meta property="article:modified_time" content="2020-09-01T11:22:29&#43;08:00">
   
 
   
@@ -282,12 +282,12 @@
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "/post/pymolcheatsheet/"
+    "@id": "/post/helixangle/"
   },
-  "headline": "PymolCheatsheet",
+  "headline": "Angle between two helixes",
   
-  "datePublished": "2020-08-14T11:36:48+08:00",
-  "dateModified": "2020-08-25T14:18:42+08:00",
+  "datePublished": "2020-09-01T11:22:29+08:00",
+  "dateModified": "2020-09-01T11:22:29+08:00",
   
   "publisher": {
     "@type": "Organization",
@@ -297,7 +297,7 @@
       "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "PYMOL Cheatsheet for visulize the structure of biomolecule"
+  "description": "Calcualte Anlge between two helixes"
 }
 </script>
 
@@ -315,7 +315,7 @@
 
 
 
-  <title>PymolCheatsheet | Haomiao</title>
+  <title>Angle between two helixes | Haomiao</title>
 
 </head>
 
@@ -554,7 +554,7 @@
   
   
 <div class="article-container pt-3">
-  <h1>PymolCheatsheet</h1>
+  <h1>Angle between two helixes</h1>
 
   
 
@@ -572,10 +572,8 @@
     
     
       
-          Last updated on
-      
     
-    Aug 25, 2020
+    Sep 1, 2020
   </span>
   
 
@@ -584,7 +582,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    1 min read
+    5 min read
   </span>
   
 
@@ -620,98 +618,285 @@
   <div class="article-container">
 
     <div class="article-style">
-      <h2 id="introduction">Introduction</h2>
-<ul>
-<li>Select around:
-<ul>
-<li>select active, byres all with 5 of ligands</li>
-<li>select ligand_water, ((ligands)around 3.2) and (resn HOH)</li>
-</ul>
-</li>
-<li>Change radius
-<ul>
-<li>alter active_water, vdw=0.5</li>
-<li>rebuild</li>
-</ul>
-</li>
-<li>color and cartoon setting
-<ul>
-<li>set cartoon_color, slate</li>
-<li>set transparency 0.4</li>
-<li>set cartoon_fancy_helices, 1</li>
-<li>set cartoon_highlight_color, grey50</li>
-<li>bg_color, white</li>
-<li>set antialias, 1</li>
-</ul>
-</li>
-<li>load netcdf
-<ul>
-<li>load rna.prmtop</li>
-<li>load_traj min2.rst, rna, 0, nc</li>
-<li>load rna.prmtop, traj</li>
-<li>load_traj prod_2us.nc, traj, 0, nc, start=8215, stop=8215</li>
-</ul>
-</li>
-<li>Create from an object
-<ul>
-<li>create name, (selection), [, source_state [, target_state]]</li>
-</ul>
-</li>
-<li>remove solvent and ions
-<ul>
-<li>remove solvent</li>
-<li>remove inorganic</li>
-</ul>
-</li>
-<li>Hydrogen bond
-<ul>
-<li>distance test, interface, nucleic, mode=2</li>
-</ul>
-</li>
-<li>align with specified residue
-<ul>
-<li>align 1cfd_unbound///1<em>68/, 1cll_bound///1</em>68/</li>
-</ul>
-</li>
-<li>Draw RNA dssr block
-<ul>
-<li>set ambient, 0.6</li>
-<li>dssr_block block_file=face+edge   block_color=C yellow</li>
-</ul>
-</li>
-<li>Rename an object
-<ul>
-<li>set_name rna rna01</li>
-</ul>
-</li>
-<li>Print resName of an object
-<ul>
-<li>iterate bca. all , print (resn) 
-<a href="https://pymolwiki.org/index.php/Iterate" target="_blank" rel="noopener">Iterate * PyMOLWiki</a></li>
-<li>Python API save to a name
-<pre><code class="language-python">myspace = {&quot;resname&quot;: []}
-cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspace)
+      <h2 id="code">Code</h2>
+<pre><code class="language-cpp">//
+// Created by miao on 2020/8/7.
+//
+
+#ifndef CPPTRAJ_ACTION_HELIXANGLE_H
+#define CPPTRAJ_ACTION_HELIXANGLE_H
+
+#include &lt;vector&gt;
+#include &quot;Action.h&quot;
+
+class Action_HelixAngle : public Action{
+public:
+    Action_HelixAngle(): HelixAngle_(nullptr), BB_C_(&quot;C&quot;), BB_O_(&quot;O&quot;), BB_CA_(&quot;CA&quot;),  BB_N_(&quot;N&quot;),
+    cutOff_{1.5}, debug_(0),  method_{ORIENTATION}{};
+    DispatchObject* Alloc() const override {return (DispatchObject* )new Action_HelixAngle();}
+    void Help() const override;
+private:
+    Action::RetType Init(ArgList&amp;, ActionInit&amp;, int) override;
+    Action::RetType Setup(ActionSetup&amp;) override;
+    Action::RetType DoAction(int, ActionFrame&amp;) override;
+    void Print() override {};
+
+    enum MethodType {ORIENTATION=0, ORIENTATION_HBOND, LOOP_ORIENTATION, CAFIT_ORIENTATION};
+
+    class ResidueInfo{
+    public:
+        ResidueInfo(): C_(-1), CA_(-1), N_(-1), O_(-1), num_(-1){};
+        int C()        const {return C_;}
+        int CA()       const {return CA_;}
+        int N()        const {return N_;}
+        int O()        const {return O_;}
+        int Num()      const {return num_;}
+
+        void SetC(int i)        {C_  = i;}
+        void SetCA(int i)       {CA_ = i;}
+        void SetN(int i)        {N_  = i;}
+        void SetO(int i)        {O_  = i;}
+
+        bool hasCO() const {return C_ !=-1 &amp;&amp; O_ != -1;}
+        bool hasNO() const {return N_ !=-1 &amp;&amp; O_ != -1;}
+        bool hasCN() const {return C_ !=-1 &amp;&amp; N_ != -1;}
+
+    private:
+        int C_;
+        int CA_;
+        int N_;
+        int O_;
+        int num_;
+    };
+
+    typedef std::vector&lt;ResidueInfo&gt; ResidueInfoVector;
+
+    ResidueInfoVector MaskToResArray(Topology const&amp;, AtomMask const&amp;) ;
+    Vec3 HelixComputeDirection(ActionFrame const&amp;, ResidueInfoVector const&amp;);
+    Vec3 calculateDirectionWithCutOff(std::vector&lt;Vec3&gt;&amp; vec3Vector) const;
+
+    AtomMask Mask1_;                         ///&lt;  Mask 1 of helix residue
+    AtomMask Mask2_;                         ///&lt;  Mask 2 of helix residue
+    DataSet* HelixAngle_;                    ///&lt;  Dataset Hold Helix Angle;
+    std::vector&lt;ResidueInfo&gt; Residue1_;      ///&lt;  Residue index which Mask1 contains
+    std::vector&lt;ResidueInfo&gt; Residue2_;      ///&lt;  Residue index which Mask2 contains
+    NameType BB_C_;                          ///&lt;  Protein N Atom Name ('C')
+    NameType BB_O_;                          ///&lt;  Protein N Atom Name ('O')
+    NameType BB_CA_;                         ///&lt;  Protein CA Atom Name ('CA')
+    NameType BB_N_;                          ///&lt;  Protein N  Atom Name ('N')
+    double cutOff_;                          ///&lt;  Drop outliers that is greater than standard deviation * cutOff
+    int debug_;                              ///&lt;  Action Debug level
+    MethodType method_;                      ///&lt;  Choose which method to calculate Orientation
+};
+
+#endif //CPPTRAJ_ACTION_HELIXANGLE_H
 </code></pre>
-</li>
-</ul>
-</li>
-<li>Get XYZ of a atom
-<ul>
-<li><code>cmd.get_coords(&quot;/1cll///20/CA&quot;)</code></li>
-</ul>
-</li>
-<li>Calcualte helix angle between
-<ul>
-<li><code>angle_between_helices 1cll///71*76/, 1cll///86*92/, visualize=1</code></li>
-</ul>
-</li>
-<li>Calcualte helix every frame
-<pre><code class="language-python">for i in range(30):
-  pymol.cmd.set(&quot;state&quot;, i+1)
-  angle.append(anglebetweenhelices.angle_between_helices(&quot;1dmo///71*76/&quot;, &quot;1dmo///86*92/&quot;))
+<pre><code class="language-cpp">//
+// Created by miao on 2020/8/7.
+//
+
+#include &quot;Action_HelixAngle.h&quot;
+#include &quot;CpptrajStdio.h&quot;
+#include &quot;VectorMath.h&quot;
+#include &quot;DistRoutines.h&quot;
+#include &quot;DataSet_Vector.h&quot;
+
+
+void Action_HelixAngle::Help() const {
+    mprintf(&quot;\t[&lt;name&gt;] &lt;mask1&gt; &lt;mask2&gt; [out &lt;filename&gt;] [method &lt;method&gt;]\n&quot;
+            &quot;  Calculate the helix angle between mask1 and mask2 \n&quot;
+            &quot;  reference to PyMOl anglebetweenhelices script\n&quot;
+            &quot;  mask1 and mask2 must contain more than 4 residues\n&quot;
+            &quot;  there are four methods could be used:  \n&quot;
+            &quot;  Method: 0, Average direction C(i) -&gt; O(i) pseudo bonds; \n&quot;
+            &quot;          1, Average direction O(i) -&gt; N(i+4) hydrogen bonds; \n&quot;
+            &quot;          2, Average direction N(i) -&gt; C(i) pseudo bonds; \n&quot;
+            &quot;          3, least square linear fit on CA atoms\n&quot;);
+
+}
+
+Action::RetType Action_HelixAngle::Init(ArgList&amp; actionArgs, ActionInit &amp;init, int debugIn) {
+
+    debug_ = debugIn;
+    DataFile* outfile = init.DFL() .AddDataFile(actionArgs.GetStringKey(&quot;out&quot;), actionArgs);
+    method_ = static_cast&lt;MethodType&gt;(actionArgs.getKeyInt(&quot;method&quot;, 0));
+
+    std::string mask1 = actionArgs.GetMaskNext();
+    std::string mask2 = actionArgs.GetMaskNext();
+    if (mask1.empty() || mask2.empty())  {
+        mprinterr(&quot;Error: helixAngle: Require 2 masks \n&quot;);
+        return Action::ERR;
+    }
+    if(Mask1_.SetMaskString(mask1)) return Action::ERR;
+    if(Mask2_.SetMaskString(mask2)) return Action::ERR;
+
+    mprintf(&quot;ANGLE: between helix %s - helix %s \n&quot;, Mask1_.MaskString(), Mask2_.MaskString());
+
+    HelixAngle_ =  init.DSL().AddSet(DataSet::DOUBLE,
+                                     MetaData(actionArgs.GetStringNext(), MetaData::M_ANGLE), &quot;Ang&quot;);
+    if(!HelixAngle_) return Action::ERR;
+    if(outfile) outfile-&gt;AddDataSet(HelixAngle_);
+    return Action::OK;
+}
+
+Action::RetType Action_HelixAngle::Setup(ActionSetup &amp; setup) {
+    if(setup.Top().SetupIntegerMask(Mask1_)) return Action::ERR;
+    if(setup.Top().SetupIntegerMask(Mask2_)) return Action::ERR;
+    Residue1_ = MaskToResArray(setup.Top(), Mask1_);
+    Residue2_ = MaskToResArray(setup.Top(), Mask2_);
+
+    if(method_ == ORIENTATION) cutOff_=1.5;
+    else if(method_ == ORIENTATION_HBOND) cutOff_=3.5;
+    else cutOff_ = 0;
+
+    mprintf(&quot;\t&quot;);
+    Mask1_.BriefMaskInfo();
+    Mask2_.BriefMaskInfo();
+    mprintf(&quot;\t\n&quot;);
+    if (Residue1_.size() &lt; 4) mprinterr(&quot;Error: Mask1: Must contain at least four residues&quot;);
+    if (Residue2_.size() &lt; 4) mprinterr(&quot;Error: Mask2: Must contain at least four residues&quot;);
+    return Action::OK;
+}
+
+Action::RetType Action_HelixAngle::DoAction(int frameNum, ActionFrame &amp; frm) {
+    Vec3 dir1 = HelixComputeDirection(frm, Residue1_) ;
+    Vec3 dir2 = HelixComputeDirection(frm, Residue2_) ;
+    if((dir1[0] == 0 &amp;&amp; dir2[1] == 0 &amp;&amp; dir1[2] == 0) || (dir2[0] == 0 &amp;&amp; dir2[1] == 0 &amp;&amp; dir2[2] == 0)) {
+        mprintf(&quot;\t Can't calculate the orientation for %i as contacts is zero \n&quot;, frameNum);
+        return Action::SKIP;
+    }
+    double ang = dir1.Angle(dir2);
+    ang *= Constants::RADDEG;
+    if (debug_ &gt; 0) {
+        dir1.Print(&quot;dir1&quot;);
+        dir2.Print(&quot;dir2&quot;);
+        mprintf(&quot;Angle: %g\n&quot;, ang);
+    }
+    HelixAngle_-&gt;Add(frameNum, &amp;ang);
+    return Action::OK;
+}
+
+std::vector&lt;Action_HelixAngle::ResidueInfo&gt;
+Action_HelixAngle::MaskToResArray(const Topology &amp; currentParm,
+                                  const AtomMask &amp; mask)
+{
+    int currentResNum = -1;
+    std::vector&lt;ResidueInfo&gt; residueInfoVector;
+    for(const auto&amp; atom: mask){
+        int resNum = currentParm[atom].ResNum();
+        if (resNum != currentResNum) {
+            Residue const&amp; thisRes = currentParm.Res(resNum);
+            ResidueInfo resInfo;
+            if(method_ == ORIENTATION)  // only save C and O atom;
+            {
+                for(int at = thisRes.FirstAtom(); at != thisRes.LastAtom(); at++) {
+                    if(currentParm[at].Name() == BB_C_) resInfo.SetC(at);
+                    if(currentParm[at].Name() == BB_O_) resInfo.SetO(at);
+                }
+            }
+            else if(method_ == ORIENTATION_HBOND) { // save O and N atom
+                for(int at = thisRes.FirstAtom(); at != thisRes.LastAtom(); at++) {
+                    if(currentParm[at].Name() == BB_O_) resInfo.SetO(at);
+                    if(currentParm[at].Name() == BB_N_) resInfo.SetN(at);
+                }
+            }
+
+            else if(method_ == LOOP_ORIENTATION) { // Save C and N atom
+                for(int at = thisRes.FirstAtom(); at != thisRes.LastAtom(); at++) {
+                    if(currentParm[at].Name() == BB_C_) resInfo.SetC(at);
+                    if(currentParm[at].Name() == BB_N_) resInfo.SetN(at);
+                }
+            }
+
+            else if(method_ == CAFIT_ORIENTATION) { // Save CA atom
+                for(int at = thisRes.FirstAtom(); at != thisRes.LastAtom(); at++) {
+                    if (currentParm[at].Name() == BB_CA_) resInfo.SetCA(at);
+                }
+            }
+            currentResNum = resNum;
+            residueInfoVector.push_back(resInfo);
+        }
+    }
+    return residueInfoVector;
+}
+
+Vec3 Action_HelixAngle::HelixComputeDirection(const ActionFrame&amp; frm, const ResidueInfoVector&amp;  Residue) {
+    int residueNum = Residue.size();
+    DataSet_Vector CaData;
+    if(method_ == CAFIT_ORIENTATION) {
+        for(auto&amp; residueInfo: Residue)  {
+            if(residueInfo.CA() != -1) {
+                CaData.AddVxyz(frm.Frm().XYZ(residueInfo.CA()));
+            }
+        }
+        Vec3 fit = CaData.LinearFit();
+        if(fit * (*(CaData.end()-1) - *CaData.begin()) &lt; 0)
+           fit.Neg();
+        return fit;
+    }
+
+    std::vector&lt;Vec3&gt; vec3Vector;
+    if (method_ == ORIENTATION) {
+        for (auto &amp;residueInfo: Residue) {
+            if (residueInfo.hasCO()) {
+                Vec3 v1(frm.Frm().XYZ(residueInfo.C()));
+                Vec3 v2(frm.Frm().XYZ(residueInfo.O()));
+                vec3Vector.push_back(v1 - v2);
+            }
+        }
+    } else if (method_ == ORIENTATION_HBOND) {
+        for (int i = 0; i &lt; residueNum - 4; i++) {
+            if (Residue[i].O() != -1 &amp;&amp; Residue[i + 4].N() != -1) {
+                Vec3 v1(frm.Frm().XYZ(Residue[i].O()));
+                Vec3 v2(frm.Frm().XYZ(Residue[i + 4].N()));
+                if (DIST2_NoImage(v1, v2) &lt; cutOff_ * cutOff_)
+                    vec3Vector.push_back(v1 - v2);
+            }
+        }
+    } else if (method_ == LOOP_ORIENTATION) {
+        for (auto &amp;residueInfo: Residue) {
+            if (residueInfo.hasCN()) {
+                Vec3 v1(frm.Frm().XYZ(residueInfo.C()));
+                Vec3 v2(frm.Frm().XYZ(residueInfo.N()));
+                vec3Vector.push_back(v1 - v2);
+            }
+        }
+    }
+    return calculateDirectionWithCutOff(vec3Vector);
+}
+
+Vec3 Action_HelixAngle::calculateDirectionWithCutOff(std::vector&lt;Vec3&gt;&amp; vec3Vector) const {
+    Vec3 vec3Sum;
+    std::vector&lt;double&gt; angles;
+    int residueNum = vec3Vector.size();
+    if(residueNum == 0) return {0,0,0};
+
+    for (auto &amp;vec3: vec3Vector) {
+        vec3Sum += vec3;
+    }
+
+    if (method_ == ORIENTATION) {
+        for (auto &amp;vec3: vec3Vector) {
+            double angle = vec3Sum.NoNormAngle(vec3);
+            angles.push_back(angle);
+        }
+
+        auto meanStd = MeanAndStd(angles);
+        vec3Sum.Zero();
+
+        for (int i = 0; i &lt; residueNum; ++i) {
+            if (std::abs(angles[i] - meanStd.first) &lt; cutOff_ * meanStd.second) {
+                vec3Sum += vec3Vector[i];
+            } else {
+                if(debug_ &gt; 0)
+                    mprintf(&quot;remove angle %g for it's a outlier. \n&quot;, angles[i]);
+            }
+        }
+    }
+    vec3Sum.Normalize();
+    return vec3Sum;
+}
 </code></pre>
-</li>
-</ul>
 
     </div>
 
@@ -724,7 +909,9 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
 
 <div class="article-tags">
   
-  <a class="badge badge-light" href="/tags/visualize/">visualize</a>
+  <a class="badge badge-light" href="/tags/trajectory/">Trajectory</a>
+  
+  <a class="badge badge-light" href="/tags/cpptraj/">CPPTRAJ</a>
   
 </div>
 
@@ -741,7 +928,7 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/post/pymolcheatsheet/&amp;text=PymolCheatsheet" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=/post/helixangle/&amp;text=Angle%20between%20two%20helixes" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -754,7 +941,7 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/post/pymolcheatsheet/&amp;t=PymolCheatsheet" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=/post/helixangle/&amp;t=Angle%20between%20two%20helixes" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -767,7 +954,7 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
       
       
       <li>
-        <a href="mailto:?subject=PymolCheatsheet&amp;body=/post/pymolcheatsheet/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Angle%20between%20two%20helixes&amp;body=/post/helixangle/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -780,7 +967,7 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/post/pymolcheatsheet/&amp;title=PymolCheatsheet" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=/post/helixangle/&amp;title=Angle%20between%20two%20helixes" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -793,7 +980,7 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=PymolCheatsheet%20/post/pymolcheatsheet/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Angle%20between%20two%20helixes%20/post/helixangle/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -806,7 +993,7 @@ cmd.iterate(&quot;bca. all&quot;, &quot;resname.append(resn)&quot;, space=myspac
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/post/pymolcheatsheet/&amp;title=PymolCheatsheet" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=/post/helixangle/&amp;title=Angle%20between%20two%20helixes" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
