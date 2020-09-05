@@ -796,7 +796,6 @@
 </h1>
 
 <p>Simulate Calmodulin</p>
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 <script src="/js/ngl.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -815,18 +814,19 @@ document.addEventListener("DOMContentLoaded", function () {
     var stage = new NGL.Stage("viewport2", {backgroundColor: "white"});
     stage.loadFile("rcsb://1cfd").then(function(component) {
     component.addRepresentation("cartoon", {colorScheme: "sstruc"});
-    component.addRepresentation("hyperball", {sele: "ion", radius: 10});
     component.autoView();
     })
     stage.mouseControls.remove("scroll", NGL.MouseActions.zoomScroll);
     stage.setSpin(true);
 });
 </script>
-<div id="viewport" style="width:50%; height:400px; overflow:hidden; display:table-cell"> </div>
-<div id="viewport2" style="width:50%; height:400px; overflow:hidden; display:table-cell"> </div>
+<div style="width: 100%; display:table;">
+    <div style="display: table-row">
+        <div id="viewport" style="width:45%; height:400px;display:table-cell"> </div>
+        <div id="viewport2" style="width:45%; display:table-cell"> </div>
+    </div>
+</div>
 
-<div id="viewport" style="width:50%; height:400px; overflow:hidden; display:table-cell"> </div>
-<div id="viewport2" style="width:50%; height:400px; overflow:hidden; display:table-cell"> </div>
     </div>
   </section>
 
