@@ -5,7 +5,7 @@
     <link>/</link>
       <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <description>Haomiao</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 01 Sep 2020 11:25:00 +0800</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 19 Oct 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>Haomiao</title>
@@ -6139,6 +6139,14 @@ number of bytes transferred / (complete of last req - start of first req)
 &lt;li&gt;Device drivers: a uniform device-access interface to the I/O subsystem; hide the differences among device controllers from the I/O sub-system of OS&lt;/li&gt;
 &lt;/ul&gt;
 </description>
+    </item>
+    
+    <item>
+      <title>Simulation Study of the Plasticity of k-Turn Motif in Different Environments</title>
+      <link>/publication/k-turn/</link>
+      <pubDate>Mon, 19 Oct 2020 00:00:00 +0000</pubDate>
+      <guid>/publication/k-turn/</guid>
+      <description></description>
     </item>
     
     <item>
